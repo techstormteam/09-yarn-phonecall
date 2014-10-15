@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : VietAnh
 */
 
+.blue {
+    color: #19a7ff !important;
+}
+
 .ui-header.ts-header {
     background: #19a7ff;
     color: #fff;
@@ -21,4 +25,8 @@ and open the template in the editor.
 .ui-footer.ts-footer {
     background-color: #000;
     color: #fff;
+}
+
+.ts-balance-wrapper {
+    color: #777;
 }

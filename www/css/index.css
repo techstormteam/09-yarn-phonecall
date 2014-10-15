@@ -29,6 +29,7 @@
     width: 100%;
     height: 100px;
     text-shadow: none;
+    padding-top: 10px;
 }
 
 .ts-header .ui-grid-a {
@@ -50,13 +51,15 @@
 }
 
 .ts-icon-button img {
-    width: 30px;
+    width: 50px;
     height: auto;
     padding: 10px;
 }
 
 .ui-content {
-    margin-top: 80px;
+    position: relative;
+    top: 100px;
+    padding: 0 1em;
 }
 
 .ts-sub-footer {
@@ -73,4 +76,44 @@
 .ts-header > .ui-grid-a > .ui-block-b {
     text-align: right;
     padding-right: 10px;
+}
+
+.ts-user-wrapper {
+    width: 100%;
+}
+
+.ts-user-img, .ts-user-name {
+    width: 48%;
+    display: inline-block;
+}
+
+.ts-user-name {
+    word-wrap: break-word;
+}
+
+.ts-logo-wrapper {
+    padding: 15px 0;
+    position: relative;
+    top: 100px;
+    border: 1px solid #ccc;
+}
+
+.ts-logo-wrapper img {
+    width: 20%;
+    height: auto;
+}
+
+.ts-balance-wrapper {
+    font-size: 11px;
+    padding: 1em 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.ts-balance-child {
+    line-height: 33px;
+    font-size: 12px;
+}
+
+.ts-numpad {
+    font-size: 1.5em;
 }
