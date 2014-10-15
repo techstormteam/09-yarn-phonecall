@@ -1,24 +1,4 @@
 <!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
-
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8" />
@@ -26,17 +6,85 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <link rel="stylesheet" type="text/css" href="css/color.css" />
+        <title>Yarn</title>
     </head>
     <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <!-- Start of first page -->
+        <div data-role="page" id="foo">
+
+            <div data-role="header" class="ts-header">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <div class="ui-grid-a">
+                            <div class="ui-block-a ts-user-img v-bottom">
+                                <img src="img/icons/default_contact.png" alt="user" />
+                            </div>
+                            <div class="ui-block-b v-bottom">
+                                Name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ts-chat-icon">
+                            <img src="img/icons/chat.png" />
+                        </a>
+                    </div>
+                </div>
+            </div><!-- /header -->
+
+            <div role="main" class="ui-content">
+                <p>I'm first in the source order so I'm shown as the page.</p>
+                <p>View internal page called <a href="#bar">bar</a></p>
+            </div><!-- /content -->
+            
+            <div class="ts-sub-footer">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a center">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/phone-wifi.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-b center">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/phone.png" />
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <div data-role="footer" class="ts-footer">
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/tv.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/contacts.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/logs.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/settings.png" />
+                        </a>
+                    </div>
+                </div>
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <!--SCRIPT-->
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
