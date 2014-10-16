@@ -6,19 +6,23 @@ and open the template in the editor.
 /* 
     Created on : Oct 15, 2014, 5:20:49 PM
     Author     : VietAnh
+
+    orange: #FF6A00
+
 */
 
-.blue {
-    color: #19a7ff !important;
+
+.orange {
+    color: #FF6A00 !important;
 }
 
 .ui-header.ts-header {
-    background: #19a7ff;
-    color: #fff;
+    background: #fff;
+    color: #333;
 }
 
 .ts-sub-footer {
-    background: #19a7ff;
+    background: #FF6A00;
     color: #fff;
 }
 

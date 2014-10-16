@@ -56,10 +56,20 @@
     padding: 10px;
 }
 
+.ui-input-text {
+    border: 0;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.ui-input-text input {
+    padding: 0 !important;
+}
+
 .ui-content {
     position: relative;
     top: 100px;
-    padding: 0 1em;
+    padding: 0;
 }
 
 .ts-sub-footer {
@@ -99,8 +109,8 @@
 }
 
 .ts-logo-wrapper img {
-    width: 20%;
-    height: auto;
+    /*width: 20%;*/
+    /*height: auto;*/
 }
 
 .ts-balance-wrapper {
@@ -116,4 +126,60 @@
 
 .ts-numpad {
     font-size: 1.5em;
+}
+
+.ts-numpad > .row {
+    padding-left: 20px;
+}
+
+.ts-input {
+    box-shadow: none !important;
+}
+
+.ui-content .ui-corner-all {
+    border-radius: 0 !important;
+}
+
+.ui-content .ui-shadow-inset {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.ui-content .ui-focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.ts-icon-delete {
+    position: absolute;
+    right: 0;
+}
+
+.ts-icon-delete img {
+    height: 30px;
+}
+
+.ts-sub-text {
+    color: #bbb;
+}
+
+.ts-numpad {
+    font-family: 'Open Sans';
+    text-transform: uppercase;
+}
+
+.ts-numpad sub {
+    font-size: 50%;
+    font-weight: normal;
+}
+
+.row {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right-border {
+    border-right: 1px solid #333;
 }
