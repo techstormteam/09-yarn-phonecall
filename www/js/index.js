@@ -80,3 +80,8 @@ $('[data-id="delete"]').click(function () {
     var now = current.substring(0, current.length-1);
     $('[data-id="input"]').val(now);
 });
+
+$('.ts-icon-button').on('tap', function() {
+    $('.ts-icon-button').removeAttr('style');
+    $(this).css('background', 'rgba(255,255,255,0.2)');
+});
