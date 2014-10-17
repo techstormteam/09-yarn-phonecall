@@ -1,0 +1,185 @@
+/*TYPOGRAPHY*/
+.center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.v-center {
+    vertical-align: central;
+}
+
+.v-top {
+    vertical-align: top;
+}
+
+.v-bottom {
+    vertical-align: bottom;
+}
+
+/*END  TYPOGRAPHY*/
+
+.ui-header.ts-header {
+    border: none;
+    color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    text-shadow: none;
+    padding-top: 10px;
+}
+
+.ts-header .ui-grid-a {
+    padding: 4px;
+}
+
+.ts-user-img img {
+    height: 80px;
+}
+
+.ui-footer.ts-footer {
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    text-shadow: none;
+    border: none;
+    text-align: center;
+}
+
+.ts-icon-button img {
+    width: 50px;
+    height: auto;
+    padding: 10px;
+}
+
+.ui-input-text {
+    border: 0;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.ui-input-text input {
+    padding: 0 !important;
+}
+
+.ui-content {
+    position: relative;
+    top: 100px;
+    padding: 0;
+}
+
+.ts-sub-footer {
+    position: fixed;
+    bottom: 50px;
+    height: 50px;
+    width: 100%;
+}
+
+.ts-chat-icon img {
+    height: 80px
+}
+
+.ts-header > .ui-grid-a > .ui-block-b {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.ts-user-wrapper {
+    width: 100%;
+}
+
+.ts-user-img, .ts-user-name {
+    width: 48%;
+    display: inline-block;
+}
+
+.ts-user-name {
+    word-wrap: break-word;
+}
+
+.ts-logo-wrapper {
+    padding: 15px 0;
+    position: relative;
+    top: 100px;
+    border: 1px solid #ccc;
+}
+
+.ts-logo-wrapper img {
+    /*width: 20%;*/
+    /*height: auto;*/
+}
+
+.ts-balance-wrapper {
+    font-size: 11px;
+    padding: 1em 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.ts-balance-child {
+    line-height: 33px;
+    font-size: 12px;
+}
+
+.ts-numpad {
+    font-size: 1.5em;
+}
+
+.ts-numpad > .row {
+    padding-left: 20px;
+}
+
+.ts-input {
+    box-shadow: none !important;
+}
+
+.ui-content .ui-corner-all {
+    border-radius: 0 !important;
+}
+
+.ui-content .ui-shadow-inset {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.ui-content .ui-focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.ts-icon-delete {
+    position: absolute;
+    right: 0;
+}
+
+.ts-icon-delete img {
+    height: 30px;
+}
+
+.ts-sub-text {
+    color: #bbb;
+}
+
+.ts-numpad {
+    font-family: 'Open Sans';
+    text-transform: uppercase;
+}
+
+.ts-numpad sub {
+    font-size: 50%;
+    font-weight: normal;
+}
+
+.row {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right-border {
+    border-right: 1px solid #333;
+}
