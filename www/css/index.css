@@ -187,3 +187,11 @@
 [data-value] {
     cursor: pointer;
 }
+
+.ts-icon-button {
+    display: block;
+}
+
+.ts-icon-button:active, .ts-icon-button:focus {
+    background: rgba(255, 255, 255, 0.2);
+}
