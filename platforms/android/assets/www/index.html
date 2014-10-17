@@ -9,6 +9,9 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure.min.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -44,7 +47,7 @@
             <!--LOGO-->
             <!--data-id="logo"-->
             <div data-id="logo" data-role="logo" class="row ts-logo-wrapper center">
-                <a href="#">
+                <a href="http://yarn-me.com">
                     <img src="img/icons/logo.png" alt="logo" />
                 </a>
             </div>
@@ -73,7 +76,7 @@
                 <!--INPUT-->
                 <div>
                     <input class="ts-input" name="dial-input" type="text"  data-id="input" />
-                    <a href="#" class="ts-icon-delete">
+                    <a href="#" class="ts-icon-delete" data-id="delete">
                         <img src="img/icons/delete.png" alt="delete" />
                     </a>
                 </div>
@@ -82,58 +85,58 @@
                 <div data-id="numpad" data-id="numpad" class="row ts-numpad orange bold">
                     <div data-line="1" class="row">
                         <div class="col-xs-4">
-                            <span>1</span>
+                            <span data-value="1">1</span>
                         </div>
                         <div class="col-xs-4">
-                            <span>2</span>
+                            <span data-value="2">2</span>
                             <sub class="ts-sub-text">abc</sub>
                         </div>
                         <div class="col-xs-4">
-                            <span>3</span>
+                            <span data-value="3">3</span>
                             <sub class="ts-sub-text">def</sub>
                         </div>
                     </div>
 
                     <div data-line="2" class="row">
                         <div class="col-xs-4">
-                            <span>4</span>
+                            <span data-value="4">4</span>
                             <sub class="ts-sub-text">ghi</sub>
                         </div>
                         <div class="col-xs-4">
-                            <span>5</span>
+                            <span data-value="5">5</span>
                             <sub class="ts-sub-text">jkl</sub>
                         </div>
                         <div class="col-xs-4">
-                            <span>6</span>
+                            <span data-value="6">6</span>
                             <sub class="ts-sub-text">mno</sub>
                         </div>
                     </div>
 
                     <div data-line="3" class="row">
                         <div class="col-xs-4">
-                            <span>7</span>
+                            <span data-value="7">7</span>
                             <sub class="ts-sub-text">pqrs</sub>
                         </div>
                         <div class="col-xs-4">
-                            <span>8</span>
+                            <span data-value="8">8</span>
                             <sub class="ts-sub-text">tuv</sub>
                         </div>
                         <div class="col-xs-4">
-                            <span>9</span>
+                            <span data-value="9">9</span>
                             <sub class="ts-sub-text">wxyz</sub>
                         </div>
                     </div>
 
                     <div data-line="4" class="row">
                         <div class="col-xs-4">
-                            <span>*</span>
+                            <span data-value="*">*</span>
                         </div>
                         <div class="col-xs-4">
-                            <span>0</span>
+                            <span data-value="0">0</span>
                             <sub>+</sub>
                         </div>
                         <div class="col-xs-4">
-                            <span>#</span>
+                            <span data-value="#">#</span>
                         </div>
                     </div>
 
@@ -145,12 +148,12 @@
             <div data-id="sub-footer" class="ts-sub-footer">
                 <div class="ui-grid-a">
                     <div class="ui-block-a center right-border">
-                        <a href="#" class="ts-icon-button">
+                        <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/phone-wifi.png" />
                         </a>
                     </div>
                     <div class="ui-block-b center">
-                        <a href="#" class="ts-icon-button">
+                        <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/phone.png" />
                         </a>
                     </div>
@@ -162,22 +165,22 @@
             <div data-id="footer" data-role="footer" class="ts-footer">
                 <div class="ui-grid-c">
                     <div class="ui-block-a">
-                        <a href="#" class="ts-icon-button">
+                        <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/tv.png" />
                         </a>
                     </div>
                     <div class="ui-block-b">
-                        <a href="#" class="ts-icon-button">
+                        <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/contacts.png" />
                         </a>
                     </div>
                     <div class="ui-block-c">
-                        <a href="#" class="ts-icon-button">
+                        <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/logs.png" />
                         </a>
                     </div>
                     <div class="ui-block-d">
-                        <a href="#" class="ts-icon-button">
+                        <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/settings.png" />
                         </a>
                     </div>
@@ -188,8 +191,9 @@
         <!--SCRIPT-->
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
