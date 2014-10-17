@@ -41,6 +41,8 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

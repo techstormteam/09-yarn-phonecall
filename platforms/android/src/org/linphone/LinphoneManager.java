@@ -38,10 +38,10 @@ import java.util.TimerTask;
 import org.linphone.LinphoneSimpleListener.ConnectivityChangedListener;
 import org.linphone.LinphoneSimpleListener.LinphoneOnAudioChangedListener;
 import org.linphone.LinphoneSimpleListener.LinphoneOnAudioChangedListener.AudioState;
-import org.linphone.LinphoneSimpleListener.LinphoneOnNotifyReceivedListener;
 import org.linphone.LinphoneSimpleListener.LinphoneOnComposingReceivedListener;
 import org.linphone.LinphoneSimpleListener.LinphoneOnDTMFReceivedListener;
 import org.linphone.LinphoneSimpleListener.LinphoneOnMessageReceivedListener;
+import org.linphone.LinphoneSimpleListener.LinphoneOnNotifyReceivedListener;
 import org.linphone.LinphoneSimpleListener.LinphoneOnRemoteProvisioningListener;
 import org.linphone.LinphoneSimpleListener.LinphoneServiceListener;
 import org.linphone.compatibility.Compatibility;
@@ -112,6 +112,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.phonegap.helloworld.R;
 
 /**
  *

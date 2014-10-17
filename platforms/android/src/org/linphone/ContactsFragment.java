@@ -47,6 +47,8 @@ import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

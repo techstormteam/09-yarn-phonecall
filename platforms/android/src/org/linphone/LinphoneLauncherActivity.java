@@ -30,6 +30,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.phonegap.helloworld.R;
+
 /**
  * 
  * Launch Linphone main activity when Service is ready.

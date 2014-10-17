@@ -52,6 +52,8 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

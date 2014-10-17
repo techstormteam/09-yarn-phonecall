@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.linphone.Contact;
-import org.linphone.R;
 import org.linphone.core.LinphoneAddress;
 
 import android.annotation.TargetApi;
@@ -15,9 +14,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
-import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
+
+import com.phonegap.helloworld.R;
 
 /*
 ApiNinePlus.java

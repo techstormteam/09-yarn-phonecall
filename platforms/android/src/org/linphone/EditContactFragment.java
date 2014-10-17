@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.linphone.compatibility.Compatibility;
-import org.linphone.mediastream.Log;
 import org.linphone.mediastream.Version;
 import org.linphone.ui.AvatarWithShadow;
 
@@ -29,6 +28,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+
+import com.phonegap.helloworld.R;
 
 public class EditContactFragment extends Fragment {
 	private View view;

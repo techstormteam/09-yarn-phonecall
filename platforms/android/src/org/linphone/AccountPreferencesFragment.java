@@ -38,6 +38,8 @@ import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

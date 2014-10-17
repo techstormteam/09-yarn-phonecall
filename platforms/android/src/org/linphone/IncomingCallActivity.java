@@ -38,6 +38,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.phonegap.helloworld.R;
+
 /**
  * Activity displayed when a call comes in.
  * It should bypass the screen lock mechanism.

@@ -49,6 +49,8 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

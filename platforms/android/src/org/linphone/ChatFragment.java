@@ -84,6 +84,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

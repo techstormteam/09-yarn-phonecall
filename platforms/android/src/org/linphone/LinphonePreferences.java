@@ -20,9 +20,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 import org.linphone.core.LinphoneAddress;
+import org.linphone.core.LinphoneAddress.TransportType;
 import org.linphone.core.LinphoneAuthInfo;
 import org.linphone.core.LinphoneCore;
-import org.linphone.core.LinphoneAddress.TransportType;
 import org.linphone.core.LinphoneCore.AdaptiveRateAlgorithm;
 import org.linphone.core.LinphoneCore.FirewallPolicy;
 import org.linphone.core.LinphoneCore.MediaEncryption;
@@ -36,6 +36,8 @@ import org.linphone.core.TunnelConfig;
 import org.linphone.mediastream.Log;
 
 import android.content.Context;
+
+import com.phonegap.helloworld.R;
 
 /**
  * @author Sylvain Berfini

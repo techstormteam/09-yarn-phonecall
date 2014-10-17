@@ -34,6 +34,8 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

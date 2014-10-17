@@ -57,6 +57,8 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 
+import com.phonegap.helloworld.R;
+
 /**
  * 
  * Linphone service, reacting to Incoming calls, ...<br />

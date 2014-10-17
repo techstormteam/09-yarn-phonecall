@@ -34,6 +34,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

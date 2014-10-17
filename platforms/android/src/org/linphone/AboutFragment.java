@@ -29,6 +29,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

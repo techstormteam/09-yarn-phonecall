@@ -37,6 +37,8 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.preference.PreferenceManager;
 
+import com.phonegap.helloworld.R;
+
 /**
  * @author Sylvain Berfini
  */

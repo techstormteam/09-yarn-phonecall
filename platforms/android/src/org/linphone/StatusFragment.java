@@ -34,8 +34,6 @@ import org.linphone.core.LinphoneEvent;
 import org.linphone.core.LinphoneProxyConfig;
 import org.linphone.core.PayloadType;
 import org.linphone.mediastream.Log;
-import org.linphone.ui.SlidingDrawer;
-import org.linphone.ui.SlidingDrawer.OnDrawerOpenListener;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -53,8 +51,12 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SlidingDrawer;
+import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TableLayout;
 import android.widget.TextView;
+
+import com.phonegap.helloworld.R;
 
 /**
  * @author Sylvain Berfini
