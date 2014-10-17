@@ -183,3 +183,7 @@
 .right-border {
     border-right: 1px solid #333;
 }
+
+[data-value] {
+    cursor: pointer;
+}
