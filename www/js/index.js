@@ -77,11 +77,17 @@ $('[data-value]').click(function () {
 
 $('[data-id="delete"]').click(function () {
     var current = $('[data-id="input"]').val();
-    var now = current.substring(0, current.length-1);
+    var now = current.substring(0, current.length - 1);
     $('[data-id="input"]').val(now);
 });
 
-$('.ts-icon-button').on('tap', function() {
-    $('.ts-icon-button').removeAttr('style');
-    $(this).css('background', 'rgba(255,255,255,0.2)');
+$('.ts-icon-button').on('tap', function () {
+    //$(this).css('background', 'rgba(255,255,255,0.2)');
+    $(this).animate({
+        backgroundColor: "rgba(255,255,255,0.5)"
+    }, 100)
+            .delay(100)
+            .animate({
+                backgroundColor: "transparent"
+            }, 100);
 });

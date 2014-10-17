@@ -190,11 +190,14 @@
 
 .ts-icon-button {
     display: block;
+    margin: 0;
+    border: none;
+    /*background-color: transparent !important;*/
 }
 
-.ts-icon-button:active, .ts-icon-button:focus {
+/*.ts-icon-button:active, .ts-icon-button:focus {
     background: rgba(255, 255, 255, 0.2);
-}
+}*/
 
 .btn {
     padding: 0;
