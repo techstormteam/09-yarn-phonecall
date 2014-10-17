@@ -29,7 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /**
  * @author Guillaume Beraudo

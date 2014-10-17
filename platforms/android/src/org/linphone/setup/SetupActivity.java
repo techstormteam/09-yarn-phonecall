@@ -41,7 +41,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 /**
  * @author Sylvain Berfini
  */

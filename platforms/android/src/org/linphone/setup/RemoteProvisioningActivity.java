@@ -40,7 +40,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /**
  * @author Sylvain Berfini

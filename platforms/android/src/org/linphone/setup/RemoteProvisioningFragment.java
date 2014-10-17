@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 public class RemoteProvisioningFragment extends Fragment implements OnClickListener {
 	private EditText remoteProvisioningUrl;

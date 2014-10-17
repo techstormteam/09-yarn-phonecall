@@ -113,7 +113,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /**
  *

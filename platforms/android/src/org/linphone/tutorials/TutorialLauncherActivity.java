@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /**
  * @author Sylvain Berfini

@@ -28,7 +28,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.EditText;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /**
  * @author Guillaume Beraudo

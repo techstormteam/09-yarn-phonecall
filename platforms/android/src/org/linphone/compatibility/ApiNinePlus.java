@@ -18,7 +18,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /*
 ApiNinePlus.java

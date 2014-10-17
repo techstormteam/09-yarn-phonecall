@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 /*
 ApiSixteenPlus.java
 Copyright (C) 2012  Belledonne Communications, Grenoble, France

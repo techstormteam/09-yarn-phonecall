@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 import de.timroes.axmlrpc.XMLRPCCallback;
 import de.timroes.axmlrpc.XMLRPCClient;

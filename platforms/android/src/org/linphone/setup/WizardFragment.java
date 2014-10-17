@@ -45,7 +45,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 import de.timroes.axmlrpc.XMLRPCCallback;
 import de.timroes.axmlrpc.XMLRPCClient;

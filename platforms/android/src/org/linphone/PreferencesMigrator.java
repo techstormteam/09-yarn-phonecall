@@ -29,7 +29,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /**
  * @author Sylvain Berfini

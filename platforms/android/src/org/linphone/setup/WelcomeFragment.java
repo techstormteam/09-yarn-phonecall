@@ -23,7 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 /**
  * @author Sylvain Berfini
  */

@@ -21,7 +21,7 @@ import android.provider.ContactsContract.CommonDataKinds.Im;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Intents.Insert;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /*
 ApiElevenPlus.java

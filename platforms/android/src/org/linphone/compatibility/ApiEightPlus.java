@@ -8,7 +8,7 @@ import android.content.Context;
 import android.media.AudioManager;
 
 import com.google.android.gcm.GCMRegistrar;
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /*
 ApiEightPlus.java

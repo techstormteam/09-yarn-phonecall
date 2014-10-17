@@ -39,7 +39,7 @@ import android.view.ViewParent;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 @SuppressLint("ValidFragment")
 public class PreferencesListFragment extends ListFragment {

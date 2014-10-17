@@ -29,7 +29,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /**
  * Activity for displaying and starting the BuddyStatus example on Android phone.

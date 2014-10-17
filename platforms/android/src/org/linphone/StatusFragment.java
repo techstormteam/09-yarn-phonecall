@@ -56,7 +56,7 @@ import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.phonegap.helloworld.R;
+import com.techstorm.yarn.R;
 
 /**
  * @author Sylvain Berfini
