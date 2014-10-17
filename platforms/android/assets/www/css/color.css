@@ -1,0 +1,41 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 15, 2014, 5:20:49 PM
+    Author     : VietAnh
+
+    orange: #FF6A00
+
+*/
+
+
+.orange {
+    color: #FF6A00 !important;
+}
+
+.ui-header.ts-header {
+    background: #fff;
+    color: #333;
+}
+
+.ts-sub-footer {
+    background: #FF6A00;
+    color: #fff;
+}
+
+.ui-footer.ts-footer {
+    background-color: #000;
+    color: #fff;
+}
+
+.ts-balance-wrapper {
+    color: #777;
+}
+
+.ts-login-header {
+    background: #FF6A00;
+    color: #fff;
+}

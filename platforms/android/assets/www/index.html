@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/color.css" />
+        <link href="img/icons/logo.png" rel="icon" />
+        <title>Yarn</title>
+    </head>
+    <body>
+        <div data-role="page" id="foo">
+
+            <!--HEADER-->
+            <!--data-id="header"-->
+            <div data-id="header" data-role="header" class="ts-header">
+                <div class="row">
+                    <div class="col-xs-7">
+                        <div class="ts-user-wrapper">
+                            <div class="ts-user-img v-top">
+                                <img src="img/icons/default_contact.png" alt="user" />
+                            </div>
+                            <div class="ts-user-name v-bottom">
+                                Name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                        <a href="#" class="ts-chat-icon">
+                            <img src="img/icons/chat.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!--LOGO-->
+            <!--data-id="logo"-->
+            <div data-id="logo" data-role="logo" class="row ts-logo-wrapper center">
+                <a href="#">
+                    <img src="img/icons/logo.png" alt="logo" />
+                </a>
+            </div>
+
+            <!--BALANCE + NUMPAD-->
+            <!--data-id="bal-num"-->
+            <div data-id="bal-num" role="main" class="ui-content">
+                <!--BALANCE-->
+                <!--data-id="balance"-->
+                <div data-id="balance" class="row ts-balance-wrapper">
+                    <div class="col-xs-6 center">
+                        <div>Rate</div>
+                        <div>(or FREE if App2App Call)</div>
+                    </div>
+                    <div class="col-xs-6 center ts-balance-child">
+                        <span>Balance:</span>
+                        <span class="ts-balance orange bold">
+                            <a href="#">
+                                $10.00
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!--INPUT-->
+                <div>
+                    <input class="ts-input" name="dial-input" type="text"  data-id="input" />
+                    <a href="#" class="ts-icon-delete">
+                        <img src="img/icons/delete.png" alt="delete" />
+                    </a>
+                </div>
+                <!--NUMPAD-->
+                <!--data-id="numpad"-->
+                <div data-id="numpad" data-id="numpad" class="row ts-numpad orange bold">
+                    <div data-line="1" class="row">
+                        <div class="col-xs-4">
+                            <span>1</span>
+                        </div>
+                        <div class="col-xs-4">
+                            <span>2</span>
+                            <sub class="ts-sub-text">abc</sub>
+                        </div>
+                        <div class="col-xs-4">
+                            <span>3</span>
+                            <sub class="ts-sub-text">def</sub>
+                        </div>
+                    </div>
+
+                    <div data-line="2" class="row">
+                        <div class="col-xs-4">
+                            <span>4</span>
+                            <sub class="ts-sub-text">ghi</sub>
+                        </div>
+                        <div class="col-xs-4">
+                            <span>5</span>
+                            <sub class="ts-sub-text">jkl</sub>
+                        </div>
+                        <div class="col-xs-4">
+                            <span>6</span>
+                            <sub class="ts-sub-text">mno</sub>
+                        </div>
+                    </div>
+
+                    <div data-line="3" class="row">
+                        <div class="col-xs-4">
+                            <span>7</span>
+                            <sub class="ts-sub-text">pqrs</sub>
+                        </div>
+                        <div class="col-xs-4">
+                            <span>8</span>
+                            <sub class="ts-sub-text">tuv</sub>
+                        </div>
+                        <div class="col-xs-4">
+                            <span>9</span>
+                            <sub class="ts-sub-text">wxyz</sub>
+                        </div>
+                    </div>
+
+                    <div data-line="4" class="row">
+                        <div class="col-xs-4">
+                            <span>*</span>
+                        </div>
+                        <div class="col-xs-4">
+                            <span>0</span>
+                            <sub>+</sub>
+                        </div>
+                        <div class="col-xs-4">
+                            <span>#</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--SUB FOOTER-->
+            <!--data-id="sub-footer"-->
+            <div data-id="sub-footer" class="ts-sub-footer">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a center right-border">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/phone-wifi.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-b center">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/phone.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!--FOOTER-->
+            <!--data-id="footer"-->
+            <div data-id="footer" data-role="footer" class="ts-footer">
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/tv.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/contacts.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/logs.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" class="ts-icon-button">
+                            <img src="img/icons/settings.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--SCRIPT-->
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+    </body>
+</html>
