@@ -26,13 +26,14 @@ import android.widget.Toast;
 
 public class LinPhonePlugin extends CordovaPlugin {
 
-	private Context context = this.cordova.getActivity()
-			.getApplicationContext();
+	private Context context;
 	private LinphonePreferences mPrefs = LinphonePreferences.instance();
 
 	@Override
 	public boolean execute(String action, JSONArray args,
 			CallbackContext callbackContext) throws JSONException {
+		context = this.cordova.getActivity()
+				.getApplicationContext();
 		if (action.equals("WifiCall")) {
 			String address = (String) args.get(0);
 			AddressText mAddress = new AddressText(context, null);

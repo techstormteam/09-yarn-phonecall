@@ -19,16 +19,70 @@
 
 package com.techstorm.yarn;
 
+import static android.content.Intent.ACTION_MAIN;
+
+import org.apache.cordova.CordovaActivity;
+import org.linphone.LinphoneService;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import org.apache.cordova.*;
+import android.os.Handler;
 
 public class Yarn extends CordovaActivity
 {
+	private Handler mHandler;
+	private ServiceWaitThread mThread;
+	
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
+        
+        mHandler = new Handler();
+		
+		if (LinphoneService.isReady()) {
+			onServiceReady();
+		} else {
+			// start linphone as background  
+			startService(new Intent(ACTION_MAIN).setClass(this, LinphoneService.class));
+			mThread = new ServiceWaitThread();
+			mThread.start();
+		}
     }
+    
+    private class ServiceWaitThread extends Thread {
+		public void run() {
+			while (!LinphoneService.isReady()) {
+				try {
+					sleep(30);
+				} catch (InterruptedException e) {
+					throw new RuntimeException("waiting thread sleep() has been interrupted");
+				}
+			}
+
+			mHandler.post(new Runnable() {
+				@Override
+				public void run() {
+					onServiceReady();
+				}
+			});
+			mThread = null;
+		}
+	}
+    
+    protected void onServiceReady() {
+		final Class<? extends Activity> classToStart;
+		classToStart = Yarn.class;
+		
+		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(classToStart);
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				// Nothing to do
+			}
+		}, 1000);
+	}
 }

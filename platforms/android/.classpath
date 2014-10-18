@@ -4,6 +4,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="modules/linphone/mediastreamer2/java/src"/>
 	<classpathentry kind="src" path="modules/externals/axmlrpc/src/main/java"/>
 	<classpathentry kind="src" path="modules/linphone/coreapi/help/java"/>
 	<classpathentry kind="src" path="modules/linphone/java/j2se"/>
