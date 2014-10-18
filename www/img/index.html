@@ -16,7 +16,6 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/color.css" />
-        <script src="js/class.user.js"></script>
         <link href="img/icons/logo.png" rel="icon" />
         <title>Yarn</title>
     </head>
@@ -195,7 +194,6 @@
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/my_linphone.js"></script>
         
@@ -209,7 +207,7 @@
                 if (username !== null && password !== null) {
                     window.location.href = 'auto.html?u=' + username + '&p=' + password;
                 } else {
-                    //window.location = 'login.html';
+                    window.location = 'login.html';
                 }
             }
 
@@ -223,19 +221,18 @@
             function sipRegister(response) {
             	var user = global.getUser();
             	var sipUsername = response;
-            	//var password = user.data.uipass
-                password = '123456';
+            	var password = user.data.uipass
                 window.registerSip(sipUsername, password, function(message) {
                     //empty
                 });
             }
             
-            
-            global.getSipUsernameApi('anh@test.com', '123456', sipRegister);
+            alert(true);
+            global.getSipUsernameApi(user.data.email, user.data.uipass, sipRegister);
             
             if (global.get('auth') === null) {
                 // Second test
-                //window.location.href = 'login.html';
+                window.location.href = 'login.html';
             } else {
                 
                 var user = global.getUser();
