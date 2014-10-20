@@ -32,7 +32,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 	@Override
 	public boolean execute(String action, JSONArray args,
 			CallbackContext callbackContext) throws JSONException {
-		context = this.cordova.getActivity()
+		context = cordova.getActivity()
 				.getApplicationContext();
 		if (action.equals("WifiCall")) {
 			String address = (String) args.get(0);
@@ -78,7 +78,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 
 		Intent callIntent = new Intent(Intent.ACTION_CALL);
 		callIntent.setData(Uri.parse("tel:" + phoneNumber));
-		context.startActivity(callIntent);
+		this.cordova.startActivityForResult(this,callIntent,0);
 	}
 
 	private void logIn(String username, String password, String domain,
