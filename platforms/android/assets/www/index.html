@@ -48,7 +48,7 @@
             <!--LOGO-->
             <!--data-id="logo"-->
             <div data-id="logo" data-role="logo" class="row ts-logo-wrapper center">
-                <a href="http://yarn-me.com">
+                <a href="https://yarn-me.com">
                     <img src="img/icons/logo.png" alt="logo" />
                 </a>
             </div>
@@ -165,7 +165,7 @@
             <!--data-id="footer"-->
             <div data-id="footer" data-role="footer" class="ts-footer">
                 <div class="ui-grid-c">
-                    <div class="ui-block-a">
+                    <div class="ui-block-a" onclick="doVideoCall();">
                         <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/tv.png" />
                         </a>
@@ -258,7 +258,7 @@
             function doVideoCall() {
             
                 // get data from dialedNumber
-                var dialedNumber = 'playMessage-1-24612-1';
+                var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
                 window.videoCall(dialedNumber, function(message) {
                 //empty
                 });
@@ -272,12 +272,11 @@
                 var uid = global.get('uid');
                 
                 if(uid === undefined) {
-                    alert('1');
                     window.location.href = 'login.html';
                 } else if(global.get('uid') === '' || global.get('uid') === null) {
                     window.location.href = 'login.html';
                 } else {
-                    alert(uid);
+                    //alert(uid);
                 }
             });
         </script>

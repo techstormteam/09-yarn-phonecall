@@ -4,11 +4,15 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.linphone.BluetoothManager;
+import org.linphone.InCallActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphonePreferences;
 import org.linphone.LinphonePreferences.AccountBuilder;
+import org.linphone.VideoCallFragment;
 import org.linphone.core.CallDirection;
 import org.linphone.core.LinphoneAddress.TransportType;
+import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCallLog;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.LinphoneProxyConfig;
@@ -22,10 +26,12 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class LinPhonePlugin extends CordovaPlugin {
 
+	private static final int CALL_ACTIVITY = 19;
 	private Context context;
 	private LinphonePreferences mPrefs = LinphonePreferences.instance();
 
@@ -52,7 +58,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 			String address = (String) args.get(0);
 			AddressText mAddress = new AddressText(context, null);
 			mAddress.setContactAddress(address, address);
-			wifiCall(mAddress);
+			videoCall(mAddress);
 			callbackContext.success("Call to " + address
 					+ " successful via video call.");
 			return true;
@@ -76,6 +82,17 @@ public class LinPhonePlugin extends CordovaPlugin {
 		return false;
 	}
 
+	private void videoCall(AddressText mAddress) {
+		//startVideoActivity();
+	}
+	
+	public void startVideoActivity(LinphoneCall currentCall) {
+		Intent intent = new Intent(this.cordova.getActivity().getApplicationContext(), InCallActivity.class);
+		intent.putExtra("VideoEnabled", true);
+//		startOrientationSensor();
+		this.cordova.startActivityForResult(this, intent, CALL_ACTIVITY);
+	}
+	
 	private void phoneContacts() {
 		Intent callIntent = new Intent(Intent.ACTION_VIEW);
 		callIntent.setData(Uri.parse("content://contacts/people/"));

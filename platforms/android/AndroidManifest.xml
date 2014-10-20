@@ -31,6 +31,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name="org.linphone.InCallActivity"
+		   android:theme="@style/FullScreen"
+           android:noHistory="true"
+           android:launchMode="singleTop">
+		<intent-filter>
+               <action android:name="android.intent.action.MAIN" />
+           </intent-filter>
+        </activity>
+        
         <service android:label="@string/service_name" android:name="org.linphone.LinphoneService" android:stopWithTask="false" />
         <receiver android:name="org.linphone.NetworkManager">
             <intent-filter>
