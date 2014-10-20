@@ -67,7 +67,7 @@
                         <span>Balance:</span>
                         <span class="ts-balance orange bold">
                             <a class="orange" href="#">
-                                $10.00
+                                <span data-id="balanceValue"></span>
                                 <i class="glyphicon glyphicon-plus-sign"></i>
                             </a>
                         </span>
@@ -271,13 +271,16 @@
             $(document).ready(function() {
                 var uid = global.get('uid');
                 
-                if(uid === undefined) {
+                if(uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
                     window.location.href = 'login.html';
-                } else if(global.get('uid') === '' || global.get('uid') === null) {
-                    window.location.href = 'login.html';
-                } else {
-                    //alert(uid);
                 }
+                
+                var balVal = $('[data-id="balanceValue"]');
+                var telno = global.get('telno');
+                var password = global.get('password');
+                balVal.text(global.api('_balance', {telno: telno, password: password}, function() {
+                    balVal.text('$' + data);
+                }));
             });
         </script>
     </body>
