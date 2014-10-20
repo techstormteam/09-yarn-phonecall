@@ -7,7 +7,7 @@ window.wifiCall = function(sipAddress, callback) {
 window.cellularCall = function(phoneNumber, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "CellularCall", [sipUsername]);
+    }, "LinPhonePlugin", "CellularCall", [phoneNumber]);
 };
 
 window.videoCall = function(sipAddress, callback) {

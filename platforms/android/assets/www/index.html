@@ -148,13 +148,13 @@
             <!--data-id="sub-footer"-->
             <div data-id="sub-footer" class="ts-sub-footer">
                 <div class="ui-grid-a">
-                    <div class="ui-block-a center right-border">
+                    <div class="ui-block-a center right-border" onclick="doWifiCall();">
                         <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/phone-wifi.png" />
                         </a>
                     </div>
                     <div class="ui-block-b center">
-                        <a href="#" class="ts-icon-button btn">
+                        <a href="#" class="ts-icon-button btn" onclick="doCellularCall();">
                             <img src="img/icons/phone.png" />
                         </a>
                     </div>
@@ -212,12 +212,6 @@
                     //window.location = 'login.html';
                 }
             }
-
-            if (global.get('auto_login') === 'true') {
-                $('#logout_option').hide();
-            } else if (global.get('auto_login') === 'false') {
-                $('#logout_option').show();
-            }
         </script>
         <script>
             function sipRegister(response) {
@@ -230,45 +224,41 @@
                 });
             }
             
+            function getDialedNumber() {
+            	return $('[name="dial-input"]').val();
+            }
+            
+            function doWifiCall() {
+            
+                // get data from dialedNumber
+                var dialedNumber = 'playMessage-1-24612-1';
+                window.wifiCall(dialedNumber, function(message) {
+                //empty
+                });
+            }
+            function doCellularCall() {
+            
+                // get data from dialedNumber
+                var dialedNumber = getDialedNumber();
+                window.cellularCall(dialedNumber, function(message) {
+                //empty
+                });
+            }
+            function doVideoCall() {
+            
+                // get data from dialedNumber
+                var dialedNumber = 'playMessage-1-24612-1';
+                window.videoCall(dialedNumber, function(message) {
+                //empty
+                });
+            }
             
             global.getSipUsernameApi('anh@test.com', '123456', sipRegister);
-            
-            if (global.get('auth') === null) {
-                // Second test
-                //window.location.href = 'login.html';
-            } else {
-                
-                var user = global.getUser();
-                var user_id = user.getId();
-                var currency = user.getCurrency();
-                $('#user_name').html(user.getFirstName() + ' ' + user.getLastName());
-                if (user.getCurrency() !== 'NGN') {
-                    $('#connect').show();
-                }
-                balance_display_in_button();
-
-
-                global.getSipUsernameApi(user.data.email, user.data.uipass, sipRegister);
-                global.api('usage_and_sms_last_month', {user_id: user_id, currency: currency}, usage_and_sms_last_month_display);
-
-            }
-
-            function usage_and_sms_last_month_display(result) {
-                var voice_total = result.details['voice_total'];
-                var data_total = result.details['data_total'];
-                var sms_total = result.details['sms_total'];
-
-                var html = ' <img src="img/dashboard.png" width="50" height="50" style="vertical-align:middle;">  ';
-                html += ' Last Month\'s Portal Usage - ' + voice_total + ' mins';
-
-                $('#title').html(html);
-            }
-
         </script>
         <script>
             $(document).ready(function() {
                 if(global.get('uid') === '' || global.get('uid') === null) {
-                    window.location.href = 'login.html';
+                    //window.location.href = 'login.html';
                 } else {
                     alert(global.get('uid'));
                 }
