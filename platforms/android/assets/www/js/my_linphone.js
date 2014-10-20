@@ -16,6 +16,18 @@ window.videoCall = function(sipAddress, callback) {
     }, "LinPhonePlugin", "VideoCall", [sipAddress]);
 };
 
+window.phoneContacts = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "PhoneContacts", []);
+};
+
+window.callLogs = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "CallLogs", []);
+};
+
 window.registerSip = function(sipUsername, password, callback) {
     cordova.exec(callback, function(err) {
         callback(err);

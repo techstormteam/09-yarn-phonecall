@@ -64,10 +64,30 @@ public class LinPhonePlugin extends CordovaPlugin {
 			logIn(sipUsername, password, domain, false);
 			callbackContext.success("Register sip:"+sipUsername+"@"+domain+" successfully.");
 			return true;
+		} else if (action.equals("PhoneContacts")) {
+			phoneContacts();
+			callbackContext.success("Go to Phone Contact successfully.");
+			return true;
+		} else if (action.equals("CallLogs")) {
+			callLogs();
+			callbackContext.success("Go to Call Logs successfully.");
+			return true;
 		}
 		return false;
 	}
 
+	private void phoneContacts() {
+		Intent callIntent = new Intent(Intent.ACTION_VIEW);
+		callIntent.setData(Uri.parse("content://contacts/people/"));
+		this.cordova.startActivityForResult(this,callIntent,0);
+	}
+	
+	private void callLogs() {
+		Intent callIntent = new Intent(Intent.ACTION_VIEW);
+		callIntent.setData(Uri.parse("content://call_log/calls"));
+		this.cordova.startActivityForResult(this,callIntent,0);
+	}
+	
 	private void cellularCall(String phoneNumber) {
 		// add PhoneStateListener
 		PhoneCallListener phoneListener = new PhoneCallListener();

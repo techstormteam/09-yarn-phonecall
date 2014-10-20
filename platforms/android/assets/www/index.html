@@ -170,12 +170,12 @@
                             <img src="img/icons/tv.png" />
                         </a>
                     </div>
-                    <div class="ui-block-b">
+                    <div class="ui-block-b" onclick="doPhoneContacts();">
                         <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/contacts.png" />
                         </a>
                     </div>
-                    <div class="ui-block-c">
+                    <div class="ui-block-c" onclick="doCallLogs();">
                         <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/logs.png" />
                         </a>
@@ -240,6 +240,18 @@
                 // get data from dialedNumber
                 var dialedNumber = getDialedNumber();
                 window.cellularCall(dialedNumber, function(message) {
+                //empty
+                });
+            }
+            function doPhoneContacts() {
+
+                window.phoneContacts(function(message) {
+                //empty
+                });
+            }
+            function doCallLogs() {
+
+                window.callLogs(function(message) {
                 //empty
                 });
             }
