@@ -265,5 +265,14 @@
             }
 
         </script>
+        <script>
+            $(document).ready(function() {
+                if(global.get('uid') === '' || global.get('uid') === null) {
+                    window.location.href = 'login.html';
+                } else {
+                    alert(global.get('uid'));
+                }
+            });
+        </script>
     </body>
 </html>
