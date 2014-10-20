@@ -267,10 +267,15 @@
         </script>
         <script>
             $(document).ready(function() {
-                if(global.get('uid') === '' || global.get('uid') === null) {
+                var uid = global.get('uid');
+                
+                if(uid === undefined) {
+                    alert('1');
+                    window.location.href = 'login.html';
+                } else if(global.get('uid') === '' || global.get('uid') === null) {
                     window.location.href = 'login.html';
                 } else {
-                    alert(global.get('uid'));
+                    alert(uid);
                 }
             });
         </script>
