@@ -23,25 +23,25 @@
  */
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function () {
         this.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
+    bindEvents: function () {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
+    onDeviceReady: function () {
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
+    receivedEvent: function (id) {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
@@ -56,38 +56,38 @@ var app = {
 function Global() {
     this.debug = false;
     var data = {
-        'apiUrl':'http://portal.netcastdigital.net/ncd/selfserve/api',
-        'dashboardUrl':'http://portal.netcastdigital.net/ncd/selfserve/',
-        'sipUsernameUrl':'http://portal.netcastdigital.net/getInfo.php',
-        'quickTellerPaymentCompleteUrl':'http://portal.netcastdigital.net/ncd/selfserve/payment-provider-interswitch-quickteller-complete',
-        'quickTellerPaymentCode':'888889'
+        'apiUrl': 'http://portal.netcastdigital.net/getInfo.php',
+        'dashboardUrl': 'http://portal.netcastdigital.net/ncd/selfserve/',
+        'sipUsernameUrl': 'http://portal.netcastdigital.net/getInfo.php',
+        'quickTellerPaymentCompleteUrl': 'http://portal.netcastdigital.net/ncd/selfserve/payment-provider-interswitch-quickteller-complete',
+        'quickTellerPaymentCode': '888889'
     };
 
-    this.getSipUsernameUrl = function (){
+    this.getSipUsernameUrl = function () {
         return data.sipUsernameUrl;
     };
-    
-    this.getApiUrl = function (){
+
+    this.getApiUrl = function () {
         return data.apiUrl;
     };
-    
-    this.getDashboardUrl = function (){
+
+    this.getDashboardUrl = function () {
         return data.dashboardUrl;
-    };   
-    
-    this.getQuicktellerPaymentCompleteUrl = function (){
+    };
+
+    this.getQuicktellerPaymentCompleteUrl = function () {
         return data.quickTellerPaymentCompleteUrl;
     };
-    
-    this.getQuicktellerPaymentCompleteUrl = function (){
+
+    this.getQuicktellerPaymentCompleteUrl = function () {
         return data.quickTellerPaymentCompleteUrl;
     };
-    
-    this.getQuicktellerPaymentCode = function (){
+
+    this.getQuicktellerPaymentCode = function () {
         return data.quickTellerPaymentCode;
     };
 
-    this.getRootUrl = function(){
+    this.getRootUrl = function () {
         var loc = window.location.href;
         var dir = loc.substring(0, loc.lastIndexOf('/'));
         dir = dir + '/';
@@ -97,7 +97,7 @@ function Global() {
     /**
      * @returns {User}
      */
-    this.getUser = function() {
+    this.getUser = function () {
         if (this.get('auth') === null) {
             return null;
         }
@@ -106,10 +106,10 @@ function Global() {
         user.data = json_decode(auth);
         return user;
     };
-    
-    this.updateUser = function(callback){
+
+    this.updateUser = function (callback) {
         var user = this.getUser();
-        this.api('login', {username: user.data['email'], password: user.data['uipass']}, function(response){
+        this.api('login', {username: user.data['email'], password: user.data['uipass']}, function (response) {
             if (response.result === 'success') {
                 global.set('auth', json_encode(response.details));
                 callback();
@@ -122,7 +122,7 @@ function Global() {
      * @param {string} key
      * @returns {Object}
      */
-    this.get = function(key) {
+    this.get = function (key) {
         if (localStorage.getItem(key) !== null) {
             return window.localStorage.getItem(key);
         } else {
@@ -135,7 +135,7 @@ function Global() {
      * @param {Object} value
      * @returns {void}
      */
-    this.set = function(key, value) {
+    this.set = function (key, value) {
         if (value === null) {
             localStorage.removeItem(key, value);
         } else {
@@ -153,36 +153,69 @@ function Global() {
      * @param {function} callback_complete
      * @returns {void}
      */
-    this.api = function(cmd, data, callback_success, callback_error, callback_complete) {
-        var url = this.getApiUrl()+'?cmd=' + cmd + '&ts=' + Math.round(+new Date() / 1000);
+    this.api = function (cmd, data, callback_success, callback_error, callback_complete) {
+        var url = this.getApiUrl() + '?cmd=' + cmd + '&ts=' + Math.round(+new Date() / 1000);
         if (this.debug === true) {
             LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
         }
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: url,
-            crossDomain: true,
+            crossDomain: false,
             cache: false,
-            dataType: 'json',
             data: data
-        }).success(function(data) {
+        }).success(function (data) {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
             }
+            alert('1');
             callback_success(data);
-        }).error(function(xhr, status, error) {
+        }).error(function (xhr, status, error) {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
             }
             var msg = "<span style='color:red;'>There was an error</span>";
             $('#message').html(msg).show();
-        }).complete(function() {
+            alert('2.' + status + ' + ' + xhr + ' + ' + error);
+        }).complete(function () {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
             }
         });
     };
-    
+
+    this.login = function (cmd, data, callback_success, callback_error, callback_complete) {
+//    this.login = function (callback_success) {
+        var url = this.getApiUrl() + '?cmd=' + cmd + '&telno=' + data.telno + '&password=' + data.password;
+//        var url = this.getApiUrl() + '?cmd=_id&telno=123457&password=123457';
+        if (this.debug === true) {
+            LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
+        }
+        $.ajax({
+            type: 'GET',
+            url: url,
+            crossDomain: false,
+            cache: false,
+        }).success(function (data) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
+            }
+            alert('1');
+            callback_success(data);
+        }).error(function (xhr, status, error) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
+            }
+            var msg = "<span style='color:red;'>There was an error</span>";
+            $('#message').html(msg).show();
+            alert('2.' + status + ' + ' + xhr + ' + ' + error);
+        }).complete(function () {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
+            }
+        });
+    };
+
     /**
      * Calls the API to get sip username
      * parameters
@@ -193,32 +226,32 @@ function Global() {
      * @param {function} callback_complete
      * @returns {void}
      */
-    this.getSipUsernameApi = function(email, password, callback_success, callback_error, callback_complete) {
-        var url = this.getSipUsernameUrl()+'?cmd=_telno&email='+email+'&password='+password;
+    this.getSipUsernameApi = function (email, password, callback_success, callback_error, callback_complete) {
+        var url = this.getSipUsernameUrl() + '?cmd=_telno&email=' + email + '&password=' + password;
         if (this.debug === true) {
             LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
         }
         $.ajax({
-               type: 'GET',
-               url: url,
-               crossDomain: false,
-               cache: false
-               }).success(function(data) {
-                          if (this.debug === true) {
-                          LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
-                          }
-                          callback_success(data);
-                          }).error(function(xhr, status, error) {
-                                   if (this.debug === true) {
-                                   LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
-                                   }
-                                   var msg = "<span style='color:red;'>There was an error</span>";
-                                   $('#message').html(msg).show();
-                                   }).complete(function() {
-                                               if (this.debug === true) {
-                                               LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
-                                               }
-                                               });
+            type: 'GET',
+            url: url,
+            crossDomain: false,
+            cache: false
+        }).success(function (data) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
+            }
+            callback_success(data);
+        }).error(function (xhr, status, error) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
+            }
+            var msg = "<span style='color:red;'>There was an error</span>";
+            $('#message').html(msg).show();
+        }).complete(function () {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
+            }
+        });
     };
 
 }
@@ -254,7 +287,7 @@ function json_decode(str_json) {
     // incorrectly, either silently deleting them, or treating them as line endings.
     cx.lastIndex = 0;
     if (cx.test(text)) {
-        text = text.replace(cx, function(a) {
+        text = text.replace(cx, function (a) {
             return '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
         });
     }
@@ -303,7 +336,7 @@ function json_encode(mixed_val) {
 
         var value = mixed_val;
 
-        var quote = function(string) {
+        var quote = function (string) {
             var escapable = /[\\\"\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
             var meta = {// table of character substitutions
                 '\b': '\\b',
@@ -316,13 +349,13 @@ function json_encode(mixed_val) {
             };
 
             escapable.lastIndex = 0;
-            return escapable.test(string) ? '"' + string.replace(escapable, function(a) {
+            return escapable.test(string) ? '"' + string.replace(escapable, function (a) {
                 var c = meta[a];
                 return typeof c === 'string' ? c : '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
             }) + '"' : '"' + string + '"';
         };
 
-        var str = function(key, holder) {
+        var str = function (key, holder) {
             var gap = '';
             var indent = '    ';
             var i = 0; // The loop counter.

@@ -7,6 +7,10 @@
     font-weight: bold;
 }
 
+.ts-input {
+    font-size: 24px;
+}
+
 .v-center {
     vertical-align: central;
 }
@@ -53,7 +57,7 @@
 .ts-icon-button img {
     width: 50px;
     height: auto;
-    padding: 10px;
+    padding: 5px;
 }
 
 .ui-input-text {
@@ -125,7 +129,7 @@
 }
 
 .ts-numpad {
-    font-size: 1.5em;
+    font-size: 2em;
 }
 
 .ts-numpad > .row {

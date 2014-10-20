@@ -7,14 +7,18 @@ function updateSize() {
     totalHeight = $(window).height();
     totalWidth = $(window).width();
     oneTenth = totalHeight / 10;
-    
+
     //HEADER
     $('[data-id="header"]').css('height', oneTenth);
     $('[data-id="header"]').css('line-height', oneTenth + "px");
-    
+
     //LOGO
     $('[data-id="logo"]').css('height', oneTenth * 3);
 }
+
+$(document).ready(function () {
+    updateSize();
+});
 
 $(window).resize(function () {
     updateSize();
