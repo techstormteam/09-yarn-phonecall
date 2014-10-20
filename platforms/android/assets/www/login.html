@@ -53,12 +53,17 @@
             $('#message').hide();
 
             function login(response) {
-                if (response.result !== "") {
-                    global.set('uid', response.result);
+                if (response !== "") {
+                    alert('login-01');
+                    alert(response);
+                    global.set('uid', response);
                     global.set('telno', username);
                     global.set('password', password);
+                    alert('test-02');
                     window.location.href = 'index.html';
+                    alert('test-03');
                 } else {
+                    alert('login-2');
                     global.set('uid', '');
                     global.set('telno', '');
                     global.set('password', '');
