@@ -1,3 +1,5 @@
 /nbproject/*
-/nbproject/private/
-/platforms/android/nbproject/private/
+/platforms/android/bin/
+/platforms/android/CordovaLib/
+/platforms/android/modules/
+/platforms/android/nbproject/*
