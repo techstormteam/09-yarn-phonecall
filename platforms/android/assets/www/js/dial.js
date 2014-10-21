@@ -43,23 +43,23 @@ function updateSize() {
     footer2ndDiv.css('height', (totalHeight / 12));
 }
 
-$('[data-id="microphone-icon"]').tap(animateButton($(this)));
-$('[data-id="dial-icon"]').tap(animateButton($(this)));
-$('[data-id="loudness-icon"]').tap(animateButton($(this)));
-$('[data-id="home-icon"]').tap(animateButton($(this)));
-$('[data-id="contacts-icon"]').tap(animateButton($(this)));
-$('[data-id="logs-icon"]').tap(animateButton($(this)));
-$('[data-id="settings-icon"]').tap(animateButton($(this)));
-
-function animateButton (obj) {
-    obj.animate({
-        backgroundColor: "rgba(255,255,255,0.5)"
-    }, 100)
-            .delay(100)
-            .animate({
-                backgroundColor: "transparent"
-            }, 100);
-}
+//$('[data-id="microphone-icon"]').tap(animateButton($(this)));
+//$('[data-id="dial-icon"]').tap(animateButton($(this)));
+//$('[data-id="loudness-icon"]').tap(animateButton($(this)));
+//$('[data-id="home-icon"]').tap(animateButton($(this)));
+//$('[data-id="contacts-icon"]').tap(animateButton($(this)));
+//$('[data-id="logs-icon"]').tap(animateButton($(this)));
+//$('[data-id="settings-icon"]').tap(animateButton($(this)));
+//
+//function animateButton (obj) {
+//    obj.animate({
+//        backgroundColor: "rgba(255,255,255,0.5)"
+//    }, 100)
+//            .delay(100)
+//            .animate({
+//                backgroundColor: "transparent"
+//            }, 100);
+//}
 
 $(document).ready(updateSize());
 $(window).resize(function () {
