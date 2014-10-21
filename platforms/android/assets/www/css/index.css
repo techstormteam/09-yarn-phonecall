@@ -118,7 +118,7 @@
 }
 
 .ts-balance-wrapper {
-    font-size: 11px;
+    font-size: 13px;
     padding: 1em 0;
     border-bottom: 1px solid #ccc;
 }
@@ -129,7 +129,7 @@
 }
 
 .ts-numpad {
-    font-size: 2em;
+    font-size: 3em;
 }
 
 .ts-numpad > .row {

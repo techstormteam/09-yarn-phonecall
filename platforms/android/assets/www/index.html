@@ -48,7 +48,7 @@
             <!--LOGO-->
             <!--data-id="logo"-->
             <div data-id="logo" data-role="logo" class="row ts-logo-wrapper center">
-                <a href="https://yarn-me.com">
+                <a href="http://yarn-me.com">
                     <img src="img/icons/logo.png" alt="logo" />
                 </a>
             </div>
@@ -272,15 +272,16 @@
                 var uid = global.get('uid');
                 
                 if(uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-                    window.location.href = 'login.html';
+//                    window.location.href = 'login.html';
                 }
                 
                 var balVal = $('[data-id="balanceValue"]');
                 var telno = global.get('telno');
                 var password = global.get('password');
-                balVal.text(global.api('_balance', {telno: telno, password: password}, function() {
-                    balVal.text('$' + data);
-                }));
+                alert(telno + ' + ' + password);
+                global.balance('_balance', {telno: '123457', password: '123457'}, function() {
+                    balVal.text(data);
+                });
             });
         </script>
     </body>
