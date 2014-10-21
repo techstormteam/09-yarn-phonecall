@@ -32,9 +32,26 @@ and open the template in the editor.
     font-weight: bold;
 }
 
+.padding-sm {
+    padding: 5px;
+}
+
+.padding-md {
+    padding: 10px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.block {
+    display: block;
+}
+
 [data-id="logo"] img {
     height: 100%;
     width: auto;
+    display: block;
 }
 
 [data-id="main"] {
@@ -50,7 +67,7 @@ and open the template in the editor.
     font-size: 3em;
 }
 
-[data-id="end-call"] img {
+[data-id="end-call"] img, [data-id="footer-1st"] img, [data-id="footer-2nd"] img {
     height: 100%;
     width: auto;
 }
