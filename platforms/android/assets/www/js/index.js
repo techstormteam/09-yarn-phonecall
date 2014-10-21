@@ -17,7 +17,6 @@ var numpad = $('[data-id="numpad"]');
 function updateHeight() {
     //MAIN ELEMENTS
     totalHeight = $(window).height();
-    alert(totalHeight);
 
     //HEADER = 1/6
     header.css('height', totalHeight / 6);
