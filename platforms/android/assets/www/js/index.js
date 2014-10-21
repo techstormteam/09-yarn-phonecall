@@ -69,7 +69,8 @@ $(window).resize(function () {
     updateHeight();
 });
 
-$('[data-value]').tap(function () {
+//$('[data-value]').tap(function () {
+$('.ts-numpad .row .col-xs-4').tap(function () {
     inputProcess($(this));
 });
 
