@@ -51,19 +51,16 @@
         <script type="text/javascript">
             app.initialize();
             $('#message').hide();
+            var username = null;
+            var password = null;
 
             function login(response) {
                 if (response !== "") {
-                    alert('login-01');
-                    alert(response);
                     global.set('uid', response);
                     global.set('telno', username);
                     global.set('password', password);
-                    alert('test-02');
-                    window.location.href = 'index.html';
-                    alert('test-03');
+                    window.location = 'index.html';
                 } else {
-                    alert('login-2');
                     global.set('uid', '');
                     global.set('telno', '');
                     global.set('password', '');
@@ -72,8 +69,8 @@
             }
 
             function check_form() {
-                var username = $('#txtUsername').val();
-                var password = $('#txtPass').val();
+                username = $('#txtUsername').val();
+                password = $('#txtPass').val();
 
                 if (username !== "" && password !== "") {
                     global.set('auto_login', true);

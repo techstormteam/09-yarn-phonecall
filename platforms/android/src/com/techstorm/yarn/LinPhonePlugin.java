@@ -4,12 +4,10 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.linphone.BluetoothManager;
 import org.linphone.InCallActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphonePreferences;
 import org.linphone.LinphonePreferences.AccountBuilder;
-import org.linphone.VideoCallFragment;
 import org.linphone.core.CallDirection;
 import org.linphone.core.LinphoneAddress.TransportType;
 import org.linphone.core.LinphoneCall;
@@ -27,7 +25,6 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 public class LinPhonePlugin extends CordovaPlugin {
