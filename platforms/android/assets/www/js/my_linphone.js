@@ -28,6 +28,12 @@ window.callLogs = function(callback) {
     }, "LinPhonePlugin", "CallLogs", []);
 };
 
+window.hangUp = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "HangUp", []);
+};
+
 window.registerSip = function(sipUsername, password, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
