@@ -308,12 +308,14 @@
             $(document).ready(function() {
                 
                 var uid = global.get('uid');
+                var telno = global.get('telno');
+                var password = global.get('password');
                 
                 if(uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
                     window.location.href = 'login.html';
                 }
                 
-                global.balance('_balance', {telno: '123457', password: '123457'}, getBalance);
+                global.balance('_balance', {telno: telno, password: password}, getBalance);
             });
         </script>
     </body>

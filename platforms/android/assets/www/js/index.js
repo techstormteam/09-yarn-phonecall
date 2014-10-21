@@ -95,7 +95,7 @@ function tapholdHandler(event) {
     }
 
     if (current.length === conditionLength) {
-        global.rate('_rate', {telno: '123457', password: '123457', dest: dest.val()}, getRate);
+        global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
     } else if (current.length < conditionLength) {
         clearRate();
     }
@@ -119,7 +119,7 @@ function inputProcess(object) {
     }
 
     if (current.length === conditionLength) {
-        global.rate('_rate', {telno: '123457', password: '123457', dest: dest.val()}, getRate);
+        global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
     } else if (current.length < conditionLength) {
         clearRate();
     }
