@@ -8,7 +8,8 @@
 }
 
 .ts-input {
-    font-size: 2em;
+    font-size: 2.5em;
+    opacity: 1 !important;
 }
 
 .v-center {
@@ -21,6 +22,18 @@
 
 .v-bottom {
     vertical-align: bottom;
+}
+
+.glyphicon-plus-sign {
+    font-size: 150%;
+}
+
+.rateText {
+    font-size: 70%;
+}
+
+.not-underlined {
+    text-decoration: none;
 }
 
 /*END  TYPOGRAPHY*/
@@ -110,6 +123,7 @@
     position: relative;
     top: 100px;
     border: 1px solid #ccc;
+    border-bottom: none;
 }
 
 .ts-logo-wrapper img {
@@ -125,7 +139,7 @@
 
 .ts-balance-child {
     line-height: 33px;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 .ts-numpad {

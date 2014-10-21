@@ -74,15 +74,54 @@ $('.ts-numpad .row .col-xs-4').tap(function () {
     inputProcess($(this));
 });
 
+$('[data-value="0"]').bind('taphold', tapholdHandler);
+
+function tapholdHandler(event) {
+    var current = $('[data-id="input"]').val();
+    current += '+';
+    $('[data-id="input"]').val(current);
+    
+    var callCode = current.substring(0, 3);
+    var conditionLength;
+
+    if (callCode === '009') {
+        conditionLength = 9;
+    } else if (callCode.substring(0, 2) === '0') {
+        conditionLength = 8;
+    } else if (callCode.substring(0, 1) === '+') {
+        conditionLength = 7;
+    } else {
+        conditionLength = 6;
+    }
+
+    if (current.length === conditionLength) {
+        global.rate('_rate', {telno: '123457', password: '123457', dest: dest.val()}, getRate);
+    } else if (current.length < conditionLength) {
+        clearRate();
+    }
+}
+
 function inputProcess(object) {
     var current = $('[data-id="input"]').val();
     current += object.data('value');
     $('[data-id="input"]').val(current);
-    if (current.length > 5) {
-        alert('length: ' + dest.val().length);
-        global.rate('_rate', {telno: '123457', password: '123457', dest: dest.val()}, getRate);
+    var callCode = current.substring(0, 3);
+    var conditionLength;
+
+    if (callCode === '009') {
+        conditionLength = 9;
+    } else if (callCode.substring(0, 2) === '0') {
+        conditionLength = 8;
+    } else if (callCode.substring(0, 1) === '+') {
+        conditionLength = 7;
     } else {
-        rateVal.html('');
+        conditionLength = 6;
+    }
+
+    if (current.length === conditionLength) {
+        global.rate('_rate', {telno: '123457', password: '123457', dest: dest.val()}, getRate);
+    } else if (current.length < conditionLength) {
+        clearRate();
     }
 }
 
@@ -90,6 +129,10 @@ $('[data-id="delete"]').click(function () {
     var current = $('[data-id="input"]').val();
     var now = current.substring(0, current.length - 1);
     $('[data-id="input"]').val(now);
+    
+    if(now.length < 6) {
+        clearRate();
+    }
 });
 
 $('.ts-icon-button').on('tap', function () {

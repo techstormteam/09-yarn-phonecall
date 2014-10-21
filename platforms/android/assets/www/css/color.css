@@ -31,8 +31,8 @@ and open the template in the editor.
     color: #fff;
 }
 
-.ts-balance-wrapper {
-    color: #777;
+.ts-balance-wrapper, .ts-input {
+    color: #777 !important;
 }
 
 .ts-login-header {

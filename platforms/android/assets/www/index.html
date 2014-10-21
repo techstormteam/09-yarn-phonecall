@@ -28,7 +28,7 @@
             <div data-id="header" data-role="header" class="ts-header">
                 <div class="row">
                     <div class="col-xs-7">
-                        <div class="ts-user-wrapper">
+                        <div class="ts-user-wrapper" style="display: none">
                             <div class="ts-user-img v-top">
                                 <img src="img/icons/default_contact.png" alt="user" />
                             </div>
@@ -61,12 +61,12 @@
                 <div data-id="balance" class="row ts-balance-wrapper">
                     <div class="col-xs-6 center">
                         <div data-id="rate" class="bold orange"></div>
-                        <div>(or FREE if App2App Call)</div>
+                        <div class="rateText">(or FREE if App2App Call)</div>
                     </div>
                     <div class="col-xs-6 center ts-balance-child">
                         <span>Balance:</span>
                         <span class="ts-balance orange bold">
-                            <a class="orange" href="#">
+                            <a class="orange not-underlined" href="#">
                                 <span data-id="balanceValue"></span>
                                 <i class="glyphicon glyphicon-plus-sign"></i>
                             </a>
@@ -76,7 +76,8 @@
 
                 <!--INPUT-->
                 <div>
-                    <input class="ts-input" name="dial-input" type="text"  data-id="input" />
+                    <!--<span class="ts-input" data-id="input">&nbsp;</span>-->
+                    <input class="ts-input" name="dial-input" type="text" disabled="disabled" data-id="input" />
                     <a href="#" class="ts-icon-delete" data-id="delete" onclick="doHangUp();">
                         <img src="img/icons/delete.png" alt="delete" />
                     </a>
@@ -280,12 +281,20 @@
             var password = global.get('password');
             var dest = $('[data-id="input"]');
             
+            $('.rateText').hide();
+            
             function getBalance(data) {
                 balVal.html(data);
             }
             
             function getRate(data) {
                 rateVal.html(data);
+                $('.rateText').show();
+            }
+            
+            function clearRate() {
+                rateVal.html('');
+                $('.rateText').hide();
             }
             
 //            dest.change(function() {

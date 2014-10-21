@@ -245,7 +245,6 @@ function Global() {
     
     this.rate = function (cmd, data, callback_success, callback_error, callback_complete) {
         var url = this.getApiUrl() + '?cmd=' + cmd + '&telno=' + data.telno + '&password=' + data.password + '&dest=' + data.dest;
-        alert(url);
         if (this.debug === true) {
             LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
         }
