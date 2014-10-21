@@ -244,10 +244,8 @@ function Global() {
     };
     
     this.rate = function (cmd, data, callback_success, callback_error, callback_complete) {
-//    this.login = function (callback_success) {
         var url = this.getApiUrl() + '?cmd=' + cmd + '&telno=' + data.telno + '&password=' + data.password + '&dest=' + data.dest;
         alert(url);
-//        var url = this.getApiUrl() + '?cmd=_id&telno=123457&password=123457';
         if (this.debug === true) {
             LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
         }
@@ -260,13 +258,11 @@ function Global() {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
             }
-//            alert('1');
             callback_success(data);
         }).error(function (xhr, status, error) {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
             }
-//            alert('2');
             callback_error(error);
         }).complete(function () {
             if (this.debug === true) {
