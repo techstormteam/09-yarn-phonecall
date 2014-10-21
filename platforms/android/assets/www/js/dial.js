@@ -6,6 +6,7 @@ function divide(element, numerator, denominator) {
 
 function updateSize() {
     totalHeight = $(window).height();
+    alert(totalHeight);
     //HEADER
     $('[data-id="header"]').css('height', divide(totalHeight, 1, 6));
     
@@ -22,12 +23,12 @@ function updateSize() {
     $('[data-id="footer"]').css('height', divide(totalHeight, 1, 6));
     
     //FOOTER-1ST
-    $('[data-id="footer-1st"]').css('height', divide(totalHeight, 0.5, 6));
-    $('[data-id="footer-1st"] div').css('height', divide(totalHeight, 0.5, 6));
+    $('[data-id="footer-1st"]').css('height', divide(totalHeight, 1, 12));
+    $('[data-id="footer-1st"] div').css('height', divide(totalHeight, 1, 12));
     
     //FOOTER-2ND
-    $('[data-id="footer-2nd"]').css('height', totalHeight - divide(totalHeight, 5.5, 6));
-    $('[data-id="footer-2nd"] div').css('height', divide(totalHeight, 0.5, 6));
+    $('[data-id="footer-2nd"]').css('height', divide(totalHeight, 1, 12));
+    $('[data-id="footer-2nd"] div').css('height', divide(totalHeight, 1, 12));
 }
 
 $(document).ready(updateSize());
