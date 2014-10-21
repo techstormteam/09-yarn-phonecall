@@ -7,7 +7,50 @@ and open the template in the editor.
     Created on : Oct 21, 2014, 12:25:12 PM
     Author     : VietAnh
 */
+@font-face {
+    font-family: segoe;
+    src: url(../fonts/segoe.ttf);
+}
 
-[data-id="logo"] {
-    
+.font-segoe {
+    font-family: segoe;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+[data-id="logo"] img {
+    height: 100%;
+    width: auto;
+}
+
+[data-id="main"] {
+    clear: both;
+}
+
+[data-id="avatar"] img {
+    width: auto;
+    padding: 1em 0;
+}
+
+[data-id="timer"] {
+    font-size: 3em;
+}
+
+[data-id="end-call"] img {
+    height: 100%;
+    width: auto;
 }

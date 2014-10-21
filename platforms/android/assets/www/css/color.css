@@ -16,6 +16,18 @@ and open the template in the editor.
     color: #FF6A00 !important;
 }
 
+.bg-orange {
+    background: #FF6A00 !important;
+}
+
+.bg-black {
+    background: #333 !important;
+}
+
+.grey {
+    color: #777;
+}
+
 .ui-header.ts-header {
     background: #fff;
     color: #333;
