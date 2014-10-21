@@ -118,14 +118,14 @@
 }
 
 .ts-balance-wrapper {
-    font-size: 13px;
-    padding: 1em 0;
+    font-size: 1em;
+    /*padding: 1em 0;*/
     border-bottom: 1px solid #ccc;
 }
 
 .ts-balance-child {
     line-height: 33px;
-    font-size: 12px;
+    font-size: 1em;
 }
 
 .ts-numpad {

@@ -92,7 +92,7 @@ function Global() {
         var dir = loc.substring(0, loc.lastIndexOf('/'));
         dir = dir + '/';
         return dir;
-    }
+    };
 
     /**
      * @returns {User}
@@ -115,7 +115,7 @@ function Global() {
                 callback();
             }
         });
-    }
+    };
 
     /**
      * Gets a key from the key-vaue store, if it does not exist returns NULL
@@ -148,6 +148,7 @@ function Global() {
      * parameters
      * @param {string} cmd
      * @param {Object} cmd
+     * @param {json} data data to send
      * @param {function} callback_success
      * @param {function} callback_error
      * @param {function} callback_complete
@@ -195,7 +196,7 @@ function Global() {
             type: 'GET',
             url: url,
             crossDomain: false,
-            cache: false,
+            cache: false
         }).success(function (data) {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
@@ -234,6 +235,38 @@ function Global() {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
             }
+            callback_error(error);
+        }).complete(function () {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
+            }
+        });
+    };
+    
+    this.rate = function (cmd, data, callback_success, callback_error, callback_complete) {
+//    this.login = function (callback_success) {
+        var url = this.getApiUrl() + '?cmd=' + cmd + '&telno=' + data.telno + '&password=' + data.password + '&dest=' + data.dest;
+        alert(url);
+//        var url = this.getApiUrl() + '?cmd=_id&telno=123457&password=123457';
+        if (this.debug === true) {
+            LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
+        }
+        $.ajax({
+            type: 'GET',
+            url: url,
+            crossDomain: false,
+            cache: false
+        }).success(function (data) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
+            }
+            alert('1');
+            callback_success(data);
+        }).error(function (xhr, status, error) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
+            }
+            alert('2');
             callback_error(error);
         }).complete(function () {
             if (this.debug === true) {
