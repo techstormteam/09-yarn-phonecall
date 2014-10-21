@@ -77,7 +77,7 @@
                 <!--INPUT-->
                 <div>
                     <input class="ts-input" name="dial-input" type="text"  data-id="input" />
-                    <a href="#" class="ts-icon-delete" data-id="delete">
+                    <a href="#" class="ts-icon-delete" data-id="delete" onclick="doHangUp();">
                         <img src="img/icons/delete.png" alt="delete" />
                     </a>
                 </div>
@@ -232,6 +232,12 @@
                 // get data from dialedNumber
                 var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
                 window.wifiCall(dialedNumber, function(message) {
+                //empty
+                });
+                
+            }
+            function doHangUp() {
+            	window.hangUp(function(message) {
                 //empty
                 });
             }

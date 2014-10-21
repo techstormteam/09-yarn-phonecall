@@ -14,6 +14,7 @@ import org.linphone.core.CallDirection;
 import org.linphone.core.LinphoneAddress.TransportType;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCallLog;
+import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.LinphoneProxyConfig;
 import org.linphone.setup.EchoCancellerCalibrationFragment;
@@ -78,12 +79,35 @@ public class LinPhonePlugin extends CordovaPlugin {
 			callLogs();
 			callbackContext.success("Go to Call Logs successfully.");
 			return true;
+		} else if (action.equals("HangUp")) {
+			hangUp();
+			callbackContext.success("Hang up the current call.");
+			return true;
 		}
 		return false;
 	}
 
-	private void videoCall(AddressText mAddress) {
-		//startVideoActivity();
+	private void hangUp() {
+		LinphoneCore lc = LinphoneManager.getLc();
+		LinphoneCall currentCall = lc.getCurrentCall();
+		
+		if (currentCall != null) {
+			lc.terminateCall(currentCall);
+		} else if (lc.isInConference()) {
+			lc.terminateConference();
+		} else {
+			lc.terminateAllCalls();
+		}
+	}
+	
+	private boolean videoCall(AddressText mAddress) {
+		if (wifiCall(mAddress)) {
+			LinphoneCore lc = LinphoneManager.getLc();
+			LinphoneCall currentCall = lc.getCurrentCall();
+			startVideoActivity(currentCall);
+			return true;
+		}
+		return false;
 	}
 	
 	public void startVideoActivity(LinphoneCall currentCall) {
