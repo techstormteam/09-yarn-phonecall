@@ -69,11 +69,21 @@ $(window).resize(function () {
     updateHeight();
 });
 
-$('[data-value]').click(function () {
-    var current = $('[data-id="input"]').val();
-    current += $(this).data('value');
-    $('[data-id="input"]').val(current);
+$('[data-value]').tap(function () {
+    inputProcess($(this));
 });
+
+function inputProcess(object) {
+    var current = $('[data-id="input"]').val();
+    current += object.data('value');
+    $('[data-id="input"]').val(current);
+    if (current.length > 5) {
+        alert('length: ' + dest.val().length);
+        global.rate('_rate', {telno: '123457', password: '123457', dest: dest.val()}, getRate);
+    } else {
+        rateVal.html('');
+    }
+}
 
 $('[data-id="delete"]').click(function () {
     var current = $('[data-id="input"]').val();

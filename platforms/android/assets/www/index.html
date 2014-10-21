@@ -60,7 +60,7 @@
                 <!--data-id="balance"-->
                 <div data-id="balance" class="row ts-balance-wrapper">
                     <div class="col-xs-6 center">
-                        <div data-id="rate"></div>
+                        <div data-id="rate" class="bold orange"></div>
                         <div>(or FREE if App2App Call)</div>
                     </div>
                     <div class="col-xs-6 center ts-balance-child">
@@ -272,6 +272,7 @@
             var rateVal = $('[data-id="rate"]');
             var telno = global.get('telno');
             var password = global.get('password');
+            var dest = $('[data-id="input"]');
             
             function getBalance(data) {
                 balVal.html(data);
@@ -280,6 +281,16 @@
             function getRate(data) {
                 rateVal.html(data);
             }
+            
+//            dest.change(function() {
+//                alert('1asd: ' + dest.val().length);
+//                if(dest.val().length > 6) {
+//                    alert(dest.val().length);
+//                    global.rate('_rate', {telno: '123457', password: '123457', dest: '123456'}, getRate);
+//                } else {
+//                    rateVal.html('');
+//                } 
+//            });
             
             $(document).ready(function() {
                 
@@ -290,7 +301,6 @@
                 }
                 
                 global.balance('_balance', {telno: '123457', password: '123457'}, getBalance);
-                global.rate('_rate', {telno: '123457', password: '123457', dest: '123456'}, getRate);
             });
         </script>
     </body>
