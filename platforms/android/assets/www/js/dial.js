@@ -1,4 +1,16 @@
 var totalHeight;
+var header = $('[data-id="header"]');
+var main = $('[data-id="main"]');
+var mainImg = $('[data-id="avatar"] img');
+var subFoot = $('[data-id="sub-footer"]');
+var timer = $('[data-id="timer"]');
+var endCall = $('[data-id="end-call"]');
+var footer = $('[data-id="footer"]');
+var footer1st = $('[data-id="footer-1st"]');
+var footer1stDiv = $('[data-id="footer-1st"] div');
+var footer2nd = $('[data-id="footer-2nd"]');
+var footer2ndDiv = $('[data-id="footer-2nd"] div');
+var remain;
 
 function divide(element, numerator, denominator) {
     return (element * numerator) / denominator;
@@ -6,29 +18,35 @@ function divide(element, numerator, denominator) {
 
 function updateSize() {
     totalHeight = $(window).height();
-    alert(totalHeight);
+
     //HEADER
-    $('[data-id="header"]').css('height', divide(totalHeight, 1, 6));
-    
+//    $('[data-id="header"]').css('height', totalHeight / 6);
+    header.css('height', Math.ceil(totalHeight / 6));
+
     //AVATAR
-    $('[data-id="main"]').css('height', divide(totalHeight, 3, 6));
-    $('[data-id="avatar"] img').css('height', divide(totalHeight, 3, 6));
-    
+//    $('[data-id="main"]').css('height', (totalHeight / 6) * 3);
+    main.css('height', Math.ceil((totalHeight / 6) * 3));
+    mainImg.css('height', Math.ceil((totalHeight / 6) * 3));
+//    $('[data-id="avatar"] img').css('height', (totalHeight / 6) * 3);
+
     //SUBFOOTER
-    $('[data-id="sub-footer"]').css('height', divide(totalHeight, 1, 6));
-    $('[data-id="timer"]').css('line-height', divide(totalHeight, 0.5, 6) + 'px');
-    $('[data-id="end-call"]').css('height', divide(totalHeight, 0.5, 6));
-    
+    subFoot.css('height', Math.ceil(totalHeight / 6));
+    timer.css('line-height', Math.ceil(totalHeight / 12) + 'px');
+    endCall.css('height', Math.ceil(totalHeight / 12));
+
     //FOOTER
-    $('[data-id="footer"]').css('height', divide(totalHeight, 1, 6));
-    
+    footer.css('height', Math.ceil(totalHeight / 6));
+
     //FOOTER-1ST
-    $('[data-id="footer-1st"]').css('height', divide(totalHeight, 1, 12));
-    $('[data-id="footer-1st"] div').css('height', divide(totalHeight, 1, 12));
-    
+    footer1st.css('height', Math.ceil(totalHeight / 12));
+    footer1stDiv.css('height', Math.ceil(totalHeight / 12));
+
     //FOOTER-2ND
-    $('[data-id="footer-2nd"]').css('height', divide(totalHeight, 1, 12));
-    $('[data-id="footer-2nd"] div').css('height', divide(totalHeight, 1, 12));
+    footer2nd.css('height', Math.ceil(totalHeight / 12));
+    footer2ndDiv.css('height', Math.ceil(totalHeight / 12));
+    
+//    alert(parseInt(header.css('height')) + parseInt(main.css('height')) + parseInt(subFoot.css('height')) + parseInt(footer.css('height')));
+//    remain += parseInt(header.css('height')) + parseInt(main.css('height')) + parseInt(subFoot.css('height')) + parseInt(footer.css('height')); 
 }
 
 $(document).ready(updateSize());
