@@ -60,7 +60,7 @@ and open the template in the editor.
 
 [data-id="avatar"] img {
     width: auto;
-    padding: 1em 0;
+    padding: 3em 0;
 }
 
 [data-id="timer"] {

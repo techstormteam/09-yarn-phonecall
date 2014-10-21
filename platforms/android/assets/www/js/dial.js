@@ -12,7 +12,7 @@ var footer2nd = $('[data-id="footer-2nd"]');
 var footer2ndDiv = $('[data-id="footer-2nd"] div');
 var remain;
 
-alert('dial05');
+//alert('dial05');
 
 function divide(element, numerator, denominator) {
     return (element * numerator) / denominator;
