@@ -44,6 +44,11 @@ hr {
     margin-right: auto;
 }
 
+.back-btn {
+    font-weight: 300 !important;
+    font-size: 1em !important;
+}
+
 /*HEADER*/
 [data-id="header"] img {
     height: 100%;
@@ -54,18 +59,19 @@ hr {
 /*INTRO*/
 [data-id="intro"] {
     z-index: 0;
-    position: relative;
-    top: 0;
+    /*position: relative;*/
+    /*top: 0;*/
     margin-top: 20px;
+    text-align: center;
 }
 
 [data-id="intro-video"] {
-    width: 100%;
+    width: 80%;
     height: auto;
 }
 
 [data-id="social-btn"] {
-    margin-top: -20px;
+    margin-top: -30px;
 }
 
 [data-id="social-btn"] a {
@@ -79,8 +85,17 @@ hr {
     margin-top: 10px;
 }
 
-[data-id="form-submit"], [data-id="form-login"] {
-    margin-top: 20px;
+[data-id="form-login"] {
+    margin-top: -20px;
+    z-index: 1000;
+    position: relative;
+}
+
+[data-id="form-submit"] {
+    margin-top: 15px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
 }
 
 [data-id="form-submit"] a {
@@ -97,6 +112,12 @@ hr {
 .input-vgroup div:first-child {
     margin-bottom: 0;
     border-radius: 5px 5px 0 0;
+    border-bottom: 0;
+}
+
+.input-vgroup div:not(:first-child):not(:last-child) {
+    margin: 0;
+    border-radius: 0;
     border-bottom: 0;
 }
 
@@ -118,9 +139,6 @@ hr {
     text-decoration: none;
 }
 
-[data-id="form-submit"] {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding-bottom: 10px;
+.back-wrapper {
+    padding: 10px;
 }
