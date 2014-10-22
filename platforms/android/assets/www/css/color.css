@@ -24,6 +24,22 @@ and open the template in the editor.
     background: #000 !important;
 }
 
+.bg-white {
+    background-color: #fff !important;
+}
+
+.ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper  {
+    background-color: #fff !important;
+}
+
+.btn-red {
+    background: #CF3F28;
+}
+
+.btn-blue {
+    background: #435E9E;
+}
+
 .grey {
     color: #777;
 }
