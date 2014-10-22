@@ -1,23 +1,28 @@
 var totalHeight;
 var totalWidth;
 var oneTenth;
+var header = $('[data-id="header"]');
 
 
 function updateSize() {
     totalHeight = $(window).height();
     totalWidth = $(window).width();
     oneTenth = totalHeight / 10;
+    oneSixth = totalHeight / 6;
 
     //HEADER
-    $('[data-id="header"]').css('height', oneTenth);
-    $('[data-id="header"]').css('line-height', oneTenth + "px");
-
-    //LOGO
-    $('[data-id="logo"]').css('height', oneTenth * 3);
+    $('[data-id="header"]').css('height', oneSixth);
+    
+    //INTRO
+    $('[data-id="intro"]').height(oneSixth * 2);
 }
 
 $(document).ready(function () {
     updateSize();
+    $('[data-id="intro"] video').autoplay = "true";
+    $('[data-id="intro"] video').load();
+//    alert($('[data-id="intro-video"]').videoHeight);
+    alert($('#introVideo').height());
 });
 
 $(window).resize(function () {

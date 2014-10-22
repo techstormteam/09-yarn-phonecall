@@ -13,15 +13,19 @@ and open the template in the editor.
     text-align: center;
 }
 
-/*MAIN*/
-.ts-login-header {
+.bold {
     font-weight: bold;
-    font-size: 20px;
-    text-transform: uppercase;
-    text-shadow: none;
 }
 
-.ts-login-logo img {
+/*HEADER*/
+[data-id="header"] img {
     height: 100%;
     width: auto;
+    padding: 0.5em;
+}
+
+/*INTRO*/
+[data-id="intro-video"] {
+    width: 100%;
+    height: auto;
 }

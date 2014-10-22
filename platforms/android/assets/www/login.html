@@ -17,29 +17,31 @@
         <title>Yarn - Login</title>
     </head>
     <body>
-        <div data-id="header" class="center ts-login-header">
-            Login
+        <div data-id="header">
+            <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
         </div>
-        <div data-id="logo" class="center ts-login-logo">
-            <img src="img/icons/logo.png" alt="logo" />
+        <div data-id="intro" class="container">
+            <video id="introVideo" data-id="intro-video" autoplay loop>
+                <source src="video/Yarn_intro.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
-        <div class="container panel">
-            <!--<form method="GET" role="form" data-id="form" onsubmit="e.preventDefault();">-->
-                <div id="message" class="label"></div>
-                <div class="form-group">
-                    <label>Username</label>
-                    <input id="txtUsername" name="txtUsername" type="text" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input id="txtPass" name="txtPass" type="password" class="form-control" />
-                </div>
-                <div class="form-group btn-group">
-                    <input onclick="check_form()" type="submit" value="Login" class="btn btn-warning" />
-                    <input type="submit" value="Forgot Password" class="btn btn-danger" />
-                </div>
-            <!--</form>-->
-        </div>
+
+        <!--        <div class="container panel">
+                    <div id="message" class="label"></div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input id="txtUsername" name="txtUsername" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input id="txtPass" name="txtPass" type="password" class="form-control" />
+                    </div>
+                    <div class="form-group btn-group">
+                        <input onclick="check_form()" type="submit" value="Login" class="btn btn-warning" />
+                        <input type="submit" value="Forgot Password" class="btn btn-danger" />
+                    </div>
+                </div>-->
 
         <!--SCRIPT-->
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
