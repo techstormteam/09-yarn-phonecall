@@ -53,7 +53,7 @@ hr {
 
 /*INTRO*/
 [data-id="intro"] {
-    z-index: 0;
+    z-index: 10;
     position: relative;
     top: 0;
     margin-top: 20px;
@@ -66,6 +66,8 @@ hr {
 
 [data-id="social-btn"] {
     margin-top: -20px;
+    position: relative;
+    z-index: 100;
 }
 
 [data-id="social-btn"] a {
