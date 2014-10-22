@@ -34,10 +34,12 @@ and open the template in the editor.
 
 .btn-red {
     background: #CF3F28;
+    color: #fff;
 }
 
 .btn-blue {
     background: #435E9E;
+    color: #fff;
 }
 
 .grey {
@@ -66,4 +68,13 @@ and open the template in the editor.
 .ts-login-header {
     background: #FF6A00;
     color: #fff;
+}
+
+[data-id="social-btn"] a, [data-id="social-btn"] a:hover, [data-id="social-btn"] a:active, [data-id="social-btn"] a:focus {
+    color: #fff;
+    text-shadow: none;
+}
+
+[data-id="social-btn"] a {
+    position: relative;
 }

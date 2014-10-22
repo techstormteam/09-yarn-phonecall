@@ -14,7 +14,7 @@ function updateSize() {
     $('[data-id="header"]').css('height', oneSixth);
     
     //INTRO
-    $('[data-id="intro"]').height(oneSixth * 2);
+
 }
 
 $(document).ready(function () {
