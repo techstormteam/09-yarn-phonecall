@@ -28,6 +28,10 @@ and open the template in the editor.
     background-color: #fff !important;
 }
 
+.white {
+    color: #fff !important;
+}
+
 .ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper  {
     background-color: #fff !important;
 }

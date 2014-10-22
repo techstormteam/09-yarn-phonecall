@@ -30,7 +30,12 @@ and open the template in the editor.
 }
 
 .padding-bot-md {
-    padding-bottom: 20px;
+    padding-bottom: 5px;
+}
+
+.footer-02 {
+    font-size: 1em;
+    padding-top: 10px;
 }
 
 /*HEADER*/
@@ -65,4 +70,34 @@ and open the template in the editor.
 
 [data-id="fb-btn"] {
     margin-top: 10px;
+}
+
+[data-id="form-submit"], [data-id="form-login"] {
+    margin-top: 20px;
+}
+
+[data-id="form-submit"] a {
+    font-weight: 300;
+    font-size: 1.5em;
+    text-shadow: none;
+    height: auto;
+}
+
+.input-vgroup {
+    padding: 0 60px;
+}
+
+.input-vgroup div:first-child {
+    margin-bottom: 0;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 0;
+}
+
+.input-vgroup div:last-child {
+    margin-top: 0;
+    border-radius: 0 0 5px 5px;
+}
+
+.input-vgroup .ui-shadow-inset {
+    box-shadow: none;
 }
