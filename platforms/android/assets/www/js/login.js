@@ -14,13 +14,22 @@ function updateSize() {
     $('[data-id="header"]').css('height', oneSixth);
     
     //INTRO
-
+    $('hr').width(totalWidth - 30);
 }
 
 $(document).ready(function () {
     updateSize();
     $('[data-id="intro"] video').autoplay = "true";
     $('[data-id="intro"] video').load();
+    
+    var gBtn = $('[data-id="google-btn"]');
+    var fbBtn = $('[data-id="fb-btn"]');
+    
+    if (gBtn.width() > fbBtn.width()) {
+        fbBtn.width(gBtn.width());
+    } else {
+        gBtn.width(fbBtn.width());
+    }
 });
 
 $(window).resize(function () {

@@ -38,6 +38,12 @@ and open the template in the editor.
     padding-top: 10px;
 }
 
+hr {
+    width: 86%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /*HEADER*/
 [data-id="header"] img {
     height: 100%;
@@ -50,6 +56,7 @@ and open the template in the editor.
     z-index: 0;
     position: relative;
     top: 0;
+    margin-top: 20px;
 }
 
 [data-id="intro-video"] {
@@ -100,4 +107,13 @@ and open the template in the editor.
 
 .input-vgroup .ui-shadow-inset {
     box-shadow: none;
+}
+
+.sign-up {
+    font-size: 1em !important;
+    padding-left: 15px;
+}
+
+.sign-up:hover {
+    text-decoration: none;
 }

@@ -21,6 +21,13 @@
         <div data-id="header">
             <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
         </div>
+        <hr/>
+        <div data-id="form-login">
+            <div class="input-vgroup">
+                <input id="txtUsername" placeholder="Username" name="txtUsername" type="text" />
+                <input id="txtPass" placeholder="Password" name="txtPass" type="password" />
+            </div>
+        </div>
         <div data-id="intro" class="container">
             <video id="introVideo" data-id="intro-video" autoplay loop>
                 <source src="video/Yarn_intro.mp4" type="video/mp4">
@@ -37,22 +44,12 @@
                 connect with facebook
             </a>
         </div>
-        <div class="center text-lg grey weight-sm padding-bot-md">
-            or
-        </div>
-        <hr/>
-        <div data-id="form-login">
-            <div class="input-vgroup">
-                <input id="txtUsername" placeholder="Username" name="txtUsername" type="text" />
-                <input id="txtPass" placeholder="Password" name="txtPass" type="password" />
-            </div>
-        </div>
         <div data-id="form-submit" class="container">
-            <a href="#" class="form-control btn bg-orange white">
+            <a href="#" onclick="check_form()" class="form-control btn bg-orange white">
                 SIGN IN
             </a>
             <div class="center grey footer-02">
-                forgotten password? <a href="#" class="orange">sign-up</a>
+                <a href="forgot.html" class="sign-up grey">forgotten password?</a> <a href="signup.html" class="orange sign-up">sign-up</a>
             </div>
         </div>
 
