@@ -3,6 +3,8 @@ var totalWidth;
 var oneTenth;
 var header = $('[data-id="header"]');
 
+//alert('signup');
+
 function updateSize() {
     totalHeight = $(window).height();
     totalWidth = $(window).width();
@@ -13,7 +15,14 @@ function updateSize() {
     $('[data-id="header"]').css('height', oneSixth);
     
     //INTRO
+    $('[data-id="intro"]').height(oneTenth * 2);
     $('hr').width(totalWidth - 30);
+    
+    //FORM SUBMIT
+//    $('[data-id="form-submit"]').css('height', oneSixth);
+    $('[data-id="form-submit"]').height(oneSixth);
+    
+    $('[data-id="form-login"]').height(oneSixth * 2);
 }
 
 $(document).ready(function () {

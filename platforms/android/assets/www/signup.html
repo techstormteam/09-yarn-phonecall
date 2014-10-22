@@ -73,6 +73,7 @@
                 }
 
                 function check_rform() {
+//                    global.register('_signup', {fname: 'firstName', lname: 'lastName', email: 'email', phone: 'phone', psw: 'password', psw2: 'rePassword'}, register);
                     firstName = $('#firstName').val();
                     lastName = $('#lastName').val();
                     email = $('#email').val();
@@ -81,9 +82,11 @@
                     rePassword = $('#rePassword').val();
 
                     if(!firstName || !lastName || !email || !phone || !password || !rePassword) {
-                        $('#message').html('Please fill in all field').show();
+                        alert('Please fill in all field');
+//                        $('#message').html('Please fill in all field').show();
                     } else if(password !== rePassword) {
-                        $('#message').html('Password mismatch!').show();
+                        alert('Password mismatch!');
+//                        $('#message').html('Password mismatch!').show();
                     } else {
                         global.register('_signup', {fname: firstName, lname: lastName, email: email, phone: phone, psw: password, psw2: rePassword}, register);
                     }

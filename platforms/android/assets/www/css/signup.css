@@ -63,10 +63,11 @@ hr {
     /*top: 0;*/
     margin-top: 20px;
     text-align: center;
+    min-height: 104px;
 }
 
 [data-id="intro-video"] {
-    width: 80%;
+    width: 65%;
     height: auto;
 }
 
@@ -106,7 +107,7 @@ hr {
 }
 
 .input-vgroup {
-    padding: 0 60px;
+    padding: 0 15%;
 }
 
 .input-vgroup div:first-child {
