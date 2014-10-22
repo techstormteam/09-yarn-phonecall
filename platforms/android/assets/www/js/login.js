@@ -15,14 +15,15 @@ function updateSize() {
     
     //INTRO
     $('[data-id="intro"]').height(oneSixth * 2);
+    
+    $('[data-id="intro-video"]').width($('[data-id="intro"').width());
+    $('[data-id="intro-video"]').height($('[data-id="intro"').height());
 }
 
 $(document).ready(function () {
     updateSize();
     $('[data-id="intro"] video').autoplay = "true";
     $('[data-id="intro"] video').load();
-//    alert($('[data-id="intro-video"]').videoHeight);
-    alert($('#introVideo').height());
 });
 
 $(window).resize(function () {
