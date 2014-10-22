@@ -87,12 +87,12 @@ public class Yarn extends CordovaActivity
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-//				try {
-//					enableAllAudioCodecs();
-//					enableAllVideoCodecs();
-//				} catch (LinphoneCoreException e) {
-//					e.printStackTrace();
-//				}
+				try {
+					enableAllAudioCodecs();
+					enableAllVideoCodecs();
+				} catch (LinphoneCoreException e) {
+					e.printStackTrace();
+				}
 			}
 		}, 1000);
 	}
