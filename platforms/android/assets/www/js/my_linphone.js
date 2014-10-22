@@ -39,3 +39,27 @@ window.registerSip = function(sipUsername, password, callback) {
         callback(err);
     }, "LinPhonePlugin", "RegisterSip", [sipUsername, password]);
 };
+
+window.settings = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "Settings", []);
+};
+
+window.enableSpeaker = function(enable, callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "EnableSpeaker", [enableSpeaker]);
+};
+
+window.showDialPad = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "ShowDialPad", []);
+};
+
+window.loudness = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "Loudness", []);
+};

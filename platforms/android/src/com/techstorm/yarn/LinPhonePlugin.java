@@ -80,6 +80,22 @@ public class LinPhonePlugin extends CordovaPlugin {
 			hangUp();
 			callbackContext.success("Hang up the current call.");
 			return true;
+		} else if (action.equals("Settings")) {
+			// Need to code
+			callbackContext.success("Show settings screen.");
+			return true;
+		} else if (action.equals("EnableSpeaker")) {
+			// Need to code
+			callbackContext.success("Enable/disable speaker.");
+			return true;
+		} else if (action.equals("ShowDialPad")) {
+			// Need to code
+			callbackContext.success("Shown dial pad.");
+			return true;
+		} else if (action.equals("Loudness")) {
+			// Need to code
+			callbackContext.success("Do loudness.");
+			return true;
 		}
 		return false;
 	}

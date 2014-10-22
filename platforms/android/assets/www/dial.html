@@ -43,15 +43,15 @@ and open the template in the editor.
                 <div data-id="microphone-icon" class="col-xs-offset-1 col-xs-3 center pointer" onclick="doMicrophone()">
                     <img class="padding-md" src="img/icons/microphone.png" alt="microphone" />
                 </div>
-                <div data-id="dial-icon" class="col-xs-4 center pointer">
-                    <img class="padding-md" src="img/icons/dial-pad.png" alt="dial pad" />
+                <div data-id="dial-icon" class="col-xs-4 center pointer" onclick="doDialPad()">
+                    <img class="padding-md" src="img/icons/dial-pad.png" alt="dial pad"/>
                 </div>
-                <div data-id="loudness-icon" class="col-xs-3 center pointer">
+                <div data-id="loudness-icon" class="col-xs-3 center pointer" onclick="doLoudness()">
                     <img class="padding-md" src="img/icons/loudness.png" alt="loudness" />
                 </div>
             </div>
             <div data-id="footer-2nd">
-                <div data-id="home-icon" class="col-xs-3 center pointer block">
+                <div data-id="home-icon" class="col-xs-3 center pointer block" onclick="doHome()">
                     <img class="padding-sm" src="img/icons/home.png" alt="home" />
                 </div>
                 <div data-id="contacts-icon" class="col-xs-3 center pointer block" onclick="doPhoneContacts()">
@@ -60,8 +60,8 @@ and open the template in the editor.
                 <div data-id="logs-icon" class="col-xs-3 center pointer block" onclick="doCallLogs()">
                     <img class="padding-sm" src="img/icons/logs.png" alt="logs" />
                 </div>
-                <div data-id="settings-icon" class="col-xs-3 center pointer block">
-                    <img class="padding-sm" src="img/icons/settings.png" alt="settings" />
+                <div data-id="settings-icon" class="col-xs-3 center pointer block" onclick="doCallLogs()">
+                    <img class="padding-sm" src="img/icons/settings.png" alt="settings" onclick="doSettings()"/>
                 </div>
             </div>
         </section>
@@ -108,9 +108,32 @@ and open the template in the editor.
             }
             
             function doMicrophone() {
-                
+            	var enable = true;
+                window.enableSpeaker(enable, function(message) {
+                    //empty
+                });
             }
             
+            function doDialPad() {
+                window.showDialPad(function(message) {
+                    //empty
+                });
+            }
+            
+            function doLoudness() {
+            	window.loudness(function(message) {
+                    //empty
+                });
+            }
+            
+            function doSettings() {
+            	window.settings(function(message) {
+                	//empty
+                });
+            }
+            function doHome() {
+                // Need to code
+            }
             function doPhoneContacts() {
 
                 window.phoneContacts(function(message) {

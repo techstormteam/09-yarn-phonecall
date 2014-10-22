@@ -181,7 +181,7 @@
                             <img src="img/icons/logs.png" />
                         </a>
                     </div>
-                    <div class="ui-block-d" onclick="doRegisterSip();">
+                    <div class="ui-block-d" onclick="doSettings();">
                         <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/settings.png" />
                         </a>
@@ -260,7 +260,11 @@
 	                });
                 }
             }
-           
+            function doSettings() {
+            	window.settings(function(message) {
+                	//empty
+                });
+            }
             
             function sipRegister(response) {
             	if (response != null) {
