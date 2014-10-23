@@ -203,6 +203,7 @@
         
         <script type="text/javascript">
             app.initialize();
+            window.location.href = 'signup02.html';
         </script>
         <script>
             function getDialedNumber() {
@@ -311,7 +312,7 @@
                 var password = global.get('password');
                 
                 if(uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-                    window.location.href = 'login.html';
+//                    window.location.href = 'login.html';
                 }
                 
                 global.balance('_balance', {telno: telno, password: password}, getBalance);
