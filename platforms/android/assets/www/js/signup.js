@@ -1,45 +1,45 @@
-var totalHeight;
-var totalWidth;
-var oneTenth;
-var header = $('[data-id="header"]');
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-//alert('signup');
-
-function updateSize() {
-    totalHeight = $(window).height();
-    totalWidth = $(window).width();
-    oneTenth = totalHeight / 10;
-    oneSixth = totalHeight / 6;
-
-    //HEADER
-    $('[data-id="header"]').css('height', oneSixth);
+function updateSize(totalHeight) {
+    var header = $('[data-id="header"]');
+    var intro = $('[data-id="intro"]');
+    var formLogin = $('[data-id="form-login"]');
+    var formSubmit = $('[data-id="form-submit"]');
+    var sub = 0;
+    var remain = 0;
     
-    //INTRO
-    $('[data-id="intro"]').height(oneTenth * 2);
-    $('hr').width(totalWidth - 30);
+    header.height(totalHeight / 6);
+    intro.height(totalHeight / 7 * 2);
+    intro.find('img').height(totalHeight / 7 * 2);
+    formLogin.height(totalHeight / 6 * 2);
+    formLogin.children('div').height(totalHeight / 6 * 2);
+    formLogin.children('div').find('div').height(((totalHeight / 6 * 2) / 6)-2);
+    formLogin.children('div').find('input').height(((totalHeight / 6 * 2) / 6)-2);
+    formLogin.children('div').find('input').css('line-height', (((totalHeight / 6 * 2) / 6)-2) + 'px');
     
-    //FORM SUBMIT
-//    $('[data-id="form-submit"]').css('height', oneSixth);
-    $('[data-id="form-submit"]').height(oneSixth);
+    sub += header.outerHeight();
+    sub += intro.outerHeight();
+    sub += formLogin.outerHeight();
     
-    $('[data-id="form-login"]').height(oneSixth * 2);
+    remain = totalHeight - sub;
+    formSubmit.height(remain);
+    formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
+    btnGroupHeight = formSubmit.children('div').outerHeight();
+    formSubmit.children('div').css('marginTop', remain - btnGroupHeight);
 }
 
-$(document).ready(function () {
-    updateSize();
-    $('[data-id="intro"] video').autoplay = "true";
-    $('[data-id="intro"] video').load();
+$(document).ready(function() {
+    var totalHeight = $(window).height();
     
-    var gBtn = $('[data-id="google-btn"]');
-    var fbBtn = $('[data-id="fb-btn"]');
-    
-    if (gBtn.width() > fbBtn.width()) {
-        fbBtn.width(gBtn.width());
-    } else {
-        gBtn.width(fbBtn.width());
-    }
+    updateSize(totalHeight);
 });
 
-$(window).resize(function () {
-    updateSize();
+$(window).resize(function() {
+    var totalHeight = $(window).height();
+    
+    updateSize(totalHeight);
 });

@@ -4,142 +4,72 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Oct 16, 2014, 10:11:34 PM
+    Created on : Oct 23, 2014, 1:14:10 PM
     Author     : VietAnh
 */
 
-/*TYPOGRAPHY*/
-.center {
-    text-align: center;
-}
-
-.bold {
-    font-weight: bold;
-}
-
-.text-lg {
-    font-size: 2em;
-}
-
-.weight-sm {
-    font-weight: 300;
-}
-
-.border-bottom {
-    border-bottom: 1px solid #ddd;
-}
-
-.padding-bot-md {
-    padding-bottom: 5px;
-}
-
-.footer-02 {
-    font-size: 1em;
-    padding-top: 10px;
-}
-
 hr {
-    width: 86%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
+    width: 85%;
 }
 
-.back-btn {
-    font-weight: 300 !important;
-    font-size: 1em !important;
-}
-
-/*HEADER*/
 [data-id="header"] img {
     height: 100%;
     width: auto;
     padding: 0.5em;
 }
 
-/*INTRO*/
 [data-id="intro"] {
-    z-index: 0;
-    /*position: relative;*/
-    /*top: 0;*/
-    margin-top: 20px;
-    text-align: center;
-    min-height: 104px;
+    margin-top: -1em;
 }
 
-[data-id="intro-video"] {
-    width: 65%;
+[data-id="intro"] img {
+    width: 100%;
     height: auto;
-}
-
-[data-id="social-btn"] {
-    margin-top: -30px;
-}
-
-[data-id="social-btn"] a {
-    border-radius: 0;
-    font-weight: 300;
-    padding: 5px 10px;
-    text-transform: uppercase;
-}
-
-[data-id="fb-btn"] {
-    margin-top: 10px;
 }
 
 [data-id="form-login"] {
-    margin-top: -20px;
-    z-index: 1000;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 1em;
     position: relative;
+    z-index: 100;
 }
 
-[data-id="form-submit"] {
-    margin-top: 15px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-}
-
-[data-id="form-submit"] a {
-    font-weight: 300;
-    font-size: 1.5em;
-    text-shadow: none;
-    height: auto;
-}
-
-.input-vgroup {
-    padding: 0 15%;
-}
-
-.input-vgroup div:first-child {
-    margin-bottom: 0;
-    border-radius: 5px 5px 0 0;
-    border-bottom: 0;
-}
-
-.input-vgroup div:not(:first-child):not(:last-child) {
-    margin: 0;
+[data-id="form-login"] .input-vgroup > div {
     border-radius: 0;
-    border-bottom: 0;
-}
-
-.input-vgroup div:last-child {
-    margin-top: 0;
-    border-radius: 0 0 5px 5px;
+    margin: 0;
 }
 
 .input-vgroup .ui-shadow-inset {
     box-shadow: none;
 }
 
-.sign-up {
-    font-size: 1em !important;
-    padding-left: 15px;
+.input-vgroup input {
+    padding: 0 1em;
+    line-height: 1em;
 }
 
-.sign-up:hover {
-    text-decoration: none;
+.btn-submit {
+    text-shadow: none;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0 1em;
+    display: block;
+    width: 100%;
+    font-size: 1.2em;
 }
 
 .back-wrapper {
-    padding: 10px;
+    text-align: center;
+    font-size: 1em;
+    
+}
+
+.back-btn {
+    font-weight: 300 !important;
+}
+
+.btn-submit:hover {
+    text-decoration: none;
 }
