@@ -35,7 +35,7 @@ and open the template in the editor.
 
 .footer-02 {
     font-size: 1em;
-    padding-top: 10px;
+    /*padding-top: 10px;*/
 }
 
 hr {
@@ -57,6 +57,16 @@ hr {
     position: relative;
     top: 0;
     margin-top: 20px;
+}
+
+.btn-submit {
+    text-shadow: none;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0px 1em;
+    display: block;
+    width: 100%;
+    font-size: 1.2em;
 }
 
 [data-id="intro"] img {
@@ -129,5 +139,5 @@ hr {
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding-bottom: 10px;
+    /*padding-bottom: 10px;*/
 }

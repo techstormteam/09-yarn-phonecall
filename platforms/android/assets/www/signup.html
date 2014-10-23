@@ -77,10 +77,12 @@
                     var password = null;
                     var rePassword = null;
 
-
-
                     function register(response) {
-                        alert(response);
+                        if (response === 'success') {
+                            window.location.href = 'login.html';
+                        } else {
+                            alert(response);
+                        }
                     }
 
                     function check_rform() {
@@ -92,7 +94,7 @@
                         rePassword = $('#rePassword').val();
 
                         if (!firstName || !lastName || !email || !phone || !password || !rePassword) {
-                            alert('Please fill in all field');
+                            alert('Please fill in all fields');
                         } else if (password !== rePassword) {
                             alert('Password mismatch!');
                         } else {

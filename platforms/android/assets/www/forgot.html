@@ -46,12 +46,14 @@
             </div>
         </div>
         <div data-id="form-submit" class="container">
-            <a href="#" onclick="check_form()" class="form-control btn bg-orange white">
-                SUBMIT
-            </a>
-            <div class="center grey footer-02">
-                <a href="forgot.html" class="sign-up grey">forgotten password?</a> 
-                <a href="signup.html" class="orange sign-up">sign-up</a>
+            <div class="btn-group-wrapper">
+                <a href="#" onclick="check_form()" class="btn-submit bg-orange white">
+                    SUBMIT
+                </a>
+                <div class="center grey footer-02">
+                    <a href="forgot.html" class="sign-up grey">forgotten password?</a> 
+                    <a href="signup.html" class="orange sign-up">sign-up</a>
+                </div>
             </div>
         </div>
 
@@ -76,7 +78,11 @@
                 var email = null;
 
                 function forgot(response) {
-                    alert(response);
+                    if (response === 'success') {
+                        window.location.href = 'login.html';
+                    } else {
+                        alert(response);
+                    }
                 }
 
                 function check_form() {

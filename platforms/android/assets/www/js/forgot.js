@@ -3,6 +3,7 @@ var totalWidth;
 var oneTenth;
 var header = $('[data-id="header"]');
 var video = $('video');
+var formSubmit = $('[data-id="form-submit"]');
 
 function updateSize() {
     totalHeight = $(window).height();
@@ -32,6 +33,8 @@ function updateSize() {
         $('[data-id="form-submit"]').height(remain);
     }
 
+    formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
+    formSubmit.children('div').css('marginTop', formSubmit.height() - formSubmit.children('div').height());
 }
 
 $(document).ready(function () {

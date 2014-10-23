@@ -59,6 +59,21 @@ hr {
     margin-top: 20px;
 }
 
+[data-id="intro"] img {
+    width: 100%;
+    height: auto;
+}
+
+.btn-submit {
+    text-shadow: none;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0px 1em;
+    display: block;
+    width: 100%;
+    font-size: 1.2em;
+}
+
 [data-id="intro-video"] {
     width: 100%;
     height: auto;

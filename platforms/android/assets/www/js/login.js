@@ -3,6 +3,7 @@ var totalWidth;
 var oneTenth;
 var header = $('[data-id="header"]');
 var video = $('video');
+var formSubmit = $('[data-id="form-submit"]');
 
 function updateSize() {
     totalHeight = $(window).height();
@@ -23,14 +24,17 @@ function updateSize() {
 
     //INTRO
     $('[data-id="intro"]').height(oneSixth * 2);
+    $('[data-id="intro"] img').css('marginTop', $('[data-id="intro"]').height() - $('[data-id="intro"] img').height());
     video.css('marginTop', (oneSixth * 2) - video.height() + 'px');
-    $('[data-id="form-submit"]').height(oneSixth - 10);
+    formSubmit.height(oneSixth - 10);
     var remain = totalHeight - $('[data-id="header"]').outerHeight(true) - $('hr').outerHeight(true) - $('[data-id="form-login"]').outerHeight(true) - $('[data-id="intro"]').outerHeight(true) - $('[data-id="social-btn"]').outerHeight(true);
 //    alert(remain);
-    if (remain > $('[data-id="form-submit"]').outerHeight(true)) {
-        $('[data-id="form-submit"]').height(remain);
+    if (remain > formSubmit.outerHeight(true)) {
+        formSubmit.height(remain);
     }
 
+    formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
+    formSubmit.children('div').css('marginTop', formSubmit.height() - formSubmit.children('div').height());
 }
 
 $(document).ready(function () {

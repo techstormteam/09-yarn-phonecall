@@ -210,7 +210,7 @@
 
         <script type="text/javascript">
                         app.initialize();
-                        window.location.href = 'login.html';
+//                        window.location.href = 'login.html';
         </script>
         <script>
             function getDialedNumber() {
@@ -302,16 +302,6 @@
                 $('.rateText').hide();
             }
 
-//            dest.change(function() {
-//                alert('1asd: ' + dest.val().length);
-//                if(dest.val().length > 6) {
-//                    alert(dest.val().length);
-//                    global.rate('_rate', {telno: '123457', password: '123457', dest: '123456'}, getRate);
-//                } else {
-//                    rateVal.html('');
-//                } 
-//            });
-
             function login(response) {
                 if (response !== "") {
                 } else {
@@ -325,10 +315,10 @@
                 var telno = global.get('telno');
                 var password = global.get('password');
 
-                global.login('_id', {telno: telno, password: password}, login);
+//                global.login('_id', {telno: telno, password: password}, login);
 
                 if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-                    window.location.href = 'login.html';
+//                    window.location.href = 'login.html';
                 }
 
                 global.balance('_balance', {telno: telno, password: password}, getBalance);
