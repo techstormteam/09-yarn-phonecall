@@ -210,7 +210,7 @@
 
         <script type="text/javascript">
                         app.initialize();
-                        window.location.href = 'login.html';
+//                        window.location.href = 'login.html';
         </script>
         <script>
             function getDialedNumber() {
@@ -270,7 +270,7 @@
             }
 
             function sipRegister(response) {
-                if (response != null) {
+                if (response !== null) {
                     doRegisterSip();
                 }
             }
@@ -315,7 +315,7 @@
                 var telno = global.get('telno');
                 var password = global.get('password');
 
-//                global.login('_id', {telno: telno, password: password}, login);
+                global.login('_id', {telno: telno, password: password}, login);
 
                 if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
                     window.location.href = 'login.html';
