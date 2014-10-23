@@ -192,6 +192,13 @@
 
         <!--SCRIPT-->
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+
+        <script type="text/javascript">
+                        $(document).bind("mobileinit", function () {
+                            $.mobile.ajaxEnabled = false;
+                        });
+        </script>
+
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -199,78 +206,78 @@
         <script type="text/javascript" src="js/my_linphone.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        
-        
+
+
         <script type="text/javascript">
-            app.initialize();
-            window.location.href = 'signup.html';
+                        app.initialize();
+                        window.location.href = 'login.html';
         </script>
         <script>
             function getDialedNumber() {
-            	return $('[name="dial-input"]').val();
+                return $('[name="dial-input"]').val();
             }
-            
+
             function doWifiCall() {
-            
+
                 // get data from dialedNumber
                 var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
-                window.wifiCall(dialedNumber, function(message) {
-                	//empty
+                window.wifiCall(dialedNumber, function (message) {
+                    //empty
                 });
                 window.location.href = 'dial.html';
             }
             function doCellularCall() {
-            
+
                 // get data from dialedNumber
                 var dialedNumber = getDialedNumber();
-                window.cellularCall(dialedNumber, function(message) {
-                	//empty
+                window.cellularCall(dialedNumber, function (message) {
+                    //empty
                 });
             }
             function doPhoneContacts() {
 
-                window.phoneContacts(function(message) {
-                	//empty
+                window.phoneContacts(function (message) {
+                    //empty
                 });
             }
             function doCallLogs() {
 
-                window.callLogs(function(message) {
-                	//empty
+                window.callLogs(function (message) {
+                    //empty
                 });
             }
             function doVideoCall() {
-            
+
                 // get data from dialedNumber
                 var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
-                window.videoCall(dialedNumber, function(message) {
-                	//empty
+                window.videoCall(dialedNumber, function (message) {
+                    //empty
                 });
             }
             function doRegisterSip() {
-            	var sipUsername = global.get('telno');
-            	var password = global.get('password');
-            	if (sipUsername !== null && password !== null) {
-	            	window.registerSip(sipUsername, password, function(message) {
-	                	//empty
-	                });
+                var sipUsername = global.get('telno');
+                var password = global.get('password');
+                if (sipUsername !== null && password !== null) {
+                    window.registerSip(sipUsername, password, function (message) {
+                        //empty
+                    });
                 }
             }
             function doSettings() {
-            	window.settings(function(message) {
-                	//empty
+                window.settings(function (message) {
+                    //empty
                 });
             }
-            
+
             function sipRegister(response) {
-            	if (response != null) {
-            		doRegisterSip();
-            	}
+                if (response != null) {
+                    doRegisterSip();
+                }
             }
-            
+
             global.getSipUsernameApi('anh@test.com', '123456', sipRegister);
-            
-            
+
+
         </script>
         <script>
             var balVal = $('[data-id="balanceValue"]');
@@ -278,23 +285,23 @@
             var telno = global.get('telno');
             var password = global.get('password');
             var dest = $('[data-id="input"]');
-            
+
             $('.rateText').hide();
-            
+
             function getBalance(data) {
                 balVal.html(data);
             }
-            
+
             function getRate(data) {
                 rateVal.html(data);
                 $('.rateText').show();
             }
-            
+
             function clearRate() {
                 rateVal.html('');
                 $('.rateText').hide();
             }
-            
+
 //            dest.change(function() {
 //                alert('1asd: ' + dest.val().length);
 //                if(dest.val().length > 6) {
@@ -305,16 +312,25 @@
 //                } 
 //            });
 
-            $(document).ready(function() {
-                
+            function login(response) {
+                if (response !== "") {
+                } else {
+                    window.location.href = 'login.html';
+                }
+            }
+
+            $(document).ready(function () {
+
                 var uid = global.get('uid');
                 var telno = global.get('telno');
                 var password = global.get('password');
-                
-                if(uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-//                    window.location.href = 'login.html';
+
+                global.login('_id', {telno: telno, password: password}, login);
+
+                if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
+                    window.location.href = 'login.html';
                 }
-                
+
                 global.balance('_balance', {telno: telno, password: password}, getBalance);
             });
         </script>

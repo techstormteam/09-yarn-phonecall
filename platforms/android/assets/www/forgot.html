@@ -1,16 +1,112 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/login.css" />
+        <link rel="stylesheet" type="text/css" href="css/color.css" />
+        <link href="img/icons/logo.png" rel="icon" />
+        <title>Yarn - Login</title>
     </head>
-    <body>
-        <div>TODO write content</div>
+    <body class="bg-white">
+        <div data-id="header">
+            <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
+        </div>
+        <hr/>
+        <div data-id="form-login">
+            <div class="input-vgroup">
+                <input id="txtUsername" placeholder="Username" name="txtUsername" type="text" />
+                <input id="txtPass" placeholder="Password" name="txtPass" type="password" />
+            </div>
+        </div>
+        <div data-id="intro" class="container">
+            <video id="introVideo" data-id="intro-video" autoplay loop>
+                <source src="video/Yarn_Intro.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div data-id="social-btn" class="center">
+            <div>
+                <a data-id="google-btn" href="#" class="btn btn-red">
+                    <i class="fa fa-google-plus"></i>
+                    connect with google
+                </a>
+            </div>
+            <div>
+                <a data-id="fb-btn" href="#" class="btn btn-blue">
+                    <i class="fa fa-facebook"></i>
+                    connect with facebook
+                </a>
+            </div>
+        </div>
+        <div data-id="form-submit" class="container">
+            <a href="#" onclick="check_form()" class="form-control btn bg-orange white">
+                SIGN IN
+            </a>
+            <div class="center grey footer-02">
+                <a href="forgot.html" class="sign-up grey">forgotten password?</a> <a href="signup.html" class="orange sign-up">sign-up</a>
+            </div>
+        </div>
+
+        <!--SCRIPT-->
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+
+        <script>
+                $(document).bind("mobileinit", function () {
+                    $.mobile.ajaxEnabled = false;
+                });
+        </script>
+
+        <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!--<script type="text/javascript" src="cordova.js"></script>-->
+        <script type="text/javascript" charset="utf-8" src="video.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript">
+//                app.initialize();
+//                $('#message').hide();
+//                var username = null;
+//                var password = null;
+//
+//                function playVideo(vidUrl)
+//                {
+//                    window.plugins.videoPlayer.play(vidUrl);
+//                }
+//
+//                function login(response) {
+//                    if (response !== "") {
+//                        global.set('uid', response);
+//                        global.set('telno', username);
+//                        global.set('password', password);
+//                        window.location = 'index.html';
+//                    } else {
+//                        global.set('uid', '');
+//                        global.set('telno', '');
+//                        global.set('password', '');
+//                        alert('Wrong username or password!');
+////                        $('#message').text('Wrong username or password!').show();
+//                    }
+//                }
+//
+//                function check_form() {
+//                    username = $('#txtUsername').val();
+//                    password = $('#txtPass').val();
+//
+//                    if (username !== "" && password !== "") {
+//                        global.set('auto_login', true);
+//                        global.login('_id', {telno: username, password: password}, login);
+//                    }
+//                }
+        </script>
     </body>
 </html>
