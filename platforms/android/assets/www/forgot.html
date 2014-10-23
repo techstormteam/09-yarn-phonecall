@@ -19,7 +19,9 @@
     </head>
     <body class="bg-white">
         <div data-id="header">
-            <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
+            <a href="http://yarn-me.com" onclick="window.open('http://yarn-me.com', '_blank', 'location=yes')">
+                <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
+            </a>
         </div>
         <hr/>
         <div data-id="form-login">
@@ -60,9 +62,9 @@
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 
         <script>
-                $(document).bind("mobileinit", function () {
-                    $.mobile.ajaxEnabled = false;
-                });
+                    $(document).bind("mobileinit", function () {
+                        $.mobile.ajaxEnabled = false;
+                    });
         </script>
 
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
@@ -72,26 +74,26 @@
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/forgot.js"></script>
         <script type="text/javascript">
-                app.initialize();
-                var phone = null;
-                var email = null;
+                    app.initialize();
+                    var phone = null;
+                    var email = null;
 
-                function forgot(response) {
-                    if (response.indexOf('success') > -1) {
-                        window.location.href = 'login.html';
+                    function forgot(response) {
+                        if (response.indexOf('success') > -1) {
+                            window.location.href = 'login.html';
+                        }
                     }
-                }
 
-                function check_form() {
-                    phone = $('#txtPhone').val();
-                    email = $('#txtEmail').val();
+                    function check_form() {
+                        phone = $('#txtPhone').val();
+                        email = $('#txtEmail').val();
 
-                    if (phone !== "" && email !== "") {
-                        global.forgot('_forgotpaswd', {email: email, phone: phone}, forgot);
-                    } else {
-                        alert('Please enter your Yarn phone number or password, in order to get a password reminder');
+                        if (phone !== "" && email !== "") {
+                            global.forgot('_forgotpaswd', {email: email, phone: phone}, forgot);
+                        } else {
+                            alert('Please enter your Yarn phone number or password, in order to get a password reminder');
+                        }
                     }
-                }
         </script>
     </body>
 </html>

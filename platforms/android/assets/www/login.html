@@ -19,7 +19,9 @@
     </head>
     <body class="bg-white">
         <div data-id="header">
-            <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
+            <a href="http://yarn-me.com" onclick="window.open('http://yarn-me.com', '_blank', 'location=yes')">
+                <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
+            </a>
         </div>
         <hr/>
         <div data-id="form-login">
@@ -64,9 +66,9 @@
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 
         <script>
-                $(document).bind("mobileinit", function () {
-                    $.mobile.ajaxEnabled = false;
-                });
+                    $(document).bind("mobileinit", function () {
+                        $.mobile.ajaxEnabled = false;
+                    });
         </script>
 
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
@@ -76,42 +78,42 @@
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
         <script type="text/javascript">
-                app.initialize();
-                $('#message').hide();
-                var username = null;
-                var password = null;
+                    app.initialize();
+                    $('#message').hide();
+                    var username = null;
+                    var password = null;
 
-                function playVideo(vidUrl)
-                {
-                    window.plugins.videoPlayer.play(vidUrl);
-                }
+                    function playVideo(vidUrl)
+                    {
+                        window.plugins.videoPlayer.play(vidUrl);
+                    }
 
-                function login(response) {
-                    if (response !== "") {
-                        global.set('uid', response);
-                        global.set('telno', username);
-                        global.set('password', password);
-                        window.location = 'index.html';
-                    } else {
-                        global.set('uid', '');
-                        global.set('telno', '');
-                        global.set('password', '');
-                        alert('Wrong username or password!');
+                    function login(response) {
+                        if (response !== "") {
+                            global.set('uid', response);
+                            global.set('telno', username);
+                            global.set('password', password);
+                            window.location = 'index.html';
+                        } else {
+                            global.set('uid', '');
+                            global.set('telno', '');
+                            global.set('password', '');
+                            alert('Wrong username or password!');
 //                        $('#message').text('Wrong username or password!').show();
+                        }
                     }
-                }
 
-                function check_form() {
-                    username = $('#txtUsername').val();
-                    password = $('#txtPass').val();
+                    function check_form() {
+                        username = $('#txtUsername').val();
+                        password = $('#txtPass').val();
 
-                    if (username !== "" && password !== "") {
-                        global.set('auto_login', true);
-                        global.login('_id', {telno: username, password: password}, login);
-                    } else {
-                        alert('Please enter a valid username and password to login');
+                        if (username !== "" && password !== "") {
+                            global.set('auto_login', true);
+                            global.login('_id', {telno: username, password: password}, login);
+                        } else {
+                            alert('Please enter a valid username and password to login');
+                        }
                     }
-                }
         </script>
     </body>
 </html>
