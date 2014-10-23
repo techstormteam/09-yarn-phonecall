@@ -64,7 +64,7 @@
                         <div class="rateText">(or FREE if App2App Call)</div>
                     </div>
                     <div class="col-xs-6 center ts-balance-child">
-                        <span>Balance:</span>
+                        <!--<span>Balance:</span>-->
                         <span class="ts-balance orange bold">
                             <a class="orange not-underlined" href="#">
                                 <span data-id="balanceValue"></span>
@@ -318,7 +318,7 @@
 //                global.login('_id', {telno: telno, password: password}, login);
 
                 if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-//                    window.location.href = 'login.html';
+                    window.location.href = 'login.html';
                 }
 
                 global.balance('_balance', {telno: telno, password: password}, getBalance);

@@ -9,6 +9,7 @@ var balNum = $('[data-id="bal-num"]');
 var subFooter = $('[data-id="sub-footer"]');
 var footer = $('[data-id="footer"]');
 var footerIcons = $('.ts-icon-button img');
+var inputFontSize = $('[data-id="input"]').css('font-size');
 
 //INSIDE BALANCE ELEMENT
 var balance = $('[data-id="balance"]');
@@ -45,7 +46,7 @@ function updateHeight() {
 
     //BALANCE = 1/5 of 3/6
     balance.css('height', (parseInt(balanceHeight) / 5));
-    $('.ts-balance-child').css('line-height', (parseInt(balanceHeight) / 5) - 15 + 'px');
+//    $('.ts-balance-child').css('line-height', (parseInt(balanceHeight) / 5) - 15 + 'px');
 
     //INPUT = 1/5 of 3/6
     var inputHeight = (parseInt(balanceHeight) / 5);
@@ -117,6 +118,12 @@ function inputProcess(object) {
     } else {
         conditionLength = 6;
     }
+    
+    if(current.length > 10) {
+        $('[data-id="input"]').css('font-size', parseFloat(inputFontSize) / 10 * 6 + 'px');
+    } else {
+        $('[data-id="input"]').css('font-size', inputFontSize);
+    }
 
     if (current.length === conditionLength) {
         global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
@@ -132,6 +139,12 @@ $('[data-id="delete"]').click(function () {
     
     if(now.length < 6) {
         clearRate();
+    }
+    
+    if(now.length > 10) {
+        $('[data-id="input"]').css('font-size', parseFloat(inputFontSize) / 10 * 6 + 'px');
+    } else {
+        $('[data-id="input"]').css('font-size', inputFontSize);
     }
 });
 
