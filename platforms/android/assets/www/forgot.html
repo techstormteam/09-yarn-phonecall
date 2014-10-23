@@ -51,8 +51,7 @@
                     SUBMIT
                 </a>
                 <div class="center grey footer-02">
-                    <a href="forgot.html" class="sign-up grey">forgotten password?</a> 
-                    <a href="signup.html" class="orange sign-up">sign-up</a>
+                    <a href="login.html" class="sign-up grey">back to login</a>
                 </div>
             </div>
         </div>
@@ -78,10 +77,8 @@
                 var email = null;
 
                 function forgot(response) {
-                    if (response === 'success') {
+                    if (response.indexOf('success') > -1) {
                         window.location.href = 'login.html';
-                    } else {
-                        alert(response);
                     }
                 }
 
@@ -91,6 +88,8 @@
 
                     if (phone !== "" && email !== "") {
                         global.forgot('_forgotpaswd', {email: email, phone: phone}, forgot);
+                    } else {
+                        alert('Please enter your Yarn phone number or password, in order to get a password reminder');
                     }
                 }
         </script>

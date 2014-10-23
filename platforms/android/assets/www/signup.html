@@ -46,10 +46,13 @@
                 <a href="#" onclick="check_rform()" class="btn-submit bg-orange white">
                     SIGN UP
                 </a>
-                <div class="grey back-wrapper">
+<!--                <div class="grey back-wrapper">
                     <a href="login.html" class="grey back-btn">
                         Back To Login
                     </a>
+                </div>-->
+                <div class="center grey footer-02">
+                    <a href="login.html" class="sign-up grey">back to login</a>
                 </div>
             </div>
         </div>
@@ -78,7 +81,7 @@
                     var rePassword = null;
 
                     function register(response) {
-                        if (response === 'success') {
+                        if (response.indexOf('success') > -1) {
                             window.location.href = 'login.html';
                         } else {
                             alert(response);

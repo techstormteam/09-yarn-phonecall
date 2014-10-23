@@ -35,7 +35,7 @@ and open the template in the editor.
 
 .footer-02 {
     font-size: 1em;
-    /*padding-top: 10px;*/
+    padding-top: 10px;
 }
 
 hr {
@@ -128,7 +128,7 @@ hr {
 
 .sign-up {
     font-size: 1em !important;
-    padding-left: 15px;
+    /*padding-left: 15px;*/
 }
 
 .sign-up:hover {
@@ -139,5 +139,5 @@ hr {
     position: fixed;
     bottom: 0;
     width: 100%;
-    /*padding-bottom: 10px;*/
+    padding-bottom: 10px;
 }

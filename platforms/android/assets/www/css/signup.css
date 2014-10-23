@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : VietAnh
 */
 
+.center {
+    text-align: center;
+}
+
 hr {
     margin: 0 auto;
     width: 85%;
@@ -53,6 +57,10 @@ hr {
     margin: 0;
 }
 
+[data-id="form-submit"] {
+    padding-bottom: 10px;
+}
+
 .input-vgroup .ui-shadow-inset {
     box-shadow: none;
 }
@@ -69,7 +77,21 @@ hr {
     padding: 0 1em;
     display: block;
     width: 100%;
-    font-size: 1.2em;
+    font-size: 1.5em;
+    font-weight: 300 !important;
+}
+
+.footer-02 {
+    font-size: 1em;
+    padding-top: 10px;
+}
+
+.sign-up {
+    font-size: 1em !important;
+    text-align: center;
+    font-weight: 300 !important;
+    text-shadow: none;
+    height: auto;
 }
 
 .back-wrapper {

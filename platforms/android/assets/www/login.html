@@ -108,6 +108,8 @@
                     if (username !== "" && password !== "") {
                         global.set('auto_login', true);
                         global.login('_id', {telno: username, password: password}, login);
+                    } else {
+                        alert('Please enter a valid username and password to login');
                     }
                 }
         </script>

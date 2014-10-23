@@ -27,6 +27,7 @@ function updateSize(totalHeight) {
     sub += header.outerHeight();
     sub += formLogin.outerHeight();
     sub += formSubmit.outerHeight();
+    sub += 1;
 //    btnGroupHeight = formSubmit.children('div').outerHeight();
 //    sub += btnGroupHeight;
     
