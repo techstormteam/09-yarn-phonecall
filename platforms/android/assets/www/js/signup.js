@@ -13,23 +13,26 @@ function updateSize(totalHeight) {
     var remain = 0;
     
     header.height(totalHeight / 6);
-    intro.height(totalHeight / 7 * 2);
-    intro.find('img').height(totalHeight / 7 * 2);
-    formLogin.height(totalHeight / 6 * 2);
-    formLogin.children('div').height(totalHeight / 6 * 2);
-    formLogin.children('div').find('div').height(((totalHeight / 6 * 2) / 6)-2);
-    formLogin.children('div').find('input').height(((totalHeight / 6 * 2) / 6)-2);
-    formLogin.children('div').find('input').css('line-height', (((totalHeight / 6 * 2) / 6)-2) + 'px');
+    formLogin.height(totalHeight / 6 * 1);
+    formLogin.children('div').height(totalHeight / 6 * 1);
+    formLogin.children('div').find('div').height(((totalHeight / 6 * 1) / 3)-5);
+    formLogin.children('div').find('input').height(((totalHeight / 6 * 1) / 3)-5);
+    formLogin.children('div').find('input').css('line-height', (((totalHeight / 6 * 1) / 3)-5) + 'px');
+    formLogin.children('div').find('input').css('min-height', (((totalHeight / 6 * 1) / 3)-5) + 'px');
+    
+//    formSubmit.height(btnGroupHeight);
+    formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
+    formSubmit.children('div').css('marginTop', 10);
     
     sub += header.outerHeight();
-    sub += intro.outerHeight();
     sub += formLogin.outerHeight();
+    sub += formSubmit.outerHeight();
+//    btnGroupHeight = formSubmit.children('div').outerHeight();
+//    sub += btnGroupHeight;
     
-    remain = totalHeight - sub;
-    formSubmit.height(remain);
-    formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
-    btnGroupHeight = formSubmit.children('div').outerHeight();
-    formSubmit.children('div').css('marginTop', remain - btnGroupHeight);
+    intro.height(totalHeight - sub);
+    intro.find('img').height(totalHeight - sub);
+
 }
 
 $(document).ready(function() {

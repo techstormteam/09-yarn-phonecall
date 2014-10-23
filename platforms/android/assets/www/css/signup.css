@@ -21,6 +21,8 @@ hr {
 
 [data-id="intro"] {
     margin-top: -1em;
+    position: relative;
+    z-index: 0;
 }
 
 [data-id="intro"] img {
@@ -36,7 +38,16 @@ hr {
     z-index: 100;
 }
 
-[data-id="form-login"] .input-vgroup > div {
+.input-row {
+    display: inline-block;
+}
+
+.input-row > div {
+    width: 49%;
+    display: inline-block;
+}
+
+[data-id="form-login"] .input-vgroup > div > div {
     border-radius: 0;
     margin: 0;
 }
