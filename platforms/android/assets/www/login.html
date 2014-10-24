@@ -19,7 +19,7 @@
     </head>
     <body class="bg-white">
         <div data-id="header">
-            <a href="http://yarn-me.com" onclick="window.open('http://yarn-me.com', '_blank', 'location=yes')">
+            <a href="#" onclick="openlink('http://www.google.com')">
                 <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
             </a>
         </div>
@@ -113,6 +113,10 @@
                         } else {
                             alert('Please enter a valid username and password to login');
                         }
+                    }
+                    
+                    function openlink(url) {
+                        var ref = window.open(url, '_blank', 'location=yes');
                     }
         </script>
     </body>

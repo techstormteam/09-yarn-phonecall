@@ -48,7 +48,7 @@
             <!--LOGO-->
             <!--data-id="logo"-->
             <div data-id="logo" data-role="logo" class="row ts-logo-wrapper center">
-                <a href="http://yarn-me.com">
+                <a href="#" onclick="openlink('http://www.google.com')">
                     <img src="img/icons/logo.png" alt="logo" />
                 </a>
             </div>
@@ -275,7 +275,8 @@
                 }
             }
 
-            global.getSipUsernameApi('anh@test.com', '123456', sipRegister);
+//            global.getSipUsernameApi('anh@test.com', '123456', sipRegister);
+            global.getSipUsernameApi(global.get('telno'), global.get('password'), sipRegister);
 
 
         </script>
@@ -311,13 +312,6 @@
 
             $(document).ready(function () {
 
-            alert('test04');
-
-                $('[data-id="logo"]').click(function () {
-//                    var ref = window.open('http://yarn-me.com', '_blank', 'location=yes');
-                    var ref = window.open('http://www.google.com', '_blank', 'location=yes');
-                });
-
                 var uid = global.get('uid');
                 var telno = global.get('telno');
                 var password = global.get('password');
@@ -330,6 +324,10 @@
 
                 global.balance('_balance', {telno: telno, password: password}, getBalance);
             });
+
+            function openlink(url) {
+                var ref = window.open(url, '_blank', 'location="yes"');
+            }
         </script>
     </body>
 </html>

@@ -119,7 +119,7 @@ function inputProcess(object) {
         conditionLength = 6;
     }
     
-    if(current.length > 10) {
+    if(current.length > 15) {
         $('[data-id="input"]').css('font-size', parseFloat(inputFontSize) / 10 * 6 + 'px');
     } else {
         $('[data-id="input"]').css('font-size', inputFontSize);
@@ -141,7 +141,7 @@ $('[data-id="delete"]').click(function () {
         clearRate();
     }
     
-    if(now.length > 10) {
+    if(now.length > 15) {
         $('[data-id="input"]').css('font-size', parseFloat(inputFontSize) / 10 * 6 + 'px');
     } else {
         $('[data-id="input"]').css('font-size', inputFontSize);
