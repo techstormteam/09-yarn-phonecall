@@ -143,9 +143,8 @@ and open the template in the editor.
                 window.location.href = 'index.html';
             }
 
-            function doMicrophone() {
-                var enable = true;
-                window.enableSpeaker(enable, function (message) {
+            function doMicMute(enable) {
+                window.enableSpeaker(!enable, function (message) {
                     //empty
                 });
             }
