@@ -109,19 +109,23 @@ public class LinPhonePlugin extends CordovaPlugin {
 			return true;
 		} else if (action.equals("DialDtmf")) {
 			String ch = (String) args.get(0);
-			if (ch != null && ch.length() == 1) {
-				dialDtmf(ch.charAt(0));
+			if (ch == null || ch.length() != 1) {
+				return false;
 			}
-			callbackContext.success("Do loudness.");
+			dialDtmf(ch.charAt(0));
+			callbackContext.success("Dial dtmf: "+ch.charAt(0));
 			return true;
 		} else if (action.equals("GetCallQuality")) {
 			JSONObject objJSON = new JSONObject();
 			LinphoneCore lc = LinphoneManager.getLc();
 			LinphoneCall currentCall = lc.getCurrentCall();
-			PluginResult result = new PluginResult(Status.OK, 0);
+			PluginResult result = null;
 			if (currentCall != null) {
 				objJSON.put("quality", getCallQuality(currentCall));
 				result = new PluginResult(Status.OK, objJSON);
+			} else {
+				objJSON.put("quality", 0);
+				result = new PluginResult(Status.NO_RESULT, objJSON);
 			}
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Get call quality successfully.");
@@ -130,11 +134,15 @@ public class LinPhonePlugin extends CordovaPlugin {
 			JSONObject objJSON = new JSONObject();
 			LinphoneCore lc = LinphoneManager.getLc();
 			LinphoneCall currentCall = lc.getCurrentCall();
-			PluginResult result = new PluginResult(Status.OK, objJSON);
 			if (currentCall != null) {
-				objJSON.put("time", System.currentTimeMillis());
-				result = new PluginResult(Status.OK, objJSON);
+				int duration = currentCall.getDuration();
+				objJSON.put("time", String.format("%02d:%02d", duration / 60, duration % 60));
+			} else {
+				objJSON.put("time", "00:00");
+//				int duration = 100;
+//				objJSON.put("time", String.format("%02d:%02d", duration / 60, duration % 60));
 			}
+			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Get call duration time successfully.");
 			return true;

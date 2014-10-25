@@ -150,19 +150,24 @@ and open the template in the editor.
                 });
             }
 
-			function getTimer() {
-				
+			function updateTimer() {
+				window.getCallDurationTime(function(data) {
+					$('[data-id="timer"]').html(data.time);
+                });
 			}
 
-			function doSendDmtf() {
-                window.dialDtmf(function (message) {
+			function updateTimerScheduled() {
+				setInterval(updateTimer, 1000);
+			}
+
+			function doSendDmtf(key) {
+                window.dialKeyDtmf(key, function (message) {
                     //empty
                 });
+                alert ("aaaa");
             }
 
 			function onSuccessQualitySending() {
-				alert('hehe');
-				doSendDmtf();
 				console.log('Quality sended.');
 			}
 
@@ -179,8 +184,9 @@ and open the template in the editor.
                 });
 				
 			}
-
+			//doSendDmtf('s');
 			callQualityScheduled();
+			updateTimerScheduled();
 
         </script>
 
