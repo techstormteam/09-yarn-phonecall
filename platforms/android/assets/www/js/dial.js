@@ -14,30 +14,27 @@ var remain = 0;
 
 var body = $('#body');
 var dialPad = $('#dial-pad');
-var dialEnable = false;
+var dialEnabled = false;
 
 dialPad.hide();
 
 function doDialPad() {
-    totalHeight = $(window).height();
-
-    if (!dialEnable) {
-        body.css({transform: 'translateY(-200px)'});
-        dialPad.css({transform: 'translateY(-200px)'}).show();
-        dialEnable = true;
+    if(!dialEnabled) {
+        dialPad.slideDown(100, function() {
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+        dialEnabled = true;
     } else {
-        body.css({transform: 'translateY(0)'});
-        dialPad.hide();
-        dialEnable = false;
+        dialPad.slideUp();
+        dialEnabled = false;
     }
 }
 
-$('body').tap(function () {
-    if (dialEnable) {
-        body.css({transform: 'translateY(0)'});
-        dialPad.hide();
-        dialEnable = false;
-    }
+$('[data-value]').tap(function () {
+    $(this).animate({backgroundColor: 'rgba(0,0,0,0.1)'}, 100)
+            .delay(100)
+            .animate({backgroundColor: 'transparent'}, 100);
+    doSendDmtf($(this).data('value'));
 });
 
 function hideDialPad() {
@@ -46,6 +43,11 @@ function hideDialPad() {
 }
 
 function updateSize() {
+    
+    if(dialEnabled) {
+        return false;
+    }
+    
     totalHeight = $(window).height();
 
     //HEADER

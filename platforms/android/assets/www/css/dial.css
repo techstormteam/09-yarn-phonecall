@@ -74,6 +74,23 @@ and open the template in the editor.
 
 #dial-pad {
     transform: translateY(0px);
+    padding: 10px;
+}
+
+[data-value] {
+    width: 33%;
+    cursor: pointer;
+}
+
+[data-value] img {
+    height: auto;
+    width: 100%;
+}
+
+.dial-row div {
+    display: inline-block;
+    width: 32%;
+    padding:7px;
 }
 
 #body {
