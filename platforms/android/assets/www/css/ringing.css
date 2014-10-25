@@ -28,3 +28,8 @@
 [data-id="footer"] {
     text-align: center;
 }
+
+[data-id="footer"] div {
+    display: inline-block;
+    float: left;
+}
