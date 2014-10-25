@@ -15,6 +15,7 @@ var remain = 0;
 var body = $('#body');
 var dialPad = $('#dial-pad');
 var dialEnabled = false;
+var micEnabled = true;
 
 dialPad.hide();
 
@@ -107,3 +108,15 @@ $(document).ready(updateSize());
 $(window).resize(function () {
     updateSize();
 });
+
+function micHandler() {
+    if(micEnabled) {
+        $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/mute.png');
+        doMicMute(true);
+        micEnabled = false;
+    } else {
+        $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/microphone.png');
+        doMicMute(false);
+        micEnabled = true;
+    }
+}
