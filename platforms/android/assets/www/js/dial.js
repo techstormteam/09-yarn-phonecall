@@ -37,6 +37,15 @@ $('[data-value]').tap(function () {
     doSendDmtf($(this).data('value'));
 });
 
+//$('[data-id="footer-1st"] > div').tap(btnAnimate($(this)));
+//$('[data-id="footer-2nd"] > div').tap(btnAnimate($(this)));
+//
+//function btnAnimate(object) {
+//    object.animate({backgroundColor: 'rgba(255,255,255,0.2)'}, 100)
+//            .delay(100)
+//            .animate({backgroundColor: 'transparent'}, 100);
+//}
+
 function hideDialPad() {
     body.css({transform: 'translateY(0)'});
     dialPad.hide();
