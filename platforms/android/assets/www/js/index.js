@@ -158,3 +158,10 @@ $('.ts-icon-button').on('tap', function () {
                 backgroundColor: "transparent"
             }, 100);
 });
+
+$('[data-value]').tap(function () {
+    $(this).animate({backgroundColor: 'rgba(0,0,0,0.1)'}, 100)
+            .delay(100)
+            .animate({backgroundColor: 'transparent'}, 100);
+    doSendDmtf($(this).data('value'));
+});
