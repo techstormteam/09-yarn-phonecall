@@ -1,0 +1,30 @@
+/*TYPOGRAPHY*/
+
+@font-face {
+    font-family: segoe;
+    src: url(../fonts/segoe.ttf);
+}
+
+.center {
+    text-align: center;
+}
+
+/*PAGE*/
+[data-id="header"] {
+    width: 100%;
+    text-align: right;
+}
+
+[data-id="logo"] img, [data-id="accept-call"] img, [data-id="deny-call"] img {
+    height: 100%;
+    width: auto;
+}
+
+[data-id="avatar"] img {
+    width: 100%;
+    height: auto;
+}
+
+[data-id="footer"] {
+    text-align: center;
+}
