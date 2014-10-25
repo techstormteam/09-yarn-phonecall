@@ -63,3 +63,21 @@ window.loudness = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "Loudness", []);
 };
+
+window.dialDtmf = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "DialDtmf", []);
+};
+
+window.getCallQuality = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetCallQuality", []);
+};
+
+window.getCallDurationTime = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetCallDurationTime", []);
+};

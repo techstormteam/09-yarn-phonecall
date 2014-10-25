@@ -68,7 +68,7 @@ and open the template in the editor.
             </section>
         </section>
         <section id="dial-pad">
-asd 
+
         </section>
 
         <!--SCRIPT-->
@@ -76,24 +76,13 @@ asd
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <!--<script type="text/javascript" src="cordova.js"></script>-->
+        <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/dial.js"></script>
         <script type="text/javascript" src="js/my_linphone.js"></script>
 
         <script type="text/javascript">
                             app.initialize();
-                            if (global.get('auth') === null) {
-                                var username = getUrlParameter('username');
-                                var password = getUrlParameter('password');
-                                console.log(username);
-                                console.log(password);
-                                if (username !== null && password !== null) {
-                                    window.location.href = 'auto.html?u=' + username + '&p=' + password;
-                                } else {
-                                    //window.location = 'login.html';
-                                }
-                            }
         </script>
         <script>
             function sipRegister(response) {
@@ -161,7 +150,37 @@ asd
                 });
             }
 
-            global.getSipUsernameApi('anh@test.com', '123456', sipRegister);
+			function getTimer() {
+				
+			}
+
+			function doSendDmtf() {
+                window.dialDtmf(function (message) {
+                    //empty
+                });
+            }
+
+			function onSuccessQualitySending() {
+				alert('hehe');
+				doSendDmtf();
+				console.log('Quality sended.');
+			}
+
+			function callQualityScheduled() {
+				setInterval(sendCallQuality, 6000);
+			}
+
+			function sendCallQuality() {
+				window.getCallQuality(function(data) {
+					var telno = global.get('telno');
+		            var password = global.get('password');
+		            console.log('Sending quality number: '+data.quality+' of the call (to '+telno+').');
+					global.sendQuality(telno, password, data.quality, onSuccessQualitySending);
+                });
+				
+			}
+
+			callQualityScheduled();
 
         </script>
 

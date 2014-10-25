@@ -2,8 +2,11 @@ package com.techstorm.yarn;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
+import org.apache.cordova.PluginResult.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.linphone.InCallActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphonePreferences;
@@ -12,15 +15,20 @@ import org.linphone.core.CallDirection;
 import org.linphone.core.LinphoneAddress.TransportType;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCallLog;
+import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.LinphoneProxyConfig;
 import org.linphone.setup.EchoCancellerCalibrationFragment;
 import org.linphone.ui.AddressText;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -43,6 +51,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 			AddressText mAddress = new AddressText(context, null);
 			mAddress.setContactAddress(address, address);
 			wifiCall(mAddress);
+			
 			callbackContext.success("Call to " + address
 					+ " successful via wifi call.");
 			return true;
@@ -65,6 +74,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 			String password = (String) args.get(1);
 			String domain = context.getResources().getString(
 					R.string.sip_domain_default);
+
 			logIn(sipUsername, password, domain, false);
 			callbackContext.success("Register sip:"+sipUsername+"@"+domain+" successfully.");
 			return true;
@@ -93,13 +103,93 @@ public class LinPhonePlugin extends CordovaPlugin {
 			callbackContext.success("Shown dial pad.");
 			return true;
 		} else if (action.equals("Loudness")) {
-			// Need to code
+			LinphoneManager.getInstance().routeAudioToSpeaker();
+			LinphoneManager.getLc().enableSpeaker(true);
 			callbackContext.success("Do loudness.");
+			return true;
+		} else if (action.equals("DialDtmf")) {
+			String ch = (String) args.get(0);
+			if (ch != null && ch.length() == 1) {
+				dialDtmf(ch.charAt(0));
+			}
+			callbackContext.success("Do loudness.");
+			return true;
+		} else if (action.equals("GetCallQuality")) {
+			JSONObject objJSON = new JSONObject();
+			LinphoneCore lc = LinphoneManager.getLc();
+			LinphoneCall currentCall = lc.getCurrentCall();
+			PluginResult result = new PluginResult(Status.OK, 0);
+			if (currentCall != null) {
+				objJSON.put("quality", getCallQuality(currentCall));
+				result = new PluginResult(Status.OK, objJSON);
+			}
+			callbackContext.sendPluginResult(result);
+			callbackContext.success("Get call quality successfully.");
+			return true;
+		} else if (action.equals("GetCallDurationTime")) {
+			JSONObject objJSON = new JSONObject();
+			LinphoneCore lc = LinphoneManager.getLc();
+			LinphoneCall currentCall = lc.getCurrentCall();
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			if (currentCall != null) {
+				objJSON.put("time", System.currentTimeMillis());
+				result = new PluginResult(Status.OK, objJSON);
+			}
+			callbackContext.sendPluginResult(result);
+			callbackContext.success("Get call duration time successfully.");
 			return true;
 		}
 		return false;
 	}
 
+	private void dialDtmf(char keyCode) {
+		LinphoneCore lc = LinphoneManager.getLc();
+		lc.stopDtmf();
+		if (lc.isIncall()) {
+			lc.sendDtmf(keyCode);
+		}
+	}
+	
+	private float getCallQuality(LinphoneCall call) {
+		return call.getCurrentQuality();
+	}
+	
+	public Uri getPhotoUri(long contactId) {
+        ContentResolver contentResolver = this.context.getContentResolver();
+
+        try {
+            Cursor cursor = contentResolver
+                    .query(ContactsContract.Data.CONTENT_URI,
+                            null,
+                            ContactsContract.Data.CONTACT_ID
+                                    + "="
+                                    + contactId
+                                    + " AND "
+
+                                    + ContactsContract.Data.MIMETYPE
+                                    + "='"
+                                    + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE
+                                    + "'", null, null);
+
+            if (cursor != null) {
+                if (!cursor.moveToFirst()) {
+                    return null; // no photo
+                }
+            } else {
+                return null; // error in cursor process
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        Uri person = ContentUris.withAppendedId(
+                ContactsContract.Contacts.CONTENT_URI, contactId);
+        return Uri.withAppendedPath(person,
+                ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+    }
+	
 	private void hangUp() {
 		LinphoneCore lc = LinphoneManager.getLc();
 		LinphoneCall currentCall = lc.getCurrentCall();
@@ -111,12 +201,14 @@ public class LinPhonePlugin extends CordovaPlugin {
 		} else {
 			lc.terminateAllCalls();
 		}
+		
+//		mThread.interrupt();
 	}
 	
 	private boolean videoCall(AddressText mAddress) {
 		if (wifiCall(mAddress)) {
 			LinphoneCore lc = LinphoneManager.getLc();
-			LinphoneCall currentCall = lc.getCurrentCall();
+			LinphoneCall currentCall = lc.getCurrentCall();	
 			startVideoActivity(currentCall);
 			return true;
 		}
@@ -128,6 +220,9 @@ public class LinPhonePlugin extends CordovaPlugin {
 		intent.putExtra("VideoEnabled", true);
 //		startOrientationSensor();
 		this.cordova.startActivityForResult(this, intent, CALL_ACTIVITY);
+		LinphoneCallParams params = currentCall.getCurrentParamsCopy();
+		params.setVideoEnabled(true);
+		LinphoneManager.getLc().updateCall(currentCall, params);
 	}
 	
 	private void phoneContacts() {
