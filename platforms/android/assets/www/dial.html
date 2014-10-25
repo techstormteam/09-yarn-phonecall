@@ -135,15 +135,6 @@ and open the template in the editor.
                             app.initialize();
         </script>
         <script>
-            function sipRegister(response) {
-                var user = global.getUser();
-                var sipUsername = response;
-                //var password = user.data.uipass
-                password = '123456';
-                window.registerSip(sipUsername, password, function (message) {
-                    //empty
-                });
-            }
 
             function doHangUp() {
                 window.hangUp(function (message) {
@@ -214,7 +205,6 @@ and open the template in the editor.
                 window.dialKeyDtmf(key, function (message) {
                     //empty
                 });
-                alert ("aaaa");
             }
 
 			function onSuccessQualitySending() {

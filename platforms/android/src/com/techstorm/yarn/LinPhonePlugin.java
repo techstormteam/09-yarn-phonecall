@@ -95,7 +95,9 @@ public class LinPhonePlugin extends CordovaPlugin {
 			callbackContext.success("Show settings screen.");
 			return true;
 		} else if (action.equals("EnableSpeaker")) {
-			// Need to code
+			Boolean enableMic = (Boolean) args.get(0);
+			LinphoneCore lc = LinphoneManager.getLc();
+			lc.muteMic(enableMic);
 			callbackContext.success("Enable/disable speaker.");
 			return true;
 		} else if (action.equals("ShowDialPad")) {
@@ -139,8 +141,6 @@ public class LinPhonePlugin extends CordovaPlugin {
 				objJSON.put("time", String.format("%02d:%02d", duration / 60, duration % 60));
 			} else {
 				objJSON.put("time", "00:00");
-//				int duration = 100;
-//				objJSON.put("time", String.format("%02d:%02d", duration / 60, duration % 60));
 			}
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
