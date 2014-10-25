@@ -22,48 +22,53 @@ and open the template in the editor.
         <link href="img/icons/logo.png" rel="icon" />
     </head>
     <body class="bg-black">
-        <header data-id="header" class="pull-right">
-            <a data-id="logo" href="http://yarn-me.com" onclick="window.open('http://yarn-me.com', '_blank', 'location=yes')">
-                <img src="img/dial/logo.png" alt="logo" style="padding: 10px;" />
-            </a>
-        </header>
-        <section data-id="main" class="center">
-            <div data-id="avatar">
-                <img src="img/icons/default_contact.png" alt="avatar" />
-            </div>
+        <section id="body">
+            <header data-id="header" class="pull-right">
+                <a data-id="logo" href="http://yarn-me.com" onclick="window.open('http://yarn-me.com', '_blank', 'location=yes')">
+                    <img src="img/dial/logo.png" alt="logo" style="padding: 10px;" />
+                </a>
+            </header>
+            <section data-id="main" class="center">
+                <div data-id="avatar">
+                    <img src="img/icons/default_contact.png" alt="avatar" />
+                </div>
+            </section>
+            <section data-id="sub-footer">
+                <div data-id="timer" class="center grey font-segoe">00:00</div>
+                <div data-id="end-call" class="center bg-orange pointer" onclick="doHangUp()">
+                    <img src="img/icons/phone-down.png" alt="end call" />
+                </div>
+            </section>
+            <section data-id="footer" class="bg-black">
+                <div data-id="footer-1st">
+                    <div data-id="microphone-icon" class="col-xs-offset-1 col-xs-3 center pointer" onclick="doMicrophone()">
+                        <img class="padding-md" src="img/icons/microphone.png" alt="microphone" />
+                    </div>
+                    <div data-id="dial-icon" class="col-xs-4 center pointer" onclick="doDialPad()">
+                        <img class="padding-md" src="img/icons/dial-pad.png" alt="dial pad"/>
+                    </div>
+                    <div data-id="loudness-icon" class="col-xs-3 center pointer" onclick="doLoudness()">
+                        <img class="padding-md" src="img/icons/loudness.png" alt="loudness" />
+                    </div>
+                </div>
+                <div data-id="footer-2nd">
+                    <div data-id="home-icon" class="col-xs-3 center pointer block" onclick="doHome()">
+                        <img class="padding-sm" src="img/icons/home.png" alt="home" />
+                    </div>
+                    <div data-id="contacts-icon" class="col-xs-3 center pointer block" onclick="doPhoneContacts()">
+                        <img class="padding-sm" src="img/icons/contacts.png" alt="contacts" />
+                    </div>
+                    <div data-id="logs-icon" class="col-xs-3 center pointer block" onclick="doCallLogs()">
+                        <img class="padding-sm" src="img/icons/logs.png" alt="logs" />
+                    </div>
+                    <div data-id="settings-icon" class="col-xs-3 center pointer block" onclick="doCallLogs()">
+                        <img class="padding-sm" src="img/icons/settings.png" alt="settings" onclick="doSettings()"/>
+                    </div>
+                </div>
+            </section>
         </section>
-        <section data-id="sub-footer">
-            <div data-id="timer" class="center grey font-segoe">00:00</div>
-            <div data-id="end-call" class="center bg-orange pointer" onclick="doHangUp()">
-                <img src="img/icons/phone-down.png" alt="end call" />
-            </div>
-        </section>
-        <section data-id="footer" class="bg-black">
-            <div data-id="footer-1st">
-                <div data-id="microphone-icon" class="col-xs-offset-1 col-xs-3 center pointer" onclick="doMicrophone()">
-                    <img class="padding-md" src="img/icons/microphone.png" alt="microphone" />
-                </div>
-                <div data-id="dial-icon" class="col-xs-4 center pointer" onclick="doDialPad()">
-                    <img class="padding-md" src="img/icons/dial-pad.png" alt="dial pad"/>
-                </div>
-                <div data-id="loudness-icon" class="col-xs-3 center pointer" onclick="doLoudness()">
-                    <img class="padding-md" src="img/icons/loudness.png" alt="loudness" />
-                </div>
-            </div>
-            <div data-id="footer-2nd">
-                <div data-id="home-icon" class="col-xs-3 center pointer block" onclick="doHome()">
-                    <img class="padding-sm" src="img/icons/home.png" alt="home" />
-                </div>
-                <div data-id="contacts-icon" class="col-xs-3 center pointer block" onclick="doPhoneContacts()">
-                    <img class="padding-sm" src="img/icons/contacts.png" alt="contacts" />
-                </div>
-                <div data-id="logs-icon" class="col-xs-3 center pointer block" onclick="doCallLogs()">
-                    <img class="padding-sm" src="img/icons/logs.png" alt="logs" />
-                </div>
-                <div data-id="settings-icon" class="col-xs-3 center pointer block" onclick="doCallLogs()">
-                    <img class="padding-sm" src="img/icons/settings.png" alt="settings" onclick="doSettings()"/>
-                </div>
-            </div>
+        <section id="dial-pad">
+asd 
         </section>
 
         <!--SCRIPT-->
@@ -71,65 +76,65 @@ and open the template in the editor.
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
+        <!--<script type="text/javascript" src="cordova.js"></script>-->
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/dial.js"></script>
         <script type="text/javascript" src="js/my_linphone.js"></script>
-        
+
         <script type="text/javascript">
-            app.initialize();
-            if (global.get('auth') === null) {
-                var username = getUrlParameter('username');
-                var password = getUrlParameter('password');
-                console.log(username);
-                console.log(password);
-                if (username !== null && password !== null) {
-                    window.location.href = 'auto.html?u=' + username + '&p=' + password;
-                } else {
-                    //window.location = 'login.html';
-                }
-            }
+                            app.initialize();
+                            if (global.get('auth') === null) {
+                                var username = getUrlParameter('username');
+                                var password = getUrlParameter('password');
+                                console.log(username);
+                                console.log(password);
+                                if (username !== null && password !== null) {
+                                    window.location.href = 'auto.html?u=' + username + '&p=' + password;
+                                } else {
+                                    //window.location = 'login.html';
+                                }
+                            }
         </script>
         <script>
             function sipRegister(response) {
-            	var user = global.getUser();
-            	var sipUsername = response;
-            	//var password = user.data.uipass
+                var user = global.getUser();
+                var sipUsername = response;
+                //var password = user.data.uipass
                 password = '123456';
-                window.registerSip(sipUsername, password, function(message) {
+                window.registerSip(sipUsername, password, function (message) {
                     //empty
                 });
             }
-            
+
             function doHangUp() {
-            	window.hangUp(function(message) {
-                //empty
+                window.hangUp(function (message) {
+                    //empty
                 });
                 window.location.href = 'index.html';
             }
-            
+
             function doMicrophone() {
-            	var enable = true;
-                window.enableSpeaker(enable, function(message) {
+                var enable = true;
+                window.enableSpeaker(enable, function (message) {
                     //empty
                 });
             }
-            
-            function doDialPad() {
-                window.showDialPad(function(message) {
-                    //empty
-                });
-            }
-            
+
+//            function doDialPad() {
+//                window.showDialPad(function (message) {
+//                    //empty
+//                });
+//            }
+
             function doLoudness() {
-            	window.loudness(function(message) {
+                window.loudness(function (message) {
                     //empty
                 });
             }
-            
+
             function doSettings() {
-            	window.settings(function(message) {
-                	//empty
+                window.settings(function (message) {
+                    //empty
                 });
             }
             function doHome() {
@@ -137,28 +142,28 @@ and open the template in the editor.
             }
             function doPhoneContacts() {
 
-                window.phoneContacts(function(message) {
-                //empty
+                window.phoneContacts(function (message) {
+                    //empty
                 });
             }
             function doCallLogs() {
 
-                window.callLogs(function(message) {
-                //empty
+                window.callLogs(function (message) {
+                    //empty
                 });
             }
             function doVideoCall() {
-            
+
                 // get data from dialedNumber
                 var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
-                window.videoCall(dialedNumber, function(message) {
-                //empty
+                window.videoCall(dialedNumber, function (message) {
+                    //empty
                 });
             }
-            
+
             global.getSipUsernameApi('anh@test.com', '123456', sipRegister);
 
         </script>
-        
+
     </body>
 </html>

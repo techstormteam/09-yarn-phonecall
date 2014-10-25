@@ -12,7 +12,38 @@ var footer2nd = $('[data-id="footer-2nd"]');
 var footer2ndDiv = $('[data-id="footer-2nd"] div');
 var remain = 0;
 
-//alert('dial05');
+var body = $('#body');
+var dialPad = $('#dial-pad');
+var dialEnable = false;
+
+dialPad.hide();
+
+function doDialPad() {
+    totalHeight = $(window).height();
+
+    if (!dialEnable) {
+        body.css({transform: 'translateY(-200px)'});
+        dialPad.css({transform: 'translateY(-200px)'}).show();
+        dialEnable = true;
+    } else {
+        body.css({transform: 'translateY(0)'});
+        dialPad.hide();
+        dialEnable = false;
+    }
+}
+
+$('body').tap(function () {
+    if (dialEnable) {
+        body.css({transform: 'translateY(0)'});
+        dialPad.hide();
+        dialEnable = false;
+    }
+});
+
+function hideDialPad() {
+    body.css({transform: 'translateY(0)'});
+    dialPad.hide();
+}
 
 function updateSize() {
     totalHeight = $(window).height();
@@ -30,7 +61,7 @@ function updateSize() {
     endCall.css('height', (totalHeight / 12));
 
     remain = totalHeight - (header.height() + main.height() + subFoot.height());
-    
+
     //FOOTER
     footer.height(remain);
 
