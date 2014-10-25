@@ -223,8 +223,8 @@ and open the template in the editor.
 				console.log('Quality sended.');
 			}
 
-			function callQualityScheduled() {
-				setInterval(sendCallQuality, 6000);
+			function callQualityTimeout() {
+				setTimeout(sendCallQuality, 6000);
 			}
 
 			function sendCallQuality() {
@@ -236,7 +236,7 @@ and open the template in the editor.
                 });
 				
 			}
-			callQualityScheduled();
+			callQualityTimeout();
 			updateTimerScheduled();
 			endCallCheckingScheduled();
 
