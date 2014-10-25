@@ -65,9 +65,10 @@ window.loudness = function(callback) {
 };
 
 window.dialKeyDtmf = function(key, callback) {
-    cordova.exec(callback, function(err) {
+	cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "DialKeyDtmf", [key]);
+    }, "LinPhonePlugin", "DialDtmf", [key]);
+
 };
 
 window.getCallQuality = function(callback) {
@@ -80,4 +81,11 @@ window.getCallDurationTime = function(callback) {
     cordova.exec(callback, function(err) {
         callback(err);
     }, "LinPhonePlugin", "GetCallDurationTime", []);
+};
+
+
+window.checkEndCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "CheckEndCall", []);
 };

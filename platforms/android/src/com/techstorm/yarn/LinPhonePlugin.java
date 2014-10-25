@@ -110,7 +110,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 			callbackContext.success("Do loudness.");
 			return true;
 		} else if (action.equals("DialDtmf")) {
-			String ch = (String) args.get(0);
+			String ch = (String) args.get(0).toString();
 			if (ch == null || ch.length() != 1) {
 				return false;
 			}
@@ -145,6 +145,30 @@ public class LinPhonePlugin extends CordovaPlugin {
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Get call duration time successfully.");
+			return true;
+		} else if (action.equals("CheckEndCall")) {
+			JSONObject objJSON = new JSONObject();
+			LinphoneCore lc = LinphoneManager.getLc();
+			LinphoneCall currentCall = lc.getCurrentCall();
+			if (currentCall == null) {
+				objJSON.put("state", LinphoneCall.State.CallEnd);
+				objJSON.put("endCall", true);
+			} else {
+				LinphoneCall.State state = currentCall.getState();
+				objJSON.put("state", state);
+				if (state == LinphoneCall.State.Idle
+						|| state == LinphoneCall.State.Error
+						|| state == LinphoneCall.State.CallEnd
+						|| state == LinphoneCall.State.CallReleased) {
+					hangUp();
+					objJSON.put("endCall", true);
+				} else {
+					objJSON.put("endCall", false);
+				}
+			}
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			callbackContext.success("Check End Call successfully.");
 			return true;
 		}
 		return false;

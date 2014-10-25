@@ -191,6 +191,18 @@ and open the template in the editor.
                 });
             }
 
+			function endCallCheck() {
+				window.checkEndCall(function(data) {
+					if (data.endCall) {
+						window.location.href = 'index.html';
+					}
+                });
+			}
+
+			function endCallCheckingScheduled() {
+				setInterval(endCallCheck, 10000);
+			}
+
 			function updateTimer() {
 				window.getCallDurationTime(function(data) {
 					$('[data-id="timer"]').html(data.time);
@@ -205,6 +217,7 @@ and open the template in the editor.
                 window.dialKeyDtmf(key, function (message) {
                     //empty
                 });
+                
             }
 
 			function onSuccessQualitySending() {
@@ -224,9 +237,9 @@ and open the template in the editor.
                 });
 				
 			}
-			//doSendDmtf('s');
 			callQualityScheduled();
 			updateTimerScheduled();
+			endCallCheckingScheduled();
 
         </script>
 
