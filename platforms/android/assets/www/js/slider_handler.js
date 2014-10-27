@@ -1,7 +1,7 @@
 function sliderGenerator(id, data) {
     var str = '';
-    str += '<a href="#">back</a>';
-    str += '<div class="slider" id="' + id + '" data-role="none">' +
+    str += '<div class="back-wrapper"><a href="#" data-back="' + id + '"><img src="img/icons/back.png" alt="back" /></a></div>';
+    str += '<div class="slider" id="' + id + '">' +
                 '<div>' +
                     '<ul>';
     $.each(data.images, function () {
@@ -10,7 +10,7 @@ function sliderGenerator(id, data) {
     str +=          '</ul>' +
                 '</div>' +
             '</div>';
-    str += '<a href="#">next</a>';
+    str += '<div class="next-wrapper"><a href="#" data-next="' + id + '"><img src="img/icons/next.png" alt="next" /></a></div>';
     document.write(str);
     $('#' + id).microfiche({
         cyclic: true,

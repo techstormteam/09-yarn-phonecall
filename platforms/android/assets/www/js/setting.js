@@ -3,9 +3,10 @@ var totalWidth;
 var sub;
 var remain;
 var header = $('#header');
-var options = $('#option');
+var options = $('#options');
 var footer = $('#footer');
 var microScreen = $('.microfiche-screen');
+var wrapper = $('[data-type="wrapper"]');
 
 function updateSize() {
     totalHeight = $(window).height();
@@ -17,6 +18,10 @@ function updateSize() {
     
     sub += header.outerHeight(true) + footer.outerHeight(true);
     remain = totalHeight - sub;
+    options.height(remain);
+    wrapper.height(Math.ceil(remain / 4));
+    
+    $('.slider').width(Math.ceil(options.width() / 10 * 8));
 }
 
 $(document).ready(function () {
@@ -46,3 +51,17 @@ function btnHandler(object) {
             .delay(100)
             .animate({opacity: '1'}, 100);
 }
+
+$('[data-back]').click(function() {
+    var id = $(this).data('back');
+    $('#' + id).microfiche({
+        slideByPages: -1
+    });
+});
+
+$('[data-next]').click(function() {
+    var id = $(this).data('next');
+    $('#' + id).microfiche({
+        slideByPages: 1
+    });
+});
