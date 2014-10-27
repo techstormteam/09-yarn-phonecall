@@ -1,5 +1,6 @@
 function sliderGenerator(id, data) {
     var str = '';
+    str += '<a href="#">back</a>';
     str += '<div class="slider" id="' + id + '" data-role="none">' +
                 '<div>' +
                     '<ul>';
@@ -9,6 +10,12 @@ function sliderGenerator(id, data) {
     str +=          '</ul>' +
                 '</div>' +
             '</div>';
+    str += '<a href="#">next</a>';
     document.write(str);
-    $('#' + id).microfiche();
+    $('#' + id).microfiche({
+        cyclic: true,
+        bullets: false,
+        clickToAdvance: true,
+        buttons: false
+    });
 }
