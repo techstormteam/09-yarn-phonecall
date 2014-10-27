@@ -116,13 +116,6 @@ and open the template in the editor.
 
         <!--SCRIPT-->
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        
-        <script type="text/javascript">
-                        $(document).bind("mobileinit", function () {
-                            $.mobile.ajaxEnabled = false;
-                        });
-        </script>
-        
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -133,113 +126,6 @@ and open the template in the editor.
 
         <script type="text/javascript">
                             app.initialize();
-        </script>
-        <script>
-
-            function doHangUp() {
-                window.hangUp(function (message) {
-                    //empty
-                });
-                window.location.href = 'index.html';
-            }
-
-            function doMicMute(enable) {
-                window.enableSpeaker(!enable, function (message) {
-                    //empty
-                });
-            }
-
-//            function doDialPad() {
-//                window.showDialPad(function (message) {
-//                    //empty
-//                });
-//            }
-
-            function doLoudness() {
-                window.loudness(function (message) {
-                    //empty
-                });
-            }
-
-            function doSettings() {
-                window.settings(function (message) {
-                    //empty
-                });
-            }
-            function doHome() {
-                // Need to code
-            }
-            function doPhoneContacts() {
-
-                window.phoneContacts(function (message) {
-                    //empty
-                });
-            }
-            function doCallLogs() {
-
-                window.callLogs(function (message) {
-                    //empty
-                });
-            }
-            function doVideoCall() {
-
-                // get data from dialedNumber
-                var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
-                window.videoCall(dialedNumber, function (message) {
-                    //empty
-                });
-            }
-
-			function endCallCheck() {
-				window.checkEndCall(function(data) {
-					if (data.endCall) {
-						window.location.href = 'index.html';
-					}
-                });
-			}
-
-			function endCallCheckingScheduled() {
-				setInterval(endCallCheck, 10000);
-			}
-
-			function updateTimer() {
-				window.getCallDurationTime(function(data) {
-					$('[data-id="timer"]').html(data.time);
-                });
-			}
-
-			function updateTimerScheduled() {
-				setInterval(updateTimer, 1000);
-			}
-
-			function doSendDmtf(key) {
-                window.dialKeyDtmf(key, function (message) {
-                    //empty
-                });
-                
-            }
-
-			function onSuccessQualitySending() {
-				console.log('Quality sended.');
-			}
-
-			function callQualityTimeout() {
-				setTimeout(sendCallQuality, 6000);
-			}
-
-			function sendCallQuality() {
-				window.getCallQuality(function(data) {
-					var telno = global.get('telno');
-		            var password = global.get('password');
-		            console.log('Sending quality number: '+data.quality+' of the call (to '+telno+').');
-					global.sendQuality(telno, password, data.quality, onSuccessQualitySending);
-                });
-				
-			}
-			callQualityTimeout();
-			updateTimerScheduled();
-			endCallCheckingScheduled();
-
         </script>
 
     </body>

@@ -106,6 +106,22 @@ public class LinPhonePlugin extends CordovaPlugin {
 			}
 			callbackContext.success("Register sip:"+sipUsername+"@"+domain+" successfully.");
 			return true;
+		} else if (action.equals("GetContactImageUri")) {
+			JSONObject objJSON = new JSONObject();
+			LinphoneCore lc = LinphoneManager.getLc();
+			LinphoneCall mCall = lc.getCurrentCall();
+			if (mCall == null) {
+				return false;
+			}
+			LinphoneAddress address = mCall.getRemoteAddress();
+			// May be greatly sped up using a drawable cache
+			Uri uri = LinphoneUtils.findUriPictureOfContactAndSetDisplayName(address, cordova.getActivity().getContentResolver());
+//			LinphoneUtils.setImagePictureFromUri(this, mPictureView.getView(), uri, R.drawable.unknown_small);
+			objJSON.put("uri", uri.toString());
+			PluginResult result = new PluginResult(Status.NO_RESULT, objJSON);
+			callbackContext.sendPluginResult(result);
+			callbackContext.success("Get contact image uri successfully.");
+			return true;
 		} else if (action.equals("PhoneContacts")) {
 			phoneContacts();
 			callbackContext.success("Go to Phone Contact successfully.");
@@ -124,7 +140,6 @@ public class LinPhonePlugin extends CordovaPlugin {
 			return true;
 		} else if (action.equals("SignOut")) {
 			if (LinphoneManager.isInstanciated()) {
-//				unregisterAllAuth();
 				LinphoneManager.getLc().refreshRegisters();
 			}
 			callbackContext.success("Sign out successful.");

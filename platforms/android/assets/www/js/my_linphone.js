@@ -107,3 +107,9 @@ window.signOut = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "SignOut", []);
 };
+
+window.getContactImageUri = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetContactImageUri", []);
+};

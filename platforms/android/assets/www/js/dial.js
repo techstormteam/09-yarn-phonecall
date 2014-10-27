@@ -19,6 +19,10 @@ var micEnabled = true;
 
 dialPad.hide();
 
+$(document).bind("mobileinit", function () {
+    $.mobile.ajaxEnabled = false;
+});
+
 function doDialPad() {
     if(!dialEnabled) {
         dialPad.slideDown(100, function() {
@@ -123,3 +127,141 @@ function micHandler() {
         micEnabled = true;
     }
 }
+
+function doHangUp() {
+    window.hangUp(function (message) {
+        //empty
+    });
+    window.location.href = 'index.html';
+}
+
+function doMicMute(enable) {
+    window.enableSpeaker(!enable, function (message) {
+        //empty
+    });
+}
+
+//function doDialPad() {
+//    window.showDialPad(function (message) {
+//        //empty
+//    });
+//}
+
+function doLoudness() {
+    window.loudness(function (message) {
+        //empty
+    });
+}
+
+function doSettings() {
+    window.settings(function (message) {
+        //empty
+    });
+}
+function doHome() {
+    // Need to code
+}
+function doPhoneContacts() {
+
+    window.phoneContacts(function (message) {
+        //empty
+    });
+}
+function doCallLogs() {
+
+    window.callLogs(function (message) {
+        //empty
+    });
+}
+function doGetContactImageUri() {
+
+    window.getContactImageUri(function (data) {
+        // Set image uri to <img> tag'
+        alert(data.uri);
+    });
+
+}
+function doVideoCall() {
+
+    // get data from dialedNumber
+    var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
+    window.videoCall(dialedNumber, function (message) {
+        //empty
+    });
+}
+
+function endCallCheck() {
+	window.checkEndCall(function(data) {
+		if (data.endCall) {
+			window.location.href = 'index.html';
+		}
+    });
+}
+
+function endCallCheckingScheduled() {
+	setInterval(endCallCheck, 10000);
+}
+
+function updateTimer() {
+	window.getCallDurationTime(function(data) {
+		$('[data-id="timer"]').html(data.time);
+    });
+}
+
+function updateTimerScheduled() {
+	setInterval(updateTimer, 1000);
+}
+
+function doSendDmtf(key) {
+    window.dialKeyDtmf(key, function (message) {
+        //empty
+    });
+    
+}
+
+function onSuccessQualitySending() {
+	console.log('Quality sended.');
+}
+
+function callQualityTimeout() {
+	setTimeout(sendCallQuality, 6000);
+}
+
+function sendCallQuality() {
+	window.getCallQuality(function(data) {
+		var telno = global.get('telno');
+        var password = global.get('password');
+        console.log('Sending quality number: '+data.quality+' of the call (to '+telno+').');
+		global.sendQuality(telno, password, data.quality, onSuccessQualitySending);
+    });
+	
+}
+
+var app = {
+	    // Application Constructor
+	    initialize: function () {
+	        this.bindEvents();
+	    },
+	    // Bind Event Listeners
+	    //
+	    // Bind any events that are required on startup. Common events are:
+	    // 'load', 'deviceready', 'offline', and 'online'.
+	    bindEvents: function () {
+	        document.addEventListener('deviceready', this.onDeviceReady, false);
+	    },
+	    // deviceready Event Handler
+	    //
+	    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+	    // function, we must explicity call 'app.receivedEvent(...);'
+	    onDeviceReady: function () {
+	        app.receivedEvent('deviceready');
+	    },
+	    // Update DOM on a Received Event
+	    receivedEvent: function (id) {
+	    	doGetContactImageUri();
+	    	callQualityTimeout();
+			updateTimerScheduled();
+			endCallCheckingScheduled();
+	        console.log('Received Event: ' + id);
+	    }
+	};

@@ -570,34 +570,3 @@ function balance_display_in_button_process(result) {
     $('#make_payment').html("[" + balance + "] - Make Payment").button("refresh");
 }
 
-var app = {
-	    // Application Constructor
-	    initialize: function () {
-	        this.bindEvents();
-	    },
-	    // Bind Event Listeners
-	    //
-	    // Bind any events that are required on startup. Common events are:
-	    // 'load', 'deviceready', 'offline', and 'online'.
-	    bindEvents: function () {
-	        document.addEventListener('deviceready', this.onDeviceReady, false);
-	    },
-	    // deviceready Event Handler
-	    //
-	    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-	    // function, we must explicity call 'app.receivedEvent(...);'
-	    onDeviceReady: function () {
-	        app.receivedEvent('deviceready');
-	    },
-	    // Update DOM on a Received Event
-	    receivedEvent: function (id) {
-	    	var sipUsername = global.get('telno');
-	    	var password = global.get('password');
-	    	if (sipUsername !== null && password !== null) {
-	        	window.registerSip(sipUsername, password, function(message) {
-	            	//empty
-	            });
-	        }
-	        console.log('Received Event: ' + id);
-	    }
-	};

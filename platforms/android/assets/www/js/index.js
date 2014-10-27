@@ -163,5 +163,151 @@ $('[data-value]').tap(function () {
     $(this).animate({backgroundColor: 'rgba(0,0,0,0.1)'}, 100)
             .delay(100)
             .animate({backgroundColor: 'transparent'}, 100);
-    doSendDmtf($(this).data('value'));
+    //doSendDmtf($(this).data('value'));
 });
+
+$(document).bind("mobileinit", function () {
+    $.mobile.ajaxEnabled = false;
+});
+
+
+function getDialedNumber() {
+    return $('[name="dial-input"]').val();
+}
+
+function doWifiCall() {
+
+    // get data from dialedNumber
+    var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
+    window.wifiCall(dialedNumber, function (message) {
+        //empty
+    });
+    window.location.href = 'dial.html';
+}
+function doCellularCall() {
+
+    // get data from dialedNumber
+    var dialedNumber = getDialedNumber();
+    window.cellularCall(dialedNumber, function (message) {
+        //empty
+    });
+}
+function doPhoneContacts() {
+
+    window.phoneContacts(function (message) {
+        //empty
+    });
+}
+function doCallLogs() {
+
+    window.callLogs(function (message) {
+        //empty
+    });
+}
+function doSignOut() {
+    window.signOut(function (data) {
+        window.location.href = 'login.html';
+    });
+}
+function doVideoCall() {
+
+    // get data from dialedNumber
+    var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
+    window.videoCall(dialedNumber, function (message) {
+        //empty
+    });
+}
+function doRegisterSip() {
+    var sipUsername = global.get('telno');
+    var password = global.get('password');
+    if (sipUsername !== null && password !== null) {
+        window.registerSip(sipUsername, password, function (message) {
+            //empty
+        });
+    }
+}
+function doSettings() {
+    window.settings(function (message) {
+        //empty
+    });
+}
+
+var balVal = $('[data-id="balanceValue"]');
+var rateVal = $('[data-id="rate"]');
+var telno = global.get('telno');
+var password = global.get('password');
+var dest = $('[data-id="input"]');
+
+$('.rateText').hide();
+
+function getBalance(data) {
+    balVal.html(data);
+}
+
+function getRate(data) {
+    rateVal.html(data);
+    $('.rateText').show();
+}
+
+function clearRate() {
+    rateVal.html('');
+    $('.rateText').hide();
+}
+
+function login(response) {
+    if (response !== "") {
+    } else {
+        window.location.href = 'login.html';
+    }
+}
+
+$(document).ready(function () {
+
+    var uid = global.get('uid');
+    var telno = global.get('telno');
+    var password = global.get('password');
+
+    global.login('_id', {telno: telno, password: password}, login);
+
+    if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
+        window.location.href = 'login.html';
+    }
+
+    global.balance('_balance', {telno: telno, password: password}, getBalance);
+});
+
+function openlink(url) {
+    var ref = window.open(url, '_blank', 'location="yes"');
+}
+
+var app = {
+	    // Application Constructor
+	    initialize: function () {
+	        this.bindEvents();
+	    },
+	    // Bind Event Listeners
+	    //
+	    // Bind any events that are required on startup. Common events are:
+	    // 'load', 'deviceready', 'offline', and 'online'.
+	    bindEvents: function () {
+	        document.addEventListener('deviceready', this.onDeviceReady, false);
+	    },
+	    // deviceready Event Handler
+	    //
+	    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+	    // function, we must explicity call 'app.receivedEvent(...);'
+	    onDeviceReady: function () {
+	        app.receivedEvent('deviceready');
+	    },
+	    // Update DOM on a Received Event
+	    receivedEvent: function (id) {
+	    	var sipUsername = global.get('telno');
+	    	var password = global.get('password');
+	    	if (sipUsername !== null && password !== null) {
+	        	window.registerSip(sipUsername, password, function(message) {
+	            	//empty
+	            });
+	        }
+	        console.log('Received Event: ' + id);
+	    }
+	};
