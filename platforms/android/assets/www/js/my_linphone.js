@@ -46,10 +46,10 @@ window.settings = function(callback) {
     }, "LinPhonePlugin", "Settings", []);
 };
 
-window.enableSpeaker = function(enable, callback) {
+window.micMute = function(enable, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "EnableSpeaker", [enableSpeaker]);
+    }, "LinPhonePlugin", "MicMute", [enable]);
 };
 
 window.showDialPad = function(callback) {
@@ -108,8 +108,14 @@ window.signOut = function(callback) {
     }, "LinPhonePlugin", "SignOut", []);
 };
 
-window.getContactImageUri = function(callback) {
+window.getContactImageUri = function(telno, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "GetContactImageUri", []);
+    }, "LinPhonePlugin", "GetContactImageUri", [telno]);
+};
+
+window.getIncommingContactImageUri = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetIncommingContactImageUri", []);
 };

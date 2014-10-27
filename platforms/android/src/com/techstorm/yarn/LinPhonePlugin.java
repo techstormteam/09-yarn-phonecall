@@ -17,9 +17,9 @@ import org.linphone.LinphoneUtils;
 import org.linphone.core.CallDirection;
 import org.linphone.core.LinphoneAddress;
 import org.linphone.core.LinphoneAddress.TransportType;
+import org.linphone.core.LinphoneAuthInfo;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCall.State;
-import org.linphone.core.LinphoneAuthInfo;
 import org.linphone.core.LinphoneCallLog;
 import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCore;
@@ -108,17 +108,40 @@ public class LinPhonePlugin extends CordovaPlugin {
 			return true;
 		} else if (action.equals("GetContactImageUri")) {
 			JSONObject objJSON = new JSONObject();
+			String telNo = (String) args.get(0);
+
+			String contactId = getContactIdByPhoneNumber(telNo);
+			PluginResult result = null;
+			if (!contactId.equals("-1")) {
+				objJSON.put("uri", String.format("content://com.android.contacts/contacts/%s/photo", contactId));
+//				objJSON.put("uri", String.format("content://com.android.contacts/contacts/272/photo", contactId));
+				result = new PluginResult(Status.OK, objJSON);
+			} else {
+				objJSON.put("uri", "");
+				result = new PluginResult(Status.NO_RESULT, objJSON);
+			}
+			callbackContext.sendPluginResult(result);
+			callbackContext.success("Get contact image uri successfully.");
+			return true;
+		} else if (action.equals("GetIncommingContactImageUri")) {
+			JSONObject objJSON = new JSONObject();
 			LinphoneCore lc = LinphoneManager.getLc();
 			LinphoneCall mCall = lc.getCurrentCall();
 			if (mCall == null) {
 				return false;
 			}
-			LinphoneAddress address = mCall.getRemoteAddress();
-			// May be greatly sped up using a drawable cache
-			Uri uri = LinphoneUtils.findUriPictureOfContactAndSetDisplayName(address, cordova.getActivity().getContentResolver());
-//			LinphoneUtils.setImagePictureFromUri(this, mPictureView.getView(), uri, R.drawable.unknown_small);
-			objJSON.put("uri", uri.toString());
-			PluginResult result = new PluginResult(Status.NO_RESULT, objJSON);
+//			String telNo = mCall.get;
+			String telNo = "123456";
+			String contactId = getContactIdByPhoneNumber(telNo);
+			PluginResult result = null;
+			if (!contactId.equals("-1")) {
+				objJSON.put("uri", String.format("content://com.android.contacts/contacts/%s/photo", contactId));
+//				objJSON.put("uri", String.format("content://com.android.contacts/contacts/272/photo", contactId));
+				result = new PluginResult(Status.OK, objJSON);
+			} else {
+				objJSON.put("uri", "");
+				result = new PluginResult(Status.NO_RESULT, objJSON);
+			}
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Get contact image uri successfully.");
 			return true;
@@ -144,11 +167,11 @@ public class LinPhonePlugin extends CordovaPlugin {
 			}
 			callbackContext.success("Sign out successful.");
 			return true;
-		} else if (action.equals("EnableSpeaker")) {
-			Boolean enableMic = (Boolean) args.get(0);
+		} else if (action.equals("MicMute")) {
+			Boolean enableMicMute = (Boolean) args.get(0);
 			LinphoneCore lc = LinphoneManager.getLc();
-			lc.muteMic(enableMic);
-			callbackContext.success("Enable/disable speaker.");
+			lc.muteMic(enableMicMute);
+			callbackContext.success("Enable/disable Mic Mute.");
 			return true;
 		} else if (action.equals("ShowDialPad")) {
 			// Need to code
@@ -259,6 +282,38 @@ public class LinPhonePlugin extends CordovaPlugin {
 		return false;
 	}
 
+	private String getContactIdByPhoneNumber(String telNo) {
+		String contactId = "-1";
+		Cursor cursor = cordova.getActivity().getApplicationContext().getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+		
+//		if (cursor.getCount() > 0) {
+//		    if (cursor.moveToFirst()) {
+//		    	do {
+//		    		contactId = cursor.getString(
+//	                        cursor.getColumnIndex(ContactsContract.Contacts._ID));
+//		    		String phoneNumber = "";
+//		    		if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+//		    			Cursor pCur = cordova.getActivity().getApplicationContext().getContentResolver()
+//		    					.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,  null, 
+//		    		 		    ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = ?", 
+//		    		 		    new String[]{contactId}, null);
+//    		 	        while (pCur.moveToNext()) {
+//    		 	        	phoneNumber = cursor.getString(
+//			                        cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+//    		 	        } 
+//    		 	        pCur.close();
+//			 		}
+//		    		if (phoneNumber.equals(telNo)) {
+//				    	break;
+//		    		}
+//		    	} while (cursor.moveToNext());
+//		 		
+//	        }
+//	 	}
+//		cursor.close();
+		return contactId;
+	}
+	
 	private void unregisterAllAuth() {
 		if (LinphoneManager.isInstanciated()) {
 			LinphoneAuthInfo[] authInfoList = LinphoneManager.getLc().getAuthInfosList();
@@ -503,6 +558,9 @@ public class LinPhonePlugin extends CordovaPlugin {
 	private boolean wifiCall(AddressText mAddress) {
 		try {
 			if (!LinphoneManager.getInstance().acceptCallIfIncomingPending()) {
+				LinphoneManager.getInstance().routeAudioToReceiver();
+				LinphoneManager.getLc().enableSpeaker(false);
+				
 				if (mAddress.getText().length() > 0) {
 					LinphoneManager.getInstance().newOutgoingCall(mAddress);
 				} else {

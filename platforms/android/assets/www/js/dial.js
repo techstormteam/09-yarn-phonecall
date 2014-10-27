@@ -132,7 +132,7 @@ function doHangUp() {
 }
 
 function doMicMute(enable) {
-    window.enableSpeaker(!enable, function (message) {
+    window.micMute(enable, function (message) {
         //empty
     });
 }
@@ -170,20 +170,12 @@ function doCallLogs() {
     });
 }
 function doGetContactImageUri() {
-
-    window.getContactImageUri(function (data) {
+	var telno = global.get('telnoCallingTo');
+    window.getContactImageUri(telno, function (data) {
         // Set image uri to <img> tag'
-        alert(data.uri);
+    	$('[data-id="avatar"]').find('img').attr('src', data.uri);
     });
 
-}
-function doVideoCall() {
-
-    // get data from dialedNumber
-    var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
-    window.videoCall(dialedNumber, function (message) {
-        //empty
-    });
 }
 
 function endCallCheck() {
@@ -257,7 +249,7 @@ var app = {
 	    	doGetContactImageUri();
 	    	callQualityTimeout();
 			updateTimerScheduled();
-			endCallCheckingScheduled();
+			//endCallCheckingScheduled();
 	        console.log('Received Event: ' + id);
 	    }
 	};

@@ -180,7 +180,9 @@ $('[data-value]').tap(function () {
 
 
 function getDialedNumber() {
-    return $('[name="dial-input"]').val();
+	var telNumber = $('[name="dial-input"]').val();
+	global.set('telnoCallingTo', telNumber);
+    return telNumber;
 }
 
 function doWifiCall() {
