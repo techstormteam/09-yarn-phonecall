@@ -12,13 +12,13 @@ import org.json.JSONObject;
 import org.linphone.InCallActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphonePreferences;
-import org.linphone.LinphoneUtils;
 import org.linphone.LinphonePreferences.AccountBuilder;
+import org.linphone.LinphoneUtils;
 import org.linphone.core.CallDirection;
-import org.linphone.core.LinphoneAddress.TransportType;
-import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneAddress;
+import org.linphone.core.LinphoneAddress.TransportType;
 import org.linphone.core.LinphoneCall;
+import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCallLog;
 import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCore;
@@ -96,8 +96,12 @@ public class LinPhonePlugin extends CordovaPlugin {
 			callbackContext.success("Hang up the current call.");
 			return true;
 		} else if (action.equals("Settings")) {
-			// Need to code
+			// Nothing to do
 			callbackContext.success("Show settings screen.");
+			return true;
+		} else if (action.equals("SignOut")) {
+			// Nothing to do
+			callbackContext.success("Sign out.");
 			return true;
 		} else if (action.equals("EnableSpeaker")) {
 			Boolean enableMic = (Boolean) args.get(0);
@@ -176,7 +180,29 @@ public class LinPhonePlugin extends CordovaPlugin {
 			callbackContext.success("Check End Call successfully.");
 			return true;
 		} else if (action.equals("AnswerCall")) {
+			LinphoneCall incommingCall = getIncommingCall();
+			LinphoneCallParams params = LinphoneManager.getLc().createDefaultCallParameters();
 			
+			boolean isLowBandwidthConnection = !LinphoneUtils.isHightBandwidthConnection(cordova.getActivity().getApplicationContext());
+			if (isLowBandwidthConnection) {
+				params.enableLowBandwidth(true);
+				//Low bandwidth enabled in call params
+			}
+			
+			if (!LinphoneManager.getInstance().acceptCallWithParams(incommingCall, params)) {
+				// the above method takes care of Samsung Galaxy S
+//				Toast.makeText(this, R.string.couldnt_accept_call, Toast.LENGTH_LONG).show();
+			} else {
+//				if (!LinphoneActivity.isInstanciated()) {
+//					return false;
+//				}
+				final LinphoneCallParams remoteParams = incommingCall.getRemoteParams();
+				if (remoteParams != null && remoteParams.getVideoEnabled() && LinphonePreferences.instance().shouldAutomaticallyAcceptVideoRequests()) {
+//					LinphoneActivity.instance().startVideoActivity(mCall);
+				} else {
+//					LinphoneActivity.instance().startIncallActivity(mCall);
+				}
+			}
 			callbackContext.success("Answer the call successfully.");
 			return true;
 		} else if (action.equals("DeclineCall")) {
