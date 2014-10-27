@@ -98,3 +98,7 @@ and open the template in the editor.
     -moz-transform: translateY(-200px);
     -webkit-transform: translateY(-200px);*/
 }
+
+[data-id="header"] {
+    width: 100%;
+}
