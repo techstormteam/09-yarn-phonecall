@@ -1,0 +1,43 @@
+/*TYPOGRAPHY*/
+.center {
+    text-align: center;
+}
+
+/*MAIN*/
+#header {
+    width: 100%;
+}
+
+#header img {
+    height: 100%;
+    width: auto;
+    padding: 0.5em;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.btn-submit {
+    width: 100%;
+    border-radius: 5px;
+    display: block;
+    text-align: center;
+    padding: 0 1em;
+    font-weight: 300 !important;
+}
+
+.btn-group-wrapper {
+    
+}
+
+.footer-02 {
+    
+}
+
+.sign-up {
+    
+}
