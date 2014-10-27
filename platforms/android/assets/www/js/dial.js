@@ -108,6 +108,9 @@ $(document).ready(updateSize());
 $(window).resize(function () {
     updateSize();
 });
+$(window).on('orientationchange', function() {
+    updateSize();
+});
 
 function micHandler() {
     if(micEnabled) {
