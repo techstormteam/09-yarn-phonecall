@@ -265,7 +265,7 @@ function clearRate() {
 function login(response) {
     if (response !== "") {
     } else {
-        window.location.href = 'login.html';
+//        window.location.href = 'login.html';
     }
 }
 
@@ -275,10 +275,10 @@ $(document).ready(function () {
     var telno = global.get('telno');
     var password = global.get('password');
 
-    global.login('_id', {telno: telno, password: password}, login);
+//    global.login('_id', {telno: telno, password: password}, login);
 
     if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-        window.location.href = 'login.html';
+//        window.location.href = 'login.html';
     }
 
     global.balance('_balance', {telno: telno, password: password}, getBalance);
