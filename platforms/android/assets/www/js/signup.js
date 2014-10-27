@@ -36,6 +36,16 @@ function updateSize(totalHeight) {
 
 }
 
+$('.btn-submit').click(function() {
+    btnHandler($(this));
+});
+
+function btnHandler(object) {
+    object.animate({opacity: '0.5'}, 100)
+            .delay(100)
+            .animate({opacity: '1'}, 100);
+}
+
 $(document).ready(function() {
     var totalHeight = $(window).height();
     

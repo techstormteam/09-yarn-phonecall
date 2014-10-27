@@ -10,6 +10,7 @@ var subFooter = $('[data-id="sub-footer"]');
 var footer = $('[data-id="footer"]');
 var footerIcons = $('.ts-icon-button img');
 var inputFontSize = $('[data-id="input"]').css('font-size');
+var vmail = $('.ts-sub-text img');
 
 //INSIDE BALANCE ELEMENT
 var balance = $('[data-id="balance"]');
@@ -32,6 +33,7 @@ function updateHeight() {
     //BALANCE = 3/6
     uiContent.css('top', totalHeight / 6);
     balNum.css('height', (totalHeight / 6) * 3);
+    $('.ts-balance-child').css({lineHeight: (header.height() + 'px')});
 
     //SUBFOOTER = 1/6 : 2
     subFooter.css('height', totalHeight / 12);
@@ -60,6 +62,8 @@ function updateHeight() {
     //NUMPAD = 3/5 of 3/6
     numpad.css('height', (parseInt(balanceHeight) / 5) * 3);
     $('[data-line]').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
+    
+    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
 }
 
 $(document).ready(function () {
@@ -76,6 +80,12 @@ $('.ts-numpad .row .col-xs-4').tap(function () {
 });
 
 $('[data-value="0"]').bind('taphold', tapholdHandler);
+
+$('[data-value="1"]').bind('taphold', function() {
+    window.wifiCall('88881', function (message) {
+        //empty
+    });
+});
 
 function tapholdHandler(event) {
     var current = $('[data-id="input"]').val();
@@ -166,9 +176,7 @@ $('[data-value]').tap(function () {
     //doSendDmtf($(this).data('value'));
 });
 
-$(document).bind("mobileinit", function () {
-    $.mobile.ajaxEnabled = false;
-});
+
 
 
 function getDialedNumber() {

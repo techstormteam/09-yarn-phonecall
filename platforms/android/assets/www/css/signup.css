@@ -81,6 +81,10 @@ hr {
     font-weight: 300 !important;
 }
 
+.btn-submit:hover, .btn-submit:active, .btn-submit:focus {
+    text-decoration: none;
+}
+
 .footer-02 {
     font-size: 1em;
     padding-top: 10px;

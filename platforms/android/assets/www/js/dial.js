@@ -19,10 +19,6 @@ var micEnabled = true;
 
 dialPad.hide();
 
-$(document).bind("mobileinit", function () {
-    $.mobile.ajaxEnabled = false;
-});
-
 function doDialPad() {
     if(!dialEnabled) {
         dialPad.slideDown(100, function() {

@@ -30,6 +30,10 @@
     font-weight: 300 !important;
 }
 
+.btn-submit:hover, .btn-submit:active, .btn-submit:focus {
+    text-decoration: none;
+}
+
 .btn-group-wrapper {
     
 }

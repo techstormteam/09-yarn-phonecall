@@ -8,7 +8,7 @@ function updateSize() {
     totalHeight = $(window).height();
 
     header.height(Math.ceil(totalHeight / 6));
-
+    
 }
 
 $(document).ready(function () {
@@ -25,4 +25,14 @@ function doSignOut() {
     window.signOut(function (data) {
         window.location.href = 'login.html';
     });
+}
+
+$('.btn-submit').click(function() {
+    btnHandler($(this));
+});
+
+function btnHandler(object) {
+    object.animate({opacity: '0.5'}, 100)
+            .delay(100)
+            .animate({opacity: '1'}, 100);
 }

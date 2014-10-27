@@ -79,6 +79,10 @@ hr {
     font-size: 1.2em;
 }
 
+.btn-submit:hover, .btn-submit:active, .btn-submit:focus {
+    text-decoration: none;
+}
+
 [data-id="intro-video"] {
     width: 100%;
     height: auto;

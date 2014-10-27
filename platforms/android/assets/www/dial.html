@@ -116,6 +116,11 @@ and open the template in the editor.
 
         <!--SCRIPT-->
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script>
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>

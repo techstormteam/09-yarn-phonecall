@@ -28,13 +28,13 @@
             <div data-id="header" data-role="header" class="ts-header">
                 <div class="row">
                     <div class="col-xs-7">
-                        <div class="ts-user-wrapper" style="display: none">
-                            <div class="ts-user-img v-top">
-                                <img src="img/icons/default_contact.png" alt="user" />
-                            </div>
-                            <div class="ts-user-name v-bottom">
-                                Name
-                            </div>
+                        <div class="ts-balance-child">
+                            <span class="ts-balance orange bold">
+                                <a class="orange not-underlined" href="#">
+                                    <span data-id="balanceValue"></span>
+                                    <i class="glyphicon glyphicon-plus-sign"></i>
+                                </a>
+                            </span>
                         </div>
                     </div>
                     <div class="col-xs-5 text-right" onclick="doSignOut();">
@@ -59,18 +59,9 @@
                 <!--BALANCE-->
                 <!--data-id="balance"-->
                 <div data-id="balance" class="row ts-balance-wrapper">
-                    <div class="col-xs-6 center">
+                    <div class="col-xs-12 center">
                         <div data-id="rate" class="bold orange"></div>
                         <div class="rateText">(or FREE if App2App Call)</div>
-                    </div>
-                    <div class="col-xs-6 center ts-balance-child">
-                        <!--<span>Balance:</span>-->
-                        <span class="ts-balance orange bold">
-                            <a class="orange not-underlined" href="#">
-                                <span data-id="balanceValue"></span>
-                                <i class="glyphicon glyphicon-plus-sign"></i>
-                            </a>
-                        </span>
                     </div>
                 </div>
 
@@ -88,6 +79,9 @@
                     <div data-line="1" class="row">
                         <div data-value="1" class="col-xs-4">
                             <span>1</span>
+                            <sub class="ts-sub-text">
+                                <img src="img/icons/vmail.png" alt="voice mail" />
+                            </sub>
                         </div>
                         <div data-value="2" class="col-xs-4">
                             <span>2</span>
@@ -182,7 +176,7 @@
                         </a>
                     </div>
                     <div class="ui-block-d" onclick="doSettings();">
-                        <a href="#" class="ts-icon-button btn">
+                        <a href="setting.html" class="ts-icon-button btn">
                             <img src="img/icons/settings.png" />
                         </a>
                     </div>
@@ -192,6 +186,11 @@
 
         <!--SCRIPT-->
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script>
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>

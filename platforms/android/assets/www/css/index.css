@@ -187,6 +187,11 @@
     color: #bbb;
 }
 
+.ts-sub-text img {
+    width: auto;
+    height: auto;
+}
+
 .ts-numpad {
     font-family: 'Open Sans';
     text-transform: uppercase;
