@@ -8,15 +8,19 @@ function updateSize() {
     totalHeight = $(window).height();
 
     header.height(Math.ceil(totalHeight / 6));
-    
+    footer.find('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
+
+
 }
 
 $(document).ready(function () {
     updateSize();
 });
+
 $(window).resize(function () {
     updateSize();
 });
+
 $(window).on('orientationchange', function () {
     updateSize();
 });
@@ -27,7 +31,7 @@ function doSignOut() {
     });
 }
 
-$('.btn-submit').click(function() {
+$('.btn-submit').click(function () {
     btnHandler($(this));
 });
 
