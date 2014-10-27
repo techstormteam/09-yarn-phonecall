@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/signup.css" />
+        <link rel="stylesheet" type="text/css" href="css/color.css" />
+        <link href="img/icons/logo.png" rel="icon" />
+        <title>Yarn - Sign Up</title>
+    </head>
+    <body class="bg-white">
+        <div data-id="header">
+            <a href="#" onclick="window.open('http://yarn-me.com', '_blank', 'location=yes')">
+                <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
+            </a>
+        </div>
+        <hr />
+        <div data-id="form-login">
+            <div class="input-vgroup">
+                <div class="input-row">
+                    <input id="firstName" placeholder="First name" name="firstName" type="text" />
+                    <input id="lastName" placeholder="Last name" name="lastName" type="text" />
+                </div>
+                <div class="input-row">
+                    <input id="email" placeholder="Email" name="email" type="text" />
+                    <input id="phone" placeholder="Phone" name="phone" type="text" />
+                </div>
+                <div class="input-row">
+                    <input id="password" placeholder="Password" name="password" type="password" />
+                    <input id="rePassword" placeholder="Retype Password" name="rePassword" type="password" />
+                </div>
+            </div>
+        </div>
+        <div data-id="intro" class="container">
+            <img src="img/signup/intro.png" src="intro" />
+        </div>
+        <div data-id="form-submit" class="container center">
+            <div class="btn-group-wrapper">
+                <a href="#" onclick="check_rform()" class="btn-submit bg-orange white">
+                    SIGN UP
+                </a>
+                <!--                <div class="grey back-wrapper">
+                                    <a href="login.html" class="grey back-btn">
+                                        Back To Login
+                                    </a>
+                                </div>-->
+                <div class="center grey footer-02">
+                    <a href="login.html" class="sign-up grey">back to login</a>
+                </div>
+            </div>
+        </div>
+
+        <!--SCRIPT-->
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script>
+                    $(document).bind("mobileinit", function () {
+                        $.mobile.ajaxEnabled = false;
+                    });
+        </script>
+        <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/signup.js"></script>
+        <script type="text/javascript">
+                    app.initialize();
+                    var firstName = null;
+                    var lastName = null;
+                    var email = null;
+                    var phone = null;
+                    var password = null;
+                    var rePassword = null;
+
+                    function register(response) {
+                        if (response.indexOf('success') > -1) {
+                            window.location.href = 'login.html';
+                        } else {
+                            alert(response);
+                        }
+                    }
+
+                    function check_rform() {
+                        firstName = $('#firstName').val();
+                        lastName = $('#lastName').val();
+                        email = $('#email').val();
+                        phone = $('#phone').val();
+                        password = $('#password').val();
+                        rePassword = $('#rePassword').val();
+
+                        if (!firstName || !lastName || !email || !phone || !password || !rePassword) {
+                            alert('Please fill in all fields');
+                        } else if (password !== rePassword) {
+                            alert('Password mismatch!');
+                        } else {
+                            global.register('_signup', {fname: firstName, lname: lastName, email: email, phone: phone, psw: password, psw2: rePassword}, register);
+                        }
+                    }
+        </script>
+    </body>
+</html>

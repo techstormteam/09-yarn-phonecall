@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Yarn - Dial</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/dial.css" />
+        <link rel="stylesheet" type="text/css" href="css/color.css" />
+        <link href="img/icons/logo.png" rel="icon" />
+    </head>
+    <body class="bg-black">
+        <section id="body">
+            <header data-id="header" class="pull-right">
+                <a data-id="logo" href="http://yarn-me.com" onclick="window.open('http://yarn-me.com', '_blank', 'location=yes')">
+                    <img class="pull-right" src="img/dial/logo.png" alt="logo" style="padding: 10px;" />
+                </a>
+            </header>
+            <section data-id="main" class="center">
+                <div data-id="avatar">
+                    <img src="img/icons/default_contact.png" alt="avatar" />
+                </div>
+            </section>
+            <section data-id="sub-footer">
+                <div data-id="timer" class="center grey font-segoe">00:00</div>
+                <div data-id="end-call" class="center bg-orange pointer" onclick="doHangUp()">
+                    <img src="img/icons/phone-down.png" alt="end call" />
+                </div>
+            </section>
+            <section data-id="footer" class="bg-black">
+                <div data-id="footer-1st">
+                    <div data-id="microphone-icon" class="col-xs-offset-1 col-xs-3 center pointer" onclick="micHandler()">
+                        <img class="padding-md" src="img/icons/microphone.png" alt="microphone" />
+                    </div>
+                    <div data-id="dial-icon" class="col-xs-4 center pointer" onclick="doDialPad()">
+                        <img class="padding-md" src="img/icons/dial-pad.png" alt="dial pad"/>
+                    </div>
+                    <div data-id="loudness-icon" class="col-xs-3 center pointer" onclick="doLoudness()">
+                        <img class="padding-md" src="img/icons/loudness.png" alt="loudness" />
+                    </div>
+                </div>
+                <div data-id="footer-2nd">
+                    <div data-id="home-icon" class="col-xs-3 center pointer block" onclick="doHome()">
+                        <img class="padding-sm" src="img/icons/home.png" alt="home" />
+                    </div>
+                    <div data-id="contacts-icon" class="col-xs-3 center pointer block" onclick="doPhoneContacts()">
+                        <img class="padding-sm" src="img/icons/contacts.png" alt="contacts" />
+                    </div>
+                    <div data-id="logs-icon" class="col-xs-3 center pointer block" onclick="doCallLogs()">
+                        <img class="padding-sm" src="img/icons/logs.png" alt="logs" />
+                    </div>
+                    <div data-id="settings-icon" class="col-xs-3 center pointer block" onclick="doCallLogs()">
+                        <img class="padding-sm" src="img/icons/settings.png" alt="settings" onclick="doSettings()"/>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <section id="dial-pad">
+            <div class="dial-row">
+                <div data-value="1">
+                    <img src="img/dial/1.png" alt="1" />
+                </div>
+                <div data-value="2">
+                    <img src="img/dial/2.png" alt="2" />
+                </div>
+                <div data-value="3">
+                    <img src="img/dial/3.png" alt="3" />
+                </div>
+            </div>
+            <div class="dial-row">
+                <div data-value="4">
+                    <img src="img/dial/4.png" alt="4" />
+                </div>
+                <div data-value="5">
+                    <img src="img/dial/5.png" alt="5" />
+                </div>
+                <div data-value="6">
+                    <img src="img/dial/6.png" alt="6" />
+                </div>
+            </div>
+            <div class="dial-row">
+                <div data-value="7">
+                    <img src="img/dial/7.png" alt="7" />
+                </div>
+                <div data-value="8">
+                    <img src="img/dial/8.png" alt="8" />
+                </div>
+                <div data-value="9">
+                    <img src="img/dial/9.png" alt="9" />
+                </div>
+            </div>
+            <div class="dial-row">
+                <div data-value="*">
+                    <img src="img/dial/asterisk.png" alt="asterisk" />
+                </div>
+                <div data-value="0">
+                    <img src="img/dial/0.png" alt="0" />
+                </div>
+                <div data-value="#">
+                    <img src="img/dial/sharp.png" alt="sharp" />
+                </div>
+            </div>
+        </section>
+
+        <!--SCRIPT-->
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script>
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
+        <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!--        <script type="text/javascript" src="cordova.js"></script>-->
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/dial.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
+
+        <script type="text/javascript">
+                            app.initialize();
+        </script>
+
+    </body>
+</html>
