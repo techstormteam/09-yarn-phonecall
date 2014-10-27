@@ -1,5 +1,7 @@
 package com.techstorm.yarn;
 
+import java.util.List;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
@@ -10,9 +12,12 @@ import org.json.JSONObject;
 import org.linphone.InCallActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphonePreferences;
+import org.linphone.LinphoneUtils;
 import org.linphone.LinphonePreferences.AccountBuilder;
 import org.linphone.core.CallDirection;
 import org.linphone.core.LinphoneAddress.TransportType;
+import org.linphone.core.LinphoneCall.State;
+import org.linphone.core.LinphoneAddress;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCallLog;
 import org.linphone.core.LinphoneCallParams;
@@ -170,10 +175,43 @@ public class LinPhonePlugin extends CordovaPlugin {
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Check End Call successfully.");
 			return true;
+		} else if (action.equals("AnswerCall")) {
+			
+			callbackContext.success("Answer the call successfully.");
+			return true;
+		} else if (action.equals("DeclineCall")) {
+			LinphoneCall incommingCall = getIncommingCall();
+			LinphoneManager.getLc().terminateCall(incommingCall);
+			callbackContext.success("Decline the call successfully.");
+			return true;
 		}
 		return false;
 	}
 
+	private LinphoneCall getIncommingCall() {
+		LinphoneCall incommingCall = null;
+		// Only one call ringing at a time is allowed
+				if (LinphoneManager.getLcIfManagerNotDestroyedOrNull() != null) {
+					List<LinphoneCall> calls = LinphoneUtils.getLinphoneCalls(LinphoneManager.getLc());
+					for (LinphoneCall call : calls) {
+						if (State.IncomingReceived == call.getState()) {
+							incommingCall = call;
+							break;
+						}
+					}
+				}
+				if (incommingCall == null) {
+//					Log.e("Couldn't find incoming call");
+//					finish();
+					return null;
+				}
+				LinphoneAddress address = incommingCall.getRemoteAddress();
+				// May be greatly sped up using a drawable cache
+//				Uri uri = LinphoneUtils.findUriPictureOfContactAndSetDisplayName(address, getContentResolver());
+//				LinphoneUtils.setImagePictureFromUri(this, mPictureView.getView(), uri, R.drawable.unknown_small);
+		return incommingCall;
+	}
+	
 	private void dialDtmf(char keyCode) {
 		LinphoneCore lc = LinphoneManager.getLc();
 		lc.stopDtmf();

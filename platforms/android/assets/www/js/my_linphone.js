@@ -89,3 +89,16 @@ window.checkEndCall = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "CheckEndCall", []);
 };
+
+window.answerCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "AnswerCall", []);
+};
+
+window.declineCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "DeclineCall", []);
+};
+
