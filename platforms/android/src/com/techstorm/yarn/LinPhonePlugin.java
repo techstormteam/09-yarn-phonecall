@@ -19,6 +19,7 @@ import org.linphone.core.LinphoneAddress;
 import org.linphone.core.LinphoneAddress.TransportType;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCall.State;
+import org.linphone.core.LinphoneAuthInfo;
 import org.linphone.core.LinphoneCallLog;
 import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCore;
@@ -79,8 +80,30 @@ public class LinPhonePlugin extends CordovaPlugin {
 			String password = (String) args.get(1);
 			String domain = context.getResources().getString(
 					R.string.sip_domain_default);
-
 			logIn(sipUsername, password, domain, false);
+			String sipAddress = sipUsername + "@" + domain;
+			
+			// Get account index.
+			int nbAccounts = LinphonePreferences.instance().getAccountCount();
+			int accountIndex = 0;
+			for (int i = 0; i < nbAccounts; i++)
+			{
+				String accountUsername = LinphonePreferences.instance().getAccountUsername(i);
+				String accountDomain = LinphonePreferences.instance().getAccountDomain(i);
+				String identity = accountUsername + "@" + accountDomain;
+				if (identity.equals(sipAddress)) {
+					accountIndex = i;
+					break;
+				}
+			}
+			 
+			LinphonePreferences.instance().setDefaultAccount(accountIndex);
+			
+			LinphoneCore lc = LinphoneManager.getLc();
+//			lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
+			if (lc.isNetworkReachable()) {
+				lc.refreshRegisters();
+			}
 			callbackContext.success("Register sip:"+sipUsername+"@"+domain+" successfully.");
 			return true;
 		} else if (action.equals("PhoneContacts")) {
@@ -100,8 +123,11 @@ public class LinPhonePlugin extends CordovaPlugin {
 			callbackContext.success("Show settings screen.");
 			return true;
 		} else if (action.equals("SignOut")) {
-			// Nothing to do
-			callbackContext.success("Sign out.");
+			if (LinphoneManager.isInstanciated()) {
+//				unregisterAllAuth();
+				LinphoneManager.getLc().refreshRegisters();
+			}
+			callbackContext.success("Sign out successful.");
 			return true;
 		} else if (action.equals("EnableSpeaker")) {
 			Boolean enableMic = (Boolean) args.get(0);
@@ -210,8 +236,24 @@ public class LinPhonePlugin extends CordovaPlugin {
 			LinphoneManager.getLc().terminateCall(incommingCall);
 			callbackContext.success("Decline the call successfully.");
 			return true;
+		} else if (action.equals("Voicemail")) {
+			// Need to code
+			callbackContext.success("Voicemail successfully.");
+			return true;
 		}
 		return false;
+	}
+
+	private void unregisterAllAuth() {
+		if (LinphoneManager.isInstanciated()) {
+			LinphoneAuthInfo[] authInfoList = LinphoneManager.getLc().getAuthInfosList();
+			if (authInfoList != null && authInfoList.length > 0) {
+				for (int index = 0; index < authInfoList.length; index++) {
+					LinphoneAuthInfo authInfo = authInfoList[index];
+					LinphoneManager.getLc().removeAuthInfo(authInfo);
+				}
+			}
+		}
 	}
 
 	private LinphoneCall getIncommingCall() {

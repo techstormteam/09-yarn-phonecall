@@ -102,3 +102,8 @@ window.declineCall = function(callback) {
     }, "LinPhonePlugin", "DeclineCall", []);
 };
 
+window.signOut = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "SignOut", []);
+};

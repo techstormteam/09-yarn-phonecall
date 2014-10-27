@@ -446,7 +446,7 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		if (text.contains("%s") && LinphoneManager.getLc() != null) {
 			// Test for null lc is to avoid a NPE when Android mess up badly with the String resources.
 			LinphoneProxyConfig lpc = LinphoneManager.getLc().getDefaultProxyConfig();
-			String id = lpc != null ? lpc.getIdentity() : "";
+			String id = lpc != null ? lpc.getIdentity().replace("sip:", "") : "";
 			text = String.format(text, id);
 		}
 
