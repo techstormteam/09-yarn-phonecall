@@ -312,13 +312,7 @@ var app = {
 	    },
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
-	    	var sipUsername = global.get('telno');
-	    	var password = global.get('password');
-	    	if (sipUsername !== null && password !== null) {
-	        	window.registerSip(sipUsername, password, function(message) {
-	            	//empty
-	            });
-	        }
+	    	global.general();
 	        console.log('Received Event: ' + id);
 	    }
 	};

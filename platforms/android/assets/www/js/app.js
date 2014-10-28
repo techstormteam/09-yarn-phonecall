@@ -333,6 +333,28 @@ function Global() {
         });
     };
 
+    this.registerSipUser = function() {
+    	
+    	var sipUsername = global.get('telno');
+    	var password = global.get('password');
+    	if (sipUsername !== null && password !== null) {
+        	window.registerSip(sipUsername, password, function(message) {
+            	//empty
+            });
+        }
+    };
+    
+    this.registerScheduled = function () {
+    	this.registerSipUser();
+    	var obj = this;
+    	setInterval(function() {
+    		obj.registerSipUser();
+    	}, 60000);
+    };
+    
+    this.general = function () {
+    	this.registerScheduled();
+    };
 }
 
 var global = new Global();
