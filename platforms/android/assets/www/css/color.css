@@ -32,6 +32,10 @@ and open the template in the editor.
     color: #fff !important;
 }
 
+.red {
+    color: red;
+}
+
 .ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper  {
     background-color: #fff !important;
 }
