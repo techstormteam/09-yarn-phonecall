@@ -5,7 +5,7 @@ function sliderGenerator(id, data) {
                 '<div>' +
                     '<ul>';
     $.each(data.images, function () {
-        str += '<li><img src="' + this + '" alt="slider image" class="slider-img" /></li>';
+        str += '<li><img onclick="enhanced()" data-type="img" src="' + this + '" alt="slider image" class="slider-img" /></li>';
     });
     str +=          '</ul>' +
                 '</div>' +
@@ -15,7 +15,6 @@ function sliderGenerator(id, data) {
     $('#' + id).microfiche({
         cyclic: true,
         bullets: false,
-        clickToAdvance: true,
         buttons: false,
         refreshOnResize: true
     });

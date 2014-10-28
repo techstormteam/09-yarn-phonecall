@@ -139,3 +139,12 @@
     overflow: hidden;
     clear: both;
 }
+
+.slider-img {
+    cursor: pointer;
+}
+
+.enhanced {
+    box-shadow: 0 0 10px #FF6A00;
+    border: 1px dashed #FF6A00;
+}
