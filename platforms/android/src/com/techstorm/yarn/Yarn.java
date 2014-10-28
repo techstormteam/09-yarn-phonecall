@@ -21,6 +21,8 @@ package com.techstorm.yarn;
 
 import static android.content.Intent.ACTION_MAIN;
 
+import java.lang.reflect.Method;
+
 import org.apache.cordova.CordovaActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphoneService;
@@ -29,9 +31,12 @@ import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.PayloadType;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 
 public class Yarn extends CordovaActivity
 {
@@ -56,8 +61,6 @@ public class Yarn extends CordovaActivity
 			mThread.start();
 		}
     }
-    
-    
     
     private class ServiceWaitThread extends Thread {
 		public void run() {
