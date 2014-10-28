@@ -8,40 +8,64 @@ var footer = $('#footer');
 var microScreen = $('.microfiche-screen');
 var wrapper = $('[data-type="wrapper"]');
 var innerWrapper = $('[data-type="inner-wrapper"]');
+var back = $('[data-back]');
+var next = $('[data-next]');
+var title = $('.title');
+var slider = $('.slider');
+var sliderImg = $('.slider-img');
 
 function updateSize() {
+//    totalHeight = $(window).height();
+//    sub = 0;
+//    remain = 0;
+//
+//    //HEADER + FOOTER
+//    header.height(Math.ceil(totalHeight / 6));
+//    footer.find('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
+//
+//    //REMAIN
+//    sub += header.outerHeight(true) + footer.outerHeight(true);
+//    remain = totalHeight - sub;
+//
+//    //OPTION = REMAIN, WRAPPER = 1/4 OPTION
+//    options.height(remain);
+//    wrapper.height(Math.ceil(remain / 4));
+//
+//    innerWrapper.height(wrapper.height() - 20);
+//    $('.slider').height(innerWrapper.height());
+//    $('.slider').width($('.slider-img').width() * 2 + 20);
+//    $('.slider-img').height(wrapper.height() - wrapper.find('.title').height() - 10);
+//
+//    var liWrapper = $('.slider-img').parent();
+//    innerWrapper.width(liWrapper.outerWidth(true) * 2 + back.width() + next.width());
+
     totalHeight = $(window).height();
     sub = 0;
-    remain = 0;
-    
-    header.height(Math.ceil(totalHeight / 6));
+
+    header.height(totalHeight / 6);
     footer.find('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
-
+    
     sub += header.outerHeight(true) + footer.outerHeight(true);
-    remain = totalHeight - sub;
-    options.height(remain);
-    wrapper.height(Math.ceil(remain / 4));
-
-    $('.slider').height(wrapper.height() - wrapper.find('.title').height());
-    innerWrapper.height(wrapper.height() - wrapper.find('.title').height());
-//    innerWrapper.width($('[data-back]').first().width() + $('.slider').first().width() + $('[data-next]').first().width());
-    innerWrapper.width($('.slider').first().width() + 40);
-    $('.slider-img').height(wrapper.height() - wrapper.find('.title').height() - 10);
-    $('.slider').width($('.slider-img').width() * 2 + 20);
-    
-    innerWrapper.css({margin: '0 ' + (wrapper.width() - innerWrapper.width()) / 2 + 'px'});
-    
-    $('.slider').microfiche({
-        refresh: true
-    });
+    options.height(totalHeight - sub);
+    wrapper.height(options.height() / 4 - 10);
+    title.height(wrapper.height() / 5);
+    title.css({lineHeight: wrapper.height() / 5 + 'px'});
+    innerWrapper.height(wrapper.height() / 5 * 4);
+    innerWrapper.width((innerWrapper.height() * 2) + back.width() + next.width() + 20);
+    sliderImg.height(innerWrapper.height() - 1);
+    slider.width(sliderImg.height() * 2 + 20);
 }
+
+
 
 $(document).ready(function () {
     updateSize();
 });
 
 $(window).resize(function () {
-    updateSize();
+    $(document).ready(function () {
+        updateSize();
+    });
 });
 
 $(window).on('orientationchange', function () {

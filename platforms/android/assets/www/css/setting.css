@@ -111,6 +111,7 @@
 
 .title {
     font-size: 1em !important;
+    height: 20px;
 }
 
 [data-back] {
@@ -127,4 +128,14 @@
 
 [data-next] img {
     width: 20px;
+}
+
+[data-type="wrapper"] {
+    margin-bottom: 10px;
+}
+
+[data-type="inner-wrapper"] {
+    margin: 0 auto;
+    overflow: hidden;
+    clear: both;
 }
