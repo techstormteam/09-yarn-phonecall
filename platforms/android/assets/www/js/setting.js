@@ -22,10 +22,10 @@ function updateSize() {
     options.height(remain);
     wrapper.height(Math.ceil(remain / 4));
 
-//    $('.slider').width(Math.ceil(options.width() / 10 * 8));
     $('.slider').height(wrapper.height() - wrapper.find('.title').height());
     innerWrapper.height(wrapper.height() - wrapper.find('.title').height());
-    innerWrapper.width($('[data-back]').first().width() + $('.slider').first().width() + $('[data-next]').first().width());
+//    innerWrapper.width($('[data-back]').first().width() + $('.slider').first().width() + $('[data-next]').first().width());
+    innerWrapper.width($('.slider').first().width() + 40);
     $('.slider-img').height(wrapper.height() - wrapper.find('.title').height() - 10);
     $('.slider').width($('.slider-img').width() * 2 + 20);
     
