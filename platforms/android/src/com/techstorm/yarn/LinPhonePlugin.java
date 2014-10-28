@@ -304,6 +304,18 @@ public class LinPhonePlugin extends CordovaPlugin {
 			// Need to code
 			callbackContext.success("Voicemail successfully.");
 			return true;
+		} else if (action.equals("CheckInternetConnection")) {
+			JSONObject objJSON = new JSONObject();
+			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+			if (lc.isNetworkReachable()) {
+				objJSON.put("internetConnectionAvailable", true);
+			} else {
+				objJSON.put("internetConnectionAvailable", false);
+			}
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			callbackContext.success("Check internet connection successfully.");
+			return true;
 		}
 		return false;
 	}

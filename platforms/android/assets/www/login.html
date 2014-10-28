@@ -19,7 +19,7 @@
     </head>
     <body class="bg-white">
         <div data-id="header">
-            <a href="#" onclick="openlink('http://yarn-me.com')">
+            <a href="#" onclick="openlink('http://yarn-me.com');">
                 <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
             </a>
         </div>
@@ -53,7 +53,7 @@
         </div>
         <div data-id="form-submit" class="container">
             <div class="btn-group-wrapper">
-                <a href="#" onclick="check_form()" class="btn-submit bg-orange white">
+                <a href="#" onclick="doCheckInternetConnection();" class="btn-submit bg-orange white">
                     SIGN IN
                 </a>
                 <div class="center grey footer-02">
@@ -73,49 +73,11 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" charset="utf-8" src="video.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
         <script type="text/javascript">
                     app.initialize();
-                    $('#message').hide();
-                    var username = null;
-                    var password = null;
-
-                    function playVideo(vidUrl)
-                    {
-                        window.plugins.videoPlayer.play(vidUrl);
-                    }
-
-                    function login(response) {
-                        if (response !== "") {
-                            global.set('uid', response);
-                            global.set('telno', username);
-                            global.set('password', password);
-                            window.location = 'index.html';
-                        } else {
-                            global.set('uid', '');
-                            global.set('telno', '');
-                            global.set('password', '');
-                            alert('Wrong username or password!');
-//                        $('#message').text('Wrong username or password!').show();
-                        }
-                    }
-
-                    function check_form() {
-                        username = $('#txtUsername').val();
-                        password = $('#txtPass').val();
-
-                        if (username !== "" && password !== "") {
-                            global.set('auto_login', true);
-                            global.login('_id', {telno: username, password: password}, login);
-                        } else {
-                            alert('Please enter a valid username and password to login');
-                        }
-                    }
-                    
-                    function openlink(url) {
-                        var ref = window.open(url, '_blank', 'location=yes');
-                    }
         </script>
     </body>
 </html>

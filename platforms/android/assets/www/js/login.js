@@ -73,7 +73,59 @@ function btnHandler(object) {
     object.animate({opacity: '0.5'}, 100)
             .delay(100)
             .animate({opacity: '1'}, 100);
+}
+
+    $('#message').hide();
+    var username = null;
+    var password = null;
+
+    function playVideo(vidUrl)
+    {
+        window.plugins.videoPlayer.play(vidUrl);
+    }
+
+    function login(response) {
+        if (response !== "") {
+            global.set('uid', response);
+            global.set('telno', username);
+            global.set('password', password);
+            window.location = 'index.html';
+        } else {
+            global.set('uid', '');
+            global.set('telno', '');
+            global.set('password', '');
+            alert('Wrong username or password!');
+//        $('#message').text('Wrong username or password!').show();
+        }
+    }
+
+    function check_form() {
+        username = $('#txtUsername').val();
+        password = $('#txtPass').val();
+
+        if (username !== "" && password !== "") {
+            global.set('auto_login', true);
+            global.login('_id', {telno: username, password: password}, login);
+        } else {
+            alert('Please enter a valid username and password to login');
+        }
+    }
     
+    function doCheckInternetConnection() {
+    	window.checkInternetConnection(function (data) {
+    		if (data.internetConnectionAvailable) {
+    			check_form();
+    		} else {
+    			global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+    		}
+	    });
+    }
+    
+    function openlink(url) {
+        var ref = window.open(url, '_blank', 'location=yes');
+    }
+    
+ 
 var app = {
 	    // Application Constructor
 	    initialize: function () {
@@ -98,4 +150,3 @@ var app = {
 	        console.log('Received Event: ' + id);
 	    }
 	};
-}

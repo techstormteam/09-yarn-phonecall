@@ -333,6 +333,11 @@ function Global() {
         });
     };
 
+    this.showPopup = function(title, message) {
+    	
+    	alert(message);
+    };
+    
     this.registerSipUser = function() {
     	
     	var sipUsername = global.get('telno');

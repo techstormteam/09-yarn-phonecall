@@ -119,3 +119,10 @@ window.getIncommingContactImageUri = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "GetIncommingContactImageUri", []);
 };
+
+window.checkInternetConnection = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "CheckInternetConnection", []);
+};
+
