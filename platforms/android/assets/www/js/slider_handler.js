@@ -16,6 +16,7 @@ function sliderGenerator(id, data) {
         cyclic: true,
         bullets: false,
         clickToAdvance: true,
-        buttons: false
+        buttons: false,
+        refreshOnResize: 0
     });
 }
