@@ -226,13 +226,11 @@ function Global() {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
             }
-            alert('1');
             callback_success(data);
         }).error(function (xhr, status, error) {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
             }
-            alert('2');
             callback_error(error);
         }).complete(function () {
             if (this.debug === true) {
