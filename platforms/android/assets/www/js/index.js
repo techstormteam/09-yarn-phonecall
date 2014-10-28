@@ -10,7 +10,7 @@ var subFooter = $('[data-id="sub-footer"]');
 var footer = $('[data-id="footer"]');
 var footerIcons = $('.ts-icon-button img');
 var inputFontSize = $('[data-id="input"]').css('font-size');
-var vmail = $('.ts-sub-text img');
+var vmail = $('[data-value="1"] .ts-sub-text img');
 
 //INSIDE BALANCE ELEMENT
 var balance = $('[data-id="balance"]');
@@ -63,7 +63,8 @@ function updateHeight() {
     numpad.css('height', (parseInt(balanceHeight) / 5) * 3);
     $('[data-line]').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
     
-    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
+//    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
+    vmail.height($('[data-value="4"] sub').height());
 }
 
 $(document).ready(function () {
