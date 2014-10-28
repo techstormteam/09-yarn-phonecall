@@ -249,7 +249,7 @@ var app = {
 	    	doGetContactImageUri();
 	    	callQualityTimeout();
 			updateTimerScheduled();
-			//endCallCheckingScheduled();
+			endCallCheckingScheduled();
 	        console.log('Received Event: ' + id);
 	    }
 	};
