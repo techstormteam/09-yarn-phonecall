@@ -1,6 +1,6 @@
 function sliderGenerator(id, data) {
     var str = '';
-    str += '<div class="back-wrapper"><a href="#" data-back="' + id + '"><img src="img/icons/back.png" alt="back" /></a></div>';
+    str += '<a href="#" data-back="' + id + '"><img src="img/icons/back.png" alt="back" /></a>';
     str += '<div class="slider" id="' + id + '">' +
                 '<div>' +
                     '<ul>';
@@ -10,13 +10,13 @@ function sliderGenerator(id, data) {
     str +=          '</ul>' +
                 '</div>' +
             '</div>';
-    str += '<div class="next-wrapper"><a href="#" data-next="' + id + '"><img src="img/icons/next.png" alt="next" /></a></div>';
+    str += '<a href="#" data-next="' + id + '"><img src="img/icons/next.png" alt="next" /></a>';
     document.write(str);
     $('#' + id).microfiche({
         cyclic: true,
         bullets: false,
         clickToAdvance: true,
         buttons: false,
-        refreshOnResize: 0
+        refreshOnResize: true
     });
 }
