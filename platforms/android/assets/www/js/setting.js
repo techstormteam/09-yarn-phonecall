@@ -12,16 +12,22 @@ function updateSize() {
     totalHeight = $(window).height();
     sub = 0;
     remain = 0;
-
+    
     header.height(Math.ceil(totalHeight / 6));
     footer.find('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
-    
+
     sub += header.outerHeight(true) + footer.outerHeight(true);
     remain = totalHeight - sub;
     options.height(remain);
     wrapper.height(Math.ceil(remain / 4));
-    
-    $('.slider').width(Math.ceil(options.width() / 10 * 8));
+
+//    $('.slider').width(Math.ceil(options.width() / 10 * 8));
+    $('.slider').height(wrapper.height() - wrapper.find('.title').height());
+    $('.slider-img').height(wrapper.height() - wrapper.find('.title').height() - 10);
+    $('.slider').width($('.slider-img').width() * 2 + 20);
+    $('.slider').microfiche({
+        refresh: true
+    });
 }
 
 $(document).ready(function () {
@@ -52,14 +58,14 @@ function btnHandler(object) {
             .animate({opacity: '1'}, 100);
 }
 
-$('[data-back]').click(function() {
+$('[data-back]').click(function () {
     var id = $(this).data('back');
     $('#' + id).microfiche({
         slideByPages: -1
     });
 });
 
-$('[data-next]').click(function() {
+$('[data-next]').click(function () {
     var id = $(this).data('next');
     $('#' + id).microfiche({
         slideByPages: 1
