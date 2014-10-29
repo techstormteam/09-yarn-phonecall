@@ -86,6 +86,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.techstorm.yarn.R;
+import com.techstorm.yarn.Yarn;
 
 /**
  * @author Sylvain Berfini
@@ -853,7 +854,9 @@ public class LinphoneActivity extends FragmentActivity implements
 			} else if (message != null && message.equals("Unsupported media type")) {
 				displayCustomToast(getString(R.string.error_incompatible_media), Toast.LENGTH_LONG);
 			}
-			resetClassicMenuLayoutAndGoBackToCallIfStillRunning();
+//			resetClassicMenuLayoutAndGoBackToCallIfStillRunning();
+			Intent intent = new Intent( this, Yarn.class );
+			startActivity(intent);
 		}
 
 		int missedCalls = LinphoneManager.getLc().getMissedCallsCount();

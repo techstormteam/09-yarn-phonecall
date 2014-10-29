@@ -39,6 +39,7 @@ package com.techstorm.yarn;
 import static android.content.Intent.ACTION_MAIN;
 
 import org.apache.cordova.CordovaActivity;
+import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphoneService;
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
@@ -68,10 +69,14 @@ public class Yarn extends CordovaActivity implements
 	{
 
 		super.onCreate(savedInstanceState);
-
+		//file:///android_asset/www/index.html
 		// Set by <content src="index.html" /> in config.xml
-
-		loadUrl(launchUrl);
+		String pageUrl = getIntent().getStringExtra("page");
+		if (pageUrl != null) {
+			loadUrl(pageUrl);
+		} else {
+			loadUrl(launchUrl);
+		}
 
 		mHandler = new Handler();
 
@@ -134,7 +139,7 @@ public class Yarn extends CordovaActivity implements
 
 		final Class<? extends Activity> classToStart;
 
-		classToStart = Yarn.class;
+		classToStart = LinphoneActivity.class;
 
 		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
 				classToStart);

@@ -31,6 +31,7 @@ import org.linphone.ui.LinphoneSliders;
 import org.linphone.ui.LinphoneSliders.LinphoneSliderTriggered;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -39,6 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.techstorm.yarn.R;
+import com.techstorm.yarn.Yarn;
 
 /**
  * Activity displayed when a call comes in.
@@ -154,6 +156,7 @@ public class IncomingCallActivity extends Activity implements LinphoneOnCallStat
 
 	private void decline() {
 		LinphoneManager.getLc().terminateCall(mCall);
+		startActivity(new Intent(this, Yarn.class));
 	}
 	
 	private void answer() {
@@ -169,15 +172,9 @@ public class IncomingCallActivity extends Activity implements LinphoneOnCallStat
 			// the above method takes care of Samsung Galaxy S
 			Toast.makeText(this, R.string.couldnt_accept_call, Toast.LENGTH_LONG).show();
 		} else {
-			if (!LinphoneActivity.isInstanciated()) {
-				return;
-			}
-			final LinphoneCallParams remoteParams = mCall.getRemoteParams();
-			if (remoteParams != null && remoteParams.getVideoEnabled() && LinphonePreferences.instance().shouldAutomaticallyAcceptVideoRequests()) {
-				LinphoneActivity.instance().startVideoActivity(mCall);
-			} else {
-				LinphoneActivity.instance().startIncallActivity(mCall);
-			}
+			Intent intent = new Intent( this, Yarn.class );
+			intent.putExtra( "page", "file:///android_asset/www/dial.html" );
+			startActivity(intent);
 		}
 	}
 
