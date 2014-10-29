@@ -23,6 +23,7 @@ dialPad.hide();
 $(document).ready(function () {
     if(global.get('vmail') === '1') {
         global.set('vmail', '0');
+        alert('calling 88121');
         window.wifiCall('88121', function (message) {
             //empty
         });
@@ -37,9 +38,6 @@ $('[data-value]').tap(function () {
 
 function doDialPad() {
     if(!dialEnabled) {
-//        dialPad.slideDown(100, function() {
-//            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-//        });
         dialPad.show();
         dialPad.css({
             position: 'fixed',
@@ -49,7 +47,6 @@ function doDialPad() {
         });
         dialEnabled = true;
     } else {
-//        dialPad.slideUp();
         dialPad.hide();
         dialEnabled = false;
     }
