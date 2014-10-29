@@ -98,28 +98,19 @@ public class LinPhonePlugin extends CordovaPlugin {
 			if (lc.isNetworkReachable()) {
 				// Get account index.
 				int nbAccounts = LinphonePreferences.instance().getAccountCount();
-				int accountIndex = -1;
-				for (int i = 0; i < nbAccounts; i++)
-				{
-					String accountUsername = LinphonePreferences.instance().getAccountUsername(i);
-					String accountDomain = LinphonePreferences.instance().getAccountDomain(i);
-					String identity = accountUsername + "@" + accountDomain;
-					if (identity.equals(sipAddress)) {
-						accountIndex = i;
-						break;
-					}
-				}
+				int accountIndex = findAuthIndexOf(sipAddress);
 				
 				if (accountIndex == -1) { // User haven't registered
 					
 					logIn(sipUsername, password, domain, false);
+					lc.refreshRegisters();
 					accountIndex = nbAccounts;
 				}
 				
 				if (LinphonePreferences.instance().getDefaultAccountIndex() != accountIndex) {
 					LinphonePreferences.instance().setDefaultAccount(accountIndex);
-					
-	//				lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
+					LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+					lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
 					lc.refreshRegisters();
 					callbackContext.success("Registered sip:"+sipUsername+"@"+domain+" successfully.");
 				} else {
@@ -129,6 +120,8 @@ public class LinPhonePlugin extends CordovaPlugin {
 						} else if (RegistrationState.RegistrationFailed == LinphoneManager.getLc().getDefaultProxyConfig().getState()
 								|| RegistrationState.RegistrationNone == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
 							logIn(sipUsername, password, domain, false);
+							LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+							lc.refreshRegisters();
 							callbackContext.success("Re-register sip:"+sipUsername+"@"+domain);
 						}
 					}
@@ -193,7 +186,15 @@ public class LinPhonePlugin extends CordovaPlugin {
 			return true;
 		} else if (action.equals("SignOut")) {
 			if (LinphoneManager.isInstanciated()) {
-				LinphoneManager.getLc().refreshRegisters();
+				LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+				int accountIndex = LinphonePreferences.instance().getDefaultAccountIndex();
+				LinphonePreferences.instance().setAccountEnabled(accountIndex, false);
+//				if (lc.getAuthInfosList().length > accountIndex) { // account index existing
+//					LinphoneAuthInfo authInfo = lc.getAuthInfosList()[accountIndex];
+//					lc.removeAuthInfo(authInfo);
+//					LinphonePreferences.instance().setDefaultAccount(0);
+//					lc.refreshRegisters();
+//				}
 			}
 			callbackContext.success("Sign out successful.");
 			return true;
@@ -335,6 +336,22 @@ public class LinPhonePlugin extends CordovaPlugin {
 	    values.put(CallLog.Calls.CACHED_NUMBER_TYPE, 0);
 	    values.put(CallLog.Calls.CACHED_NUMBER_LABEL, "");
 	    contentResolver.insert(CallLog.Calls.CONTENT_URI, values);
+	}
+	
+	private int findAuthIndexOf(String sipAddress) {
+		int nbAccounts = LinphonePreferences.instance().getAccountCount();
+		int accountIndex = -1;
+		for (int i = 0; i < nbAccounts; i++)
+		{
+			String accountUsername = LinphonePreferences.instance().getAccountUsername(i);
+			String accountDomain = LinphonePreferences.instance().getAccountDomain(i);
+			String identity = accountUsername + "@" + accountDomain;
+			if (identity.equals(sipAddress)) {
+				accountIndex = i;
+				break;
+			}
+		}
+		return accountIndex;
 	}
 	
 	private void registerIfFailed(LinphoneCore lc) {
