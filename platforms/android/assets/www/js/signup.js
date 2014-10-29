@@ -121,6 +121,10 @@ var app = {
 	    },
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
+	    	window.plugins.html5Video.initialize({
+	            "video1" : "signup.mp4"
+	        })
+	        window.plugins.html5Video.play("video1");
 	        console.log('Received Event: ' + id);
 	    }
 	};

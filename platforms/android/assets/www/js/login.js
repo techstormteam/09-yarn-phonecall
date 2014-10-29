@@ -149,7 +149,7 @@ var app = {
 	    receivedEvent: function (id) {
 	    	//window.plugins.videoPlayer.play('http://www.youtube.com/watch?v=TMEr8qohTTI');
 	    	window.plugins.html5Video.initialize({
-	            "video1" : "yarn_intro.mp4"
+	            "video1" : "login.mp4"
 	        })
 	        window.plugins.html5Video.play("video1");
 	        console.log('Received Event: ' + id);
