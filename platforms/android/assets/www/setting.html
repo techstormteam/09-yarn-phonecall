@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Yarn - Setting</title>
@@ -41,6 +36,7 @@ and open the template in the editor.
             app.initialize();
         </script>
         <script type="text/javascript" src="js/slider_handler.js"></script>
+        <script type="text/javascript" src="js/setting_slider.js"></script>
     </head>
     <body>
         <!--HEADER-->
@@ -58,9 +54,8 @@ and open the template in the editor.
                     <script>
                         presenceData = {
                             images: [
-                                'img/settings-images/settings_cad_presence_nga.png',
-                                'img/settings-images/settings_cad_presence_usa.png',
-                                'img/settings-images/settings_cad_presence_uk.png'
+                                'img/settings-images/settings_gbp_presence_nga.png',
+                                'img/settings-images/settings_gbp_presence_usa.png',
                             ]
                         };
                         sliderGenerator('presence', presenceData);
@@ -71,14 +66,16 @@ and open the template in the editor.
                 <div class="title grey">CallerID</div>
                 <div data-type='inner-wrapper'>
                     <script>
-                        presenceData = {
+                        callerData = {
                             images: [
-                                'img/settings-images/settings_cad_presence_nga.png',
-                                'img/settings-images/settings_cad_presence_usa.png',
-                                'img/settings-images/settings_cad_presence_uk.png'
+                                'img/settings-images/settings_callerid_auto.png',
+                                'img/settings-images/settings_callerid_nga.png',
+                                'img/settings-images/settings_callerid_uk.png',
+                                'img/settings-images/settings_callerid_usa.png',
+                                'img/settings-images/settings_callerid_hide.png'
                             ]
                         };
-                        sliderGenerator('callerid', presenceData);
+                        sliderGenerator('callerid', callerData);
                     </script>
                 </div>
             </div>
@@ -86,14 +83,16 @@ and open the template in the editor.
                 <div class="title grey">Access Number Dial-out</div>
                 <div data-type='inner-wrapper'>
                     <script>
-                        presenceData = {
+                        accessData = {
                             images: [
-                                'img/settings-images/settings_cad_presence_nga.png',
-                                'img/settings-images/settings_cad_presence_usa.png',
-                                'img/settings-images/settings_cad_presence_uk.png'
+                                'img/settings-images/settings_off.png',
+                                'img/settings-images/settings_uk_landline.png',
+                                'img/settings-images/settings_usa_landline.png',
+                                'img/settings-images/settings_cad_landline.png',
+                                'img/settings-images/settings_nga_landline.png'
                             ]
                         };
-                        sliderGenerator('access', presenceData);
+                        sliderGenerator('access', accessData);
                     </script>
                 </div>
             </div>
@@ -101,14 +100,13 @@ and open the template in the editor.
                 <div class="title grey">Roaming</div>
                 <div data-type='inner-wrapper'>
                     <script>
-                        presenceData = {
+                        roamingData = {
                             images: [
-                                'img/settings-images/settings_cad_presence_nga.png',
-                                'img/settings-images/settings_cad_presence_usa.png',
-                                'img/settings-images/settings_cad_presence_uk.png'
+                                'img/settings-images/settings_cellular.png',
+                                'img/settings-images/settings_wifi.png'
                             ]
                         };
-                        sliderGenerator('roaming', presenceData);
+                        sliderGenerator('roaming', roamingData);
                     </script>
                 </div>
             </div>

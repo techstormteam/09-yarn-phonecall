@@ -89,6 +89,7 @@ function enhanced(object) {
     object.animate({opacity: '0.5'}, 100)
             .delay(100)
             .animate({opacity: '1'}, 100);
+    object.toggleClass('enhanced');
 }
 
 var app = {

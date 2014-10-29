@@ -5,7 +5,7 @@ function sliderGenerator(id, data) {
                 '<div>' +
                     '<ul>';
     $.each(data.images, function () {
-        str += '<li><img onclick="enhanced()" data-type="img" src="' + this + '" alt="slider image" class="slider-img" /></li>';
+        str += '<li><img onclick="enhanced($(this))" data-type="img" src="' + this + '" alt="slider image" class="slider-img" /></li>';
     });
     str +=          '</ul>' +
                 '</div>' +
