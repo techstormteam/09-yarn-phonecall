@@ -23,7 +23,6 @@ dialPad.hide();
 $(document).ready(function () {
     if(global.get('vmail') === '1') {
         global.set('vmail', '0');
-        alert('calling 88121');
         window.wifiCall('88121', function (message) {
             //empty
         });
