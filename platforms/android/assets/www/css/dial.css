@@ -48,6 +48,23 @@ and open the template in the editor.
     display: block;
 }
 
+.close-btn {
+    text-align: right;
+    padding: 1em;
+}
+
+.close-btn a {
+    font-weight: bold;
+    font-size: 2em;
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+.close-btn a:hover, .close-btn a:active, .close-btn a:focus {
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
 [data-id="logo"] img {
     height: 100%;
     width: auto;
@@ -94,11 +111,12 @@ and open the template in the editor.
 }
 
 #body {
-/*    transform: translateY(-200px);
-    -moz-transform: translateY(-200px);
-    -webkit-transform: translateY(-200px);*/
+    /*    transform: translateY(-200px);
+        -moz-transform: translateY(-200px);
+        -webkit-transform: translateY(-200px);*/
 }
 
 [data-id="header"] {
     width: 100%;
 }
+

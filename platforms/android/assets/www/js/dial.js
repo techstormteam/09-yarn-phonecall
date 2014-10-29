@@ -21,12 +21,20 @@ dialPad.hide();
 
 function doDialPad() {
     if(!dialEnabled) {
-        dialPad.slideDown(100, function() {
-            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+//        dialPad.slideDown(100, function() {
+//            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+//        });
+        dialPad.show();
+        dialPad.css({
+            position: 'fixed',
+            bottom: '0',
+            zIndex: '1000',
+            background: 'rgba(0,0,0,0.8)'
         });
         dialEnabled = true;
     } else {
-        dialPad.slideUp();
+//        dialPad.slideUp();
+        dialPad.hide();
         dialEnabled = false;
     }
 }
@@ -37,15 +45,6 @@ $('[data-value]').tap(function () {
             .animate({backgroundColor: 'transparent'}, 100);
     doSendDmtf($(this).data('value'));
 });
-
-//$('[data-id="footer-1st"] > div').tap(btnAnimate($(this)));
-//$('[data-id="footer-2nd"] > div').tap(btnAnimate($(this)));
-//
-//function btnAnimate(object) {
-//    object.animate({backgroundColor: 'rgba(255,255,255,0.2)'}, 100)
-//            .delay(100)
-//            .animate({backgroundColor: 'transparent'}, 100);
-//}
 
 function hideDialPad() {
     body.css({transform: 'translateY(0)'});
@@ -86,24 +85,6 @@ function updateSize() {
     footer2ndDiv.css('height', (totalHeight / 12));
 }
 
-//$('[data-id="microphone-icon"]').tap(animateButton($(this)));
-//$('[data-id="dial-icon"]').tap(animateButton($(this)));
-//$('[data-id="loudness-icon"]').tap(animateButton($(this)));
-//$('[data-id="home-icon"]').tap(animateButton($(this)));
-//$('[data-id="contacts-icon"]').tap(animateButton($(this)));
-//$('[data-id="logs-icon"]').tap(animateButton($(this)));
-//$('[data-id="settings-icon"]').tap(animateButton($(this)));
-//
-//function animateButton (obj) {
-//    obj.animate({
-//        backgroundColor: "rgba(255,255,255,0.5)"
-//    }, 100)
-//            .delay(100)
-//            .animate({
-//                backgroundColor: "transparent"
-//            }, 100);
-//}
-
 $(document).ready(updateSize());
 $(window).resize(function () {
     updateSize();
@@ -137,13 +118,14 @@ function doMicMute(enable) {
     });
 }
 
-//function doDialPad() {
-//    window.showDialPad(function (message) {
-//        //empty
-//    });
-//}
-
 function doLoudness() {
+    var loudnessIcon = $('[data-id="loudness-icon"] img').attr('src');
+    
+    if(loudnessIcon === 'img/icons/loudness.png') {
+        $('[data-id="loudness-icon"]').find('img').attr('src', 'img/icons/loudness-off.png');
+    } else {
+        $('[data-id="loudness-icon"]').find('img').attr('src', 'img/icons/loudness.png');
+    }
     window.loudness(function (message) {
         //empty
     });

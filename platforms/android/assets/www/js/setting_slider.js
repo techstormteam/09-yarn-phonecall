@@ -5,7 +5,8 @@ user_ccy = 'NGN';
 //var presenceData = null;
 
 function userCcy(response) {
-    user_ccy = response;
+//    user_ccy = response;
+    user_ccy = 'NGN';
     global.set('user_ccy', user_ccy);
 
     if (user_ccy === 'CAD') {
@@ -43,6 +44,5 @@ function userCcy(response) {
 global.userccy('_user_ccy', {telno: telno, password: password}, call_success);
 
 function call_success(response) {
-    alert(response);
     userCcy(response);
 }
