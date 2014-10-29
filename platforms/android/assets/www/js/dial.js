@@ -20,6 +20,21 @@ var micEnabled = true;
 
 dialPad.hide();
 
+$(document).ready(function () {
+    if(global.get('vmail') === '1') {
+        global.set('vmail', '0');
+        window.wifiCall('88121', function (message) {
+            //empty
+        });
+    }
+});
+
+$('[data-value]').tap(function () {
+    $(this).animate({background: 'rgba(0,0,0,0.5)'}, 100)
+            .delay(100)
+            .animate({background: 'transparent'});
+});
+
 function doDialPad() {
     if(!dialEnabled) {
 //        dialPad.slideDown(100, function() {
