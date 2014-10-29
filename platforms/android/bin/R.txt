@@ -782,6 +782,7 @@ int raw lpconfig 0x7f060003
 int raw oldphone_mono 0x7f060004
 int raw ringback 0x7f060005
 int raw toy_mono 0x7f060006
+int raw yarn_intro 0x7f060007
 int string AddCallButtonText 0x7f0900b2
 int string CancelButtonText 0x7f0900b1
 int string TransferCallButtonText 0x7f0900b3
@@ -1340,5 +1341,4 @@ int[] styleable SlidingTab { 0x7f010005 }
 int styleable SlidingTab_orientation 0
 int xml account_preferences 0x7f050000
 int xml config 0x7f050001
-int xml plugins 0x7f050002
-int xml preferences 0x7f050003
+int xml preferences 0x7f050002
