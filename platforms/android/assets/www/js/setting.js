@@ -20,7 +20,7 @@ function updateSize() {
 
     header.height(totalHeight / 6);
     footer.find('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
-    
+
     sub += header.outerHeight(true) + footer.outerHeight(true);
     options.height(totalHeight - sub);
     wrapper.height(options.height() / 4 - 10);
@@ -76,44 +76,36 @@ $('[data-next]').click(function () {
     });
 });
 
-$('.slider-img').on('click', function() {
-    alert('1');
-    $(this).animate({opacity: '0.5'}, 100)
-            .delay(100)
-            .animate({opacity: '1'}, 100);
-});
-
-
-
 function enhanced(object) {
     object.animate({opacity: '0.5'}, 100)
             .delay(100)
             .animate({opacity: '1'}, 100);
-    object.toggleClass('enhanced');
+    object.parent().parent('ul').find('img').removeClass('enhanced');
+    object.addClass('enhanced');
 }
 
 var app = {
-	    // Application Constructor
-	    initialize: function () {
-	        this.bindEvents();
-	    },
-	    // Bind Event Listeners
-	    //
-	    // Bind any events that are required on startup. Common events are:
-	    // 'load', 'deviceready', 'offline', and 'online'.
-	    bindEvents: function () {
-	        document.addEventListener('deviceready', this.onDeviceReady, false);
-	    },
-	    // deviceready Event Handler
-	    //
-	    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-	    // function, we must explicity call 'app.receivedEvent(...);'
-	    onDeviceReady: function () {
-	        app.receivedEvent('deviceready');
-	    },
-	    // Update DOM on a Received Event
-	    receivedEvent: function (id) {
-	    	global.general();
-	        console.log('Received Event: ' + id);
-	    }
-	};
+    // Application Constructor
+    initialize: function () {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function () {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicity call 'app.receivedEvent(...);'
+    onDeviceReady: function () {
+        app.receivedEvent('deviceready');
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function (id) {
+        global.general();
+        console.log('Received Event: ' + id);
+    }
+};
