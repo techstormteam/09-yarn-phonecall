@@ -57,3 +57,70 @@ $(window).resize(function() {
     
     updateSize(totalHeight);
 });
+
+var firstName = null;
+var lastName = null;
+var email = null;
+var phone = null;
+var password = null;
+var rePassword = null;
+
+function register(response) {
+    if (response.indexOf('success') > -1) {
+        window.location.href = 'login.html';
+    } else {
+        alert(response);
+    }
+}
+
+function check_rform() {
+    firstName = $('#firstName').val();
+    lastName = $('#lastName').val();
+    email = $('#email').val();
+    phone = $('#phone').val();
+    password = $('#password').val();
+    rePassword = $('#rePassword').val();
+
+    if (!firstName || !lastName || !email || !phone || !password || !rePassword) {
+        alert('Please fill in all fields');
+    } else if (password !== rePassword) {
+        alert('Password mismatch!');
+    } else {
+        global.register('_signup', {fname: firstName, lname: lastName, email: email, phone: phone, psw: password, psw2: rePassword}, register);
+    }
+}
+
+function doCheckInternetConnection() {
+	window.checkInternetConnection(function (data) {
+		if (data.internetConnectionAvailable) {
+			check_rform();
+		} else {
+			global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+		}
+    });
+}
+
+var app = {
+	    // Application Constructor
+	    initialize: function () {
+	        this.bindEvents();
+	    },
+	    // Bind Event Listeners
+	    //
+	    // Bind any events that are required on startup. Common events are:
+	    // 'load', 'deviceready', 'offline', and 'online'.
+	    bindEvents: function () {
+	        document.addEventListener('deviceready', this.onDeviceReady, false);
+	    },
+	    // deviceready Event Handler
+	    //
+	    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+	    // function, we must explicity call 'app.receivedEvent(...);'
+	    onDeviceReady: function () {
+	        app.receivedEvent('deviceready');
+	    },
+	    // Update DOM on a Received Event
+	    receivedEvent: function (id) {
+	        console.log('Received Event: ' + id);
+	    }
+	};

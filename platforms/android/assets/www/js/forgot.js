@@ -76,3 +76,58 @@ function btnHandler(object) {
             .delay(100)
             .animate({opacity: '1'}, 100);
 }
+
+var phone = null;
+var email = null;
+
+function forgot(response) {
+    if (response.indexOf('success') > -1) {
+        window.location.href = 'login.html';
+    }
+}
+
+function check_form() {
+    phone = $('#txtPhone').val();
+    email = $('#txtEmail').val();
+
+    if (phone !== "" && email !== "") {
+        global.forgot('_forgotpaswd', {email: email, phone: phone}, forgot);
+    } else {
+        alert('Please enter your registered phone number and/or password, in order to receive a password reminder');
+    }
+}
+
+function doCheckInternetConnection() {
+	window.checkInternetConnection(function (data) {
+		if (data.internetConnectionAvailable) {
+			check_form();
+		} else {
+			global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+		}
+    });
+}
+
+var app = {
+	    // Application Constructor
+	    initialize: function () {
+	        this.bindEvents();
+	    },
+	    // Bind Event Listeners
+	    //
+	    // Bind any events that are required on startup. Common events are:
+	    // 'load', 'deviceready', 'offline', and 'online'.
+	    bindEvents: function () {
+	        document.addEventListener('deviceready', this.onDeviceReady, false);
+	    },
+	    // deviceready Event Handler
+	    //
+	    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+	    // function, we must explicity call 'app.receivedEvent(...);'
+	    onDeviceReady: function () {
+	        app.receivedEvent('deviceready');
+	    },
+	    // Update DOM on a Received Event
+	    receivedEvent: function (id) {
+	        console.log('Received Event: ' + id);
+	    }
+	};
