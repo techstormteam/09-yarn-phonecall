@@ -31,10 +31,12 @@ import org.linphone.ui.AddressText;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -61,6 +63,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 			if (lc.isNetworkReachable()) {
 				registerIfFailed(lc);
 				wifiCall(mAddress);
+				insertPlaceholderCall(context.getContentResolver(), address);
 			}
 			callbackContext.success("Call to " + address
 					+ " successful via wifi call.");
@@ -79,6 +82,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 			if (lc.isNetworkReachable()) {
 				registerIfFailed(lc);
 				videoCall(mAddress);
+				insertPlaceholderCall(context.getContentResolver(), address);
 			}
 			callbackContext.success("Call to " + address
 					+ " successful via video call.");
@@ -320,6 +324,19 @@ public class LinPhonePlugin extends CordovaPlugin {
 		return false;
 	}
 
+	public void insertPlaceholderCall(ContentResolver contentResolver, String number){
+	    ContentValues values = new ContentValues();
+	    values.put(CallLog.Calls.NUMBER, number);
+	    values.put(CallLog.Calls.DATE, System.currentTimeMillis());
+	    values.put(CallLog.Calls.DURATION, 0);
+	    values.put(CallLog.Calls.TYPE, CallLog.Calls.OUTGOING_TYPE);
+	    values.put(CallLog.Calls.NEW, 1);
+	    values.put(CallLog.Calls.CACHED_NAME, "");
+	    values.put(CallLog.Calls.CACHED_NUMBER_TYPE, 0);
+	    values.put(CallLog.Calls.CACHED_NUMBER_LABEL, "");
+	    contentResolver.insert(CallLog.Calls.CONTENT_URI, values);
+	}
+	
 	private void registerIfFailed(LinphoneCore lc) {
 		
 		if (lc != null && lc.getDefaultProxyConfig() != null) {
