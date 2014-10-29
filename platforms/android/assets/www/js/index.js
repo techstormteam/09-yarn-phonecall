@@ -11,6 +11,7 @@ var footer = $('[data-id="footer"]');
 var footerIcons = $('.ts-icon-button img');
 var inputFontSize = $('[data-id="input"]').css('font-size');
 var vmail = $('[data-value="1"] .ts-sub-text img');
+var email;
 
 //INSIDE BALANCE ELEMENT
 var balance = $('[data-id="balance"]');
@@ -272,11 +273,15 @@ function login(response) {
     }
 }
 
+function getEmail(response) {
+    email = response;
+}
+
 $(document).ready(function () {
 
-    var uid = global.get('uid');
-    var telno = global.get('telno');
-    var password = global.get('password');
+    uid = global.get('uid');
+    telno = global.get('telno');
+    password = global.get('password');
 
     global.login('_id', {telno: telno, password: password}, login);
 
@@ -285,10 +290,20 @@ $(document).ready(function () {
     }
 
     global.balance('_balance', {telno: telno, password: password}, getBalance);
+    
+    global.login('_email', {telno: telno, password: password}, getEmail);
 });
 
 function openlink(url) {
     var ref = window.open(url, '_blank', 'location="yes"');
+}
+
+function linkHandler() {
+    openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password);
+}
+
+function paymentHandle() {
+    openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password + '&r=http://portal.netcastdigital.net/mobile/payment-create.html');
 }
 
 var app = {

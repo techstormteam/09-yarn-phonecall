@@ -11,6 +11,7 @@ var footer1stDiv = $('[data-id="footer-1st"] div');
 var footer2nd = $('[data-id="footer-2nd"]');
 var footer2ndDiv = $('[data-id="footer-2nd"] div');
 var remain = 0;
+var loading = $('#loading');
 
 var body = $('#body');
 var dialPad = $('#dial-pad');
@@ -61,6 +62,10 @@ function updateSize() {
 
     //HEADER
     header.css('height', (totalHeight / 6));
+    loading.css({
+        top: (Math.ceil($('[data-id="logo"] img').height()) + 'px'),
+        right: '40px'
+    });
 
     //AVATAR
     main.css('height', (totalHeight / 6) * 3);

@@ -60,13 +60,6 @@ $(window).on('orientationchange', function () {
     updateSize();
 });
 
-document.addEventListener("deviceready", onDeviceReady, false);
-
-function onDeviceReady() {
-    updateSize();
-}
-
-
 function doSignOut() {
     window.signOut(function (data) {
         window.location.href = 'login.html';
@@ -106,6 +99,20 @@ function enhanced(object) {
     object.toggleClass('enhanced');
 }
 
+function getEmail(response) {
+    email = response;
+}
+
+global.login('_email', {telno: telno, password: password}, getEmail);
+
+function openlink(url) {
+    var ref = window.open(url, '_blank', 'location="yes"');
+}
+
+function linkHandler() {
+    openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password);
+}
+
 var app = {
     // Application Constructor
     initialize: function () {
@@ -124,6 +131,7 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function () {
         app.receivedEvent('deviceready');
+        updateSize();
     },
     // Update DOM on a Received Event
     receivedEvent: function (id) {
