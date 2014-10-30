@@ -59,8 +59,6 @@ $(document).ready(function () {
     } else {
         gBtn.width(fbBtn.width());
     }
-    
-    sweetAlert("Oops...", "Wrong username or password!", "error");
 });
 
 $(window).resize(function () {
