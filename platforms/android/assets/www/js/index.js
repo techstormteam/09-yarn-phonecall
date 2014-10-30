@@ -189,23 +189,36 @@ function getDialedNumber() {
     return telNumber;
 }
 
-function doWifiCall() {
-
-    // get data from dialedNumber
-    var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
-    window.wifiCall(dialedNumber, function (message) {
-        //empty
+function doCheckInternetConnection() {
+    window.checkInternetConnection(function (data) {
+        if (data.internetConnectionAvailable) {
+            return 1;
+        } else {
+            global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+            return 0;
+        }
     });
-    window.location.href = 'dial.html';
 }
-function doCellularCall() {
 
+function doWifiCall() {
+    if (doCheckInternetConnection() === 1) {
+        // get data from dialedNumber
+        var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
+        window.wifiCall(dialedNumber, function (message) {
+            //empty
+        });
+        window.location.href = 'dial.html';
+    }
+}
+
+function doCellularCall() {
     // get data from dialedNumber
     var dialedNumber = getDialedNumber();
     window.cellularCall(dialedNumber, function (message) {
         //empty
     });
 }
+
 function doPhoneContacts() {
 
     window.phoneContacts(function (message) {
@@ -224,12 +237,13 @@ function doSignOut() {
     });
 }
 function doVideoCall() {
-
-    // get data from dialedNumber
-    var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
-    window.videoCall(dialedNumber, function (message) {
-        //empty
-    });
+    if (doCheckInternetConnection() === 1) {
+        // get data from dialedNumber
+        var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
+        window.videoCall(dialedNumber, function (message) {
+            //empty
+        });
+    }
 }
 function doRegisterSip() {
     var sipUsername = global.get('telno');
@@ -285,10 +299,10 @@ $(document).ready(function () {
     telno = global.get('telno');
     password = global.get('password');
 
-    global.login('_id', {telno: telno, password: password}, login);
+//    global.login('_id', {telno: telno, password: password}, login);
 
     if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-        window.location.href = 'login.html';
+//        window.location.href = 'login.html';
     }
 
     global.balance('_balance', {telno: telno, password: password}, getBalance);
