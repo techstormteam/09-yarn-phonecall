@@ -96,9 +96,7 @@ function btnHandler(object) {
             global.set('uid', '');
             global.set('telno', '');
             global.set('password', '');
-//            alert('Wrong username or password!');
             sweetAlert("Oops...", "Wrong username or password!", "error");
-//        $('#message').text('Wrong username or password!').show();
         }
     }
 
@@ -110,7 +108,6 @@ function btnHandler(object) {
             global.set('auto_login', true);
             global.login('_id', {telno: username, password: password}, login);
         } else {
-//            alert('Please enter a valid username and password to login');
             sweetAlert("Oops...", "Please enter a valid username and password to login", "error");
         }
     }

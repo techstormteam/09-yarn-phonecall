@@ -67,9 +67,10 @@ var rePassword = null;
 
 function register(response) {
     if (response.indexOf('success') > -1) {
+        sweetAlert("Good job!", response, "success");
         window.location.href = 'login.html';
     } else {
-        alert(response);
+        sweetAlert("Oops...", response, "error");
     }
 }
 
@@ -82,9 +83,9 @@ function check_rform() {
     rePassword = $('#rePassword').val();
 
     if (!firstName || !lastName || !email || !phone || !password || !rePassword) {
-        alert('Please fill in all fields');
+        sweetAlert("Oops...", 'Please fill in all fields', "error");
     } else if (password !== rePassword) {
-        alert('Password mismatch!');
+        sweetAlert("Oops...", 'Password mismatch!', "error");
     } else {
         global.register('_signup', {fname: firstName, lname: lastName, email: email, phone: phone, psw: password, psw2: rePassword}, register);
     }
@@ -95,7 +96,7 @@ function doCheckInternetConnection() {
 		if (data.internetConnectionAvailable) {
 			check_rform();
 		} else {
-			global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+			global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access", 'error');
 		}
     });
 }
@@ -123,7 +124,7 @@ var app = {
 	    receivedEvent: function (id) {
 	    	window.plugins.html5Video.initialize({
 	            "video1" : "signup.mp4"
-	        })
+	        });
 	        window.plugins.html5Video.play("video1");
 	        console.log('Received Event: ' + id);
 	    }

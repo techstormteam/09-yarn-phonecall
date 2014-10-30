@@ -360,9 +360,15 @@ function Global() {
         });
     };
 
-    this.showPopup = function(title, message) {
-    	
-    	alert(message);
+    /*
+     * 
+     * @param {type} title
+     * @param {type} message
+     * @param {type} type - error / success
+     * @returns {undefined}
+     */
+    this.showPopup = function(title, message, type) {
+    	sweetAlert(title, message, type);
     };
     
     this.registerSipUser = function() {

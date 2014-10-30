@@ -86,3 +86,7 @@ and open the template in the editor.
 [data-id="social-btn"] a {
     position: relative;
 }
+
+.sweet-alert button {
+    background-color: #FF6A00 !important;
+}
