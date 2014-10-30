@@ -298,16 +298,25 @@ $(document).ready(function () {
     uid = global.get('uid');
     telno = global.get('telno');
     password = global.get('password');
+    callMsg = global.get('callMsg');
 
-//    global.login('_id', {telno: telno, password: password}, login);
+    global.login('_id', {telno: telno, password: password}, login);
 
     if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-//        window.location.href = 'login.html';
+        window.location.href = 'login.html';
     }
 
     global.balance('_balance', {telno: telno, password: password}, getBalance);
     
     global.login('_email', {telno: telno, password: password}, getEmail);
+    
+    if(callMsg !== '' && typeof(callMsg) !== 'undefined') {
+        swal({
+            title: "Call Notification",
+            text: callMsg,
+            timer: 10000
+        });
+    }
 });
 
 function openlink(url) {

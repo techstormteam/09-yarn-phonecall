@@ -121,10 +121,19 @@ function micHandler() {
     }
 }
 
+function msgReturn(response) {
+    if(response !== '') {
+        global.set('callMsg', response);
+    } else {
+        global.set('callMsg', '');
+    }
+}
+
 function doHangUp() {
     window.hangUp(function (message) {
         //empty
     });
+    global.login('_yarn_msg', {telno: global.get('telno'), password: global.get('password')}, msgReturn);
     window.location.href = 'index.html';
 }
 
