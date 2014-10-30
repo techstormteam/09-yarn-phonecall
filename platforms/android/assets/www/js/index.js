@@ -189,26 +189,19 @@ function getDialedNumber() {
     return telNumber;
 }
 
-function doCheckInternetConnection() {
-    window.checkInternetConnection(function (data) {
-        if (data.internetConnectionAvailable) {
-            return 1;
+function doWifiCall() {
+    // get data from dialedNumber
+    var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
+    window.wifiCall(dialedNumber, function (data) {
+    	alert(data.internetConnectionAvailable);
+    	if (data.internetConnectionAvailable) {
+    		window.location.href = 'dial.html';
         } else {
             global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
-            return 0;
         }
+    	
     });
-}
-
-function doWifiCall() {
-    if (doCheckInternetConnection() === 1) {
-        // get data from dialedNumber
-        var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
-        window.wifiCall(dialedNumber, function (message) {
-            //empty
-        });
-        window.location.href = 'dial.html';
-    }
+    
 }
 
 function doCellularCall() {
@@ -237,13 +230,15 @@ function doSignOut() {
     });
 }
 function doVideoCall() {
-    if (doCheckInternetConnection() === 1) {
         // get data from dialedNumber
         var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
-        window.videoCall(dialedNumber, function (message) {
-            //empty
+        window.videoCall(dialedNumber, function (data) {
+        	if (data.internetConnectionAvailable) {
+        		//window.location.href = 'dial.html';
+            } else {
+                global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+            }
         });
-    }
 }
 function doRegisterSip() {
     var sipUsername = global.get('telno');

@@ -56,15 +56,21 @@ public class LinPhonePlugin extends CordovaPlugin {
 		context = cordova.getActivity()
 				.getApplicationContext();
 		if (action.equals("WifiCall")) {
+			JSONObject objJSON = new JSONObject();
 			String address = (String) args.get(0);
 			AddressText mAddress = new AddressText(context, null);
 			mAddress.setContactAddress(address, address);
 			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
 			if (lc.isNetworkReachable()) {
+				objJSON.put("internetConnectionAvailable", true);
 				registerIfFailed(lc);
 				wifiCall(mAddress);
 				insertPlaceholderCall(context.getContentResolver(), address);
+			} else {
+				objJSON.put("internetConnectionAvailable", false);
 			}
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
 			callbackContext.success("Call to " + address
 					+ " successful via wifi call.");
 			return true;
@@ -75,15 +81,21 @@ public class LinPhonePlugin extends CordovaPlugin {
 					+ " successful via cellular.");
 			return true;
 		} else if (action.equals("VideoCall")) {
+			JSONObject objJSON = new JSONObject();
 			String address = (String) args.get(0);
 			AddressText mAddress = new AddressText(context, null);
 			mAddress.setContactAddress(address, address);
 			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
 			if (lc.isNetworkReachable()) {
+				objJSON.put("internetConnectionAvailable", true);
 				registerIfFailed(lc);
 				videoCall(mAddress);
 				insertPlaceholderCall(context.getContentResolver(), address);
+			} else {
+				objJSON.put("internetConnectionAvailable", false);
 			}
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
 			callbackContext.success("Call to " + address
 					+ " successful via video call.");
 			return true;
