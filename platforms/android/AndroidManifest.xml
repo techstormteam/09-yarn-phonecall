@@ -109,10 +109,10 @@
             android:label="@string/service_name"
             android:stopWithTask="false" />
 
-        <receiver android:name="com.techstorm.yarn.SMSReveiver" >
+        <receiver android:name="com.techstorm.yarn.IncomingSms">   
             <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
+				<action android:name="android.provider.Telephony.SMS_RECEIVED" />
+			</intent-filter>
         </receiver>
         <receiver android:name="com.techstorm.yarn.OutgoingBroadcastReceiver" >
             <intent-filter>

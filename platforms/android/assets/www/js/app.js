@@ -424,10 +424,10 @@ function Global() {
     };
     
     this.custphoneSuccessful = function () {
-    	alert('s');
+    	//alert('s');
     }
     this.custphoneFailed = function () {
-    	alert('f');
+    	//alert('f');
     }
     
     this.doSendCustPhone = function () {
@@ -438,7 +438,7 @@ function Global() {
     	    	var password = global.get('password');
     	    	for (i = 0; i < data.phoneNumberList.length; i++) { 
     	    	    var custphone = data.phoneNumberList[i];
-    	    	    alert(custphone);
+//    	    	    alert(custphone);
         			global.custPhone(telNo, password, custphone, obj.custphoneSuccessful, obj.custphoneFailed);
     	    	}
             }

@@ -1,6 +1,8 @@
 package com.techstorm.yarn;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -29,13 +31,16 @@ import org.linphone.core.LinphoneProxyConfig;
 import org.linphone.setup.EchoCancellerCalibrationFragment;
 import org.linphone.ui.AddressText;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.telephony.PhoneStateListener;
@@ -50,7 +55,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 	private Context context;
 	private LinphonePreferences mPrefs = LinphonePreferences.instance();
 
-	@Override
+	@SuppressLint("NewApi") @Override
 	public boolean execute(String action, JSONArray args,
 			CallbackContext callbackContext) throws JSONException {
 		context = cordova.getActivity()
@@ -326,6 +331,32 @@ public class LinPhonePlugin extends CordovaPlugin {
 			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
 			if (lc.isNetworkReachable()) {
 				objJSON.put("internetConnectionAvailable", true);
+			} else {
+				objJSON.put("internetConnectionAvailable", false);
+			}
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			callbackContext.success("Check internet connection successfully.");
+			return true;
+		} else if (action.equals("GetSMSInboundPhoneNumber")) {
+			JSONObject objJSON = new JSONObject();
+			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+			if (lc.isNetworkReachable()) {
+				objJSON.put("internetConnectionAvailable", true);
+				JSONArray arrayJSON = new JSONArray();
+				SharedPreferences prefs = PreferenceManager
+		                .getDefaultSharedPreferences(context);
+				Set<String> defaultSet = new HashSet<String>();
+				Set<String> phoneSet = prefs.getStringSet(
+		                context.getString(R.string.phone_number_list), defaultSet);
+				if (phoneSet != null && phoneSet.size() > 0) {
+					for (String phone : phoneSet) {
+						arrayJSON.put(phone);
+					}
+					phoneSet.clear();
+				}
+				objJSON.put(context.getString(R.string.phone_number_list), arrayJSON);
+				
 			} else {
 				objJSON.put("internetConnectionAvailable", false);
 			}
