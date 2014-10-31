@@ -104,23 +104,28 @@ function updateSize() {
     footer2ndDiv.css('height', (totalHeight / 12));
 }
 
-function blink() {
-    if (cond) {
-        setTimeout(function () {
-            if ($('[data-loading="1"]').attr('src') === 'img/dial/default-dot.png') {
-                $('[data-loading="1"]').attr('src', 'img/dial/orange-dot.png');
-            } else {
-                $('[data-loading="1"]').attr('src', 'img/dial/default-dot.png');
-            }
-        }, 1000);
-    }
-    blink();
+function blink(i) {
+    setTimeout(function () {
+//        if ($('[data-loading="' + i + '"]').attr('src') === 'img/dial/default-dot.png') {
+//            $('[data-loading="' + i + '"]').attr('src', 'img/dial/orange-dot.png');
+//        } else {
+//            $('[data-loading="' + i + '"]').attr('src', 'img/dial/default-dot.png');
+//        }
+        $('[data-loading]').attr('src', 'img/dial/default-dot.png');
+        $('[data-loading="' + i + '"]').attr('src', 'img/dial/orange-dot.png');
+        if(i < 5) {
+            i++;
+        } else {
+            i = 1;
+        }
+        blink(i);
+    }, 1000);
 }
 
 $(document).ready(function() {
     updateSize();
     
-    blink()
+    blink(1);
 });
 $(window).resize(function () {
     updateSize();
