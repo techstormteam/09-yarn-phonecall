@@ -401,7 +401,7 @@ function Global() {
      * @returns {undefined}
      */
     this.showPopup = function(title, message, type) {
-        if (type === null) {
+        if (type !== 'success' || type !== '') {
             sweetAlert(title,message,'error');
         } else {
             sweetAlert(title, message, type);

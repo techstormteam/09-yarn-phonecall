@@ -74,9 +74,12 @@ function updateSize() {
     //HEADER
     header.css('height', (totalHeight / 6));
     loading.css({
-        top: (Math.ceil($('[data-id="logo"] img').height()) + 'px'),
-        right: '40px'
+        top: (Math.ceil($('[data-id="logo"] img').height() + 15) + 'px'),
+        right: '10px',
+        width: ($('[data-id="logo"] img').width())
     });
+    loading.find('span').width(Math.ceil($('[data-id="logo"] img').width() / 5));
+    loading.find('img').width(Math.ceil($('[data-id="logo"] img').width() / 5));
 
     //AVATAR
     main.css('height', (totalHeight / 6) * 3);
@@ -101,7 +104,24 @@ function updateSize() {
     footer2ndDiv.css('height', (totalHeight / 12));
 }
 
-$(document).ready(updateSize());
+function blink() {
+    if (cond) {
+        setTimeout(function () {
+            if ($('[data-loading="1"]').attr('src') === 'img/dial/default-dot.png') {
+                $('[data-loading="1"]').attr('src', 'img/dial/orange-dot.png');
+            } else {
+                $('[data-loading="1"]').attr('src', 'img/dial/default-dot.png');
+            }
+        }, 1000);
+    }
+    blink();
+}
+
+$(document).ready(function() {
+    updateSize();
+    
+    blink()
+});
 $(window).resize(function () {
     updateSize();
 });
@@ -229,17 +249,7 @@ function sendCallQuality() {
         console.log('Sending quality number: '+data.quality+' of the call (to '+telno+').');
 		global.sendQuality(telno, password, data.quality, onSuccessQualitySending);
     });
-	
 }
-
-function findSuccess(contacts) {
-    dialedNumber = global.get('dialedNumber');
-    for (var i = 0 ; i < contacts.length; i++) {
-        if(contacts[i].phoneNumbers === dialedNumber) {
-            alert(contacts[i].phoneNumbers);
-        } 
-    }
-};
 
 var app = {
 	    // Application Constructor
@@ -266,6 +276,16 @@ var app = {
                 
                 navigator.contacts.find(filter, findSuccess, findError, options);
 	    },
+            
+            findSuccess: function (contacts) {
+                dialedNumber = global.get('dialedNumber');
+                alert('contacts here');
+                for (var i = 0 ; i < contacts.length; i++) {
+                    if(contacts[i].phoneNumbers === dialedNumber) {
+                        alert(contacts[i].phoneNumbers);
+                    } 
+                }
+            },
 
             
 	    // Update DOM on a Received Event
