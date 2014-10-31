@@ -102,10 +102,10 @@ window.declineCall = function(callback) {
     }, "LinPhonePlugin", "DeclineCall", []);
 };
 
-window.signOut = function(callback) {
+window.signOut = function(telno, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "SignOut", []);
+    }, "LinPhonePlugin", "SignOut", [telno]);
 };
 
 window.getContactImageUri = function(telno, callback) {

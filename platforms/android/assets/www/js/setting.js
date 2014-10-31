@@ -61,7 +61,11 @@ $(window).on('orientationchange', function () {
 });
 
 function doSignOut() {
-    window.signOut(function (data) {
+	var telno = global.get('telno');
+    window.signOut(telno, function (data) {
+    	global.set('uid', '');
+        global.set('telno', '');
+        global.set('password', '');
         window.location.href = 'login.html';
     });
 }

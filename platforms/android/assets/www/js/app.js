@@ -414,7 +414,7 @@ function Global() {
     	var password = global.get('password');
     	if (sipUsername !== null && password !== null) {
         	window.registerSip(sipUsername, password, function(message) {
-            	//empty
+            	global.showPopup("Test Registration", message.message)
             });
         }
     };

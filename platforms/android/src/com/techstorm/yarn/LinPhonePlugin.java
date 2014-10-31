@@ -1,5 +1,6 @@
 package com.techstorm.yarn;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -105,6 +106,8 @@ public class LinPhonePlugin extends CordovaPlugin {
 					+ " successful via video call.");
 			return true;
 		} else if (action.equals("RegisterSip")) {
+			String message = "";
+			JSONObject objJSON = new JSONObject();
 			String sipUsername = (String) args.get(0);
 			String password = (String) args.get(1);
 			String domain = context.getResources().getString(
@@ -112,39 +115,53 @@ public class LinPhonePlugin extends CordovaPlugin {
 			String sipAddress = sipUsername + "@" + domain;
 			
 			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+			
 			if (lc.isNetworkReachable()) {
 				// Get account index.
 				int nbAccounts = LinphonePreferences.instance().getAccountCount();
-				int accountIndex = findAuthIndexOf(sipAddress);
+				List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
 				
-				if (accountIndex == -1) { // User haven't registered
-					
+				
+				if (accountIndexes == null || accountIndexes.isEmpty()) { // User haven't registered
+					message += "NOT-REGISTERED as "+sipUsername+" with "+password;
+					message += ". Trying to REGISTER as "+sipUsername+" with "+password;
 					logIn(sipUsername, password, domain, false);
 					lc.refreshRegisters();
-					accountIndex = nbAccounts;
+					accountIndexes.add(nbAccounts);
 				}
 				
-				if (LinphonePreferences.instance().getDefaultAccountIndex() != accountIndex) {
-					LinphonePreferences.instance().setDefaultAccount(accountIndex);
-					LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
-					lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
-					lc.refreshRegisters();
-					callbackContext.success("Registered sip:"+sipUsername+"@"+domain+" successfully.");
-				} else {
-					if (lc != null && lc.getDefaultProxyConfig() != null) {
-						if (RegistrationState.RegistrationOk == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
-							callbackContext.success("User Sip have registered. Ignored action...");
-						} else if (RegistrationState.RegistrationFailed == LinphoneManager.getLc().getDefaultProxyConfig().getState()
-								|| RegistrationState.RegistrationNone == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
-							logIn(sipUsername, password, domain, false);
-							LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
-							lc.refreshRegisters();
-							callbackContext.success("Re-register sip:"+sipUsername+"@"+domain);
+				for (Integer accountIndex : accountIndexes) {
+					if (LinphonePreferences.instance().getDefaultAccountIndex() != accountIndex) {
+						
+						LinphonePreferences.instance().setDefaultAccount(accountIndex);
+						LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+						lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
+						lc.refreshRegisters();
+						//callbackContext.success("Registered sip:"+sipUsername+"@"+domain+" successfully.");
+					} else {
+						if (lc != null && lc.getDefaultProxyConfig() != null) {
+							if (RegistrationState.RegistrationOk == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
+								//callbackContext.success("User Sip have registered. Ignored action...");
+								message += "REGISTERED as "+sipUsername+" with "+password;
+							} else if (RegistrationState.RegistrationFailed == LinphoneManager.getLc().getDefaultProxyConfig().getState()
+									|| RegistrationState.RegistrationNone == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
+								message += "NOT-REGISTERED as "+sipUsername+" with "+password;
+								message += ". Trying to REGISTER as "+sipUsername+" with "+password;
+//								logIn(sipUsername, password, domain, false);
+								LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+								lc.refreshRegisters();
+								//callbackContext.success("Re-register sip:"+sipUsername+"@"+domain);
+							}
 						}
 					}
 				}
+			} else {
+				message += "NOT-REGISTERED as "+sipUsername+" with "+password;
+				message += ".Network is not available";
 			}
-			
+			objJSON.put("message", message);
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
 			return true;
 		} else if (action.equals("GetContactImageUri")) {
 			JSONObject objJSON = new JSONObject();
@@ -204,14 +221,20 @@ public class LinPhonePlugin extends CordovaPlugin {
 		} else if (action.equals("SignOut")) {
 			if (LinphoneManager.isInstanciated()) {
 				LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
-				int accountIndex = LinphonePreferences.instance().getDefaultAccountIndex();
-				LinphonePreferences.instance().setAccountEnabled(accountIndex, false);
-//				if (lc.getAuthInfosList().length > accountIndex) { // account index existing
-//					LinphoneAuthInfo authInfo = lc.getAuthInfosList()[accountIndex];
-//					lc.removeAuthInfo(authInfo);
-//					LinphonePreferences.instance().setDefaultAccount(0);
-//					lc.refreshRegisters();
-//				}
+				String sipUsername = (String) args.get(0);
+				String domain = context.getResources().getString(
+						R.string.sip_domain_default);
+				String sipAddress = sipUsername + "@" + domain;
+				List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
+				for (Integer accountIndex : accountIndexes) {
+					LinphonePreferences.instance().setAccountEnabled(accountIndex, false);
+					LinphoneProxyConfig proxyCfg = lc.getProxyConfigList()[accountIndex];
+					lc.removeProxyConfig(proxyCfg);
+				}
+				
+				LinphoneAuthInfo authInfo = lc.findAuthInfo(sipUsername, null, domain);
+				lc.removeAuthInfo(authInfo);
+				lc.refreshRegisters();
 			}
 			callbackContext.success("Sign out successful.");
 			return true;
@@ -381,20 +404,19 @@ public class LinPhonePlugin extends CordovaPlugin {
 	    contentResolver.insert(CallLog.Calls.CONTENT_URI, values);
 	}
 	
-	private int findAuthIndexOf(String sipAddress) {
+	private List<Integer> findAuthIndexOf(String sipAddress) {
 		int nbAccounts = LinphonePreferences.instance().getAccountCount();
-		int accountIndex = -1;
-		for (int i = 0; i < nbAccounts; i++)
+		List<Integer> indexes = new ArrayList<Integer>();
+		for (int index = 0; index < nbAccounts; index++)
 		{
-			String accountUsername = LinphonePreferences.instance().getAccountUsername(i);
-			String accountDomain = LinphonePreferences.instance().getAccountDomain(i);
+			String accountUsername = LinphonePreferences.instance().getAccountUsername(index);
+			String accountDomain = LinphonePreferences.instance().getAccountDomain(index);
 			String identity = accountUsername + "@" + accountDomain;
 			if (identity.equals(sipAddress)) {
-				accountIndex = i;
-				break;
+				indexes.add(index);
 			}
 		}
-		return accountIndex;
+		return indexes;
 	}
 	
 	private void registerIfFailed(LinphoneCore lc) {

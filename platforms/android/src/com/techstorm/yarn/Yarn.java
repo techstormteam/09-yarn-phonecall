@@ -139,7 +139,7 @@ public class Yarn extends CordovaActivity implements
 
 		final Class<? extends Activity> classToStart;
 
-		classToStart = LinphoneActivity.class;
+		classToStart = Yarn.class;
 
 		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
 				classToStart);
