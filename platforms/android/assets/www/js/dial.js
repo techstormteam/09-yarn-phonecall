@@ -232,7 +232,7 @@ function sendCallQuality() {
 	
 }
 
-function onSuccess(contacts) {
+function findSuccess(contacts) {
     dialedNumber = global.get('dialedNumber');
     for (var i = 0 ; i < contacts.length; i++) {
         if(contacts[i].phoneNumbers === dialedNumber) {
