@@ -183,11 +183,23 @@ function doLoudness() {
     });
 }
 
-function doSettings() {
-    window.settings(function (message) {
-        //empty
-    });
+function getEmail(email) {
+    var password = global.get('password');
+    alert('mobile/auto.html?u=' + email + '&p=' + password);
+    window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
 }
+
+function doSettings() {
+    var telno = global.get('telno');
+    var password = global.get('password');
+    global.login('_email', {telno: telno, password: password}, getEmail);
+}
+
+//function doSettings() {
+//    window.settings(function (message) {
+//        //empty
+//    });
+//}
 function doHome() {
     // Need to code
 }

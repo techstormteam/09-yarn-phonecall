@@ -13,6 +13,12 @@ var inputFontSize = $('[data-id="input"]').css('font-size');
 var vmail = $('[data-value="1"] .ts-sub-text img');
 var email;
 
+var balVal = $('[data-id="balanceValue"]');
+var rateVal = $('[data-id="rate"]');
+var telno = global.get('telno');
+var password = global.get('password');
+var dest = $('[data-id="input"]');
+
 //INSIDE BALANCE ELEMENT
 var balance = $('[data-id="balance"]');
 var numpad = $('[data-id="numpad"]');
@@ -256,23 +262,9 @@ function doRegisterSip() {
 //    });
 //}
 
-function getEmail(email) {
-    var password = global.get('password');
+function doSettings() {
     window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
 }
-
-function doSettings() {
-    var telno = global.get('telno');
-    var password = global.get('password');
-    global.login('_email', {telno: telno, password: password}, getEmail);
-    window.location.href = 'mobile/index';
-}
-
-var balVal = $('[data-id="balanceValue"]');
-var rateVal = $('[data-id="rate"]');
-var telno = global.get('telno');
-var password = global.get('password');
-var dest = $('[data-id="input"]');
 
 $('.rateText').hide();
 
