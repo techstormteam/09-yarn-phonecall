@@ -401,7 +401,11 @@ function Global() {
      * @returns {undefined}
      */
     this.showPopup = function(title, message, type) {
-    	sweetAlert(title, message, type);
+        if (type === null) {
+            sweetAlert(title,message,'error');
+        } else {
+            sweetAlert(title, message, type);
+        }
     };
     
     this.registerSipUser = function() {
@@ -424,11 +428,19 @@ function Global() {
     };
     
     this.custphoneSuccessful = function () {
+<<<<<<< 22d90c3fc3237e5a1a31f39b5daefe8470ceb493
     	//alert('s');
     }
     this.custphoneFailed = function () {
     	//alert('f');
     }
+=======
+    	alert('s');
+    };
+    this.custphoneFailed = function () {
+    	alert('f');
+    };
+>>>>>>> 64517cd2ace2881613939ecac359fe3ed21653e2
     
     this.doSendCustPhone = function () {
     	var obj = this;
@@ -444,7 +456,7 @@ function Global() {
             }
         });
     	
-    }
+    };
     
     this.smsInboundScheduled = function () {
     	this.doSendCustPhone();

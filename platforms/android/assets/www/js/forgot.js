@@ -93,7 +93,7 @@ function check_form() {
     if (phone !== "" && email !== "") {
         global.forgot('_forgotpaswd', {email: email, phone: phone}, forgot);
     } else {
-        alert('Please enter your registered phone number and/or password, in order to receive a password reminder');
+        global.showPopup('Oops...', 'Please enter your registered phone number and/or password, in order to receive a password reminder', 'error');
     }
 }
 
@@ -102,7 +102,7 @@ function doCheckInternetConnection() {
 		if (data.internetConnectionAvailable) {
 			check_form();
 		} else {
-			global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+			global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access", 'error');
 		}
     });
 }
@@ -130,7 +130,7 @@ var app = {
 	    receivedEvent: function (id) {
 	    	window.plugins.html5Video.initialize({
 	            "video1" : "forgottenpassword.mp4"
-	        })
+	        });
 	        window.plugins.html5Video.play("video1");
 	        console.log('Received Event: ' + id);
 	    }

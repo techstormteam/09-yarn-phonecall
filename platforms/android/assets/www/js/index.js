@@ -194,8 +194,10 @@ function doWifiCall() {
     var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
     window.wifiCall(dialedNumber, function (data) {
     	if (data.internetConnectionAvailable) {
-    		window.location.href = 'dial.html';
+            global.set('dialedNumber', dialedNumber);
+            window.location.href = 'dial.html';
         } else {
+            global.set('dialedNumber', '');
             global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
         }
     	

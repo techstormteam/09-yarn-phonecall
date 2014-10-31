@@ -232,6 +232,15 @@ function sendCallQuality() {
 	
 }
 
+function onSuccess(contacts) {
+    dialedNumber = global.get('dialedNumber');
+    for (var i = 0 ; i < contacts.length; i++) {
+        if(contacts[i].phoneNumbers === dialedNumber) {
+            alert(contacts[i].phoneNumbers);
+        } 
+    }
+};
+
 var app = {
 	    // Application Constructor
 	    initialize: function () {
@@ -250,7 +259,15 @@ var app = {
 	    // function, we must explicity call 'app.receivedEvent(...);'
 	    onDeviceReady: function () {
 	        app.receivedEvent('deviceready');
+                var options = new ContactFindOptions();
+                options.filter = '';
+                filter = ['phoneNumbers', 'photos'];
+                options.multiple = true;
+                
+                navigator.contacts.find(filter, findSuccess, findError, options);
 	    },
+
+            
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
