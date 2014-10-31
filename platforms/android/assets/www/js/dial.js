@@ -134,12 +134,12 @@ $(window).on('orientationchange', function() {
 function micHandler() {
     if(micEnabled) {
         $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/mute.png');
-        doMicMute(true);
         micEnabled = false;
+        doMicMute(true);
     } else {
         $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/microphone.png');
-        doMicMute(false);
         micEnabled = true;
+        doMicMute(false);
     }
 }
 
@@ -149,6 +149,7 @@ function msgReturn(response) {
     } else {
         global.set('callMsg', '');
     }
+    window.location.href = 'index.html';
 }
 
 function doHangUp() {
