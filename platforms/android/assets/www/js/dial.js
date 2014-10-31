@@ -106,14 +106,9 @@ function updateSize() {
 
 function blink(i) {
     setTimeout(function () {
-//        if ($('[data-loading="' + i + '"]').attr('src') === 'img/dial/default-dot.png') {
-//            $('[data-loading="' + i + '"]').attr('src', 'img/dial/orange-dot.png');
-//        } else {
-//            $('[data-loading="' + i + '"]').attr('src', 'img/dial/default-dot.png');
-//        }
         $('[data-loading]').attr('src', 'img/dial/default-dot.png');
         $('[data-loading="' + i + '"]').attr('src', 'img/dial/orange-dot.png');
-        if(i < 5) {
+        if (i < 5) {
             i++;
         } else {
             i = 1;
