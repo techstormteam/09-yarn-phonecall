@@ -152,11 +152,15 @@ function msgReturn(response) {
     window.location.href = 'index.html';
 }
 
+function msgError() {
+    window.location.href = 'index.html';
+}
+
 function doHangUp() {
     window.hangUp(function (message) {
         //empty
     });
-    global.login('_yarn_msg', {telno: global.get('telno'), password: global.get('password')}, msgReturn);
+    global.login('_yarn_msg', {telno: global.get('telno'), password: global.get('password')}, msgReturn, msgError);
     window.location.href = 'index.html';
 }
 
