@@ -38,11 +38,13 @@ $('[data-value]').tap(function () {
 function doDialPad() {
     if(!dialEnabled) {
         dialPad.show();
+        var dialHeight = $(window).height() - ($('header').height() + $('#loading').height());
         dialPad.css({
             position: 'fixed',
             bottom: '0',
             zIndex: '1000',
-            background: 'rgba(0,0,0,0.8)'
+            background: 'rgba(0,0,0,0.8)',
+            height: dialHeight
         });
         dialEnabled = true;
     } else {
