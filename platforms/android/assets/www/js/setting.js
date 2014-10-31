@@ -62,7 +62,7 @@ $(window).on('orientationchange', function () {
 
 function doSignOut() {
 	var telno = global.get('telno');
-    window.signOut(telno, function (data) {
+        window.signOut(telno, function (data) {
     	global.set('uid', '');
         global.set('telno', '');
         global.set('password', '');
