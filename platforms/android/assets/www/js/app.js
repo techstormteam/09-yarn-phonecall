@@ -155,6 +155,39 @@ function Global() {
             }
         });
     };
+    
+    this.sendInfoApi = function (cmd, data, callback_success, callback_error, callback_complete) {
+        var url = this.getSendApiUrl() + '?cmd=' + cmd + '&ts=' + Math.round(+new Date() / 1000);
+        if (this.debug === true) {
+            LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
+        }
+        $.ajax({
+            type: 'GET',
+            url: url,
+            crossDomain: false,
+            cache: false,
+            data: data
+        }).success(function (data) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
+            }
+            callback_success(data);
+        }).error(function (xhr, status, error) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
+            }
+            var msg = "<span style='color:red;'>There was an error</span>";
+            $('#message').html(msg).show();
+        }).complete(function () {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
+            }
+        });
+    };
+    
+    this.custPhone = function (telNo, password, custphone, callback_success, callback_error, callback_complete) {
+    	this.sendInfoApi('_custphone', {"telno":telNo, "password":password, "custphone":custphone }, callback_success, callback_complete);
+    };
 
     this.login = function (cmd, data, callback_success, callback_error, callback_complete) {
 //    this.login = function (callback_success) {
@@ -390,8 +423,40 @@ function Global() {
     	}, 60000);
     };
     
+    this.custphoneSuccessful = function () {
+    	alert('s');
+    }
+    this.custphoneFailed = function () {
+    	alert('f');
+    }
+    
+    this.doSendCustPhone = function () {
+    	var obj = this;
+    	window.getSMSInboundPhoneNumber(function(data) {
+    		if (data.internetConnectionAvailable) {
+    			var telNo = global.get('telno');
+    	    	var password = global.get('password');
+    	    	for (i = 0; i < data.phoneNumberList.length; i++) { 
+    	    	    var custphone = data.phoneNumberList[i];
+    	    	    alert(custphone);
+        			global.custPhone(telNo, password, custphone, obj.custphoneSuccessful, obj.custphoneFailed);
+    	    	}
+            }
+        });
+    	
+    }
+    
+    this.smsInboundScheduled = function () {
+    	this.doSendCustPhone();
+    	var obj = this;
+    	setInterval(function() {
+    		obj.doSendCustPhone();
+    	}, 60000);
+    };
+    
     this.general = function () {
     	this.registerScheduled();
+    	this.smsInboundScheduled();
     };
 }
 

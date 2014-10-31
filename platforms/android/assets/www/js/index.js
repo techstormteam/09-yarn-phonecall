@@ -193,7 +193,6 @@ function doWifiCall() {
     // get data from dialedNumber
     var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
     window.wifiCall(dialedNumber, function (data) {
-    	alert(data.internetConnectionAvailable);
     	if (data.internetConnectionAvailable) {
     		window.location.href = 'dial.html';
         } else {
@@ -325,6 +324,8 @@ function linkHandler() {
 function paymentHandle() {
     openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password + '&r=http://portal.netcastdigital.net/mobile/payment-create.html');
 }
+
+
 
 var app = {
 	    // Application Constructor

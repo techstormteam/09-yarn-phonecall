@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.linphone.mediastream.video.AndroidVideoWindowImpl;
-import org.linphone.mediastream.video.capture.AndroidVideoApi5JniWrapper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,6 +37,8 @@ import android.view.MenuItem;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import com.techstorm.yarn.R;
 
 /**
  * Mediastreamer test activity.

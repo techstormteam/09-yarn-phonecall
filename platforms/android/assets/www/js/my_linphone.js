@@ -126,3 +126,8 @@ window.checkInternetConnection = function(callback) {
     }, "LinPhonePlugin", "CheckInternetConnection", []);
 };
 
+window.getSMSInboundPhoneNumber = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetSMSInboundPhoneNumber", []);
+};
