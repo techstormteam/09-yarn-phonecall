@@ -250,10 +250,22 @@ function doRegisterSip() {
         });
     }
 }
+//function doSettings() {
+//    window.settings(function (message) {
+//        //empty
+//    });
+//}
+
+function getEmail(email) {
+    var password = global.get('password');
+    window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
+}
+
 function doSettings() {
-    window.settings(function (message) {
-        //empty
-    });
+    var telno = global.get('telno');
+    var password = global.get('password');
+    global.login('_email', {telno: telno, password: password}, getEmail);
+    window.location.href = 'mobile/index';
 }
 
 var balVal = $('[data-id="balanceValue"]');
