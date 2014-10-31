@@ -102,7 +102,7 @@ function doCheckInternetConnection() {
 		if (data.internetConnectionAvailable) {
 			check_form();
 		} else {
-			global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access", 'error');
+			global.showPopup("Online Access Error", "Internet connection not available. Please enable online access", 'error');
 		}
     });
 }
