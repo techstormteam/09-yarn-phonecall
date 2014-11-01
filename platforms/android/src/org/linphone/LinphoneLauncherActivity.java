@@ -81,7 +81,7 @@ public class LinphoneLauncherActivity extends Activity {
 			classToStart = LinphoneActivity.class;
 		}
 		
-		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(classToStart);
+		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(classToStart, classToStart);
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {

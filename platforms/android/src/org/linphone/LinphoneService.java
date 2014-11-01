@@ -58,6 +58,7 @@ import android.os.SystemClock;
 import android.provider.MediaStore;
 
 import com.techstorm.yarn.R;
+import com.techstorm.yarn.Yarn;
 
 /**
  * 
@@ -356,6 +357,7 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 	private Object[] mStartForegroundArgs = new Object[2];
 	private Object[] mStopForegroundArgs = new Object[1];
 	private Class<? extends Activity> incomingReceivedActivity = LinphoneActivity.class;
+	private Class<? extends Activity> notificationClickActivity = Yarn.class;
 
 	void invokeMethod(Method method, Object[] args) {
 		try {
@@ -533,13 +535,14 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		});
 	}
 	
-	public void setActivityToLaunchOnIncomingReceived(Class<? extends Activity> activity) {
-		incomingReceivedActivity = activity;
+	public void setActivityToLaunchOnIncomingReceived(Class<? extends Activity> incomingReceivedActivity, Class<? extends Activity> notificationClickActivity) {
+		this.incomingReceivedActivity = incomingReceivedActivity;
+		this.notificationClickActivity = notificationClickActivity;
 		resetIntentLaunchedOnNotificationClick();
 	}
 	
 	private void resetIntentLaunchedOnNotificationClick() {
-		Intent notifIntent = new Intent(this, incomingReceivedActivity);
+		Intent notifIntent = new Intent(this, notificationClickActivity);
 		mNotifContentIntent = PendingIntent.getActivity(this, 0, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		if (mNotif != null) {

@@ -41,6 +41,7 @@ import static android.content.Intent.ACTION_MAIN;
 import org.apache.cordova.CordovaActivity;
 import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
+import org.linphone.LinphonePreferences;
 import org.linphone.LinphoneService;
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
 import org.linphone.core.LinphoneCall;
@@ -139,10 +140,10 @@ public class Yarn extends CordovaActivity implements
 
 		final Class<? extends Activity> classToStart;
 
-		classToStart = Yarn.class;
+		classToStart = LinphoneActivity.class;
 
 		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
-				classToStart);
+				classToStart, Yarn.class);
 
 		mHandler.postDelayed(new Runnable() {
 
@@ -154,6 +155,8 @@ public class Yarn extends CordovaActivity implements
 					enableAllAudioCodecs();
 
 					enableAllVideoCodecs();
+					
+					enableEchoCancellation(false);
 
 				} catch (LinphoneCoreException e) {
 
@@ -167,6 +170,10 @@ public class Yarn extends CordovaActivity implements
 
 	}
 
+	private void enableEchoCancellation(boolean enable) {
+		LinphonePreferences.instance().setEchoCancellation(enable);
+	}
+	
 	private void enableAllAudioCodecs() throws LinphoneCoreException {
 
 		LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
