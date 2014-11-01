@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.linphone.InCallActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphonePreferences;
+import org.linphone.LinphoneManager.EcCalibrationListener;
 import org.linphone.LinphonePreferences.AccountBuilder;
 import org.linphone.LinphoneUtils;
 import org.linphone.core.CallDirection;
@@ -26,6 +27,7 @@ import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCallLog;
 import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCore;
+import org.linphone.core.LinphoneCore.EcCalibratorStatus;
 import org.linphone.core.LinphoneCore.RegistrationState;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.LinphoneProxyConfig;
@@ -50,7 +52,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-public class LinPhonePlugin extends CordovaPlugin {
+public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListener {
 
 	private static final int CALL_ACTIVITY = 19;
 	private Context context;
@@ -418,6 +420,34 @@ public class LinPhonePlugin extends CordovaPlugin {
 		return false;
 	}
 
+	private void echoCalibration() throws LinphoneCoreException {
+		LinphoneManager.getInstance().startEcCalibration(LinPhonePlugin.this);
+	}
+	
+	@Override
+	public void onEcCalibrationStatus(final EcCalibratorStatus status, final int delayMs) {
+//		mHandler.post(new Runnable() {
+//			public void run() {
+//				CheckBoxPreference echoCancellation = (CheckBoxPreference) findPreference(getString(R.string.pref_echo_cancellation_key));
+//				Preference echoCancellerCalibration = findPreference(getString(R.string.pref_echo_canceller_calibration_key));
+//
+//				if (status == EcCalibratorStatus.DoneNoEcho) {
+//					echoCancellerCalibration.setSummary(R.string.no_echo);
+//					echoCancellation.setChecked(false);
+//					LinphonePreferences.instance().setEchoCancellation(false);
+//				} else if (status == EcCalibratorStatus.Done) {
+//					echoCancellerCalibration.setSummary(String.format(getString(R.string.ec_calibrated), delayMs));
+//					echoCancellation.setChecked(true);
+//					LinphonePreferences.instance().setEchoCancellation(true);
+//				} else if (status == EcCalibratorStatus.Failed) {
+//					echoCancellerCalibration.setSummary(R.string.failed);
+//					echoCancellation.setChecked(true);
+//					LinphonePreferences.instance().setEchoCancellation(true);
+//				}
+//			}
+//		});
+	}
+	
 	public void insertPlaceholderCall(ContentResolver contentResolver, String number){
 	    ContentValues values = new ContentValues();
 	    values.put(CallLog.Calls.NUMBER, number);
@@ -735,6 +765,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 
 	private boolean wifiCall(AddressText mAddress) {
 		try {
+			echoCalibration();
 			if (!LinphoneManager.getInstance().acceptCallIfIncomingPending()) {
 				LinphoneManager.getInstance().routeAudioToReceiver();
 				LinphoneManager.getLc().enableSpeaker(false);
