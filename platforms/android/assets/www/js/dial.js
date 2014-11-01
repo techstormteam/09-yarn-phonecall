@@ -293,21 +293,26 @@ var app = {
 	    onDeviceReady: function () {
 	        app.receivedEvent('deviceready');
                 var options = new ContactFindOptions();
-                options.filter = '';
-                filter = ['phoneNumbers', 'photos'];
+                options.filter = "";
                 options.multiple = true;
-                
-                navigator.contacts.find(filter, findSuccess, findError, options);
+                var fields = ["*"];
+                navigator.contacts.find(fields, onSuccess, onError, options);
 	    },
             
-            findSuccess: function (contacts) {
+            onSuccess: function (contacts) {
                 dialedNumber = global.get('dialedNumber');
-                alert('contacts here');
-                for (var i = 0 ; i < contacts.length; i++) {
-                    if(contacts[i].phoneNumbers === dialedNumber) {
-                        alert(contacts[i].phoneNumbers);
-                    } 
+                alert('There are: ' + contacts.length + ' contacts.');
+                for (var i = 0; i < contacts.length; i++) {
+                    if (contacts[i].phoneNumbers[0].value !== null) {
+                        if (contacts[i].phoneNumbers[0].value === dialedNumber) {
+                            alert('Found contact with number: ' + contacts[i].phoneNumbers[0].value);
+                        }
+                    }
                 }
+            },
+            
+            onError: function (error) {
+                alert(error);
             },
 
             
