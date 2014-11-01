@@ -212,6 +212,7 @@ function doSettings() {
 //}
 function doHome() {
     // Need to code
+    window.location.href = 'index.html';
 }
 function doPhoneContacts() {
 
