@@ -99,8 +99,8 @@ function btnHandler(object) {
     }
 
     function check_form() {
-        username = $('#txtUsername').val();
-        password = $('#txtPass').val();
+        username = $.trim($('#txtUsername').val());
+        password = $.trim($('#txtPass').val());
 
         if (username !== "" && password !== "") {
             global.set('auto_login', true);
