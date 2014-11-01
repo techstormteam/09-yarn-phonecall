@@ -176,13 +176,19 @@ function doLoudness() {
     var loudnessIcon = $('[data-id="loudness-icon"] img').attr('src');
     
     if(loudnessIcon === 'img/icons/loudness.png') {
+    	window.loudness(function (message) {
+            //empty
+        });
         $('[data-id="loudness-icon"]').find('img').attr('src', 'img/icons/loudness-off.png');
+        
     } else {
+    	window.phoneness(function (message) {
+            //empty
+        });
         $('[data-id="loudness-icon"]').find('img').attr('src', 'img/icons/loudness.png');
+        
     }
-    window.loudness(function (message) {
-        //empty
-    });
+    
 }
 
 

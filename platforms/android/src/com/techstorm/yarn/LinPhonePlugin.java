@@ -265,6 +265,11 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			LinphoneManager.getLc().enableSpeaker(true);
 			callbackContext.success("Do loudness.");
 			return true;
+		} else if (action.equals("Phoneness")) {
+			LinphoneManager.getInstance().routeAudioToReceiver();
+			LinphoneManager.getLc().enableSpeaker(false);
+			callbackContext.success("Do phoneness.");
+			return true;
 		} else if (action.equals("DialDtmf")) {
 			String ch = (String) args.get(0).toString();
 			if (ch == null || ch.length() != 1) {
