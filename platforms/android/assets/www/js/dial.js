@@ -124,6 +124,8 @@ $(document).ready(function() {
     
     blink(1);
 });
+
+
 $(window).resize(function () {
     updateSize();
 });
@@ -272,85 +274,50 @@ function sendCallQuality() {
     });
 }
 
-document.addEventListener("deviceready", onDeviceReady, false);
+var app = {
+	    // Application Constructor
+	    initialize: function () {
+	        this.bindEvents();
+	    },
+	    // Bind Event Listeners
+	    //
+	    // Bind any events that are required on startup. Common events are:
+	    // 'load', 'deviceready', 'offline', and 'online'.
+	    bindEvents: function () {
+	        document.addEventListener('deviceready', this.onDeviceReady, false);
+	    },
+	    // deviceready Event Handler
+	    //
+	    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+	    // function, we must explicity call 'app.receivedEvent(...);'
+	    onDeviceReady: function () {
+	        app.receivedEvent('deviceready');
+                var options = new ContactFindOptions();
+                options.filter = '';
+                filter = ['phoneNumbers', 'photos'];
+                options.multiple = true;
+                
+                navigator.contacts.find(filter, findSuccess, findError, options);
+	    },
+            
+            findSuccess: function (contacts) {
+                dialedNumber = global.get('dialedNumber');
+                alert('contacts here');
+                for (var i = 0 ; i < contacts.length; i++) {
+                    if(contacts[i].phoneNumbers === dialedNumber) {
+                        alert(contacts[i].phoneNumbers);
+                    } 
+                }
+            },
 
-function onDeviceReady() {
-    // find all contacts with 'Bob' in any name field
-    var options = new ContactFindOptions();
-    options.filter = "";
-    options.multiple = true;
-//    var fields = ["displayName", "name", 'phoneNumbers'];
-    var fields = ["*"];
-    navigator.contacts.find(fields, onSuccess, onError, options);
-}
-
-// onSuccess: Get a snapshot of the current contacts
-
-function onSuccess(contacts) {
-    alert(contacts.length);
-    for (var i = 0; i < contacts.length; i++) {
-        if (contacts[i].phoneNumbers !== null) {
-            if (contacts[i].phoneNumbers[0].value === '0988652294') {
-                alert(i);
-                alert(contacts[i].displayName);
-                alert(contacts[i].photos);
-            }
-        }
-    }
-}
-
-// onError: Failed to get the contacts
-
-function onError(contactError) {
-    alert('onError!');
-}
-
-//var app = {
-//	    // Application Constructor
-//	    initialize: function () {
-//	        this.bindEvents();
-//	    },
-//	    // Bind Event Listeners
-//	    //
-//	    // Bind any events that are required on startup. Common events are:
-//	    // 'load', 'deviceready', 'offline', and 'online'.
-//	    bindEvents: function () {
-//	        document.addEventListener('deviceready', this.onDeviceReady, false);
-//	    },
-//	    // deviceready Event Handler
-//	    //
-//	    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-//	    // function, we must explicity call 'app.receivedEvent(...);'
-//	    onDeviceReady: function () {
-//	        app.receivedEvent('deviceready');
-//                
-//	    },
-//            
-//            findSuccess: function (contacts) {
-//                dialedNumber = global.get('dialedNumber');
-//                alert('contacts here');
-//                for (var i = 0 ; i < contacts.length; i++) {
-//                    if(contacts[i].phoneNumbers === dialedNumber) {
-//                        alert(contacts[i].phoneNumbers);
-//                    } 
-//                }
-//            },
-//
-//            
-//	    // Update DOM on a Received Event
-//	    receivedEvent: function (id) {
-//	    	global.general();
-//	    	doGetContactImageUri();
-//	    	callQualityTimeout();
-//			updateTimerScheduled();
-//			endCallCheckingScheduled();
-//	        console.log('Received Event: ' + id);
-//                
-//                var options = new ContactFindOptions();
-//                options.filter = '';
-//                filter = ['phoneNumbers', 'photos'];
-//                options.multiple = true;
-//                
-//                navigator.contacts.find(filter, findSuccess, findError, options);
-//	    }
-//	};
+            
+	    // Update DOM on a Received Event
+	    receivedEvent: function (id) {
+	    	global.general();
+	    	doGetContactImageUri();
+	    	callQualityTimeout();
+			updateTimerScheduled();
+			endCallCheckingScheduled();
+	        console.log('Received Event: ' + id);
+	    }
+	};
