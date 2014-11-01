@@ -9,7 +9,7 @@
         android:name="com.techstorm.yarn.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <permission android:name="android.permission.MODIFY_PHONE_STATE" />
-
+	<uses-permission android:name="android.permission.MODIFY_PHONE_STATEE" />
     <uses-permission android:name="org.linphone.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" >
@@ -114,11 +114,11 @@
 				<action android:name="android.provider.Telephony.SMS_RECEIVED" />
 			</intent-filter>
         </receiver>
-        <receiver android:name="com.techstorm.yarn.OutgoingBroadcastReceiver" >
+        <!-- <receiver android:name="com.techstorm.yarn.OutgoingBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
-        </receiver>
+        </receiver> -->
         <receiver
             android:name="com.techstorm.yarn.BootUpReceiver"
             android:enabled="true"

@@ -124,6 +124,8 @@ $(document).ready(function() {
     
     blink(1);
 });
+
+
 $(window).resize(function () {
     updateSize();
 });
@@ -134,12 +136,12 @@ $(window).on('orientationchange', function() {
 function micHandler() {
     if(micEnabled) {
         $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/mute.png');
-        doMicMute(true);
         micEnabled = false;
+        doMicMute(true);
     } else {
         $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/microphone.png');
-        doMicMute(false);
         micEnabled = true;
+        doMicMute(false);
     }
 }
 
@@ -149,13 +151,18 @@ function msgReturn(response) {
     } else {
         global.set('callMsg', '');
     }
+    window.location.href = 'index.html';
+}
+
+function msgError() {
+    window.location.href = 'index.html';
 }
 
 function doHangUp() {
     window.hangUp(function (message) {
         //empty
     });
-    global.login('_yarn_msg', {telno: global.get('telno'), password: global.get('password')}, msgReturn);
+    global.login('_yarn_msg', {telno: global.get('telno'), password: global.get('password')}, msgReturn, msgError);
     window.location.href = 'index.html';
 }
 
@@ -178,11 +185,25 @@ function doLoudness() {
     });
 }
 
-function doSettings() {
-    window.settings(function (message) {
-        //empty
-    });
+
+var telno = global.get('telno');
+var password = global.get('password');
+
+function getEmail(response) {
+    email = response;
 }
+
+global.login('_email', {telno: telno, password: password}, getEmail);
+
+function doSettings() {
+    window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
+}
+
+//function doSettings() {
+//    window.settings(function (message) {
+//        //empty
+//    });
+//}
 function doHome() {
     // Need to code
 }
@@ -272,21 +293,26 @@ var app = {
 	    onDeviceReady: function () {
 	        app.receivedEvent('deviceready');
                 var options = new ContactFindOptions();
-                options.filter = '';
-                filter = ['phoneNumbers', 'photos'];
+                options.filter = "";
                 options.multiple = true;
-                
-                navigator.contacts.find(filter, findSuccess, findError, options);
+                var fields = ["*"];
+                navigator.contacts.find(fields, onSuccess, onError, options);
 	    },
             
-            findSuccess: function (contacts) {
+            onSuccess: function (contacts) {
                 dialedNumber = global.get('dialedNumber');
-                alert('contacts here');
-                for (var i = 0 ; i < contacts.length; i++) {
-                    if(contacts[i].phoneNumbers === dialedNumber) {
-                        alert(contacts[i].phoneNumbers);
-                    } 
+                alert('There are: ' + contacts.length + ' contacts.');
+                for (var i = 0; i < contacts.length; i++) {
+                    if (contacts[i].phoneNumbers[0].value !== null) {
+                        if (contacts[i].phoneNumbers[0].value === dialedNumber) {
+                            alert('Found contact with number: ' + contacts[i].phoneNumbers[0].value);
+                        }
+                    }
                 }
+            },
+            
+            onError: function (error) {
+                alert(error);
             },
 
             

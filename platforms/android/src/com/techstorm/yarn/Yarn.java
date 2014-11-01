@@ -38,6 +38,8 @@ package com.techstorm.yarn;
 
 import static android.content.Intent.ACTION_MAIN;
 
+import java.lang.reflect.Method;
+
 import org.apache.cordova.CordovaActivity;
 import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
@@ -50,10 +52,19 @@ import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.PayloadType;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
+
+import com.android.internal.telephony.ITelephony;
 
 public class Yarn extends CordovaActivity implements
 		LinphoneOnCallStateChangedListener
@@ -63,13 +74,16 @@ public class Yarn extends CordovaActivity implements
 	private Handler mHandler;
 
 	private ServiceWaitThread mThread;
-
+	
+	private Context context;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 
 	{
 
 		super.onCreate(savedInstanceState);
+		this.context = getApplicationContext();
 		//file:///android_asset/www/index.html
 		// Set by <content src="index.html" /> in config.xml
 		String pageUrl = getIntent().getStringExtra("page");
@@ -79,6 +93,12 @@ public class Yarn extends CordovaActivity implements
 			loadUrl(launchUrl);
 		}
 
+		
+		
+		TelephonyManager tm = (TelephonyManager) this.getApplicationContext()
+				.getSystemService(Service.TELEPHONY_SERVICE);
+		tm.listen(new MyPhoneStateListener(), PhoneStateListener.LISTEN_CALL_STATE);
+		
 		mHandler = new Handler();
 
 		if (LinphoneService.isReady()) {
@@ -100,6 +120,73 @@ public class Yarn extends CordovaActivity implements
 
 	}
 
+	public class MyPhoneStateListener extends PhoneStateListener {
+
+    	@Override
+    	public void onCallStateChanged(int state, String incomingNumber) {
+
+			super.onCallStateChanged(state, incomingNumber);
+			switch (state) {
+			case TelephonyManager.CALL_STATE_IDLE:
+				break;
+			case TelephonyManager.CALL_STATE_OFFHOOK:
+				SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+				boolean nativeCallEnable = prefs.getBoolean(context.getString(R.string.native_call_enable), false);
+				if (!nativeCallEnable) {
+					endCall();
+					
+					SharedPreferences.Editor edit = prefs.edit();
+					edit.putBoolean(context.getString(R.string.do_cellular_call), true);
+					edit.putString(context.getString(R.string.do_cellular_call_number), incomingNumber);
+			        edit.commit();
+					Intent i = new Intent(context, Yarn.class);
+//					i.putExtras(intent);
+					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					context.startActivity(i);
+				}
+				SharedPreferences.Editor edit = prefs.edit();
+				edit.putBoolean(context.getString(R.string.native_call_enable), false);
+		        edit.commit();
+				
+				if (incomingNumber == null) {
+					// outgoing call
+				} else {
+					// incoming call
+				}
+				break;
+			case TelephonyManager.CALL_STATE_RINGING:
+				if (incomingNumber == null) {
+					// outgoing call
+				} else {
+					// incoming call
+				}
+				break;
+			}
+    	}
+    	
+    	private void endCall() {
+    		try {
+    			// Java reflection to gain access to TelephonyManager's
+    			// ITelephony getter
+    			TelephonyManager tm = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+    			Class<?> c = Class.forName(tm.getClass().getName());
+    			Method m = c.getDeclaredMethod("getITelephony");
+    			m.setAccessible(true);
+    			com.android.internal.telephony.ITelephony telephonyService = (ITelephony) m
+    					.invoke(tm);
+
+    			telephonyService = (ITelephony) m.invoke(tm);
+//    			telephonyService.silenceRinger(); // error at this
+    			telephonyService.endCall();
+    			
+
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
+	
 	private class ServiceWaitThread extends Thread {
 
 		public void run() {

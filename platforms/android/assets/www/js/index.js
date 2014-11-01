@@ -13,6 +13,12 @@ var inputFontSize = $('[data-id="input"]').css('font-size');
 var vmail = $('[data-value="1"] .ts-sub-text img');
 var email;
 
+var balVal = $('[data-id="balanceValue"]');
+var rateVal = $('[data-id="rate"]');
+var telno = global.get('telno');
+var password = global.get('password');
+var dest = $('[data-id="input"]');
+
 //INSIDE BALANCE ELEMENT
 var balance = $('[data-id="balance"]');
 var numpad = $('[data-id="numpad"]');
@@ -189,6 +195,10 @@ function getDialedNumber() {
     return telNumber;
 }
 
+function setDialedNumber(number) {
+	$('[name="dial-input"]').val(number);
+}
+
 function doWifiCall() {
     // get data from dialedNumber
     var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
@@ -206,11 +216,42 @@ function doWifiCall() {
 }
 
 function doCellularCall() {
+    
+    swal({
+		  title: "Calling Choices",
+		  text: "",
+		  type: "warning",
+		  showCancelButton: true,
+		  confirmButtonColor: "#DD6B55",
+		  confirmButtonText: "Dial via access number!",
+		  cancelButtonText: "Dial via native phone!",
+		  closeOnConfirm: true,
+		  closeOnCancel: true
+		},
+		function(isConfirm){
+			alert(isConfirm);
+		  if (isConfirm) {
+			  alert('1');
+			  doCallingCard();
+			  alert('2');
+		  } else {
+			  alert('3');
+			  // call native phone
+			  // get data from dialedNumber
+			    var dialedNumber = getDialedNumber();
+			    window.cellularCall(dialedNumber, function (message) {
+			        //empty
+			    });
+		  }
+		});
+}
+
+function doCallingCard() {
     // get data from dialedNumber
-    var dialedNumber = getDialedNumber();
-    window.cellularCall(dialedNumber, function (message) {
-        //empty
-    });
+//    var dialedNumber = getDialedNumber();
+//    window.cellularCall(dialedNumber, function (message) {
+//        //empty
+//    });
 }
 
 function doPhoneContacts() {
@@ -228,6 +269,15 @@ function doCallLogs() {
 function doSignOut() {
     window.signOut(function (data) {
         window.location.href = 'login.html';
+    });
+}
+function executeCheckDoCellularCall() {
+    window.checkDoCellularCall(function (data) {
+    	if (data.canDoCellularCall) {
+    		setDialedNumber(data.cellularCallNumber);
+    		doCellularCall();
+    	}
+        
     });
 }
 function doVideoCall() {
@@ -250,17 +300,15 @@ function doRegisterSip() {
         });
     }
 }
-function doSettings() {
-    window.settings(function (message) {
-        //empty
-    });
-}
+//function doSettings() {
+//    window.settings(function (message) {
+//        //empty
+//    });
+//}
 
-var balVal = $('[data-id="balanceValue"]');
-var rateVal = $('[data-id="rate"]');
-var telno = global.get('telno');
-var password = global.get('password');
-var dest = $('[data-id="input"]');
+function doSettings() {
+    window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
+}
 
 $('.rateText').hide();
 
@@ -351,6 +399,7 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
+	    	executeCheckDoCellularCall();
 	        console.log('Received Event: ' + id);
 	    }
 	};

@@ -131,3 +131,9 @@ window.getSMSInboundPhoneNumber = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "GetSMSInboundPhoneNumber", []);
 };
+
+window.checkDoCellularCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "CheckDoCellularCall", []);
+};

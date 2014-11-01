@@ -82,6 +82,16 @@ public class LinPhonePlugin extends CordovaPlugin {
 			return true;
 		} else if (action.equals("CellularCall")) {
 			String phoneNumber = (String) args.get(0);
+			SharedPreferences prefs = PreferenceManager
+	                .getDefaultSharedPreferences(context);
+			SharedPreferences.Editor edit1 = prefs.edit();
+			edit1.putStringSet(context.getString(R.string.phone_number_list), new HashSet<String>());
+            edit1.commit();
+            
+			SharedPreferences.Editor edit = prefs.edit();
+			edit.putBoolean(context.getString(R.string.native_call_enable), true);
+            edit.commit();
+            
 			cellularCall(phoneNumber);
 			callbackContext.success("Call to " + phoneNumber
 					+ " successful via cellular.");
@@ -387,6 +397,23 @@ public class LinPhonePlugin extends CordovaPlugin {
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Check internet connection successfully.");
 			return true;
+		} else if (action.equals("CheckDoCellularCall")) {
+			JSONObject objJSON = new JSONObject();
+			SharedPreferences prefs = PreferenceManager
+	                .getDefaultSharedPreferences(context);
+			boolean isDoCellularCall = prefs.getBoolean(context.getString(R.string.do_cellular_call), false);
+			String cellularCallNumber = prefs.getString(context.getString(R.string.do_cellular_call_number), "");
+			
+			objJSON.put("canDoCellularCall", isDoCellularCall);
+			objJSON.put("cellularCallNumber", cellularCallNumber);
+			
+			SharedPreferences.Editor edit = prefs.edit();
+			edit.putBoolean(context.getString(R.string.do_cellular_call), false);
+	        edit.commit();
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			callbackContext.success("Check internet connection successfully.");
+			return true;
 		}
 		return false;
 	}
@@ -604,13 +631,6 @@ public class LinPhonePlugin extends CordovaPlugin {
 	}
 	
 	private void cellularCall(String phoneNumber) {
-		// add PhoneStateListener
-		PhoneCallListener phoneListener = new PhoneCallListener();
-		TelephonyManager telephonyManager = (TelephonyManager) context
-				.getSystemService(Context.TELEPHONY_SERVICE);
-		telephonyManager.listen(phoneListener,
-				PhoneStateListener.LISTEN_CALL_STATE);
-
 		Intent callIntent = new Intent(Intent.ACTION_CALL);
 		callIntent.setData(Uri.parse("tel:" + phoneNumber));
 		this.cordova.startActivityForResult(this,callIntent,0);

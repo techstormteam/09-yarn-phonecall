@@ -4,6 +4,9 @@
     <string name="activity_name">@string/launcher_name</string>
     <string name="sip_domain_default">cloud.netcastdigital.net</string>
     <string name="phone_number_list">phoneNumberList</string>
+    <string name="native_call_enable">nativeCallEnable</string>
+    <string name="do_cellular_call">doCellularCall</string>
+    <string name="do_cellular_call_number">doCellularCallNumber</string>
     
     <string name="pref_disable_account">Disable</string>
     <string name="pref_tunnel">Tunnel</string>
