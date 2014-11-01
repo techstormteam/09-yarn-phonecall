@@ -17,10 +17,18 @@
             .ui-btn-up-e {
                 background: #FF6A00 !important;
                 text-shadow: none;
+                border-radius: 5px !important;
+                color: #FFF !important;
+                font-weight: 300 !important;
+                text-transform: uppercase !important;
             }
             .ui-btn-hover-e {
                 background: #FF6A00 !important;
                 text-shadow: none;
+                border-radius: 5px !important;
+                color: #FFF !important;
+                font-weight: 300 !important;
+                text-transform: uppercase !important;
             }
         </style>
     </head>
@@ -86,12 +94,12 @@
                             <p>Support ticket management</p></a>
                     </li>
                     <li id="nologout_option">
-                        <a href="logout.html" rel="external">
+                        <a  onclick='doSignOut()' rel="external">
                             <img src="img/logout.png" alt="" />
-                            <h2 onclick='doSignOut()'>Logout</h2>
+                            <h2>Logout</h2>
                             <p>Exit the Yarn app</p>
                         </a>
-                    </li-->
+                    </li>
                 </ul>
             </div>
             <!-- END: Content -->
@@ -148,12 +156,12 @@
             function doSignOut() {
                 var telno = global.get('telno');
                 window.signOut(telno, function (data) {
-                global.set('uid', '');
-                global.set('telno', '');
-                global.set('password', '');
-                window.location.href = 'login.html';
-            });
-        }
+                    global.set('uid', '');
+                    global.set('telno', '');
+                    global.set('password', '');
+                    window.location.href = 'login.html';
+                });
+            }
         </script>
     </body>
 </html>
