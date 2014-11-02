@@ -216,6 +216,33 @@ function Global() {
         });
     };
     
+    this.getApi = function (cmd, data, callback_success, callback_error, callback_complete) {
+        var url = this.getApiUrl() + '?cmd=' + cmd + '&telno=' + data.telno + '&password=' + data.password;
+        if (this.debug === true) {
+            LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
+        }
+        $.ajax({
+            type: 'GET',
+            url: url,
+            crossDomain: false,
+            cache: false
+        }).success(function (data) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
+            }
+            callback_success(data);
+        }).error(function (xhr, status, error) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
+            }
+            callback_error(error);
+        }).complete(function () {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
+            }
+        });
+    };
+    
     this.userccy = function (cmd, data, callback_success, callback_error, callback_complete) {
         var url = this.getApiUrl() + '?cmd=' + cmd + '&telno=' + data.telno + '&password=' + data.password;
         if (this.debug === true) {

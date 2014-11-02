@@ -120,6 +120,9 @@ function blink(i) {
 }
 
 $(document).ready(function() {
+    telno = global.get('telno');
+    password = global.get('password');
+    global.login('_yarn_msg', {telno: telno, password: password}, msgReturn, msgError);
     updateSize();
     
     blink(1);
@@ -146,12 +149,13 @@ function micHandler() {
 }
 
 function msgReturn(response) {
+    alert(response);
     if(response !== '') {
         global.set('callMsg', response);
     } else {
         global.set('callMsg', '');
     }
-    window.location.href = 'index.html';
+//    window.location.href = 'index.html';
 }
 
 function msgError() {
@@ -161,8 +165,7 @@ function msgError() {
 function doHangUp() {
     window.hangUp(function (message) {
         //empty
-    });
-    global.login('_yarn_msg', {telno: global.get('telno'), password: global.get('password')}, msgReturn, msgError);
+    });    
     window.location.href = 'index.html';
 }
 

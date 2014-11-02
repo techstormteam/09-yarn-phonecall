@@ -326,11 +326,11 @@ $(document).ready(function () {
     
     global.login('_email', {telno: telno, password: password}, getEmail);
     
+    alert(callMsg);
     if(callMsg !== '' && typeof(callMsg) !== 'undefined') {
         swal({
             title: "Call Notification",
-            text: callMsg,
-            timer: 10000
+            text: callMsg
         });
     }
 });
