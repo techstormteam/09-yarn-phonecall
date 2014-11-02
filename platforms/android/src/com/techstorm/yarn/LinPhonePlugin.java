@@ -42,11 +42,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.hardware.input.InputManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.view.InputDevice;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -407,9 +409,21 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			JSONObject objJSON = new JSONObject();
 			InputMethodManager imm = (InputMethodManager)cordova.getActivity().getSystemService(
 				      Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(cordova.getActivity().getCurrentFocus()
+                  .getWindowToken(), 0);
+			objJSON.put("hided", !imm.isActive()); // not work;
 			
-				imm.hideSoftInputFromWindow(cordova.getActivity().getCurrentFocus()
-	                  .getWindowToken(), 0);
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			return true;
+		} else if (action.equals("SendKey")) {
+			JSONObject objJSON = new JSONObject();
+			InputMethodManager imm = (InputMethodManager)cordova.getActivity().getSystemService(
+				      Context.INPUT_METHOD_SERVICE);
+			InputManager ss = (InputManager)cordova.getActivity().getSystemService(
+				      Context.INPUT_SERVICE);
+			InputDevice s;
+//			s.
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			return true;
@@ -763,7 +777,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 
 	private boolean wifiCall(AddressText mAddress) {
 		try {
-			echoCalibration();
+//			echoCalibration();
 			if (!LinphoneManager.getInstance().acceptCallIfIncomingPending()) {
 				LinphoneManager.getInstance().routeAudioToReceiver();
 				LinphoneManager.getLc().enableSpeaker(false);

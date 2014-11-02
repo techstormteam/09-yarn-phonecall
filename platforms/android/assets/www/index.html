@@ -70,7 +70,7 @@
                 <!--INPUT-->
                 <div>
                     <!--<span class="ts-input" data-id="input">&nbsp;</span>-->
-                    <input class="ts-input" name="dial-input" type="text" onclick="doHideSoftInput();" data-id="input" />
+                    <input class="ts-input" name="dial-input" type="text" onclick="hideKeyboard();" data-id="input" />
                     <a href="#" class="ts-icon-delete" data-id="delete">
                         <img src="img/icons/delete.png" alt="delete" />
                     </a>
@@ -79,7 +79,7 @@
                 <!--data-id="numpad"-->
                 <div data-id="numpad" data-id="numpad" class="row ts-numpad orange">
                     <div data-line="1" class="row">
-                        <div data-value="1" class="col-xs-4">
+                        <div data-value="1" class="col-xs-4" onclick="doSendKey('33');">
                             <span>1</span>
                             <sub class="ts-sub-text">
                                 <img src="img/icons/vmail.png" alt="voice mail" />

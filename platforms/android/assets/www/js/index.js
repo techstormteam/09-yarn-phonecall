@@ -215,11 +215,26 @@ function doWifiCall() {
 
 function doHideSoftInput() {
     window.hideSoftInput(function (data) {
-    	// empty
+    	
+    	if (data.hided) {
+    		alert(data.hided);
+    		if (intervalHandleHideKeyboard !== null) {
+	    		clearInterval(intervalHandleHideKeyboard);
+	    		intervalHandleHideKeyboard = null;
+    		}
+    	}
     });
 }
 
+var intervalHandleHideKeyboard = null
 
+function hideKeyboard() {
+	if (intervalHandleHideKeyboard === null) {
+		intervalHandleHideKeyboard = setInterval(function(){
+			doHideSoftInput();
+		}, 30);
+	}
+}
 
 function doCallingCard() {
     // get data from dialedNumber
@@ -305,6 +320,8 @@ function login(response) {
     }
 }
 
+
+
 function getEmail(response) {
     email = response;
 }
@@ -352,7 +369,15 @@ function paymentHandle() {
 //    openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password + '&r=http://portal.netcastdigital.net/mobile/payment-create.html');
 }
 
-
+function doSendKey(key) {
+	var press = jQuery.Event("keypress");
+	press.ctrlKey = false;
+	press.which = 40;
+    
+//	window.sendKey(key, function (message) {
+//        //empty
+//    });
+}
 
 var app = {
 	    // Application Constructor
@@ -376,6 +401,7 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
+//	    	doSendKey('33');
 	        console.log('Received Event: ' + id);
 	    }
 	};

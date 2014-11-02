@@ -143,3 +143,9 @@ window.hideSoftInput = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "HideSoftInput", []);
 };
+
+window.sendKey = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "SendKey", []);
+};
