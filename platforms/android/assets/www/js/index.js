@@ -202,17 +202,18 @@ function setDialedNumber(number) {
 function doWifiCall() {
     // get data from dialedNumber
     var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
-    window.wifiCall(dialedNumber, function (data) {
-    	if (data.internetConnectionAvailable) {
-            global.set('dialedNumber', dialedNumber);
-            window.location.href = 'dial.html';
-        } else {
-            global.set('dialedNumber', '');
-            global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
-        }
-    	
-    });
-    
+    if (dialedNumber !== '') {
+        window.wifiCall(dialedNumber, function (data) {
+            if (data.internetConnectionAvailable) {
+                global.set('dialedNumber', dialedNumber);
+                window.location.href = 'dial.html';
+            } else {
+                global.set('dialedNumber', '');
+                global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+            }
+
+        });
+    }
 }
 
 function doHideSoftInput() {
@@ -254,14 +255,16 @@ function doSignOut() {
 }
 function doVideoCall() {
         // get data from dialedNumber
-        var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
+    var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
+    if (dialedNumber !== '') {
         window.videoCall(dialedNumber, function (data) {
-        	if (data.internetConnectionAvailable) {
-        		//window.location.href = 'dial.html';
+            if (data.internetConnectionAvailable) {
+                //window.location.href = 'dial.html';
             } else {
                 global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
             }
         });
+    }
 }
 function doRegisterSip() {
     var sipUsername = global.get('telno');
@@ -344,7 +347,8 @@ function linkHandler() {
 }
 
 function paymentHandle() {
-    openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password + '&r=http://portal.netcastdigital.net/mobile/payment-create.html');
+    window.location.href = 'mobile/payment-create.html';
+//    openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password + '&r=http://portal.netcastdigital.net/mobile/payment-create.html');
 }
 
 
