@@ -17,6 +17,7 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/color.css" />
         <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.0.css">
         <script src="js/class.user.js"></script>
         <link href="img/icons/logo.png" rel="icon" />
         <title>Yarn</title>
@@ -145,12 +146,12 @@
             <!--data-id="sub-footer"-->
             <div data-id="sub-footer" class="ts-sub-footer">
                 <div class="ui-grid-a">
-                    <div class="ui-block-a center right-border" onclick="doWifiCall();">
+                    <div class="ui-block-a center right-border" onclick="var number=getDialedNumber(); doWifiCall(number);">
                         <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/phone-wifi.png" />
                         </a>
                     </div>
-                    <div class="ui-block-b center" onclick="var number=getDialedNumber(); doCellularCall(number);">
+                    <div id="open" class="ui-block-b center" onclick="var number=getDialedNumber(); doCellularCall(number);">
                         <a href="#" class="ts-icon-button btn">
                             <img src="img/icons/phone.png" />
                         </a>
@@ -186,7 +187,20 @@
             </div>
         </div>
 
-		
+<!-- Dialog only page -->
+<div data-role="dialog" class="dialog">
+  <div data-role="header">
+    <h1>Dialog Only Page</h1>
+  </div>
+  <div data-role="content">
+    <button class="confirm" onclick="" tabindex="4" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">WiFi Call via ncdCLOUD</button>
+
+	<button class="confirm" onclick="var number=global.get("dialedNumber"); doCallingCard(number);" tabindex="3" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via access number</button>
+
+	<button class="confirm" onclick="var number=global.get("dialedNumber"); window.cellularCall(number, function (message) {});" tabindex="2" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via native phone</button>
+  </div>
+</div>
+
 
         <!--SCRIPT-->
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>

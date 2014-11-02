@@ -1,27 +1,60 @@
 <!DOCTYPE>
 <html>
     <head>
+        <link rel="stylesheet" href="css/jquery-ui.min.css" />
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript">
-            function Select() {
-                var input = document.getElementById("myText");
-                if ('selectionStart' in input) {
-                    input.selectionStart = 1;
-                    input.selectionEnd = 2;
-                    input.focus();
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <!--<script type="text/javascript">
+                function Select() {
+                    var input = document.getElementById("myText");
+                    if ('selectionStart' in input) {
+                        input.selectionStart = 1;
+                        input.selectionEnd = 2;
+                        input.focus();
+                    }
+                    else {  // Internet Explorer before version 9
+                        var inputRange = input.createTextRange();
+                        inputRange.moveStart("character", 1);
+                        inputRange.collapse();
+                        inputRange.moveEnd("character", 1);
+                        inputRange.select();
+                    }
                 }
-                else {  // Internet Explorer before version 9
-                    var inputRange = input.createTextRange();
-                    inputRange.moveStart("character", 1);
-                    inputRange.collapse();
-                    inputRange.moveEnd("character", 1);
-                    inputRange.select();
-                }
-            }
+            </script>-->
+
+        <script>
+            $(function () {
+                $('.dialog').hide();
+                $("#open").click(function () {
+                    $('.dialog').dialog({
+                        resizable: false,
+                        modal: true,
+                        buttons: {
+                            "Test 01": function () {
+                                alert('test 01');
+                            },
+                            "Delete all items": function () {
+                                $(this).dialog("close");
+                            },
+                            Cancel: function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+                });
+            });
         </script>
+
     </head>
     <body>
-        <input type="text" id="myText" value="Some text for testing"/>
-        <button onclick="Select()">Select the second character!</button>
+        <!--<input type="text" id="myText" value="Some text for testing"/>
+            <button onclick="Select()">Select the second character!</button>-->
+
+        <div class="dialog">
+            This is a popup.
+        </div>
+
+        <button id="open">Open Popup</button>
+
     </body>
 </html>

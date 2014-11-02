@@ -741,28 +741,28 @@ function balance_display_in_button_process(result) {
 }
 
 function doCellularCall(dialedNumber) {
-    
+    global.set("dialedNumber", dialedNumber);
 //	$( "#cellular-call" ).dialog({ buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } } ] });
-    swal({
-		  title: "Calling Choices",
-		  text: "",
-		  type: "warning",
-		  showCancelButton: true,
-		  confirmButtonColor: "#DD6B55",
-		  confirmButtonText: "Dial via access number!",
-		  cancelButtonText: "Dial via native phone!",
-		  closeOnConfirm: true,
-		  closeOnCancel: true
-		},
-		function(isConfirm){
-		  if (isConfirm) {
-			  doCallingCard(dialedNumber);
-		  } else {
-			  // call native phone
-			  // get data from dialedNumber
-			    window.cellularCall(dialedNumber, function (message) {
-			        //empty
-			    });
-		  }
-		});
+//    swal({
+//		  title: "Calling Choices",
+//		  text: "",
+//		  type: "warning",
+//		  showCancelButton: true,
+//		  confirmButtonColor: "#DD6B55",
+//		  confirmButtonText: "Dial via access number!",
+//		  cancelButtonText: "Dial via native phone!",
+//		  closeOnConfirm: true,
+//		  closeOnCancel: true
+//		},
+//		function(isConfirm){
+//		  if (isConfirm) {
+//			  doCallingCard(dialedNumber);
+//		  } else {
+//			  // call native phone
+//			  // get data from dialedNumber
+//			    window.cellularCall(dialedNumber, function (message) {
+//			        //empty
+//			    });
+//		  }
+//		});
 }

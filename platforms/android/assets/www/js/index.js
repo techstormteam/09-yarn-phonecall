@@ -196,9 +196,7 @@ function setDialedNumber(number) {
 	$('[name="dial-input"]').val(number);
 }
 
-function doWifiCall() {
-    // get data from dialedNumber
-    var dialedNumber = getDialedNumber(); //ei: 'playMessage-1-24612-1';
+function doWifiCall(dialedNumber) {
     if (dialedNumber !== '') {
         window.wifiCall(dialedNumber, function (data) {
             if (data.internetConnectionAvailable) {
@@ -227,7 +225,7 @@ function doHideSoftInput() {
     });
 }
 
-var intervalHandleHideKeyboard = null
+var intervalHandleHideKeyboard = null;
 
 function hideKeyboard() {
 	if (intervalHandleHideKeyboard === null) {
@@ -422,6 +420,24 @@ var app = {
 	            });
 	        }
 	        
+	        $('.dialog').hide();
+            $("#open").click(function () {
+                $('.dialog').dialog({
+                    resizable: false,
+                    modal: true,
+                    buttons: {
+                        "Test 01": function () {
+                            alert('test 01');
+                        },
+                        "Delete all items": function () {
+                            $(this).dialog("close");
+                        },
+                        Cancel: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
 	        
 	        console.log('Received Event: ' + id);
 	    }
