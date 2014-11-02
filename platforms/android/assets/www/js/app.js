@@ -713,3 +713,33 @@ function balance_display_in_button_process(result) {
     $('#make_payment').html("[" + balance + "] - Make Payment").button("refresh");
 }
 
+function doCellularCall(dialedNumber) {
+    
+    swal({
+		  title: "Calling Choices",
+		  text: "",
+		  type: "warning",
+		  showCancelButton: true,
+		  confirmButtonColor: "#DD6B55",
+		  confirmButtonText: "Dial via access number!",
+		  cancelButtonText: "Dial via native phone!",
+		  closeOnConfirm: true,
+		  closeOnCancel: true
+		},
+		function(isConfirm){
+			alert(isConfirm);
+		  if (isConfirm) {
+			  alert('1');
+			  doCallingCard();
+			  alert('2');
+		  } else {
+			  alert('3');
+			  
+			  // call native phone
+			  // get data from dialedNumber
+			    window.cellularCall(dialedNumber, function (message) {
+			        //empty
+			    });
+		  }
+		});
+}

@@ -38,8 +38,6 @@ package com.techstorm.yarn;
 
 import static android.content.Intent.ACTION_MAIN;
 
-import java.lang.reflect.Method;
-
 import org.apache.cordova.CordovaActivity;
 import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
@@ -61,8 +59,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-
-import com.android.internal.telephony.ITelephony;
 
 public class Yarn extends CordovaActivity implements
 		LinphoneOnCallStateChangedListener
@@ -96,7 +92,7 @@ public class Yarn extends CordovaActivity implements
 		TelephonyManager tm = (TelephonyManager) this.getApplicationContext()
 				.getSystemService(Service.TELEPHONY_SERVICE);
 		tm.listen(new MyPhoneStateListener(), PhoneStateListener.LISTEN_CALL_STATE);
-		
+
 		mHandler = new Handler();
 
 		if (LinphoneService.isReady()) {
@@ -128,30 +124,7 @@ public class Yarn extends CordovaActivity implements
 			case TelephonyManager.CALL_STATE_IDLE:
 				break;
 			case TelephonyManager.CALL_STATE_OFFHOOK:
-				SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
-				boolean nativeCallEnable = prefs.getBoolean(context.getString(R.string.native_call_enable), false);
-				if (!nativeCallEnable) {
-					endCall();
-					
-					SharedPreferences.Editor edit = prefs.edit();
-					edit.putBoolean(context.getString(R.string.do_cellular_call), true);
-					edit.putString(context.getString(R.string.do_cellular_call_number), incomingNumber);
-			        edit.commit();
-					Intent i = new Intent(context, Yarn.class);
-//					i.putExtras(intent);
-					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					context.startActivity(i);
-				}
-				SharedPreferences.Editor edit = prefs.edit();
-				edit.putBoolean(context.getString(R.string.native_call_enable), false);
-		        edit.commit();
 				
-				if (incomingNumber == null) {
-					// outgoing call
-				} else {
-					// incoming call
-				}
 				break;
 			case TelephonyManager.CALL_STATE_RINGING:
 				Intent i = new Intent(context, Yarn.class);
@@ -167,26 +140,7 @@ public class Yarn extends CordovaActivity implements
 			}
     	}
     	
-    	private void endCall() {
-    		try {
-    			// Java reflection to gain access to TelephonyManager's
-    			// ITelephony getter
-    			TelephonyManager tm = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-    			Class<?> c = Class.forName(tm.getClass().getName());
-    			Method m = c.getDeclaredMethod("getITelephony");
-    			m.setAccessible(true);
-    			com.android.internal.telephony.ITelephony telephonyService = (ITelephony) m
-    					.invoke(tm);
-
-    			telephonyService = (ITelephony) m.invoke(tm);
-//    			telephonyService.silenceRinger(); // error at this
-    			telephonyService.endCall();
-    			
-
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-    	}
+    	
     }
 	
 	private class ServiceWaitThread extends Thread {
@@ -295,6 +249,23 @@ public class Yarn extends CordovaActivity implements
 			if (canSendCustPhone) {
 				appView.sendJavascript("global.doSendCustPhone()");
 			}
+		}
+		
+		SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+		if (prefs.contains(context.getString(R.string.do_cellular_call))) {
+			Boolean doNativeCall =  prefs.getBoolean(context.getString(R.string.do_cellular_call), false);
+			String dialedNumber =  prefs.getString(context.getString(R.string.do_cellular_call_number), "");
+			if (doNativeCall) {
+//				loadUrl(launchUrl);
+//				appView.sendJavascript("setDialedNumber('"+dialedNumber+"')");
+				appView.sendJavascript("doCellularCall('"+dialedNumber+"')");
+				SharedPreferences.Editor edit = prefs.edit();
+				edit.putBoolean(context.getString(R.string.do_cellular_call), false);
+				edit.putString(context.getString(R.string.do_cellular_call_number), "");
+		        edit.commit();
+			}
+			
 		}
 	}
 	

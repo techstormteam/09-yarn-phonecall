@@ -14,8 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.linphone.InCallActivity;
 import org.linphone.LinphoneManager;
-import org.linphone.LinphonePreferences;
 import org.linphone.LinphoneManager.EcCalibrationListener;
+import org.linphone.LinphonePreferences;
 import org.linphone.LinphonePreferences.AccountBuilder;
 import org.linphone.LinphoneUtils;
 import org.linphone.core.CallDirection;
@@ -46,12 +46,8 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
-import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Toast;
 
 public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListener {
@@ -403,23 +399,6 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			} else {
 				objJSON.put("internetConnectionAvailable", false);
 			}
-			PluginResult result = new PluginResult(Status.OK, objJSON);
-			callbackContext.sendPluginResult(result);
-			callbackContext.success("Check internet connection successfully.");
-			return true;
-		} else if (action.equals("CheckDoCellularCall")) {
-			JSONObject objJSON = new JSONObject();
-			SharedPreferences prefs = PreferenceManager
-	                .getDefaultSharedPreferences(context);
-			boolean isDoCellularCall = prefs.getBoolean(context.getString(R.string.do_cellular_call), false);
-			String cellularCallNumber = prefs.getString(context.getString(R.string.do_cellular_call_number), "");
-			
-			objJSON.put("canDoCellularCall", isDoCellularCall);
-			objJSON.put("cellularCallNumber", cellularCallNumber);
-			
-			SharedPreferences.Editor edit = prefs.edit();
-			edit.putBoolean(context.getString(R.string.do_cellular_call), false);
-	        edit.commit();
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Check internet connection successfully.");
@@ -843,48 +822,4 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 				.show();
 	}
 
-	// monitor phone call activities
-	private class PhoneCallListener extends PhoneStateListener {
-
-		private boolean isPhoneCalling = false;
-
-		String LOG_TAG = "LOGGING 123";
-
-		@Override
-		public void onCallStateChanged(int state, String incomingNumber) {
-
-			if (TelephonyManager.CALL_STATE_RINGING == state) {
-				// phone ringing
-				Log.i(LOG_TAG, "RINGING, number: " + incomingNumber);
-			}
-
-			if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
-				// active
-				Log.i(LOG_TAG, "OFFHOOK");
-
-				isPhoneCalling = true;
-			}
-
-			if (TelephonyManager.CALL_STATE_IDLE == state) {
-				// run when class initial and phone call ended,
-				// need detect flag from CALL_STATE_OFFHOOK
-				Log.i(LOG_TAG, "IDLE");
-
-				if (isPhoneCalling) {
-
-					Log.i(LOG_TAG, "restart app");
-
-					// restart app
-//					Intent i = getBaseContext().getPackageManager()
-//							.getLaunchIntentForPackage(
-//									getBaseContext().getPackageName());
-//					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//					startActivity(i);
-
-					isPhoneCalling = false;
-				}
-
-			}
-		}
-	}
 }

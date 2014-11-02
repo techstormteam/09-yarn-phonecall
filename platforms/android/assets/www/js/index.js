@@ -221,36 +221,7 @@ function doHideSoftInput() {
     });
 }
 
-function doCellularCall() {
-    
-    swal({
-		  title: "Calling Choices",
-		  text: "",
-		  type: "warning",
-		  showCancelButton: true,
-		  confirmButtonColor: "#DD6B55",
-		  confirmButtonText: "Dial via access number!",
-		  cancelButtonText: "Dial via native phone!",
-		  closeOnConfirm: true,
-		  closeOnCancel: true
-		},
-		function(isConfirm){
-			alert(isConfirm);
-		  if (isConfirm) {
-			  alert('1');
-			  doCallingCard();
-			  alert('2');
-		  } else {
-			  alert('3');
-			  // call native phone
-			  // get data from dialedNumber
-			    var dialedNumber = getDialedNumber();
-			    window.cellularCall(dialedNumber, function (message) {
-			        //empty
-			    });
-		  }
-		});
-}
+
 
 function doCallingCard() {
     // get data from dialedNumber
@@ -279,15 +250,6 @@ function doSignOut() {
         global.set('telno', '');
         global.set('password', '');
         window.location.href = 'login.html';
-    });
-}
-function executeCheckDoCellularCall() {
-    window.checkDoCellularCall(function (data) {
-    	if (data.canDoCellularCall) {
-    		setDialedNumber(data.cellularCallNumber);
-    		doCellularCall();
-    	}
-        
     });
 }
 function doVideoCall() {
@@ -409,7 +371,6 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
-	    	executeCheckDoCellularCall();
 	        console.log('Received Event: ' + id);
 	    }
 	};

@@ -138,12 +138,6 @@ window.getSMSInboundPhoneNumber = function(callback) {
     }, "LinPhonePlugin", "GetSMSInboundPhoneNumber", []);
 };
 
-window.checkDoCellularCall = function(callback) {
-    cordova.exec(callback, function(err) {
-        callback(err);
-    }, "LinPhonePlugin", "CheckDoCellularCall", []);
-};
-
 window.hideSoftInput = function(callback) {
     cordova.exec(callback, function(err) {
         callback(err);
