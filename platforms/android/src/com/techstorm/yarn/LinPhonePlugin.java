@@ -50,6 +50,8 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Toast;
 
 public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListener {
@@ -118,6 +120,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 					+ " successful via video call.");
 			return true;
 		} else if (action.equals("RegisterSip")) {
+			
 			String message = "";
 			JSONObject objJSON = new JSONObject();
 			String sipUsername = (String) args.get(0);
@@ -421,7 +424,18 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Check internet connection successfully.");
 			return true;
+		} else if (action.equals("HideSoftInput")) {
+			JSONObject objJSON = new JSONObject();
+			InputMethodManager imm = (InputMethodManager)cordova.getActivity().getSystemService(
+				      Context.INPUT_METHOD_SERVICE);
+			
+				imm.hideSoftInputFromWindow(cordova.getActivity().getCurrentFocus()
+	                  .getWindowToken(), 0);
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			return true;
 		}
+		
 		return false;
 	}
 

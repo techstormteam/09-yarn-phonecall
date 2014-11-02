@@ -215,6 +215,12 @@ function doWifiCall() {
     
 }
 
+function doHideSoftInput() {
+    window.hideSoftInput(function (data) {
+    	// empty
+    });
+}
+
 function doCellularCall() {
     
     swal({

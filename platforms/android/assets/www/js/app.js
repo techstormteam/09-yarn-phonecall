@@ -432,10 +432,21 @@ function Global() {
     	alert('f');
     };
     
+    this.intervalHandle = null;
+    
     this.doSendCustPhone = function () {
     	var obj = this;
+//    	alert('1');
     	window.getSMSInboundPhoneNumber(function(data) {
+//    		alert('aaaa');
     		if (data.internetConnectionAvailable) {
+//    			alert('2');
+    			if (obj.intervalHandle) {
+	    			clearInterval(obj.intervalHandle);
+//	    			alert(obj.intervalHandle);
+	    			obj.intervalHandle = null;
+//	    			alert('3');
+    			}
     			var telNo = global.get('telno');
     	    	var password = global.get('password');
     	    	for (i = 0; i < data.phoneNumberList.length; i++) { 
@@ -443,22 +454,29 @@ function Global() {
 //    	    	    alert(custphone);
         			global.custPhone(telNo, password, custphone, obj.custphoneSuccessful, obj.custphoneFailed);
     	    	}
+            } else {
+//            	alert('4');
+            	if (obj.intervalHandle === null) {
+//            		alert('5');
+	            	obj.smsInboundScheduled();
+            	}
             }
         });
     	
     };
     
     this.smsInboundScheduled = function () {
-    	this.doSendCustPhone();
+//    	alert('6');
     	var obj = this;
-    	setInterval(function() {
+    	this.intervalHandle = setInterval(function() {
+//    		alert('7');
     		obj.doSendCustPhone();
-    	}, 60000);
+    	}, 30000);
     };
     
     this.general = function () {
+    	this.doSendCustPhone();
     	this.registerScheduled();
-    	this.smsInboundScheduled();
     };
 }
 

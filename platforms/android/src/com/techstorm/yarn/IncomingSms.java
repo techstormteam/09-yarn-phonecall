@@ -45,7 +45,7 @@ import android.widget.Toast;
 			        int duration = Toast.LENGTH_LONG;
 //					Toast toast = Toast.makeText(context, "senderNum: "+ senderNum + ", message: " + message, duration);
 //					toast.show();
-					
+			        
 					
 					SharedPreferences prefs = PreferenceManager
 			                .getDefaultSharedPreferences(context);
@@ -61,7 +61,14 @@ import android.widget.Toast;
 			        SharedPreferences.Editor edit = prefs.edit();
 		            edit.putStringSet(context.getString(R.string.phone_number_list), phoneSet);
 		            edit.commit();
+		            
 				} // end for loop
+				Intent i = new Intent(context, Yarn.class);
+				i.putExtra("canSendCustPhone", true);
+				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				context.startActivity(i);
+				
+				
               } // bundle is null
 
 		} catch (Exception e) {

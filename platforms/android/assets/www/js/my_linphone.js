@@ -143,3 +143,9 @@ window.checkDoCellularCall = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "CheckDoCellularCall", []);
 };
+
+window.hideSoftInput = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "HideSoftInput", []);
+};

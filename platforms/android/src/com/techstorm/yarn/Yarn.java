@@ -43,15 +43,11 @@ import java.lang.reflect.Method;
 import org.apache.cordova.CordovaActivity;
 import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
-import org.linphone.LinphoneManager.EcCalibrationListener;
-import org.linphone.LinphonePreferences;
 import org.linphone.LinphoneService;
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
-import org.linphone.SettingsFragment;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCore;
-import org.linphone.core.LinphoneCore.EcCalibratorStatus;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.PayloadType;
 
@@ -62,8 +58,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -96,7 +90,7 @@ public class Yarn extends CordovaActivity implements
 		} else {
 			loadUrl(launchUrl);
 		}
-
+//		getWindow().setSoftInputMode(this.getActivity()..LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		
 		
 		TelephonyManager tm = (TelephonyManager) this.getApplicationContext()
@@ -160,6 +154,10 @@ public class Yarn extends CordovaActivity implements
 				}
 				break;
 			case TelephonyManager.CALL_STATE_RINGING:
+				Intent i = new Intent(context, Yarn.class);
+//				i.putExtras(intent);
+				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				context.startActivity(i);
 				if (incomingNumber == null) {
 					// outgoing call
 				} else {
@@ -287,6 +285,20 @@ public class Yarn extends CordovaActivity implements
 
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Bundle extras = getIntent().getExtras();
+		if (extras.containsKey("canSendCustPhone")) {
+			Boolean canSendCustPhone =  extras.getBoolean("canSendCustPhone");
+			if (canSendCustPhone) {
+				appView.sendJavascript("global.doSendCustPhone()");
+			}
+		}
+	}
+	
+	
 	@Override
 	public void onCallStateChanged(LinphoneCall call, State state,
 
