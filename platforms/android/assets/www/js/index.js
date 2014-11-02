@@ -203,6 +203,7 @@ function doWifiCall() {
         window.wifiCall(dialedNumber, function (data) {
             if (data.internetConnectionAvailable) {
                 global.set('dialedNumber', dialedNumber);
+                global.set('videoCall', false);
                 window.location.href = 'dial.html';
             } else {
                 global.set('dialedNumber', '');
@@ -236,16 +237,20 @@ function hideKeyboard() {
 	}
 }
 
+function onSuccessDialDest() {
+	//empty
+}
+
+function onFailedDialDest() {
+	//empty
+}
+
 function onSuccessGetAccessNumber(response) {
-	alert('tr');
 	if (response !== "") {
-		
 		var accessNumber = response;
 		var dialedNumber = global.get('dialedNumber_accessNum');
-		alert(response);
-		alert(dialedNumber);
 		window.callingCard(accessNumber, dialedNumber, function (message) {
-	        //empty
+			global.sendInfoApi('_dialdest', {telno: 123456, password: 123456 ,dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
 	    });
 	} else {
 		sweetAlert("Oops...", "Can't find access number!", "warning");
@@ -253,7 +258,7 @@ function onSuccessGetAccessNumber(response) {
 }
 
 function onFailedGetAccessNumber() {
-	alert('fa');
+	// empty
 }
 
 function doCallingCard(phoneNumber) {
@@ -289,7 +294,8 @@ function doVideoCall() {
     if (dialedNumber !== '') {
         window.videoCall(dialedNumber, function (data) {
             if (data.internetConnectionAvailable) {
-                //window.location.href = 'dial.html';
+                window.location.href = 'dial.html';
+                global.set('videoCall', true);
             } else {
                 global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
             }

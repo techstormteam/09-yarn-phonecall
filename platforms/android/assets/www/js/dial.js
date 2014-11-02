@@ -302,37 +302,39 @@ var app = {
 	    // function, we must explicity call 'app.receivedEvent(...);'
 	    onDeviceReady: function () {
 	        app.receivedEvent('deviceready');
-                var options = new ContactFindOptions();
-                options.filter = "";
-                options.multiple = true;
-                var fields = ["*"];
-                navigator.contacts.find(fields, onSuccess, onError, options);
+                
 	    },
-            
-            onSuccess: function (contacts) {
-                dialedNumber = global.get('dialedNumber');
-                alert('There are: ' + contacts.length + ' contacts.');
-                for (var i = 0; i < contacts.length; i++) {
-                    if (contacts[i].phoneNumbers[0].value !== null) {
-                        if (contacts[i].phoneNumbers[0].value === dialedNumber) {
-                            alert('Found contact with number: ' + contacts[i].phoneNumbers[0].value);
-                        }
-                    }
-                }
-            },
-            
-            onError: function (error) {
-                alert(error);
-            },
-
-            
+             
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
-	    	doGetContactImageUri();
+	    	//doGetContactImageUri();
 	    	callQualityTimeout();
 			updateTimerScheduled();
 			endCallCheckingScheduled();
+			
+//			var options = new ContactFindOptions();
+//            options.filter = "";
+//            options.multiple = true;
+//            var fields = ["*"];
+//            navigator.contacts.find(fields, onSuccess, onError, options);
+			
 	        console.log('Received Event: ' + id);
 	    }
+	    
+//	    onSuccess: function (contacts) {
+//            dialedNumber = global.get('dialedNumber');
+//            alert('There are: ' + contacts.length + ' contacts.');
+//            for (var i = 0; i < contacts.length; i++) {
+//                if (contacts[i].phoneNumbers[0].value !== null) {
+//                    if (contacts[i].phoneNumbers[0].value === dialedNumber) {
+//                        alert('Found contact with number: ' + contacts[i].phoneNumbers[0].value);
+//                    }
+//                }
+//            }
+//        },
+//        
+//        onError: function (error) {
+//            alert(error);
+//        }
 	};

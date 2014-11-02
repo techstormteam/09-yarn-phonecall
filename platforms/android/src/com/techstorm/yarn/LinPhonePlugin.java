@@ -506,7 +506,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 				String sipUsername = LinphonePreferences.instance().getAccountUsername(accountIndex);
 				String password = LinphonePreferences.instance().getAccountPassword(accountIndex);
 				String domain = LinphonePreferences.instance().getAccountDomain(accountIndex);
-				logIn(sipUsername, password, domain, false);
+//				logIn(sipUsername, password, domain, false);
 //				lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
 				if (lc.isNetworkReachable()) {
 					lc.refreshRegisters();
@@ -650,9 +650,9 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 	
 	private boolean videoCall(AddressText mAddress) {
 		if (wifiCall(mAddress)) {
-			LinphoneCore lc = LinphoneManager.getLc();
-			LinphoneCall currentCall = lc.getCurrentCall();	
-			startVideoActivity(currentCall);
+//			LinphoneCore lc = LinphoneManager.getLc();
+//			LinphoneCall currentCall = lc.getCurrentCall();	
+//			startVideoActivity(currentCall);
 			return true;
 		}
 		return false;

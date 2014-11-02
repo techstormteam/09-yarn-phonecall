@@ -171,6 +171,8 @@ public class InCallActivity extends FragmentActivity implements
             getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, callFragment).commitAllowingStateLoss();
 
         }
+        
+        
 	}
 	
 	private boolean isVideoEnabled(LinphoneCall call) {
