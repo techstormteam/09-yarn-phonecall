@@ -24,20 +24,23 @@
 
         <script>
             $(function () {
-                $(".dialog").dialog({
-                    resizable: false,
-                    modal: true,
-                    buttons: {
-                        "Test 01": function() {
-                            alert('test 01');
-                        },
-                        "Delete all items": function () {
-                            $(this).dialog("close");
-                        },
-                        Cancel: function () {
-                            $(this).dialog("close");
+                $('.dialog').hide();
+                $("#open").click(function () {
+                    $('.dialog').dialog({
+                        resizable: false,
+                        modal: true,
+                        buttons: {
+                            "Test 01": function () {
+                                alert('test 01');
+                            },
+                            "Delete all items": function () {
+                                $(this).dialog("close");
+                            },
+                            Cancel: function () {
+                                $(this).dialog("close");
+                            }
                         }
-                    }
+                    });
                 });
             });
         </script>
@@ -48,8 +51,10 @@
             <button onclick="Select()">Select the second character!</button>-->
 
         <div class="dialog">
-            asdasd
+            This is a popup.
         </div>
+
+        <button id="open">Open Popup</button>
 
     </body>
 </html>
