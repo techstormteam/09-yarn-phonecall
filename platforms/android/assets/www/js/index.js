@@ -92,9 +92,6 @@ $('[data-value="0"]').bind('taphold', tapholdHandler);
 $('[data-value="1"]').bind('taphold', function() {
     global.set('vmail', '1');
     window.location.href = "dial.html";
-//    window.wifiCall('88121', function (message) {
-//        //empty
-//    });
 });
 
 function tapholdHandler(event) {
