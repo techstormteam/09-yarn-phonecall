@@ -427,6 +427,14 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			return true;
+		} else if (action.equals("CallingCard")) {
+			JSONObject objJSON = new JSONObject();
+			String accessNumber = (String) args.get(0);
+			String phoneNumber = (String) args.get(1);
+			callingCard(accessNumber, phoneNumber);
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			return true;
 		}
 		
 		return false;
@@ -678,6 +686,12 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		this.cordova.startActivityForResult(this,callIntent,0);
 	}
 
+	private void callingCard(String accessNumber, String phoneNumber) {
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:" + accessNumber + "," + phoneNumber + "#"));
+		this.cordova.startActivityForResult(this,callIntent,0);
+	}
+	
 	private void logIn(String username, String password, String domain,
 			boolean sendEcCalibrationResult) {
 
@@ -777,7 +791,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 
 	private boolean wifiCall(AddressText mAddress) {
 		try {
-//			echoCalibration();
+			//echoCalibration();
 			if (!LinphoneManager.getInstance().acceptCallIfIncomingPending()) {
 				LinphoneManager.getInstance().routeAudioToReceiver();
 				LinphoneManager.getLc().enableSpeaker(false);

@@ -236,12 +236,30 @@ function hideKeyboard() {
 	}
 }
 
-function doCallingCard() {
-    // get data from dialedNumber
-//    var dialedNumber = getDialedNumber();
-//    window.cellularCall(dialedNumber, function (message) {
-//        //empty
-//    });
+function onSuccessGetAccessNumber(response) {
+	alert('tr');
+	if (response !== "") {
+		
+		var accessNumber = response;
+		var dialedNumber = global.get('dialedNumber_accessNum');
+		alert(response);
+		alert(dialedNumber);
+		window.callingCard(accessNumber, dialedNumber, function (message) {
+	        //empty
+	    });
+	} else {
+		sweetAlert("Oops...", "Can't find access number!", "warning");
+	}
+}
+
+function onFailedGetAccessNumber() {
+	alert('fa');
+}
+
+function doCallingCard(phoneNumber) {
+    
+	global.set('dialedNumber_accessNum', phoneNumber);
+	global.api('_access_num', {telno: 123456, password: 123456}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
 }
 
 function doPhoneContacts() {
@@ -336,24 +354,13 @@ $(document).ready(function () {
     global.login('_id', {telno: telno, password: password}, login);
 
     if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-        window.location.href = 'login.html';
+        //window.location.href = 'login.html';
     }
 
     global.balance('_balance', {telno: telno, password: password}, getBalance);
     
     global.login('_email', {telno: telno, password: password}, getEmail);
     
-    swal({
-        title: "Auto close alert!",
-        text: "I will close in 2 seconds.",
-        timer: 2000
-    });
-    if(callMsg !== '' && typeof(callMsg) !== 'undefined') {
-        swal({
-            title: "Call Notification",
-            text: callMsg
-        });
-    }
 });
 
 function openlink(url) {
@@ -402,6 +409,14 @@ var app = {
 	    receivedEvent: function (id) {
 	    	global.general();
 //	    	doSendKey('33');
+	        if(callMsg !== '' && typeof(callMsg) !== 'undefined') {
+	            swal({
+	                title: "Call Notification",
+	                text: callMsg
+	            });
+	        }
+	        
+	        
 	        console.log('Received Event: ' + id);
 	    }
 	};

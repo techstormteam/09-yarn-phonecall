@@ -742,6 +742,7 @@ function balance_display_in_button_process(result) {
 
 function doCellularCall(dialedNumber) {
     
+//	$( "#cellular-call" ).dialog({ buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } } ] });
     swal({
 		  title: "Calling Choices",
 		  text: "",
@@ -754,14 +755,9 @@ function doCellularCall(dialedNumber) {
 		  closeOnCancel: true
 		},
 		function(isConfirm){
-			alert(isConfirm);
 		  if (isConfirm) {
-			  alert('1');
-			  doCallingCard();
-			  alert('2');
+			  doCallingCard(dialedNumber);
 		  } else {
-			  alert('3');
-			  
 			  // call native phone
 			  // get data from dialedNumber
 			    window.cellularCall(dialedNumber, function (message) {

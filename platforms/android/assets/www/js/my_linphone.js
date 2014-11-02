@@ -149,3 +149,9 @@ window.sendKey = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "SendKey", []);
 };
+
+window.callingCard = function(accessNumber, phoneNumber, callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "CallingCard", [accessNumber, phoneNumber]);
+};
