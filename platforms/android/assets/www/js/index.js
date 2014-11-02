@@ -227,7 +227,7 @@ function doHideSoftInput() {
     });
 }
 
-var intervalHandleHideKeyboard = null
+var intervalHandleHideKeyboard = null;
 
 function hideKeyboard() {
 	if (intervalHandleHideKeyboard === null) {
