@@ -681,9 +681,9 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		intent.putExtra("VideoEnabled", true);
 //		startOrientationSensor();
 		this.cordova.startActivityForResult(this, intent, CALL_ACTIVITY);
-		LinphoneCallParams params = currentCall.getCurrentParamsCopy();
-		params.setVideoEnabled(true);
-		LinphoneManager.getLc().updateCall(currentCall, params);
+//		LinphoneCallParams params = currentCall.getCurrentParamsCopy();
+//		params.setVideoEnabled(true);
+//		LinphoneManager.getLc().updateCall(currentCall, params);
 	}
 	
 	private void phoneContacts() {

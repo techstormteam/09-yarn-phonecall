@@ -285,6 +285,10 @@ public class Yarn extends CordovaActivity implements
 	protected void onResume() {
 		super.onResume();
 		Bundle extras = getIntent().getExtras();
+		if (extras.containsKey("page")) {
+			String page =  extras.getString("page");
+			loadUrl(page);
+		}
 		if (extras.containsKey("canSendCustPhone")) {
 			Boolean canSendCustPhone =  extras.getBoolean("canSendCustPhone");
 			if (canSendCustPhone) {

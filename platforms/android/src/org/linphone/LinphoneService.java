@@ -29,6 +29,7 @@ import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCore.GlobalState;
 import org.linphone.core.LinphoneCore.RegistrationState;
+import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.LinphoneCoreFactoryImpl;
 import org.linphone.core.LinphoneProxyConfig;
@@ -568,6 +569,14 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 			onIncomingReceived();
 		}
 		
+		if (LinphoneUtils.isCallEstablished(call)) {
+			LinphoneCallParams params = call.getCurrentParamsCopy();
+			if (params.getVideoEnabled() == false) {
+				params.setVideoEnabled(true);
+				LinphoneManager.getLc().updateCall(call, params);
+			}
+		}
+		
 		if (state == State.CallUpdatedByRemote) {
 			// If the correspondent proposes video while audio call
 			boolean remoteVideo = call.getRemoteParams().getVideoEnabled();
@@ -596,6 +605,10 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		if ((state == State.CallEnd || state == State.Error) && LinphoneManager.getLc().getCallsNb() < 1) {
 			if (Version.sdkAboveOrEqual(Version.API12_HONEYCOMB_MR1_31X)) {
 				mWifiLock.release();
+//				Intent i = new Intent(getApplicationContext(), Yarn.class);
+//				i.putExtra("page", "file:///android_asset/www/index.html");
+//				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//				getApplicationContext().startActivity(i);
 			}
 		}
 	}

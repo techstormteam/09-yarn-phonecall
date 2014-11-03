@@ -11,6 +11,7 @@
     <feature name="LinPhonePlugin">
         <param name="android-package" value="com.techstorm.yarn.LinPhonePlugin" />
     </feature>
+    <preference name="loadUrlTimeoutValue" value="60000" />
     <preference name="permissions" value="none" />
     <preference name="phonegap-version" value="3.5.0" />
     <preference name="orientation" value="default" />
