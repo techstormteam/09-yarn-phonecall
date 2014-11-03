@@ -71,7 +71,7 @@ function updateHeight() {
     $('[data-line]').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
     
 //    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
-    vmail.height($('[data-value="4"] sub').height());
+    vmail.height($('[data-value="4"] sub').height() * 2);
 }
 
 $(document).ready(function () {
@@ -84,7 +84,7 @@ $(document).ready(function () {
 });
 
 function msgReturn(response) {
-    alert(response);
+    alert('Normal alert with reponse: ' + response);
     if(response !== '') {
         swal({
             title: "Call Notification",
@@ -92,6 +92,10 @@ function msgReturn(response) {
             timer: 30000
         });
     }
+}
+
+function msgError(error) {
+    alert(error);
 }
 
 $(window).resize(function () {
@@ -369,7 +373,6 @@ $(document).ready(function () {
     uid = global.get('uid');
     telno = global.get('telno');
     password = global.get('password');
-//    callMsg = global.get('callMsg');
 
     global.login('_id', {telno: telno, password: password}, login);
 
@@ -392,7 +395,8 @@ function linkHandler() {
 }
 
 function paymentHandle() {
-    window.location.href = 'mobile/payment-create.html';
+//        window.location.href = 'mobile/auto.html?u=anh@test.com&p=123456&r=payment-create.html';
+    window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password + '&r=payment-create.html';
 //    openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password + '&r=http://portal.netcastdigital.net/mobile/payment-create.html');
 }
 
