@@ -186,7 +186,7 @@ public class Yarn extends CordovaActivity implements
 		classToStart = LinphoneActivity.class;
 
 		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
-				classToStart, LinphoneActivity.class);
+				classToStart, Yarn.class);
 
 		mHandler.postDelayed(new Runnable() {
 
