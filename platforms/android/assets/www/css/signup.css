@@ -8,6 +8,26 @@ and open the template in the editor.
     Author     : VietAnh
 */
 
+input::-webkit-input-placeholder {
+    font-size: 0.5em;
+    vertical-align: middle;
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+    font-size: 0.5em;
+    vertical-align: middle;
+}
+
+input::-moz-placeholder {  /* Firefox 19+ */
+    font-size: 0.5em;
+    vertical-align: middle;
+}
+
+input:-ms-input-placeholder {  
+    font-size: 0.5em;
+    vertical-align: middle;
+}
+
 .center {
     text-align: center;
 }

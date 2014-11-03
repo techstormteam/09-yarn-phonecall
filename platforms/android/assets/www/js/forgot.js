@@ -82,7 +82,14 @@ var email = null;
 
 function forgot(response) {
     if (response.indexOf('success') > -1) {
-        window.location.href = 'login.html';
+        sweetAlert({
+            title: "Good job!",
+            text: response,
+            type: 'success',
+            confirmButtonText: "OK"
+        }, function () {
+            window.location.href = 'login.html';
+        });
     }
 }
 

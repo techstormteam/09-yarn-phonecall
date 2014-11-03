@@ -66,8 +66,14 @@ var rePassword = null;
 
 function register(response) {
     if (response.indexOf('success') > -1) {
-        sweetAlert("Good job!", response, "success");
-        window.location.href = 'login.html';
+        sweetAlert({
+            title: "Good job!",
+            text: response,
+            type: 'success',
+            confirmButtonText: "OK"
+        }, function () {
+            window.location.href = 'login.html';
+        });
     } else {
         sweetAlert("Oops...", response, "error");
     }
