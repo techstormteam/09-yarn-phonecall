@@ -73,7 +73,7 @@ function updateHeight() {
 //    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
     vmail.height($('[data-value="4"] sub').height() * 2);
     
-    $('.ui-dialog').width(totalWidth);
+    $('.ui-dialog').width($(window).width());
 }
 
 $(document).ready(function () {
