@@ -235,3 +235,7 @@
     position: relative;
     top: -8px;
 }
+
+.ui-dialog .confirm {
+    width: 100%;
+}

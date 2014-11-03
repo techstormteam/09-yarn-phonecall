@@ -72,6 +72,8 @@ function updateHeight() {
     
 //    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
     vmail.height($('[data-value="4"] sub').height() * 2);
+    
+    $('.ui-dialog').width(totalWidth);
 }
 
 $(document).ready(function () {
@@ -374,10 +376,10 @@ $(document).ready(function () {
     telno = global.get('telno');
     password = global.get('password');
 
-    global.login('_id', {telno: telno, password: password}, login);
+//    global.login('_id', {telno: telno, password: password}, login);
 
     if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-        window.location.href = 'login.html';
+//        window.location.href = 'login.html';
     }
 
     global.balance('_balance', {telno: telno, password: password}, getBalance);

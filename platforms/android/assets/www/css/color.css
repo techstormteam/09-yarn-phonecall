@@ -90,3 +90,17 @@ and open the template in the editor.
 .sweet-alert button {
     background-color: #FF6A00 !important;
 }
+
+.ui-dialog .confirm {
+    background-color: #FF6A00 !important;
+    color: #FFFFFF !important;
+}
+
+.ui-dialog {
+    background-color: #FFFFFF !important;
+}
+
+.ui-dialog-buttonpane button {
+    background-color: #FF6A00 !important;
+    color: #FFFFFF !important;
+}

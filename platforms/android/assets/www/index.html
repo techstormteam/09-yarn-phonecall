@@ -189,15 +189,28 @@
 
 <!-- Dialog only page -->
 <div data-role="dialog" class="dialog">
-  <div data-role="content">
-    <button id="wifi-choice" class="confirm" onclick="var number=global.get('dialedNumber'); doWifiCall(number);" tabindex="4" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">WiFi Call via ncdCLOUD</button>
+    <div data-role="content">
+        <button id="wifi-choice" class="confirm" onclick="var number=global.get('dialedNumber'); doWifiCall(number);" tabindex="4" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">WiFi Call via ncdCLOUD</button>
 
-	<button class="confirm" onclick="var number=global.get('dialedNumber'); doCallingCard(number);" tabindex="3" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via access number</button>
+        <button id="calling-card" class="confirm" onclick="var number=global.get('dialedNumber'); doCallingCard(number);" tabindex="3" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via access number</button>
 
-	<button class="confirm" onclick="var number=global.get('dialedNumber'); window.cellularCall(number, function (message) {});" tabindex="2" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via native phone</button>
-  </div>
+        <button id="cellular-call" class="confirm" onclick="var number=global.get('dialedNumber'); window.cellularCall(number, function (message) {});" tabindex="2" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via native phone</button>
+    </div>
 </div>
 
+<!--<a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Sign in</a>-->
+<!--<div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all" style="display: none">
+    <form>
+        <div style="padding:10px 20px;">
+            <h3>Please sign in</h3>
+            <label for="un" class="ui-hidden-accessible">Username:</label>
+            <input name="user" id="un" value="" placeholder="username" data-theme="a" type="text">
+            <label for="pw" class="ui-hidden-accessible">Password:</label>
+            <input name="pass" id="pw" value="" placeholder="password" data-theme="a" type="password">
+            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Sign in</button>
+        </div>
+    </form>
+</div>-->
 
         <!--SCRIPT-->
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
@@ -209,7 +222,7 @@
         <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
         <script type="text/javascript" src="js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
+        <!--<script type="text/javascript" src="cordova.js"></script>-->
         <script type="text/javascript" src="js/sweet-alert.js"></script>
         <script type="text/javascript" src="js/my_linphone.js"></script>
         <script type="text/javascript" src="js/app.js"></script>

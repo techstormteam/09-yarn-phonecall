@@ -750,9 +750,13 @@ function doCellularCall(dialedNumber) {
     global.set("dialedNumber", dialedNumber);
     $("#wifi-choice").hide();
     
+    totalWidth = $(window).width();
+    
     $('.dialog').dialog({
         resizable: false,
         modal: true,
+        width: totalWidth,
+        maxHeight: $(window).height(),
         buttons: {
             Cancel: function () {
                 $(this).dialog("close");
