@@ -94,6 +94,8 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			edit.putBoolean(context.getString(R.string.native_call_enable), true);
             edit.commit();
             
+            blockNativeCall();
+            
 			cellularCall(phoneNumber);
 			callbackContext.success("Call to " + phoneNumber
 					+ " successful via cellular.");
@@ -431,7 +433,14 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			JSONObject objJSON = new JSONObject();
 			String accessNumber = (String) args.get(0);
 			String phoneNumber = (String) args.get(1);
+			blockNativeCall();
 			callingCard(accessNumber, phoneNumber);
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			return true;
+		} else if (action.equals("BlockNativeCall")) {
+			JSONObject objJSON = new JSONObject();
+			blockNativeCall();
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			return true;
@@ -440,6 +449,15 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		return false;
 	}
 
+	private void blockNativeCall() {
+		SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+		SharedPreferences.Editor edit = prefs.edit();
+		edit.putBoolean(context.getString(R.string.do_cellular_call), false);
+		edit.putString(context.getString(R.string.do_cellular_call_number), "");
+        edit.commit();
+	}
+	
 	private void echoCalibration() throws LinphoneCoreException {
 		LinphoneManager.getInstance().startEcCalibration(LinPhonePlugin.this);
 	}
@@ -790,6 +808,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 	}
 
 	private boolean wifiCall(AddressText mAddress) {
+		blockNativeCall();
 		try {
 			//echoCalibration();
 			if (!LinphoneManager.getInstance().acceptCallIfIncomingPending()) {

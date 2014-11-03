@@ -189,15 +189,12 @@
 
 <!-- Dialog only page -->
 <div data-role="dialog" class="dialog">
-  <div data-role="header">
-    <h1>Dialog Only Page</h1>
-  </div>
   <div data-role="content">
-    <button class="confirm" onclick="" tabindex="4" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">WiFi Call via ncdCLOUD</button>
+    <button id="wifi-choice" class="confirm" onclick="var number=global.get('dialedNumber'); doWifiCall(number);" tabindex="4" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">WiFi Call via ncdCLOUD</button>
 
-	<button class="confirm" onclick="var number=global.get("dialedNumber"); doCallingCard(number);" tabindex="3" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via access number</button>
+	<button class="confirm" onclick="var number=global.get('dialedNumber'); doCallingCard(number);" tabindex="3" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via access number</button>
 
-	<button class="confirm" onclick="var number=global.get("dialedNumber"); window.cellularCall(number, function (message) {});" tabindex="2" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via native phone</button>
+	<button class="confirm" onclick="var number=global.get('dialedNumber'); window.cellularCall(number, function (message) {});" tabindex="2" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via native phone</button>
   </div>
 </div>
 

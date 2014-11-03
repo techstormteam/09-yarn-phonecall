@@ -155,3 +155,9 @@ window.callingCard = function(accessNumber, phoneNumber, callback) {
         callback(err);
     }, "LinPhonePlugin", "CallingCard", [accessNumber, phoneNumber]);
 };
+
+window.blockNativeCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "BlockNativeCall", []);
+};

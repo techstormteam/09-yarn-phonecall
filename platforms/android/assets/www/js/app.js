@@ -740,8 +740,31 @@ function balance_display_in_button_process(result) {
     $('#make_payment').html("[" + balance + "] - Make Payment").button("refresh");
 }
 
+function doNativeCallAsk(dialedNumber) {
+	doCellularCall();
+	// enable wificall choice.
+	$("#wifi-choice").show();
+}
+
 function doCellularCall(dialedNumber) {
     global.set("dialedNumber", dialedNumber);
+    $("#wifi-choice").hide();
+    
+    $('.dialog').dialog({
+        resizable: false,
+        modal: true,
+        buttons: {
+            Cancel: function () {
+                $(this).dialog("close");
+                alert('55');
+                window.blockNativeCall(function (data) {
+                    //empty
+                	alert('55f');
+                });
+                alert('66');
+            }
+        }
+    });
 //	$( "#cellular-call" ).dialog({ buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } } ] });
 //    swal({
 //		  title: "Calling Choices",

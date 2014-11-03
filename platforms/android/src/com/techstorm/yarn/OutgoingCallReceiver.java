@@ -2,19 +2,22 @@ package com.techstorm.yarn;
 
 import java.lang.reflect.Method;
 
-import com.android.internal.telephony.ITelephony;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
+import android.widget.Toast;
+
+import com.android.internal.telephony.ITelephony;
 
 public class OutgoingCallReceiver extends BroadcastReceiver {
 	
 	public void onReceive(Context context, Intent intent) {
-	
+//		int duration = Toast.LENGTH_LONG;
+//		Toast toast = Toast.makeText(context, "outgoing here",duration);
+//		toast.show();
 		if (Intent.ACTION_NEW_OUTGOING_CALL.equals(intent.getAction())) {
 			SharedPreferences prefs = PreferenceManager
 	                .getDefaultSharedPreferences(context);

@@ -186,7 +186,7 @@ public class Yarn extends CordovaActivity implements
 		classToStart = LinphoneActivity.class;
 
 		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
-				classToStart, Yarn.class);
+				classToStart, LinphoneActivity.class);
 
 		mHandler.postDelayed(new Runnable() {
 
@@ -259,7 +259,7 @@ public class Yarn extends CordovaActivity implements
 			if (doNativeCall) {
 //				loadUrl(launchUrl);
 //				appView.sendJavascript("setDialedNumber('"+dialedNumber+"')");
-				appView.sendJavascript("doCellularCall('"+dialedNumber+"')");
+				appView.sendJavascript("doNativeCallAsk('"+dialedNumber+"')");
 				SharedPreferences.Editor edit = prefs.edit();
 				edit.putBoolean(context.getString(R.string.do_cellular_call), false);
 				edit.putString(context.getString(R.string.do_cellular_call_number), "");

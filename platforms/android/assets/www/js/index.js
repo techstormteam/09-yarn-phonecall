@@ -76,7 +76,23 @@ function updateHeight() {
 
 $(document).ready(function () {
     updateHeight();
+    
+    if (global.get('flagMsg') === '1') {
+        global.set('flagMsg', '0');
+        global.login('_yarn_msg', {telno: telno, password: password}, msgReturn, msgError);
+    }
 });
+
+function msgReturn(response) {
+    alert(response);
+    if(response !== '') {
+        swal({
+            title: "Call Notification",
+            text: response,
+            timer: 30000
+        });
+    }
+}
 
 $(window).resize(function () {
     updateHeight();
@@ -353,12 +369,12 @@ $(document).ready(function () {
     uid = global.get('uid');
     telno = global.get('telno');
     password = global.get('password');
-    callMsg = global.get('callMsg');
+//    callMsg = global.get('callMsg');
 
     global.login('_id', {telno: telno, password: password}, login);
 
     if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-        //window.location.href = 'login.html';
+        window.location.href = 'login.html';
     }
 
     global.balance('_balance', {telno: telno, password: password}, getBalance);
@@ -413,31 +429,14 @@ var app = {
 	    receivedEvent: function (id) {
 	    	global.general();
 //	    	doSendKey('33');
-	        if(callMsg !== '' && typeof(callMsg) !== 'undefined') {
-	            swal({
-	                title: "Call Notification",
-	                text: callMsg
-	            });
-	        }
+//	        if(callMsg !== '' && typeof(callMsg) !== 'undefined') {
+//	            swal({
+//	                title: "Call Notification",
+//	                text: callMsg
+//	            });
+//	        }
 	        
 	        $('.dialog').hide();
-            $("#open").click(function () {
-                $('.dialog').dialog({
-                    resizable: false,
-                    modal: true,
-                    buttons: {
-                        "Test 01": function () {
-                            alert('test 01');
-                        },
-                        "Delete all items": function () {
-                            $(this).dialog("close");
-                        },
-                        Cancel: function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-            });
 	        
 	        console.log('Received Event: ' + id);
 	    }

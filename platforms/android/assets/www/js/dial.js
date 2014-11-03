@@ -120,9 +120,10 @@ function blink(i) {
 }
 
 $(document).ready(function() {
-    telno = global.get('telno');
-    password = global.get('password');
-    global.login('_yarn_msg', {telno: telno, password: password}, msgReturn, msgError);
+//    telno = global.get('telno');
+//    password = global.get('password');
+//    global.login('_yarn_msg', {telno: telno, password: password}, msgReturn, msgError);
+    global.set('flagMsg', '1');
     updateSize();
     
     blink(1);
@@ -155,7 +156,6 @@ function msgReturn(response) {
     } else {
         global.set('callMsg', '');
     }
-//    window.location.href = 'index.html';
 }
 
 function msgError() {
