@@ -9,21 +9,25 @@ and open the template in the editor.
 */
 
 input::-webkit-input-placeholder {
+    padding: 1em;
     font-size: 0.5em;
     vertical-align: middle;
 }
 
 input:-moz-placeholder { /* Firefox 18- */
+    padding: 1em;
     font-size: 0.5em;
     vertical-align: middle;
 }
 
 input::-moz-placeholder {  /* Firefox 19+ */
+    padding: 1em;
     font-size: 0.5em;
     vertical-align: middle;
 }
 
 input:-ms-input-placeholder {  
+    padding: 1em;
     font-size: 0.5em;
     vertical-align: middle;
 }

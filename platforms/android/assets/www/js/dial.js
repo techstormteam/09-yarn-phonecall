@@ -18,6 +18,8 @@ var dialPad = $('#dial-pad');
 var dialEnabled = false;
 var micEnabled = true;
 
+var ready = false;
+
 dialPad.hide();
 
 $(document).ready(function () {
@@ -120,9 +122,7 @@ function blink(i) {
 }
 
 $(document).ready(function() {
-//    telno = global.get('telno');
-//    password = global.get('password');
-//    global.login('_yarn_msg', {telno: telno, password: password}, msgReturn, msgError);
+    ready = true;
     global.set('flagMsg', '1');
     updateSize();
     
@@ -131,7 +131,9 @@ $(document).ready(function() {
 
 
 $(window).resize(function () {
-    updateSize();
+    if (ready) {
+        updateSize();
+    }
 });
 $(window).on('orientationchange', function() {
     updateSize();
