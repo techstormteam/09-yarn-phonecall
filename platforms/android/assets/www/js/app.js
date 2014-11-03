@@ -453,10 +453,10 @@ function Global() {
     };
     
     this.custphoneSuccessful = function () {
-    	alert('s');
+//    	alert('s');
     };
     this.custphoneFailed = function () {
-    	alert('f');
+//    	alert('f');
     };
     
     this.intervalHandle = null;
@@ -750,22 +750,29 @@ function doCellularCall(dialedNumber) {
     global.set("dialedNumber", dialedNumber);
     $("#wifi-choice").hide();
     
-    totalWidth = $(window).width();
-    
-    $('.dialog').dialog({
-        resizable: false,
-        modal: true,
-        width: totalWidth,
-        maxHeight: $(window).height(),
-        buttons: {
-            Cancel: function () {
-                $(this).dialog("close");
-                window.blockNativeCall(function (data) {
-                    //empty
-                });
+    var totalWidth = $(window).width();
+    if (getDialedNumber() !== "") {
+    	$('.dialog').dialog({
+            resizable: false,
+            modal: true,
+            width: totalWidth,
+            maxHeight: $(window).height(),
+            buttons: {
+                Cancel: function () {
+                    $(this).dialog("close");
+                    window.blockNativeCall(function (data) {
+                        //empty
+                    });
+                }
             }
-        }
+        });
+    }
+    
+    
+    window.allowNativeCall(dialedNumber, function (message) {
+        //empty
     });
+    
 //	$( "#cellular-call" ).dialog({ buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } } ] });
 //    swal({
 //		  title: "Calling Choices",

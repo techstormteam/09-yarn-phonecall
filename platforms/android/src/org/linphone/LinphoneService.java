@@ -150,9 +150,9 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		mNM.cancel(INCALL_NOTIF_ID); // in case of crash the icon is not removed
 
-//		Intent notifIntent = new Intent(this, incomingReceivedActivity);
-//		notifIntent.putExtra("Notification", true);
-//		mNotifContentIntent = PendingIntent.getActivity(this, 0, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		Intent notifIntent = new Intent(this, notificationClickActivity);
+		notifIntent.putExtra("Notification", true);
+		mNotifContentIntent = PendingIntent.getActivity(this, 0, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		Bitmap bm = null;
 		try {

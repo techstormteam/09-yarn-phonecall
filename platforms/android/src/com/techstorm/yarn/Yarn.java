@@ -131,23 +131,7 @@ public class Yarn extends CordovaActivity implements
 			case TelephonyManager.CALL_STATE_IDLE:
 				break;
 			case TelephonyManager.CALL_STATE_OFFHOOK:
-				SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
-				SharedPreferences.Editor edit = prefs.edit();
-				boolean nativeCallEnable = prefs.getBoolean(context.getString(R.string.native_call_enable), false);
-				if (!nativeCallEnable) {
-					endCall(context);
-					String number = getIntent().getStringExtra(Intent.EXTRA_PHONE_NUMBER);
-					edit.putBoolean(context.getString(R.string.do_cellular_call), true);
-					edit.putString(context.getString(R.string.do_cellular_call_number), number);
-					edit.commit();
-					Intent i = new Intent(context, Yarn.class);
-					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					context.startActivity(i);
-				}
 				
-				edit.putBoolean(context.getString(R.string.native_call_enable), false);
-		        edit.commit();
 				break;
 			case TelephonyManager.CALL_STATE_RINGING:
 				Intent i = new Intent(context, Yarn.class);

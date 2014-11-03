@@ -86,7 +86,6 @@ $(document).ready(function () {
 });
 
 function msgReturn(response) {
-    alert('Normal alert with reponse: ' + response);
     if(response !== '') {
         swal({
             title: "Call Notification",
@@ -238,7 +237,7 @@ function doHideSoftInput() {
     window.hideSoftInput(function (data) {
     	
     	if (data.hided) {
-    		alert(data.hided);
+
     		if (intervalHandleHideKeyboard !== null) {
 	    		clearInterval(intervalHandleHideKeyboard);
 	    		intervalHandleHideKeyboard = null;

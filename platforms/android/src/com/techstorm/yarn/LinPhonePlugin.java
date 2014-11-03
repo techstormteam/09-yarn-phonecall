@@ -103,7 +103,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			JSONObject objJSON = new JSONObject();
 			String address = (String) args.get(0);
 			AddressText mAddress = new AddressText(context, null);
-			mAddress.setContactAddress(address, address);
+			mAddress.setContactAddress("video:"+address, "video:"+address);
 			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
 			if (lc.isNetworkReachable()) {
 				objJSON.put("internetConnectionAvailable", true);
@@ -443,6 +443,12 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			return true;
+		} else if (action.equals("AllowNativeCall")) {
+			JSONObject objJSON = new JSONObject();
+			allowNativeCall();
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			return true;
 		} else if (action.equals("StartVideoActivity")) {
 			JSONObject objJSON = new JSONObject();
 			SharedPreferences prefs = PreferenceManager
@@ -450,23 +456,28 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			if (prefs.contains(context.getString(R.string.call_established))) {
 				Boolean callEstablished =  prefs.getBoolean(context.getString(R.string.call_established), false);
 				if (callEstablished) {
-					objJSON.put("success", true);
+					
 					LinphoneCore lc = LinphoneManager.getLc();
 					LinphoneCall call = lc.getCurrentCall();
-					LinphoneCallParams params = call.getCurrentParamsCopy();
-					Intent intent = new Intent(context, InCallActivity.class);
-					intent.putExtra("VideoEnabled", true);
-//					startOrientationSensor();
-					this.cordova.startActivityForResult(this, intent, LinPhonePlugin.CALL_ACTIVITY);
-					if (params.getVideoEnabled() == false) {
-						params.setVideoEnabled(true);
-						LinphoneManager.getLc().updateCall(call, params);
+					if (call != null) {
+						objJSON.put("success", true);
+						LinphoneCallParams params = call.getCurrentParamsCopy();
+						Intent intent = new Intent(context, InCallActivity.class);
+						intent.putExtra("VideoEnabled", true);
+	//					startOrientationSensor();
+						this.cordova.startActivityForResult(this, intent, LinPhonePlugin.CALL_ACTIVITY);
+						if (params.getVideoEnabled() == false) {
+							params.setVideoEnabled(true);
+							LinphoneManager.getLc().updateCall(call, params);
+						}
+						SharedPreferences.Editor edit = prefs.edit();
+						edit.putBoolean(context.getString(R.string.call_established), false);
+				        edit.commit();
+					} else {
+						objJSON.put("success", false);
 					}
-					SharedPreferences.Editor edit = prefs.edit();
-					edit.putBoolean(context.getString(R.string.call_established), false);
-			        edit.commit();
 				} else {
-					objJSON.put("success", true);
+					objJSON.put("success", false);
 				}
 			}
 			
@@ -484,6 +495,14 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		SharedPreferences.Editor edit = prefs.edit();
 		edit.putBoolean(context.getString(R.string.do_cellular_call), false);
 		edit.putString(context.getString(R.string.do_cellular_call_number), "");
+        edit.commit();
+	}
+	
+	private void allowNativeCall() {
+		SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+		SharedPreferences.Editor edit = prefs.edit();
+		edit.putBoolean(context.getString(R.string.native_call_enable), true);
         edit.commit();
 	}
 	
