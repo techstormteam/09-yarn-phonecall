@@ -38,6 +38,8 @@ package com.techstorm.yarn;
 
 import static android.content.Intent.ACTION_MAIN;
 
+import java.lang.reflect.Method;
+
 import org.apache.cordova.CordovaActivity;
 import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
@@ -48,6 +50,8 @@ import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.PayloadType;
+
+import com.android.internal.telephony.ITelephony;
 
 import android.app.Activity;
 import android.app.Service;
@@ -124,7 +128,23 @@ public class Yarn extends CordovaActivity implements
 			case TelephonyManager.CALL_STATE_IDLE:
 				break;
 			case TelephonyManager.CALL_STATE_OFFHOOK:
+				SharedPreferences prefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+				SharedPreferences.Editor edit = prefs.edit();
+				boolean nativeCallEnable = prefs.getBoolean(context.getString(R.string.native_call_enable), false);
+				if (!nativeCallEnable) {
+					endCall(context);
+					String number = getIntent().getStringExtra(Intent.EXTRA_PHONE_NUMBER);
+					edit.putBoolean(context.getString(R.string.do_cellular_call), true);
+					edit.putString(context.getString(R.string.do_cellular_call_number), number);
+					edit.commit();
+					Intent i = new Intent(context, Yarn.class);
+					i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					context.startActivity(i);
+				}
 				
+				edit.putBoolean(context.getString(R.string.native_call_enable), false);
+		        edit.commit();
 				break;
 			case TelephonyManager.CALL_STATE_RINGING:
 				Intent i = new Intent(context, Yarn.class);
@@ -142,6 +162,27 @@ public class Yarn extends CordovaActivity implements
     	
     	
     }
+	
+	private void endCall(Context context) {
+		try {
+			// Java reflection to gain access to TelephonyManager's
+			// ITelephony getter
+			TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			Class<?> c = Class.forName(tm.getClass().getName());
+			Method m = c.getDeclaredMethod("getITelephony");
+			m.setAccessible(true);
+			com.android.internal.telephony.ITelephony telephonyService = (ITelephony) m
+					.invoke(tm);
+
+			telephonyService = (ITelephony) m.invoke(tm);
+//			telephonyService.silenceRinger(); // error at this
+			telephonyService.endCall();
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private class ServiceWaitThread extends Thread {
 

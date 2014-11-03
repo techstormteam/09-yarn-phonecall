@@ -668,9 +668,9 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 	
 	private boolean videoCall(AddressText mAddress) {
 		if (wifiCall(mAddress)) {
-//			LinphoneCore lc = LinphoneManager.getLc();
-//			LinphoneCall currentCall = lc.getCurrentCall();	
-//			startVideoActivity(currentCall);
+			LinphoneCore lc = LinphoneManager.getLc();
+			LinphoneCall currentCall = lc.getCurrentCall();	
+			startVideoActivity(currentCall);
 			return true;
 		}
 		return false;

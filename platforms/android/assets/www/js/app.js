@@ -756,12 +756,9 @@ function doCellularCall(dialedNumber) {
         buttons: {
             Cancel: function () {
                 $(this).dialog("close");
-                alert('55');
                 window.blockNativeCall(function (data) {
                     //empty
-                	alert('55f');
                 });
-                alert('66');
             }
         }
     });

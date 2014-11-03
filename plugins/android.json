@@ -11,14 +11,6 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Html5Video\"><param name=\"android-package\" value=\"org.apache.cordova.plugin.Html5Video\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -28,14 +20,7 @@
     "installed_plugins": {
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.techstorm.yarn"
-        },
-        "jaeger.Html5Video": {
-            "PACKAGE_NAME": "com.techstorm.yarn"
         }
     },
-    "dependent_plugins": {
-        "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.techstorm.yarn"
-        }
-    }
+    "dependent_plugins": {}
 }
