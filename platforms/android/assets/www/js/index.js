@@ -224,7 +224,7 @@ function doWifiCall(dialedNumber) {
             if (data.internetConnectionAvailable) {
                 global.set('dialedNumber', dialedNumber);
                 global.set('videoCall', false);
-                //window.location.href = 'dial.html';
+                window.location.href = 'dial.html';
             } else {
                 global.set('dialedNumber', '');
                 global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
@@ -441,7 +441,6 @@ var app = {
 //	                text: callMsg
 //	            });
 //	        }
-	        
 	        $('.dialog').hide();
 	        
 	        console.log('Received Event: ' + id);

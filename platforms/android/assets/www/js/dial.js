@@ -248,8 +248,30 @@ function endCallCheck() {
     });
 }
 
+function switchToVideoCall() {
+	if (global.get('videoCall')) {
+		window.startVideoActivity(function(data) {
+			if (data.success) {
+				if (videoCallSwitchInterval !== null) {
+					clearInterval(videoCallSwitchInterval);
+					videoCallSwitchInterval = null;
+					global.set('videoCall', false);
+				}
+			}
+	    });
+	} else {
+		clearInterval(videoCallSwitchInterval);
+		videoCallSwitchInterval = null;
+	}
+	
+}
+
 function endCallCheckingScheduled() {
 	setInterval(endCallCheck, 10000);
+}
+var videoCallSwitchInterval = null;
+function switchToVideoCallScheduled() {
+	videoCallSwitchInterval = setInterval(switchToVideoCall, 1000);
 }
 
 function updateTimer() {
@@ -314,6 +336,8 @@ var app = {
 	    	callQualityTimeout();
 			updateTimerScheduled();
 			endCallCheckingScheduled();
+			switchToVideoCallScheduled();
+			
 			
 //			var options = new ContactFindOptions();
 //            options.filter = "";

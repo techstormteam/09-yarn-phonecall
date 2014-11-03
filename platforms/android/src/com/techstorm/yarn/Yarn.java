@@ -41,12 +41,14 @@ import static android.content.Intent.ACTION_MAIN;
 import java.lang.reflect.Method;
 
 import org.apache.cordova.CordovaActivity;
+import org.linphone.InCallActivity;
 import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphoneService;
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCall.State;
+import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.PayloadType;
@@ -54,6 +56,7 @@ import org.linphone.core.PayloadType;
 import com.android.internal.telephony.ITelephony;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -298,6 +301,8 @@ public class Yarn extends CordovaActivity implements
 		
 		SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
+		
+		
 		if (prefs.contains(context.getString(R.string.do_cellular_call))) {
 			Boolean doNativeCall =  prefs.getBoolean(context.getString(R.string.do_cellular_call), false);
 			String dialedNumber =  prefs.getString(context.getString(R.string.do_cellular_call_number), "");

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaActivity;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.PluginResult.Status;
@@ -54,7 +55,7 @@ import android.widget.Toast;
 
 public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListener {
 
-	private static final int CALL_ACTIVITY = 19;
+	public static final int CALL_ACTIVITY = 19;
 	private Context context;
 	private LinphonePreferences mPrefs = LinphonePreferences.instance();
 
@@ -79,8 +80,6 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			}
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
-			callbackContext.success("Call to " + address
-					+ " successful via wifi call.");
 			return true;
 		} else if (action.equals("CellularCall")) {
 			String phoneNumber = (String) args.get(0);
@@ -444,6 +443,36 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			return true;
+		} else if (action.equals("StartVideoActivity")) {
+			JSONObject objJSON = new JSONObject();
+			SharedPreferences prefs = PreferenceManager
+	                .getDefaultSharedPreferences(context);
+			if (prefs.contains(context.getString(R.string.call_established))) {
+				Boolean callEstablished =  prefs.getBoolean(context.getString(R.string.call_established), false);
+				if (callEstablished) {
+					objJSON.put("success", true);
+					LinphoneCore lc = LinphoneManager.getLc();
+					LinphoneCall call = lc.getCurrentCall();
+					LinphoneCallParams params = call.getCurrentParamsCopy();
+					Intent intent = new Intent(context, InCallActivity.class);
+					intent.putExtra("VideoEnabled", true);
+//					startOrientationSensor();
+					this.cordova.startActivityForResult(this, intent, LinPhonePlugin.CALL_ACTIVITY);
+					if (params.getVideoEnabled() == false) {
+						params.setVideoEnabled(true);
+						LinphoneManager.getLc().updateCall(call, params);
+					}
+					SharedPreferences.Editor edit = prefs.edit();
+					edit.putBoolean(context.getString(R.string.call_established), false);
+			        edit.commit();
+				} else {
+					objJSON.put("success", true);
+				}
+			}
+			
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
+			return true;
 		}
 		
 		return false;
@@ -670,7 +699,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		if (wifiCall(mAddress)) {
 			LinphoneCore lc = LinphoneManager.getLc();
 			LinphoneCall currentCall = lc.getCurrentCall();	
-			startVideoActivity(currentCall);
+//			startVideoActivity(currentCall);
 			return true;
 		}
 		return false;
@@ -681,9 +710,9 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		intent.putExtra("VideoEnabled", true);
 //		startOrientationSensor();
 		this.cordova.startActivityForResult(this, intent, CALL_ACTIVITY);
-//		LinphoneCallParams params = currentCall.getCurrentParamsCopy();
-//		params.setVideoEnabled(true);
-//		LinphoneManager.getLc().updateCall(currentCall, params);
+		LinphoneCallParams params = currentCall.getCurrentParamsCopy();
+		params.setVideoEnabled(true);
+		LinphoneManager.getLc().updateCall(currentCall, params);
 	}
 	
 	private void phoneContacts() {

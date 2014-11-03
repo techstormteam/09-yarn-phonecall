@@ -45,6 +45,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
@@ -53,11 +54,14 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 
+import com.techstorm.yarn.LinPhonePlugin;
 import com.techstorm.yarn.R;
 import com.techstorm.yarn.Yarn;
 
@@ -146,9 +150,9 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		mNM.cancel(INCALL_NOTIF_ID); // in case of crash the icon is not removed
 
-		Intent notifIntent = new Intent(this, incomingReceivedActivity);
-		notifIntent.putExtra("Notification", true);
-		mNotifContentIntent = PendingIntent.getActivity(this, 0, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//		Intent notifIntent = new Intent(this, incomingReceivedActivity);
+//		notifIntent.putExtra("Notification", true);
+//		mNotifContentIntent = PendingIntent.getActivity(this, 0, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		Bitmap bm = null;
 		try {
@@ -570,11 +574,19 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		}
 		
 		if (LinphoneUtils.isCallEstablished(call)) {
-			LinphoneCallParams params = call.getCurrentParamsCopy();
-			if (params.getVideoEnabled() == false) {
-				params.setVideoEnabled(true);
-				LinphoneManager.getLc().updateCall(call, params);
-			}
+//			.putExtra("callEstablished", true));
+			
+			SharedPreferences prefs = PreferenceManager
+	                .getDefaultSharedPreferences(getApplicationContext());
+			SharedPreferences.Editor edit = prefs.edit();
+			edit.putBoolean(getApplicationContext().getString(R.string.call_established), true);
+			edit.commit();
+			
+//			Intent i = new Intent(getApplicationContext(), Yarn.class);
+//			i.putExtra("callEstablished", true);
+//			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			getApplicationContext().startActivity(i);
+			
 		}
 		
 		if (state == State.CallUpdatedByRemote) {
@@ -605,10 +617,7 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		if ((state == State.CallEnd || state == State.Error) && LinphoneManager.getLc().getCallsNb() < 1) {
 			if (Version.sdkAboveOrEqual(Version.API12_HONEYCOMB_MR1_31X)) {
 				mWifiLock.release();
-//				Intent i = new Intent(getApplicationContext(), Yarn.class);
-//				i.putExtra("page", "file:///android_asset/www/index.html");
-//				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//				getApplicationContext().startActivity(i);
+				
 			}
 		}
 	}

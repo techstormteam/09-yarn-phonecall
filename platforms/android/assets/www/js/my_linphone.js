@@ -161,3 +161,9 @@ window.blockNativeCall = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "BlockNativeCall", []);
 };
+
+window.startVideoActivity = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "StartVideoActivity", []);
+};
