@@ -113,3 +113,70 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+.ui-bar-a {
+    background: transparent;
+    border: none;
+}
+
+.ts-chat-icon img {
+    height: 100%;
+    width: auto;
+    float: right;
+    padding-right: 15px;
+}
+
+.row > div {
+    display: inline-block;
+    width: 49%;
+}
+
+.ui-content {
+    padding: 0 15px 15px 15px;
+}
+
+.ui-content .ui-listview-inset, .ui-panel-inner .ui-listview-inset {
+    margin: 0;
+}
+
+.center {
+    text-align: center;
+    font-family: 'Segoe UI Light';
+}
+
+.ui-body-c, .ui-overlay-c {
+    background: #ffffff;
+}
+
+.not-underlined {
+    text-decoration: none;
+}
+
+.not-underlined:hover, .not-underlined:active, .not-underlined:focus {
+    text-decoration: none;
+}
+
+.ts-balance {
+    padding-left: 15px;
+    text-shadow: none;
+    font-size: 1.5em;
+}
+
+.ts-balance i {
+    font-size: 130%;
+}
+
+.ui-btn-hidden {
+    opacity: 0;
+}
+
+/*#dialpad {
+    position: fixed;
+    bottom: 0;
+}*/
+
+.ui-submit {
+    position: fixed;
+    bottom: 15px;
+    width: 100%;
+}
