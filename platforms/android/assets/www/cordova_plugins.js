@@ -6,12 +6,41 @@ module.exports = [
         "clobbers": [
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/com.wezka.nativecamera/www/CameraConstants.js",
+        "id": "com.wezka.nativecamera.Camera",
+        "clobbers": [
+            "Camera"
+        ]
+    },
+    {
+        "file": "plugins/com.wezka.nativecamera/www/CameraPopoverOptions.js",
+        "id": "com.wezka.nativecamera.CameraPopoverOptions",
+        "clobbers": [
+            "CameraPopoverOptions"
+        ]
+    },
+    {
+        "file": "plugins/com.wezka.nativecamera/www/Camera.js",
+        "id": "com.wezka.nativecamera.camera",
+        "clobbers": [
+            "navigator.camera"
+        ]
+    },
+    {
+        "file": "plugins/com.wezka.nativecamera/www/CameraPopoverHandle.js",
+        "id": "com.wezka.nativecamera.CameraPopoverHandle",
+        "clobbers": [
+            "CameraPopoverHandle"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "org.apache.cordova.inappbrowser": "0.5.4-dev"
+    "org.apache.cordova.inappbrowser": "0.5.4-dev",
+    "com.wezka.nativecamera": "0.1.2"
 }
 // BOTTOM OF METADATA
 });

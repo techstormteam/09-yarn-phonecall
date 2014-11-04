@@ -11,6 +11,34 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"com.wezka.nativecamera.NativeCameraLauncher\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.camera.autofocus\" android:required=\"false\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest/application": [
+                        {
+                            "xml": "<activity android:label=\"nativecameraplugin\" android:name=\"com.wezka.nativecamera.CameraActivity\" android:screenOrientation=\"portrait\" android:theme=\"@android:style/Theme.NoTitleBar.Fullscreen\"></activity>",
+                            "count": 1
                         }
                     ]
                 }
@@ -19,6 +47,9 @@
     },
     "installed_plugins": {
         "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.techstorm.yarn"
+        },
+        "com.wezka.nativecamera": {
             "PACKAGE_NAME": "com.techstorm.yarn"
         }
     },
