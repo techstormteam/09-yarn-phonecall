@@ -295,15 +295,33 @@ function onFailedDialDest() {
 }
 
 function onSuccessGetAccessNumber(response) {
-	if (response !== "") {
-		var accessNumber = response;
-		var dialedNumber = global.get('dialedNumber_accessNum');
-		window.callingCard(accessNumber, dialedNumber, function (message) {
-			global.sendInfoApi('_dialdest', {telno: 123456, password: 123456 ,dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
-	    });
-	} else {
-		sweetAlert("Oops...", "Can't find access number!", "warning");
-	}
+    if (response !== "") {
+        swal({
+            title: 'Dial via Offline access?',
+            message: "Dial via Offline access?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            closeOnConfirm: false
+        }, function () {
+            var accessNumber = response;
+            var dialedNumber = global.get('dialedNumber_accessNum');
+            window.callingCard(accessNumber, dialedNumber, function (message) {
+                global.sendInfoApi('_dialdest', {telno: 123456, password: 123456, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
+            });
+        });
+    } else {
+        swal({
+            title: 'Dial via mobile phone?',
+            message: "Dial via mobile phone?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            closeOnConfirm: false
+        }, function () {
+            doCellularCall();
+        });
+    }
 }
 
 function onFailedGetAccessNumber() {

@@ -8,9 +8,11 @@
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
         <link rel="stylesheet" href="css/common.css" />
         <link rel="stylesheet" href="css/button.css" />
+        <link rel="stylesheet" href="../css/sweet-alert.css" />
         <script src="js/jquery/jquery.js"></script>
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="../js/sweet-alert.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" /> 
         <style>
@@ -137,10 +139,12 @@
             }
             function other_lines_response(response) {
                 if (response.result === 'success') {
-                    alert(response.details);
+                    sweetAlert('Success!', response.details, 'success');
+//                    alert(response.details);
                     location.reload();
                 } else {
-                    alert(response.details);
+                    sweetAlert('Oops...', response.details, 'error');
+//                    alert(response.details);
                 }
             }
             function purchase_sim() {
@@ -150,10 +154,12 @@
             }
             function purchase_sim_response(response) {
                 if (response.result === 'success') {
-                    alert(response.details);
+                    sweetAlert('Success!', response.details, 'success');
+//                    alert(response.details);
                     location.reload();
                 } else {
-                    alert(response.details);
+                    sweetAlert('Oops...', response.details, 'error');
+//                    alert(response.details);
                 }
             }
         </script>
