@@ -19,6 +19,13 @@ var telno = global.get('telno');
 var password = global.get('password');
 var dest = $('[data-id="input"]');
 
+var $caret = 0;
+var $tapCaret = 0;
+var $caretContinue = false;
+var $leftStr;
+var $rightStr;
+var $lastStr;
+
 //INSIDE BALANCE ELEMENT
 var balance = $('[data-id="balance"]');
 var numpad = $('[data-id="numpad"]');
@@ -103,6 +110,10 @@ $(window).resize(function () {
     updateHeight();
 });
 
+dest.on('tap', function () {
+    $tapCaret = dest.caret();
+});
+
 //$('[data-value]').tap(function () {
 $('.ts-numpad .row .col-xs-4').tap(function () {
     inputProcess($(this));
@@ -142,8 +153,19 @@ function tapholdHandler(event) {
 
 function inputProcess(object) {
     var current = $('[data-id="input"]').val();
-    current += object.data('value');
-    $('[data-id="input"]').val(current);
+    
+    $caret = $tapCaret;
+
+    $leftStr = current.substring(0, $caret);
+    $rightStr = current.substring($caret, current.length);
+    $lastStr = $leftStr + object.data('value') + $rightStr;
+    dest.val($lastStr);
+    
+    $tapCaret++;
+
+    
+    current = $('[data-id="input"]').val();
+    
     var callCode = current.substring(0, 3);
     var conditionLength;
 
@@ -172,8 +194,16 @@ function inputProcess(object) {
 
 $('[data-id="delete"]').click(function () {
     var current = $('[data-id="input"]').val();
-    var now = current.substring(0, current.length - 1);
-    $('[data-id="input"]').val(now);
+    
+    $caret = $tapCaret;
+    
+    $leftStr = current.substring(0, $caret);
+    $rightStr = current.substring($caret, current.length);
+    $lastStr = $leftStr.substring(0, $leftStr.length - 1) + $rightStr;
+    dest.val($lastStr);
+    now = $lastStr;
+    
+    $tapCaret--;
     
     if(now.length < 6) {
         clearRate();
