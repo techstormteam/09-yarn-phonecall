@@ -433,13 +433,30 @@ function Global() {
         }
     };
     
+    this.showPopupInternetNotAvailable = function(message) {
+    	if (message.internetConnectionAvailable) {
+    		
+        } else {
+            global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+        }
+    	return !message.internetConnectionAvailable;
+    }
+    
+    this.doCheckInternetConnectionAvailable = function() {
+    	var obj = this;
+    	window.checkInternetConnection(function(message) {
+    		obj.showPopupInternetNotAvailable(message);
+        });
+    }
+    
     this.registerSipUser = function() {
     	
     	var sipUsername = global.get('telno');
     	var password = global.get('password');
     	if (sipUsername !== null && password !== null) {
+    		var obj = this;
         	window.registerSip(sipUsername, password, function(message) {
-            	//global.showPopup("Test Registration", message.message)
+        		obj.showPopupInternetNotAvailable(message);
             });
         }
     };
@@ -744,6 +761,15 @@ function doNativeCallAsk(dialedNumber) {
 	doCellularCall();
 	// enable wificall choice.
 	$("#wifi-choice").show();
+}
+
+function doSettings() {
+	window.settings(function (message) {
+		if (!global.showPopupInternetNotAvailable(message)) {
+			window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
+		}
+    });
+    
 }
 
 function doCellularCall(dialedNumber) {

@@ -131,6 +131,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
 			
 			if (lc.isNetworkReachable()) {
+				objJSON.put("internetConnectionAvailable", true);
 				// Get account index.
 				int nbAccounts = LinphonePreferences.instance().getAccountCount();
 				List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
@@ -170,6 +171,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 					}
 				}
 			} else {
+				objJSON.put("internetConnectionAvailable", false);
 				message += "NOT-REGISTERED as "+sipUsername+" with "+password;
 				message += ".Network is not available";
 			}
@@ -225,11 +227,21 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			callbackContext.success("Go to Call Logs successfully.");
 			return true;
 		} else if (action.equals("HangUp")) {
-			hangUp();
+			JSONObject objJSON = new JSONObject();
+			if (checkInternetConnectionAvailable(objJSON)) {
+				hangUp();
+			}
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
 			callbackContext.success("Hang up the current call.");
 			return true;
 		} else if (action.equals("Settings")) {
-			// Nothing to do
+			JSONObject objJSON = new JSONObject();
+			if (checkInternetConnectionAvailable(objJSON)) {
+				// nothing
+			}
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
 			callbackContext.success("Show settings screen.");
 			return true;
 		} else if (action.equals("SignOut")) {
@@ -253,9 +265,15 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			callbackContext.success("Sign out successful.");
 			return true;
 		} else if (action.equals("MicMute")) {
-			Boolean enableMicMute = (Boolean) args.get(0);
-			LinphoneCore lc = LinphoneManager.getLc();
-			lc.muteMic(enableMicMute);
+			JSONObject objJSON = new JSONObject();
+			if (checkInternetConnectionAvailable(objJSON)) {
+				Boolean enableMicMute = (Boolean) args.get(0);
+				LinphoneCore lc = LinphoneManager.getLc();
+				lc.muteMic(enableMicMute);
+			}
+			
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
 			callbackContext.success("Enable/disable Mic Mute.");
 			return true;
 		} else if (action.equals("ShowDialPad")) {
@@ -263,36 +281,59 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			callbackContext.success("Shown dial pad.");
 			return true;
 		} else if (action.equals("Loudness")) {
-			LinphoneManager.getInstance().routeAudioToSpeaker();
-			LinphoneManager.getLc().enableSpeaker(true);
+			JSONObject objJSON = new JSONObject();
+			if (checkInternetConnectionAvailable(objJSON)) {
+				LinphoneManager.getInstance().routeAudioToSpeaker();
+				LinphoneManager.getLc().enableSpeaker(true);
+			}
+			
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
 			callbackContext.success("Do loudness.");
 			return true;
 		} else if (action.equals("Phoneness")) {
-			LinphoneManager.getInstance().routeAudioToReceiver();
-			LinphoneManager.getLc().enableSpeaker(false);
+			JSONObject objJSON = new JSONObject();
+			if (checkInternetConnectionAvailable(objJSON)) {
+				LinphoneManager.getInstance().routeAudioToReceiver();
+				LinphoneManager.getLc().enableSpeaker(false);
+			}
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
 			callbackContext.success("Do phoneness.");
 			return true;
 		} else if (action.equals("DialDtmf")) {
 			String ch = (String) args.get(0).toString();
-			if (ch == null || ch.length() != 1) {
-				return false;
+			JSONObject objJSON = new JSONObject();
+			if (checkInternetConnectionAvailable(objJSON)) {
+				
+				if (ch == null || ch.length() != 1) {
+					return false;
+				}
+				dialDtmf(ch.charAt(0));
 			}
-			dialDtmf(ch.charAt(0));
+			
+			PluginResult result = new PluginResult(Status.OK, objJSON);
+			callbackContext.sendPluginResult(result);
 			callbackContext.success("Dial dtmf: "+ch.charAt(0));
 			return true;
 		} else if (action.equals("GetCallQuality")) {
 			JSONObject objJSON = new JSONObject();
-			LinphoneCore lc = LinphoneManager.getLc();
-			LinphoneCall currentCall = lc.getCurrentCall();
-			PluginResult result = null;
-			if (currentCall != null) {
-				objJSON.put("quality", getCallQuality(currentCall));
-				result = new PluginResult(Status.OK, objJSON);
-			} else {
-				objJSON.put("quality", 0);
-				result = new PluginResult(Status.NO_RESULT, objJSON);
+			
+			if (checkInternetConnectionAvailable(objJSON)) {
+				LinphoneCore lc = LinphoneManager.getLc();
+				LinphoneCall currentCall = lc.getCurrentCall();
+				PluginResult result = null;
+				
+				if (currentCall != null) {
+					objJSON.put("quality", getCallQuality(currentCall));
+					result = new PluginResult(Status.OK, objJSON);
+				} else {
+					objJSON.put("quality", 0);
+					result = new PluginResult(Status.NO_RESULT, objJSON);
+				}
+				callbackContext.sendPluginResult(result);
 			}
-			callbackContext.sendPluginResult(result);
+			
 			callbackContext.success("Get call quality successfully.");
 			return true;
 		} else if (action.equals("GetCallDurationTime")) {
@@ -370,12 +411,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			return true;
 		} else if (action.equals("CheckInternetConnection")) {
 			JSONObject objJSON = new JSONObject();
-			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
-			if (lc.isNetworkReachable()) {
-				objJSON.put("internetConnectionAvailable", true);
-			} else {
-				objJSON.put("internetConnectionAvailable", false);
-			}
+			checkInternetConnectionAvailable(objJSON);
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Check internet connection successfully.");
@@ -451,36 +487,37 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			return true;
 		} else if (action.equals("StartVideoActivity")) {
 			JSONObject objJSON = new JSONObject();
-			SharedPreferences prefs = PreferenceManager
-	                .getDefaultSharedPreferences(context);
-			if (prefs.contains(context.getString(R.string.call_established))) {
-				Boolean callEstablished =  prefs.getBoolean(context.getString(R.string.call_established), false);
-				if (callEstablished) {
-					
-					LinphoneCore lc = LinphoneManager.getLc();
-					LinphoneCall call = lc.getCurrentCall();
-					if (call != null) {
-						objJSON.put("success", true);
-						LinphoneCallParams params = call.getCurrentParamsCopy();
-						Intent intent = new Intent(context, InCallActivity.class);
-						intent.putExtra("VideoEnabled", true);
-	//					startOrientationSensor();
-						this.cordova.startActivityForResult(this, intent, LinPhonePlugin.CALL_ACTIVITY);
-						if (params.getVideoEnabled() == false) {
-							params.setVideoEnabled(true);
-							LinphoneManager.getLc().updateCall(call, params);
+			if (checkInternetConnectionAvailable(objJSON)) {
+				SharedPreferences prefs = PreferenceManager
+		                .getDefaultSharedPreferences(context);
+				if (prefs.contains(context.getString(R.string.call_established))) {
+					Boolean callEstablished =  prefs.getBoolean(context.getString(R.string.call_established), false);
+					if (callEstablished) {
+						
+						LinphoneCore lc = LinphoneManager.getLc();
+						LinphoneCall call = lc.getCurrentCall();
+						if (call != null) {
+							objJSON.put("success", true);
+							LinphoneCallParams params = call.getCurrentParamsCopy();
+							Intent intent = new Intent(context, InCallActivity.class);
+							intent.putExtra("VideoEnabled", true);
+		//					startOrientationSensor();
+							this.cordova.startActivityForResult(this, intent, LinPhonePlugin.CALL_ACTIVITY);
+							if (params.getVideoEnabled() == false) {
+								params.setVideoEnabled(true);
+								LinphoneManager.getLc().updateCall(call, params);
+							}
+							SharedPreferences.Editor edit = prefs.edit();
+							edit.putBoolean(context.getString(R.string.call_established), false);
+					        edit.commit();
+						} else {
+							objJSON.put("success", false);
 						}
-						SharedPreferences.Editor edit = prefs.edit();
-						edit.putBoolean(context.getString(R.string.call_established), false);
-				        edit.commit();
 					} else {
 						objJSON.put("success", false);
 					}
-				} else {
-					objJSON.put("success", false);
 				}
 			}
-			
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			return true;
@@ -489,6 +526,19 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		return false;
 	}
 
+	private boolean checkInternetConnectionAvailable(JSONObject objJSON) throws JSONException {
+		boolean available = false;
+		LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+		if (lc.isNetworkReachable()) {
+			objJSON.put("internetConnectionAvailable", true);
+			available = true;
+		} else {
+			objJSON.put("internetConnectionAvailable", false);
+			available = false;
+		}
+		return available;
+	}
+	
 	private void blockNativeCall() {
 		SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);

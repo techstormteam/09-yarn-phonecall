@@ -146,15 +146,20 @@ $(window).on('load orientationchange', function() {
 });
 
 function micHandler() {
-    if(micEnabled) {
-        $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/mute.png');
-        micEnabled = false;
-        doMicMute(true);
-    } else {
-        $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/microphone.png');
-        micEnabled = true;
-        doMicMute(false);
-    }
+	window.checkInternetConnection(function(message) {
+		if (!global.showPopupInternetNotAvailable(message)) {
+		    if(micEnabled) {
+		        $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/mute.png');
+		        micEnabled = false;
+		        doMicMute(true);
+		    } else {
+		        $('[data-id="microphone-icon"]').find('img').attr('src', 'img/icons/microphone.png');
+		        micEnabled = true;
+		        doMicMute(false);
+		    }
+		}
+
+    });
 }
 
 function msgReturn(response) {
@@ -172,34 +177,37 @@ function msgError() {
 
 function doHangUp() {
     window.hangUp(function (message) {
-        //empty
+        if (!global.showPopupInternetNotAvailable(message)) {
+        	window.location.href = 'index.html';
+        }
     });    
-    window.location.href = 'index.html';
+    
 }
 
 function doMicMute(enable) {
     window.micMute(enable, function (message) {
-        //empty
+    	global.showPopupInternetNotAvailable(message);
     });
 }
 
 function doLoudness() {
-    var loudnessIcon = $('[data-id="loudness-icon"] img').attr('src');
-    
-    if(loudnessIcon === 'img/icons/loudness.png') {
-    	window.loudness(function (message) {
-            //empty
-        });
-        $('[data-id="loudness-icon"]').find('img').attr('src', 'img/icons/loudness-off.png');
-        
-    } else {
-    	window.phoneness(function (message) {
-            //empty
-        });
-        $('[data-id="loudness-icon"]').find('img').attr('src', 'img/icons/loudness.png');
-        
-    }
-    
+	
+		var loudnessIcon = $('[data-id="loudness-icon"] img').attr('src');
+	    
+	    if(loudnessIcon === 'img/icons/loudness.png') {
+	    	window.loudness(function (message) {
+	    		global.showPopupInternetNotAvailable(message);
+	        });
+	        $('[data-id="loudness-icon"]').find('img').attr('src', 'img/icons/loudness-off.png');
+	        
+	    } else {
+	    	window.phoneness(function (message) {
+	    		global.showPopupInternetNotAvailable(message);
+	        });
+	        $('[data-id="loudness-icon"]').find('img').attr('src', 'img/icons/loudness.png');
+	        
+	    }
+	
 }
 
 
@@ -212,15 +220,8 @@ function getEmail(response) {
 
 global.login('_email', {telno: telno, password: password}, getEmail);
 
-function doSettings() {
-    window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
-}
 
-//function doSettings() {
-//    window.settings(function (message) {
-//        //empty
-//    });
-//}
+
 function doHome() {
     // Need to code
     window.location.href = 'index.html';
@@ -257,13 +258,16 @@ function endCallCheck() {
 function switchToVideoCall() {
 	if (global.get('videoCall')) {
 		window.startVideoActivity(function(data) {
-			if (data.success) {
-				if (videoCallSwitchInterval !== null) {
-					clearInterval(videoCallSwitchInterval);
-					videoCallSwitchInterval = null;
-					global.set('videoCall', false);
+			if (!global.showPopupInternetNotAvailable(data)) {
+				if (data.success) {
+					if (videoCallSwitchInterval !== null) {
+						clearInterval(videoCallSwitchInterval);
+						videoCallSwitchInterval = null;
+						global.set('videoCall', false);
+					}
 				}
 			}
+			
 	    });
 	} else {
 		clearInterval(videoCallSwitchInterval);
@@ -275,6 +279,7 @@ function switchToVideoCall() {
 function endCallCheckingScheduled() {
 	setInterval(endCallCheck, 10000);
 }
+
 var videoCallSwitchInterval = null;
 function switchToVideoCallScheduled() {
 	videoCallSwitchInterval = setInterval(switchToVideoCall, 1000);
@@ -292,7 +297,7 @@ function updateTimerScheduled() {
 
 function doSendDmtf(key) {
     window.dialKeyDtmf(key, function (message) {
-        //empty
+    	global.showPopupInternetNotAvailable(message);
     });
     
 }
@@ -307,10 +312,12 @@ function callQualityTimeout() {
 
 function sendCallQuality() {
 	window.getCallQuality(function(data) {
-		var telno = global.get('telno');
-        var password = global.get('password');
-        console.log('Sending quality number: '+data.quality+' of the call (to '+telno+').');
-		global.sendQuality(telno, password, data.quality, onSuccessQualitySending);
+		if (!global.showPopupInternetNotAvailable(data)) {
+			var telno = global.get('telno');
+	        var password = global.get('password');
+	        console.log('Sending quality number: '+data.quality+' of the call (to '+telno+').');
+			global.sendQuality(telno, password, data.quality, onSuccessQualitySending);
+		}
     });
 }
 
@@ -342,7 +349,7 @@ var app = {
 	    	callQualityTimeout();
 			updateTimerScheduled();
 			endCallCheckingScheduled();
-			switchToVideoCallScheduled();
+			//switchToVideoCallScheduled();
 			
 			
 //			var options = new ContactFindOptions();

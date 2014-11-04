@@ -260,6 +260,7 @@ function doWifiCall(dialedNumber) {
             }
 
         });
+        
     }
 }
 
@@ -378,15 +379,6 @@ function doRegisterSip() {
         });
     }
 }
-//function doSettings() {
-//    window.settings(function (message) {
-//        //empty
-//    });
-//}
-
-function doSettings() {
-    window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
-}
 
 $('.rateText').hide();
 
@@ -444,9 +436,15 @@ function linkHandler() {
 }
 
 function paymentHandle() {
-//        window.location.href = 'mobile/auto.html?u=anh@test.com&p=123456&r=payment-create.html';
-    window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password + '&r=payment-create.html';
-//    openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password + '&r=http://portal.netcastdigital.net/mobile/payment-create.html');
+	window.checkInternetConnection(function(message) {
+		if (!global.showPopupInternetNotAvailable(message)) {
+//	        window.location.href = 'mobile/auto.html?u=anh@test.com&p=123456&r=payment-create.html';
+		    window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password + '&r=payment-create.html';
+//		    openlink('http://portal.netcastdigital.net/mobile/auto.html?u=' + email + '&p=' + password + '&r=http://portal.netcastdigital.net/mobile/payment-create.html');
+		}
+
+    });
+
 }
 
 function doSendKey(key) {
