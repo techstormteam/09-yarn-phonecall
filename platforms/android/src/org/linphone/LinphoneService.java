@@ -84,7 +84,7 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 	 * setLatestEventInfo and startActivity() which needs a context.
 	 */
 	public static final String START_LINPHONE_LOGS = " ==== Phone information dump ====";
-	public static final int IC_LEVEL_ORANGE=0;
+	public static final int IC_LEVEL_GREEN=1;
 	/*private static final int IC_LEVEL_GREEN=1;
 	private static final int IC_LEVEL_RED=2;*/
 	public static final int IC_LEVEL_OFFLINE=3;
@@ -519,7 +519,7 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 //		}
 		if (!mDisableRegistrationStatus) {
 			if (state == RegistrationState.RegistrationOk && LinphoneManager.getLc().getDefaultProxyConfig() != null && LinphoneManager.getLc().getDefaultProxyConfig().isRegistered()) {
-				sendNotification(IC_LEVEL_ORANGE, R.string.notification_registered);
+				sendNotification(IC_LEVEL_GREEN, R.string.notification_registered);
 			}
 	
 			if ((state == RegistrationState.RegistrationFailed || state == RegistrationState.RegistrationCleared) && (LinphoneManager.getLc().getDefaultProxyConfig() == null || !LinphoneManager.getLc().getDefaultProxyConfig().isRegistered())) {
