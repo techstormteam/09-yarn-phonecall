@@ -106,6 +106,10 @@ function updateSize() {
     //FOOTER-2ND
     footer2nd.css('height', (totalHeight / 12));
     footer2ndDiv.css('height', (totalHeight / 12));
+    
+    $('[data-id="end-call"] img').css('width', 'auto');
+    $('[data-id="footer-1st"] img').css('width', 'auto');
+    $('[data-id="footer-2nd"] img').css('width', 'auto');
 }
 
 function blink(i) {
@@ -135,8 +139,10 @@ $(window).resize(function () {
         updateSize();
     }
 });
-$(window).on('orientationchange', function() {
-    updateSize();
+$(window).on('load orientationchange', function() {
+    if (ready) {
+        updateSize();
+    }
 });
 
 function micHandler() {
