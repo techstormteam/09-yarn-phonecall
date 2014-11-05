@@ -1,26 +1,49 @@
 var totalHeight;
-var header = $('[data-id="header"]');
-var main = $('[data-id="main"]');
-var mainImg = $('[data-id="avatar"] img');
-var subFoot = $('[data-id="sub-footer"]');
-var timer = $('[data-id="timer"]');
-var endCall = $('[data-id="end-call"]');
-var footer = $('[data-id="footer"]');
-var footer1st = $('[data-id="footer-1st"]');
-var footer1stDiv = $('[data-id="footer-1st"] div');
-var footer2nd = $('[data-id="footer-2nd"]');
-var footer2ndDiv = $('[data-id="footer-2nd"] div');
+var header;
+var main;
+var mainImg;
+var subFoot;
+var timer;
+var endCall;
+var footer;
+var footer1st;
+var footer1stDiv;
+var footer2nd;
+var footer2ndDiv;
 var remain = 0;
-var loading = $('#loading');
+var loading;
 
-var body = $('#body');
-var dialPad = $('#dial-pad');
+var body;
+var dialPad;
 var dialEnabled = false;
 var micEnabled = true;
 
 var ready = false;
 
-dialPad.hide();
+
+
+$(document).ready(function () {
+	header = $('[data-id="header"]');
+	main = $('[data-id="main"]');
+	mainImg = $('[data-id="avatar"] img');
+	subFoot = $('[data-id="sub-footer"]');
+	timer = $('[data-id="timer"]');
+	endCall = $('[data-id="end-call"]');
+	footer = $('[data-id="footer"]');
+	footer1st = $('[data-id="footer-1st"]');
+	footer1stDiv = $('[data-id="footer-1st"] div');
+	footer2nd = $('[data-id="footer-2nd"]');
+	footer2ndDiv = $('[data-id="footer-2nd"] div');
+	remain = 0;
+	loading = $('#loading');
+	body = $('#body');
+	dialPad = $('#dial-pad');
+	dialEnabled = false;
+	micEnabled = true;
+	ready = false;
+	
+	dialPad.hide();
+});
 
 $(document).ready(function () {
     if(global.get('vmail') === '1') {
@@ -209,17 +232,6 @@ function doLoudness() {
 	    }
 	
 }
-
-
-var telno = global.get('telno');
-var password = global.get('password');
-
-function getEmail(response) {
-    email = response;
-}
-
-global.login('_email', {telno: telno, password: password}, getEmail);
-
 
 
 function doHome() {

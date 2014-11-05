@@ -476,13 +476,6 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
-//	    	doSendKey('33');
-//	        if(callMsg !== '' && typeof(callMsg) !== 'undefined') {
-//	            swal({
-//	                title: "Call Notification",
-//	                text: callMsg
-//	            });
-//	        }
 	        $('.dialog').hide();
 	        
 	        console.log('Received Event: ' + id);

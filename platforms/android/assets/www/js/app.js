@@ -440,23 +440,24 @@ function Global() {
             global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
         }
     	return !message.internetConnectionAvailable;
-    }
+    };
     
     this.doCheckInternetConnectionAvailable = function() {
     	var obj = this;
     	window.checkInternetConnection(function(message) {
     		obj.showPopupInternetNotAvailable(message);
         });
-    }
+    };
     
     this.registerUserCall = function(registerStatus) {
-    	var obj = this;
+    	
     	var sipUsername = global.get('telno');
     	var password = global.get('password');
+    	var obj1 = this;
     	window.registerSip(sipUsername, password, registerStatus, function(message) {
-    		obj.showPopupInternetNotAvailable(message);
+    		obj1.showPopupInternetNotAvailable(message);
         });
-    }
+    };
     
     this.registerSipUser = function() {
     	var telno = global.get('telno');
