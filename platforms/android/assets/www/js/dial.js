@@ -163,7 +163,7 @@ function micHandler() {
 }
 
 function msgReturn(response) {
-    alert(response);
+    //alert(response);
     if(response !== '') {
         global.set('callMsg', response);
     } else {

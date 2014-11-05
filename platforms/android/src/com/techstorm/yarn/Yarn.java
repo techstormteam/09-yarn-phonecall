@@ -41,31 +41,31 @@ import static android.content.Intent.ACTION_MAIN;
 import java.lang.reflect.Method;
 
 import org.apache.cordova.CordovaActivity;
-import org.linphone.InCallActivity;
 import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphoneService;
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCall.State;
-import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.PayloadType;
 
-import com.android.internal.telephony.ITelephony;
-
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+
+import com.android.internal.telephony.ITelephony;
 
 public class Yarn extends CordovaActivity implements
 		LinphoneOnCallStateChangedListener
@@ -207,6 +207,29 @@ public class Yarn extends CordovaActivity implements
 
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override  
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)  
+    {  
+          super.onActivityResult(requestCode, resultCode, data);  
+              
+          if(requestCode==LinPhonePlugin.PICK_CONTACT) {  
+        	  if (resultCode == Activity.RESULT_OK) {
+        		  Uri contactUri = data.getData();
+                  String[] projection = {Phone.NUMBER, Phone.DISPLAY_NAME, Phone._ID};
+
+                  Cursor cursor = getContentResolver()
+                          .query(contactUri, projection, null, null, null);
+                  cursor.moveToFirst();
+
+                  int columnNumber = cursor.getColumnIndex(Phone.NUMBER);
+                  String contactNumber = cursor.getString(columnNumber);
+                  appView.sendJavascript("setDialedNumber('"+contactNumber+"')");
+        	  }
+          }  
+  
+  }  
+	
 	protected void onServiceReady() {
 
 		final Class<? extends Activity> classToStart;

@@ -48,6 +48,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
+import android.provider.ContactsContract.Contacts;
 import android.text.TextUtils;
 import android.view.InputDevice;
 import android.view.inputmethod.InputMethodManager;
@@ -56,6 +57,8 @@ import android.widget.Toast;
 public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListener {
 
 	public static final int CALL_ACTIVITY = 19;
+	public static final int PICK_CONTACT = 30;
+	
 	private Context context;
 	private LinphonePreferences mPrefs = LinphonePreferences.instance();
 
@@ -785,15 +788,18 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 	}
 	
 	private void phoneContacts() {
-		Intent callIntent = new Intent(Intent.ACTION_VIEW);
-		callIntent.setData(Uri.parse("content://contacts/people/"));
-		this.cordova.startActivityForResult(this,callIntent,0);
+//		Intent callIntent = new Intent(Intent.ACTION_PICK); 
+//		callIntent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+//		callIntent.setData(Uri.parse("content://contacts/people/"));
+		Intent intent = new Intent(Intent.ACTION_PICK, Contacts.CONTENT_URI);
+	    intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+		this.cordova.startActivityForResult(this,intent,PICK_CONTACT);
 	}
 	
 	private void callLogs() {
-		Intent callIntent = new Intent(Intent.ACTION_VIEW);
+		Intent callIntent = new Intent(Intent.ACTION_PICK);
 		callIntent.setData(Uri.parse("content://call_log/calls"));
-		this.cordova.startActivityForResult(this,callIntent,0);
+		this.cordova.startActivityForResult(this,callIntent,PICK_CONTACT);
 	}
 	
 	private void cellularCall(String phoneNumber) {

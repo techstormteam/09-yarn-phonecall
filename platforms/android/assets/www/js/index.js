@@ -103,7 +103,7 @@ function msgReturn(response) {
 }
 
 function msgError(error) {
-    alert(error);
+    //alert(error);
 }
 
 $(window).resize(function () {
@@ -296,7 +296,9 @@ function onFailedDialDest() {
 }
 
 function onSuccessGetAccessNumber(response) {
+	alert(response);
     if (response !== "") {
+    	
         swal({
             title: 'Dial via Offline access?',
             message: "Dial via Offline access?",
@@ -308,7 +310,9 @@ function onSuccessGetAccessNumber(response) {
             var accessNumber = response;
             var dialedNumber = global.get('dialedNumber_accessNum');
             window.callingCard(accessNumber, dialedNumber, function (message) {
-                global.sendInfoApi('_dialdest', {telno: 123456, password: 123456, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
+            	var telno = global.get('telno');
+                var password = global.get('password');
+                global.sendInfoApi('_dialdest', {telno: telno, password: password, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
             });
         });
     } else {
@@ -332,7 +336,9 @@ function onFailedGetAccessNumber() {
 function doCallingCard(phoneNumber) {
     
 	global.set('dialedNumber_accessNum', phoneNumber);
-	global.api('_access_num', {telno: 123456, password: 123456}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
+	var telno = global.get('telno');
+    var password = global.get('password');
+	global.api('_access_num', {telno: telno, password: password}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
 }
 
 function doPhoneContacts() {
