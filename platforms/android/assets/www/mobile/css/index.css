@@ -180,3 +180,7 @@ h1 {
     bottom: 15px;
     width: 100%;
 }
+
+.ui-li-desc {
+    text-transform: initial;
+}

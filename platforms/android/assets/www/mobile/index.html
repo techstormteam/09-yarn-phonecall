@@ -67,7 +67,7 @@
 
             <!-- START: Content -->
             <div data-role="content">
-                <div class="center">Self Care Portal</div>
+                <div class="center" id="introText">Self Care Portal</div>
                 <ul data-role="listview" data-inset="true">
                     <li>
                         <a href="callerid.html" rel="external">
@@ -198,6 +198,7 @@
                 telno = global.get('telno');
                 password = global.get('password');
                 totalHeight = $(window).height();
+                listView = $('[data-role="listview"]');
 //                contentHeight = $('.ui-content').outerHeight(true);
                 $('.row').height(Math.ceil(totalHeight / 9));
 //                $('.ui-header').height(totalHeight - contentHeight);
@@ -209,6 +210,10 @@
                 $('.ui-submit').css({
                     width: $(window).width() - 30
                 });
+                
+                alert(totalHeight - $('.ui-header').outerHeight(true) - $('#introText').height() - $('.ui-submit').outerHeight(true) - listView.outerHeight(true)) / 2);
+                
+                listView.css('marginTop', (totalHeight - $('.ui-header').outerHeight(true) - $('#introText').height() - $('.ui-submit').outerHeight(true) - listView.outerHeight(true)) / 2);
 
                 function getEmail(response) {
                     email = response;
@@ -225,6 +230,8 @@
             function paymentHandle() {
                 window.location.href = 'payment-create.html';
             }
+            
+
         </script>
     </body>
 </html>
