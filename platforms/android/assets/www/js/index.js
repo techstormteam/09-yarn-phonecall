@@ -376,15 +376,6 @@ function doVideoCall() {
         });
     }
 }
-function doRegisterSip() {
-    var sipUsername = global.get('telno');
-    var password = global.get('password');
-    if (sipUsername !== null && password !== null) {
-        window.registerSip(sipUsername, password, function (message) {
-            //empty
-        });
-    }
-}
 
 $('.rateText').hide();
 

@@ -34,10 +34,10 @@ window.hangUp = function(callback) {
     }, "LinPhonePlugin", "HangUp", []);
 };
 
-window.registerSip = function(sipUsername, password, callback) {
+window.registerSip = function(sipUsername, password, registerStatus, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "RegisterSip", [sipUsername, password]);
+    }, "LinPhonePlugin", "RegisterSip", [sipUsername, password, registerStatus]);
 };
 
 window.settings = function(callback) {

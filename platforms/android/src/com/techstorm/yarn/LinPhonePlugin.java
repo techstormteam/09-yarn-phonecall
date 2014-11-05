@@ -58,6 +58,8 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 
 	public static final int CALL_ACTIVITY = 19;
 	public static final int PICK_CONTACT = 30;
+	public static String NOT_REGISTERED = "NOT-REGISTERED";
+	public static String REGISTERED = "REGISTERED";
 	
 	private Context context;
 	private LinphonePreferences mPrefs = LinphonePreferences.instance();
@@ -127,6 +129,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			JSONObject objJSON = new JSONObject();
 			String sipUsername = (String) args.get(0);
 			String password = (String) args.get(1);
+			String registerStatus = (String) args.get(2);
 			String domain = context.getResources().getString(
 					R.string.sip_domain_default);
 			String sipAddress = sipUsername + "@" + domain;
@@ -141,12 +144,14 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 				List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
 				
 				
-				if (accountIndexes == null || accountIndexes.isEmpty()) { // User haven't registered
-					message += "NOT-REGISTERED as "+sipUsername+" with "+password;
-					message += ". Trying to REGISTER as "+sipUsername+" with "+password;
+				if (accountIndexes == null || accountIndexes.isEmpty()) { // User haven't registered in linphone
 					logIn(sipUsername, password, domain, false);
 					lc.refreshRegisters();
 					accountIndexes.add(nbAccounts);
+				} else { // Register in linphone.
+					if (NOT_REGISTERED.equals(registerStatus)) {
+						signOut(sipUsername, domain);
+					}
 				}
 				
 				for (Integer accountIndex : accountIndexes) {
@@ -182,6 +187,14 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			objJSON.put("message", message);
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
+			return true;
+		} else if (action.equals("SignOut")) {
+			String sipUsername = (String) args.get(0);
+			String domain = context.getResources().getString(
+					R.string.sip_domain_default);
+			
+			signOut(sipUsername, domain);
+			callbackContext.success("Sign out successful.");
 			return true;
 		} else if (action.equals("GetContactImageUri")) {
 			JSONObject objJSON = new JSONObject();
@@ -247,26 +260,6 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
 			callbackContext.success("Show settings screen.");
-			return true;
-		} else if (action.equals("SignOut")) {
-			if (LinphoneManager.isInstanciated()) {
-				LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
-				String sipUsername = (String) args.get(0);
-				String domain = context.getResources().getString(
-						R.string.sip_domain_default);
-				String sipAddress = sipUsername + "@" + domain;
-				List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
-				for (Integer accountIndex : accountIndexes) {
-					LinphonePreferences.instance().setAccountEnabled(accountIndex, false);
-					LinphoneProxyConfig proxyCfg = lc.getProxyConfigList()[accountIndex];
-					lc.removeProxyConfig(proxyCfg);
-				}
-				
-				LinphoneAuthInfo authInfo = lc.findAuthInfo(sipUsername, null, domain);
-				lc.removeAuthInfo(authInfo);
-				lc.refreshRegisters();
-			}
-			callbackContext.success("Sign out successful.");
 			return true;
 		} else if (action.equals("MicMute")) {
 			JSONObject objJSON = new JSONObject();
@@ -530,6 +523,24 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		return false;
 	}
 
+	private void signOut(String sipUsername, String domain) {
+		if (LinphoneManager.isInstanciated()) {
+			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+			
+			String sipAddress = sipUsername + "@" + domain;
+			List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
+			for (Integer accountIndex : accountIndexes) {
+				LinphonePreferences.instance().setAccountEnabled(accountIndex, false);
+				LinphoneProxyConfig proxyCfg = lc.getProxyConfigList()[accountIndex];
+				lc.removeProxyConfig(proxyCfg);
+			}
+			
+			LinphoneAuthInfo authInfo = lc.findAuthInfo(sipUsername, null, domain);
+			lc.removeAuthInfo(authInfo);
+			lc.refreshRegisters();
+		}
+	}
+	
 	private boolean checkInternetConnectionAvailable(JSONObject objJSON) throws JSONException {
 		boolean available = false;
 		LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();

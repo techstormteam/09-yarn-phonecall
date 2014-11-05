@@ -449,15 +449,20 @@ function Global() {
         });
     }
     
-    this.registerSipUser = function() {
-    	
+    this.registerUserCall = function(registerStatus) {
+    	var obj = this;
     	var sipUsername = global.get('telno');
     	var password = global.get('password');
-    	if (sipUsername !== null && password !== null) {
-    		var obj = this;
-        	window.registerSip(sipUsername, password, function(message) {
-        		obj.showPopupInternetNotAvailable(message);
-            });
+    	window.registerSip(sipUsername, password, registerStatus, function(message) {
+    		obj.showPopupInternetNotAvailable(message);
+        });
+    }
+    
+    this.registerSipUser = function() {
+    	var telno = global.get('telno');
+    	var password = global.get('password');
+    	if (telno !== null && password !== null) {
+    		this.api("_app_state", { telno:telno, password:password }, this.registerUserCall);
         }
     };
     
