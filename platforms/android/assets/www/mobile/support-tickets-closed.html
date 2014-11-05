@@ -267,12 +267,17 @@
         }
         function ticket_reopen_response(response) {
             if (response.result === 'success') {
-                sweetAlert('Success!', response.details, 'success');
-//                alert(response.details);
-                $('#message').html('<span style="color:green;">You successfuly reopen the ticket.</span>').show();
+                swal({
+                        title: 'Success!',
+                        text: response.details,
+                        type: 'success',
+                        showCancelButton: false,
+                        closeOnConfirm: false
+                    }, function() {
+                        $('#message').html('<span style="color:green;">You successfuly reopen the ticket.</span>').show();
+                    });
             } else {
                 sweetAlert('Oops...', response.details, 'error');
-//                alert(response.details);
             }
         }
         function ticket_details_show(details) {

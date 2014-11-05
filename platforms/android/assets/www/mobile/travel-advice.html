@@ -75,12 +75,17 @@
         }
         function travel_advice_response(response) {
             if (response.result === 'success') {
-                sweetAlert('Success!', response.details, 'success');
-//                alert(response.details);
-                location.reload();
+                swal({
+                        title: 'Success!',
+                        text: response.details,
+                        type: 'success',
+                        showCancelButton: false,
+                        closeOnConfirm: false
+                    }, function() {
+                        location.reload();
+                    });
             } else {
                 sweetAlert('Oops...', response.details, 'error');
-//                alert(response.details);
             }
         }
     </script>

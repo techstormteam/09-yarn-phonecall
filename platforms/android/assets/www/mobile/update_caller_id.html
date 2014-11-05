@@ -95,12 +95,17 @@
             
             function update_callerid_response(response) {
                 if (response.result === 'success') {
-                    sweetAlert('Success!', response.details, 'success');
-//                    alert(response.details);
-                    global.updateUser(function(){window.location.href = 'index.html';});
+                    swal({
+                        title: 'Success!',
+                        text: response.details,
+                        type: 'success',
+                        showCancelButton: false,
+                        closeOnConfirm: false
+                    }, function() {
+                        global.updateUser(function(){window.location.href = 'index.html';});
+                    });
                 } else {
                     sweetAlert('Oops...', response.details, 'error');
-//                    alert(response.details);
                 }
             }
             
