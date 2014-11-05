@@ -130,26 +130,26 @@ function updateSize() {
     footer2nd.css('height', (totalHeight / 12));
     footer2ndDiv.css('height', (totalHeight / 12));
     
-    $('[data-id="end-call"] img').css('width', 'auto');
-    $('[data-id="footer-1st"] img').css('width', 'auto');
-    $('[data-id="footer-2nd"] img').css('width', 'auto');
-    $('[data-id="home-icon"] img').css('width', 'auto');
-    $('[data-id="contacts-icon"] img').css('width', 'auto');
-    $('[data-id="logs-icon"] img').css('width', 'auto');
-    $('[data-id="settings-icon"] img').css('width', 'auto');
+    $('[data-id="end-call"] img').css('width', $('[data-id="end-call"] img'));
+//    $('[data-id="footer-1st"] img').css('width', 'auto');
+//    $('[data-id="footer-2nd"] img').css('width', 'auto');
+    $('[data-id="home-icon"] img').css('width', $('[data-id="home-icon"] img').height());
+    $('[data-id="contacts-icon"] img').css('width', $('[data-id="contacts-icon"] img').height());
+    $('[data-id="logs-icon"] img').css('width', $('[data-id="logs-icon"] img').height());
+    $('[data-id="settings-icon"] img').css('width', $('[data-id="settings-icon"] img').height());
 }
 
 function blink(i) {
-//    setTimeout(function () {
-//        $('[data-loading]').attr('src', 'img/dial/default-dot.png');
-//        $('[data-loading="' + i + '"]').attr('src', 'img/dial/orange-dot.png');
-//        if (i < 5) {
-//            i++;
-//        } else {
-//            i = 1;
-//        }
-//        blink(i);
-//    }, 1000);
+    setTimeout(function () {
+        $('[data-loading]').attr('src', 'img/dial/default-dot.png');
+        $('[data-loading="' + i + '"]').attr('src', 'img/dial/orange-dot.png');
+        if (i < 5) {
+            i++;
+        } else {
+            i = 1;
+        }
+        blink(i);
+    }, 1000);
 }
 
 $(document).ready(function() {
@@ -157,7 +157,7 @@ $(document).ready(function() {
     global.set('flagMsg', '1');
     updateSize();
     
-//    blink(1);
+    blink(1);
 });
 
 
