@@ -135,6 +135,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			
 			if (lc.isNetworkReachable()) {
 				objJSON.put("internetConnectionAvailable", true);
+				
 				// Get account index.
 				int nbAccounts = LinphonePreferences.instance().getAccountCount();
 				List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
@@ -797,9 +798,12 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 	}
 	
 	private void callLogs() {
-		Intent callIntent = new Intent(Intent.ACTION_PICK);
-		callIntent.setData(Uri.parse("content://call_log/calls"));
-		this.cordova.startActivityForResult(this,callIntent,PICK_CONTACT);
+//		Intent callIntent = new Intent(Intent.ACTION_PICK);
+//		callIntent.setData(Uri.parse("content://call_log/calls"));
+//		this.cordova.startActivityForResult(this,callIntent,PICK_CONTACT);
+		Intent intent = new Intent(Intent.ACTION_PICK, Contacts.CONTENT_URI);
+	    intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+		this.cordova.startActivityForResult(this,intent,PICK_CONTACT);
 	}
 	
 	private void cellularCall(String phoneNumber) {
