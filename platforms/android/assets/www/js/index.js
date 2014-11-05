@@ -296,7 +296,6 @@ function onFailedDialDest() {
 }
 
 function onSuccessGetAccessNumber(response) {
-	alert(response);
     if (response !== "") {
     	
         swal({
