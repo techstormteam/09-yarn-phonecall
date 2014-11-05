@@ -239,3 +239,13 @@
 .ui-dialog .confirm {
     width: 100%;
 }
+
+.dial-row div {
+    display: inline-block;
+    width: 31%;
+    padding: 0 10px;
+}
+
+.dial-row img {
+    width: 90%;
+}

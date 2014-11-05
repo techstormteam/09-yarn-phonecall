@@ -74,11 +74,14 @@ function updateHeight() {
     $('.ts-icon-delete img').css('height', inputHeight / 2);
 
     //NUMPAD = 3/5 of 3/6
-    numpad.css('height', (parseInt(balanceHeight) / 5) * 3);
-    $('[data-line]').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
+//    numpad.css('height', (parseInt(balanceHeight) / 5) * 3);
+    $('.dial-row').css('height', (parseInt(balanceHeight) / 5) * 3 / 4);
+    $('.dial-row div').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
+//    $('[data-line]').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
     
 //    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
-    vmail.height($('[data-value="4"] sub').height() * 2);
+//    vmail.height($('[data-value="4"] sub').height() * 2);
+    $('.dial-row div');
     
     $('.ui-dialog').width($(window).width());
 }
@@ -114,8 +117,8 @@ dest.on('tap', function () {
     $tapCaret = dest.caret();
 });
 
-//$('[data-value]').tap(function () {
-$('.ts-numpad .row .col-xs-4').tap(function () {
+$('[data-value]').tap(function () {
+//$('.ts-numpad .row .col-xs-4').tap(function () {
     inputProcess($(this));
 });
 
