@@ -168,12 +168,17 @@
                 }
                 function get_code_response(response) {
                     if (response.result === 'success') {
-                        sweetAlert('Success!', response.details, 'success');
-//                        alert(response.details);
-                        window.location.href = 'index.html';
+                        swal({
+                            title: 'Success!',
+                            text: response.details,
+                            type: 'success',
+                            showCancelButton: false,
+                            closeOnConfirm: false
+                        }, function() {
+                            window.location.href = 'index.html';
+                        });
                     } else {
                         sweetAlert('Oops...', response.details, 'error');
-//                        alert(response.details);
                     }
                 }
 
@@ -210,12 +215,17 @@
 
                 function change_profile_response(response) {
                     if (response.result === 'success') {
-                        sweetAlert('Success!', response.details, 'success');
-//                        alert(response.details);
-                        window.location.href = 'calling-circles.html';
+                        swal({
+                            title: 'Success!',
+                            text: response.details,
+                            type: 'success',
+                            showCancelButton: false,
+                            closeOnConfirm: false
+                        }, function() {
+                            window.location.href = 'calling-circles.html';
+                        });
                     } else {
                         sweetAlert('Oops...', response.details, 'error');
-//                        alert(response.details);
                     }
                 }
 
