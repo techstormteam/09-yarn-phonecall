@@ -133,9 +133,9 @@ function updateSize() {
     $('[data-id="end-call"] img').css('width', $('[data-id="end-call"] img'));
 //    $('[data-id="footer-1st"] img').css('width', 'auto');
 //    $('[data-id="footer-2nd"] img').css('width', 'auto');
-    $('[data-id="microphone-icon"] img').css('width', $('[data-id="microphone-icon"] img').height() + 25);
+    $('[data-id="microphone-icon"] img').css('width', $('[data-id="dial-icon"] img').height() + 25);
     $('[data-id="dial-icon"] img').css('width', $('[data-id="dial-icon"] img').height() + 25);
-    $('[data-id="loudness-icon"] img').css('width', $('[data-id="loudness-icon"] img').height() + 25);
+    $('[data-id="loudness-icon"] img').css('width', $('[data-id="dial-icon"] img').height() + 25);
 
     $('[data-id="home-icon"] img').css('width', $('[data-id="home-icon"] img').height() + 11);
     $('[data-id="contacts-icon"] img').css('width', $('[data-id="contacts-icon"] img').height() + 11);
