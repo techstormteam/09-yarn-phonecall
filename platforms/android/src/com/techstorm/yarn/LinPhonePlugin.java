@@ -1,12 +1,13 @@
 package com.techstorm.yarn;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaActivity;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.PluginResult.Status;
@@ -416,7 +417,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		} else if (action.equals("GetSMSInboundPhoneNumber")) {
 			JSONObject objJSON = new JSONObject();
 			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
-			if (lc.isNetworkReachable()) {
+			if (checkInternetConnectionAvailable(objJSON)) {
 				objJSON.put("internetConnectionAvailable", true);
 				JSONArray arrayJSON = new JSONArray();
 				SharedPreferences prefs = PreferenceManager
@@ -544,7 +545,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 	private boolean checkInternetConnectionAvailable(JSONObject objJSON) throws JSONException {
 		boolean available = false;
 		LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
-		if (lc.isNetworkReachable()) {
+		if (lc.isNetworkReachable() && isInternetReachable()) {
 			objJSON.put("internetConnectionAvailable", true);
 			available = true;
 		} else {
@@ -553,6 +554,27 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		}
 		return available;
 	}
+	
+	 public boolean isInternetReachable()
+	    {
+	        try {
+	            //make a URL to a known source
+	            URL url = new URL("http://www.google.com");
+
+	            //open a connection to that source
+	            HttpURLConnection urlConnect = (HttpURLConnection)url.openConnection();
+
+	            //trying to retrieve data from the source. If there
+	            //is no connection, this line will fail
+	            Object objData = urlConnect.getContent();
+
+	        } catch (Exception e) {              
+	            e.printStackTrace();
+	            return false;
+	        }
+
+	        return true;
+	    }
 	
 	private void blockNativeCall() {
 		SharedPreferences prefs = PreferenceManager
