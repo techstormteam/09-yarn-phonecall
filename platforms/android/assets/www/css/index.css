@@ -249,3 +249,11 @@
 .dial-row img {
     width: 90%;
 }
+
+[data-value="1"], [data-value="4"], [data-value="7"], [data-value="*"], [data-value="3"], [data-value="6"], [data-value="9"], [data-value="#"] {
+    padding: 0 0 0 20px !important;
+}
+
+/*[data-value="2"], [data-value="5"], [data-value="8"], [data-value="0"] {
+    padding: 0 0 0 20px !important;
+}*/
