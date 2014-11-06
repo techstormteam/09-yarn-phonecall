@@ -171,10 +171,7 @@ public class CallHistoryActivity extends Activity implements OnClickListener, On
 		private Bitmap missedCall, outgoingCall, incomingCall;
 		
 		CallHistoryAdapter(Context aContext) {
-			
-			
 			missedCall = BitmapFactory.decodeResource(getResources(), R.drawable.call_status_missed);
-			
 			outgoingCall = BitmapFactory.decodeResource(getResources(), R.drawable.call_status_outgoing);
 			incomingCall = BitmapFactory.decodeResource(getResources(), R.drawable.call_status_incoming);
 		}
