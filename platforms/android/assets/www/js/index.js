@@ -83,7 +83,7 @@ function updateHeight() {
 //    vmail.height($('[data-value="4"] sub').height() * 2);
     $('.dial-row div');
     
-    $('.ui-dialog').width($(window).width());
+//    $('.ui-dialog').width($(window).width() / 10 * 9);
 }
 
 $(document).ready(function () {
@@ -443,6 +443,13 @@ function doSendKey(key) {
 //    });
 }
 
+function loginSuccess(response) {
+    //in case of change password
+    if (response === '') {
+        window.location.href = 'login.html';
+    }
+}
+
 var app = {
 	    // Application Constructor
 	    initialize: function () {
@@ -467,6 +474,7 @@ var app = {
 	    	uid = global.get('uid');
 	        telno = global.get('telno');
 	        password = global.get('password');
+                global.login('_id', {telno: telno, password: password}, loginSuccess);
 	        if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
 	            window.location.href = 'login.html';
 	        }

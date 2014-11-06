@@ -789,6 +789,7 @@ function doCellularCall(dialedNumber) {
             modal: true,
             width: totalWidth,
             maxHeight: $(window).height(),
+            dialogClass: 'sweet-alert',
             buttons: {
                 Cancel: function () {
                     $(this).dialog("close");

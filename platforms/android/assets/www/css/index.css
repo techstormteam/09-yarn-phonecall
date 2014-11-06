@@ -257,3 +257,19 @@
 /*[data-value="2"], [data-value="5"], [data-value="8"], [data-value="0"] {
     padding: 0 0 0 20px !important;
 }*/
+
+.ui-dialog-title, .ui-dialog-titlebar {
+    display: none;
+}
+
+.ui-dialog {
+    margin: 0 auto;
+    width: 90% !important;
+}
+
+.ui-dialog button {
+    font-size: 1em !important;
+}
+
+.ui-dialog-buttonset button {
+}
