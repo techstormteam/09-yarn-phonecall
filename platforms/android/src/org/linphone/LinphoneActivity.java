@@ -118,7 +118,7 @@ public class LinphoneActivity extends FragmentActivity implements
 	private Cursor contactCursor, sipContactCursor;
 	private OrientationEventListener mOrientationHelper;
 
-	static final boolean isInstanciated() {
+	public static final boolean isInstanciated() {
 		return instance != null;
 	}
 

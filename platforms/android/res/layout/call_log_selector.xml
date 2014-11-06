@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/background"
+	android:orientation="vertical" >
+
+	<TextView
+			android:contentDescription="@string/content_description_delete"
+			android:id="@+id/deleteAll"
+			android:text="@string/call_log_pick"
+			android:gravity="center"
+			android:paddingTop="20dp"
+			android:textSize="17dp"
+			android:textColor="@drawable/text_button"
+			android:layout_width="match_parent"
+			android:layout_height="60dp"
+			android:scaleType="centerCrop"
+			android:adjustViewBounds="true"/>
+
+	<ExpandableListView
+		android:id="@+id/historyList"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:divider="@android:color/darker_gray"
+		android:cacheColorHint="@color/transparent"
+		android:layout_marginTop="40dp"
+		android:dividerHeight="1dp" />
+
+</LinearLayout>

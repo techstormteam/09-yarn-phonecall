@@ -59,6 +59,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 
 	public static final int CALL_ACTIVITY = 19;
 	public static final int PICK_CONTACT = 30;
+	public static final int PICK_CALL_LOG = 31;
 	public static String NOT_REGISTERED = "NOT-REGISTERED";
 	public static String REGISTERED = "REGISTERED";
 	
@@ -834,9 +835,27 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 //		Intent callIntent = new Intent(Intent.ACTION_PICK);
 //		callIntent.setData(Uri.parse("content://call_log/calls"));
 //		this.cordova.startActivityForResult(this,callIntent,PICK_CONTACT);
-		Intent intent = new Intent(Intent.ACTION_PICK, Contacts.CONTENT_URI);
-	    intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-		this.cordova.startActivityForResult(this,intent,PICK_CONTACT);
+		
+//		List<CallLog> logs = new ArrayList<CallLog>();
+//		Uri allCalls = Uri.parse("content://call_log/calls");
+//		Cursor cursor = cordova.getActivity().getContentResolver().query(allCalls, null, null, null, null);
+//		cursor.moveToFirst();
+//		while (cursor.moveToNext()) {
+//			CallLog log = new CallLog();
+//			log.cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER));// for  number
+//			String name= cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_NAME));// for name
+//			String duration = cursor.getString(cursor.getColumnIndex(CallLog.Calls.DURATION));// for duration
+//			int type = Integer.parseInt(cursor.getString(cursor.getColumnIndex(CallLog.Calls.TYPE)));// for call type, Incoming or out going
+//			
+//		}
+		
+		Intent intent = new Intent(context, CallHistoryActivity.class);
+//	    intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+		this.cordova.startActivityForResult(this,intent,PICK_CALL_LOG);
+		
+//		Intent intent = new Intent(Intent.ACTION_PICK, Contacts.CONTENT_URI);
+//	    intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+//		this.cordova.startActivityForResult(this,intent,PICK_CONTACT);
 	}
 	
 	private void cellularCall(String phoneNumber) {

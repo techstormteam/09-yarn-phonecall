@@ -8,6 +8,7 @@
     <string name="do_cellular_call">doCellularCall</string>
     <string name="do_cellular_call_number">doCellularCallNumber</string>
     <string name="call_established">callEstablished</string>
+    <string name="call_log_pick">CALL LOG PICK</string>
     
     <string name="pref_disable_account">Disable</string>
     <string name="pref_tunnel">Tunnel</string>

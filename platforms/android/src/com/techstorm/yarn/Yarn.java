@@ -213,7 +213,7 @@ public class Yarn extends CordovaActivity implements
     {  
           super.onActivityResult(requestCode, resultCode, data);  
               
-          if(requestCode==LinPhonePlugin.PICK_CONTACT) {  
+          if (requestCode==LinPhonePlugin.PICK_CONTACT) {  
         	  if (resultCode == Activity.RESULT_OK) {
         		  Uri contactUri = data.getData();
                   String[] projection = {Phone.NUMBER, Phone.DISPLAY_NAME, Phone._ID};
@@ -226,7 +226,12 @@ public class Yarn extends CordovaActivity implements
                   String contactNumber = cursor.getString(columnNumber);
                   appView.sendJavascript("setDialedNumber('"+contactNumber+"')");
         	  }
-          }  
+          } else if (requestCode==LinPhonePlugin.PICK_CALL_LOG) {
+        	  if (resultCode == Activity.RESULT_OK) {
+        		  String phoneNumber = data.getStringExtra("callLogPhoneNumber");
+        		  appView.sendJavascript("setDialedNumber('"+phoneNumber+"')");
+        	  }
+          }
   
   }  
 	
@@ -298,6 +303,10 @@ public class Yarn extends CordovaActivity implements
 		if (extras.containsKey("page")) {
 			String page =  extras.getString("page");
 			loadUrl(page);
+		}
+		if (extras.containsKey("callLogPhoneNumber")) {
+			String phoneNumber =  extras.getString("callLogPhoneNumber");
+			appView.sendJavascript("setDialedNumber('"+phoneNumber+"')");
 		}
 		if (extras.containsKey("canSendCustPhone")) {
 			Boolean canSendCustPhone =  extras.getBoolean("canSendCustPhone");
