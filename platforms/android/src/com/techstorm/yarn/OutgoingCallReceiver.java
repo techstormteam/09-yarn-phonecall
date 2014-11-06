@@ -19,23 +19,23 @@ public class OutgoingCallReceiver extends BroadcastReceiver {
 //		Toast toast = Toast.makeText(context, "outgoing here",duration);
 //		toast.show();
 		if (Intent.ACTION_NEW_OUTGOING_CALL.equals(intent.getAction())) {
-			SharedPreferences prefs = PreferenceManager
-					.getDefaultSharedPreferences(context);
-			SharedPreferences.Editor edit = prefs.edit();
-			boolean nativeCallEnable = prefs.getBoolean(context.getString(R.string.native_call_enable), false);
-			if (!nativeCallEnable) {
-				endCall(context);
-				String number = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
-				edit.putBoolean(context.getString(R.string.do_cellular_call), true);
-				edit.putString(context.getString(R.string.do_cellular_call_number), number);
-				edit.commit();
-				Intent i = new Intent(context, Yarn.class);
-				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				context.startActivity(i);
-			}
-			
-			edit.putBoolean(context.getString(R.string.native_call_enable), false);
-	        edit.commit();
+//			SharedPreferences prefs = PreferenceManager
+//					.getDefaultSharedPreferences(context);
+//			SharedPreferences.Editor edit = prefs.edit();
+//			boolean nativeCallEnable = prefs.getBoolean(context.getString(R.string.native_call_enable), false);
+//			if (!nativeCallEnable) {
+//				endCall(context);
+//				String number = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
+//				edit.putBoolean(context.getString(R.string.do_cellular_call), true);
+//				edit.putString(context.getString(R.string.do_cellular_call_number), number);
+//				edit.commit();
+//				Intent i = new Intent(context, Yarn.class);
+//				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//				context.startActivity(i);
+//			}
+//			
+//			edit.putBoolean(context.getString(R.string.native_call_enable), false);
+//	        edit.commit();
 	    }
 	}
 

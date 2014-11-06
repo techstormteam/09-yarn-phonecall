@@ -215,27 +215,27 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			callbackContext.success("Get contact image uri successfully.");
 			return true;
 		} else if (action.equals("GetIncommingContactImageUri")) {
-			JSONObject objJSON = new JSONObject();
-			LinphoneCore lc = LinphoneManager.getLc();
-			LinphoneCall mCall = lc.getCurrentCall();
-			if (mCall == null) {
-				return false;
-			}
-//			String telNo = mCall.get;
-			String telNo = "123456";
-			String contactId = getContactIdByPhoneNumber(telNo);
-			PluginResult result = null;
-			if (!contactId.equals("-1")) {
-				objJSON.put("uri", String.format("content://com.android.contacts/contacts/%s/photo", contactId));
-//				objJSON.put("uri", String.format("content://com.android.contacts/contacts/272/photo", contactId));
-				result = new PluginResult(Status.OK, objJSON);
-			} else {
-				objJSON.put("uri", "");
-				result = new PluginResult(Status.NO_RESULT, objJSON);
-			}
-			callbackContext.sendPluginResult(result);
-			callbackContext.success("Get contact image uri successfully.");
-			return true;
+//			JSONObject objJSON = new JSONObject();
+//			LinphoneCore lc = LinphoneManager.getLc();
+//			LinphoneCall mCall = lc.getCurrentCall();
+//			if (mCall == null) {
+//				return false;
+//			}
+////			String telNo = mCall.get;
+//			String telNo = "123456";
+//			String contactId = getContactIdByPhoneNumber(telNo);
+//			PluginResult result = null;
+//			if (!contactId.equals("-1")) {
+//				objJSON.put("uri", String.format("content://com.android.contacts/contacts/%s/photo", contactId));
+////				objJSON.put("uri", String.format("content://com.android.contacts/contacts/272/photo", contactId));
+//				result = new PluginResult(Status.OK, objJSON);
+//			} else {
+//				objJSON.put("uri", "");
+//				result = new PluginResult(Status.NO_RESULT, objJSON);
+//			}
+//			callbackContext.sendPluginResult(result);
+//			callbackContext.success("Get contact image uri successfully.");
+//			return true;
 		} else if (action.equals("PhoneContacts")) {
 			phoneContacts();
 			callbackContext.success("Go to Phone Contact successfully.");
@@ -416,7 +416,6 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			return true;
 		} else if (action.equals("GetSMSInboundPhoneNumber")) {
 			JSONObject objJSON = new JSONObject();
-			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
 			if (checkInternetConnectionAvailable(objJSON)) {
 				objJSON.put("internetConnectionAvailable", true);
 				JSONArray arrayJSON = new JSONArray();
@@ -452,16 +451,16 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			callbackContext.sendPluginResult(result);
 			return true;
 		} else if (action.equals("SendKey")) {
-			JSONObject objJSON = new JSONObject();
-			InputMethodManager imm = (InputMethodManager)cordova.getActivity().getSystemService(
-				      Context.INPUT_METHOD_SERVICE);
-			InputManager ss = (InputManager)cordova.getActivity().getSystemService(
-				      Context.INPUT_SERVICE);
-			InputDevice s;
-//			s.
-			PluginResult result = new PluginResult(Status.OK, objJSON);
-			callbackContext.sendPluginResult(result);
-			return true;
+//			JSONObject objJSON = new JSONObject();
+//			InputMethodManager imm = (InputMethodManager)cordova.getActivity().getSystemService(
+//				      Context.INPUT_METHOD_SERVICE);
+//			InputManager ss = (InputManager)cordova.getActivity().getSystemService(
+//				      Context.INPUT_SERVICE);
+//			InputDevice s;
+////			s.
+//			PluginResult result = new PluginResult(Status.OK, objJSON);
+//			callbackContext.sendPluginResult(result);
+//			return true;
 		} else if (action.equals("CallingCard")) {
 			JSONObject objJSON = new JSONObject();
 			String accessNumber = (String) args.get(0);
@@ -566,7 +565,8 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 
 	            //trying to retrieve data from the source. If there
 	            //is no connection, this line will fail
-	            Object objData = urlConnect.getContent();
+	            @SuppressWarnings("unused")
+				Object objData = urlConnect.getContent();
 
 	        } catch (Exception e) {              
 	            e.printStackTrace();
