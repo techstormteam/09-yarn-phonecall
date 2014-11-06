@@ -130,7 +130,7 @@ function updateSize() {
     footer2nd.css('height', (totalHeight / 12));
     footer2ndDiv.css('height', (totalHeight / 12));
     
-    $('[data-id="end-call"] img').css('width', $('[data-id="end-call"] img'));
+    $('[data-id="end-call"] img').css('width', $('[data-id="end-call"] img').height());
 //    $('[data-id="footer-1st"] img').css('width', 'auto');
 //    $('[data-id="footer-2nd"] img').css('width', 'auto');
     $('[data-id="microphone-icon"] img').css('width', $('[data-id="dial-icon"] img').height() + 25);
