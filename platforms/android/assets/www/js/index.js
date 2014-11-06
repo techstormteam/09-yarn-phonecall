@@ -299,7 +299,8 @@ function onFailedDialDest() {
 }
 
 function onSuccessGetAccessNumber(response) {
-    if (response !== "") {
+	global.set("savedAccessNumber", response);
+    if (response !== "" && response !== "NULL" && response !== undefined && response !== null) {
     	
         swal({
             title: 'Dial via Offline access?',
@@ -331,16 +332,28 @@ function onSuccessGetAccessNumber(response) {
     }
 }
 
+
+
 function onFailedGetAccessNumber() {
 	// empty
 }
 
 function doCallingCard(phoneNumber) {
-    
 	global.set('dialedNumber_accessNum', phoneNumber);
-	var telno = global.get('telno');
-    var password = global.get('password');
-	global.api('_access_num', {telno: telno, password: password}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
+    window.checkInternetConnection(function (message) {
+    	if (!message.internetConnectionAvailable) {
+    		var savedAccessNumber = global.get("savedAccessNumber");
+    		onSuccessGetAccessNumber(savedAccessNumber);
+    	} else {
+    		var telno = global.get('telno');
+            var password = global.get('password');
+        	global.api('_access_num', {telno: telno, password: password}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
+    	}
+    	
+    });
+    	
+    
+	
 }
 
 function doPhoneContacts() {
@@ -395,36 +408,10 @@ function clearRate() {
     $('.rateText').hide();
 }
 
-function login(response) {
-    if (response !== "") {
-    } else {
-        window.location.href = 'login.html';
-    }
-}
-
-
-
 function getEmail(response) {
     email = response;
 }
 
-$(document).ready(function () {
-
-    uid = global.get('uid');
-    telno = global.get('telno');
-    password = global.get('password');
-
-    global.login('_id', {telno: telno, password: password}, login);
-
-    if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
-        window.location.href = 'login.html';
-    }
-
-    global.balance('_balance', {telno: telno, password: password}, getBalance);
-    
-    global.login('_email', {telno: telno, password: password}, getEmail);
-    
-});
 
 function openlink(url) {
     var ref = window.open(url, '_blank', 'location="yes"');
@@ -477,6 +464,16 @@ var app = {
 	    },
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
+	    	uid = global.get('uid');
+	        telno = global.get('telno');
+	        password = global.get('password');
+	        if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
+	            window.location.href = 'login.html';
+	        }
+	        global.balance('_balance', {telno: telno, password: password}, getBalance);
+	        global.login('_email', {telno: telno, password: password}, getEmail);
+	    	
+	    	
 	    	global.general();
 	        $('.dialog').hide();
 	        
