@@ -98,7 +98,7 @@ $(document).ready(function () {
 function msgReturn(response) {
     if(response !== '') {
         swal({
-            title: "Call Notification",
+            title: "Notification",
             text: response,
             timer: 30000
         });

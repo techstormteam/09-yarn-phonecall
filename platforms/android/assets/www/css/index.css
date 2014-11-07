@@ -273,3 +273,26 @@
 
 .ui-dialog-buttonset button {
 }
+
+#cellular-call {
+    background: grey !important;
+    box-shadow: 0 0 2px grey !important;
+}
+
+.sweet-alert .ui-dialog-buttonset button {
+    background: grey !important;
+    box-shadow: 0 0 2px grey !important;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    width: 100%;
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+    margin: 1em;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    padding: 0.5em;
+}

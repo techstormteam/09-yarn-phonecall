@@ -81,7 +81,7 @@ and open the template in the editor.
 }
 
 [data-id="timer"] {
-    font-size: 3em;
+    font-size: 2.5em;
 }
 
 [data-id="end-call"] img, [data-id="footer-1st"] img, [data-id="footer-2nd"] img {
@@ -92,6 +92,7 @@ and open the template in the editor.
 #dial-pad {
     transform: translateY(0px);
     padding: 10px;
+    width: 100% !important;
 }
 
 [data-value] {

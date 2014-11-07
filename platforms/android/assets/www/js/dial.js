@@ -28,6 +28,7 @@ $(document).ready(function () {
 	mainImg = $('[data-id="avatar"] img');
 	subFoot = $('[data-id="sub-footer"]');
 	timer = $('[data-id="timer"]');
+        timer2 = $('[data-id="timer2"]');
 	endCall = $('[data-id="end-call"]');
 	footer = $('[data-id="footer"]');
 	footer1st = $('[data-id="footer-1st"]');
@@ -43,15 +44,6 @@ $(document).ready(function () {
 	ready = false;
 	
 	dialPad.hide();
-});
-
-$(document).ready(function () {
-    if(global.get('vmail') === '1') {
-        global.set('vmail', '0');
-        window.wifiCall('88121', function (message) {
-            //empty
-        });
-    }
 });
 
 $('[data-value]').tap(function () {
@@ -114,7 +106,8 @@ function updateSize() {
 
     //SUBFOOTER
     subFoot.css('height', (totalHeight / 6));
-    timer.css('line-height', (totalHeight / 12) + 'px');
+    timer.css('line-height', (totalHeight / 12) / 2 + 'px');
+    timer2.css('line-height', (totalHeight / 12) / 2 + 'px');
     endCall.css('height', (totalHeight / 12));
 
     remain = totalHeight - (header.height() + main.height() + subFoot.height());
@@ -147,7 +140,7 @@ function blink(i) {
     setTimeout(function () {
         $('[data-loading]').attr('src', 'img/dial/default-dot.png');
         $('[data-loading="' + i + '"]').attr('src', 'img/dial/orange-dot.png');
-        if (i < 5) {
+        if (i < 4) {
             i++;
         } else {
             i = 1;
@@ -162,6 +155,13 @@ $(document).ready(function() {
     updateSize();
     
     blink(1);
+    
+    if(global.get('vmail') === '1') {
+        global.set('vmail', '0');
+        window.wifiCall('88121', function (message) {
+            //empty
+        });
+    }
 });
 
 

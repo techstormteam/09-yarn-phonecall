@@ -174,13 +174,17 @@
 <!-- Dialog only page -->
 <div data-role="dialog" class="dialog">
     <div data-role="content">
+        <div class="icon warning pulseWarning"> 
+            <span class="body"></span> 
+            <span class="dot"></span> 
+        </div>
         <h2>Calling Choices</h2>
         
-        <button id="wifi-choice" class="confirm" onclick="var number=global.get('dialedNumber'); doWifiCall(number);" tabindex="4" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">WiFi Call via ncdCLOUD</button>
+        <button id="wifi-choice" class="confirm" onclick="var number=global.get('dialedNumber'); $('.dialog').dialog('close'); doWifiCall(number);" tabindex="4" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">WiFi Call via ncdCLOUD</button>
 
-        <button id="calling-card" class="confirm" onclick="var number=global.get('dialedNumber'); doCallingCard(number);" tabindex="3" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via access number</button>
+        <button id="calling-card" class="confirm" onclick="var number=global.get('dialedNumber'); $('.dialog').dialog('close'); doCallingCard(number);" tabindex="3" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via access number</button>
 
-        <button id="cellular-call" class="confirm" onclick="var number=global.get('dialedNumber'); window.cellularCall(number, function (message) {});" tabindex="2" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via native phone</button>
+        <button id="cellular-call" class="confirm" onclick="var number=global.get('dialedNumber'); $('.dialog').dialog('close'); window.cellularCall(number, function (message) {});" tabindex="2" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via native phone</button>
     </div>
 </div>
 
