@@ -277,6 +277,7 @@ function endCallCheck() {
 
 function switchToVideoCall() {
 	if (global.get('videoCall')) {
+            sweetAlert('Video Calling: Coming Soon!');
 		window.startVideoActivity(function(data) {
 			if (!global.showPopupInternetNotAvailable(data)) {
 				if (data.success) {
