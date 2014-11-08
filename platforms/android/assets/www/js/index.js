@@ -362,11 +362,15 @@ function doPhoneContacts() {
         //empty
     });
 }
-function doCallLogs() {
 
-    window.callLogs(function (message) {
+function getBalanceCallLogs(data) {
+	window.callLogs(data, function (message) {
         //empty
     });
+}
+
+function doCallLogs() {
+	global.balance('_balance', {telno: telno, password: password}, getBalanceCallLogs);
 }
 function doSignOut() {
 	var telno = global.get('telno');

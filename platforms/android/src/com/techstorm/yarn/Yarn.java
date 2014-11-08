@@ -229,7 +229,12 @@ public class Yarn extends CordovaActivity implements
           } else if (requestCode==LinPhonePlugin.PICK_CALL_LOG) {
         	  if (resultCode == Activity.RESULT_OK) {
         		  String phoneNumber = data.getStringExtra("callLogPhoneNumber");
-        		  appView.sendJavascript("setDialedNumber('"+phoneNumber+"')");
+        		  if (phoneNumber != null) {
+        			  appView.sendJavascript("setDialedNumber('"+phoneNumber+"')");
+        		  }
+        		  if (data.getBooleanExtra("goToPaymentLink", false)) {
+        			  appView.sendJavascript("paymentHandle()");
+        		  }
         	  }
           }
   

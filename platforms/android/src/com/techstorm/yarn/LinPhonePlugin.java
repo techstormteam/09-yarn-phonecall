@@ -242,7 +242,8 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			callbackContext.success("Go to Phone Contact successfully.");
 			return true;
 		} else if (action.equals("CallLogs")) {
-			callLogs();
+			String balance = (String) args.get(0).toString();
+			callLogs(balance);
 			callbackContext.success("Go to Call Logs successfully.");
 			return true;
 		} else if (action.equals("HangUp")) {
@@ -831,7 +832,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		this.cordova.startActivityForResult(this,intent,PICK_CONTACT);
 	}
 	
-	private void callLogs() {
+	private void callLogs(String balance) {
 //		Intent callIntent = new Intent(Intent.ACTION_PICK);
 //		callIntent.setData(Uri.parse("content://call_log/calls"));
 //		this.cordova.startActivityForResult(this,callIntent,PICK_CONTACT);
@@ -850,6 +851,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 //		}
 		
 		Intent intent = new Intent(context, CallHistoryActivity.class);
+		intent.putExtra("balance", balance);
 //	    intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
 		this.cordova.startActivityForResult(this,intent,PICK_CALL_LOG);
 		

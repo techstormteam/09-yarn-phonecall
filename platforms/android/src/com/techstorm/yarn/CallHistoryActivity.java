@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.linphone.FragmentsAvailable;
 import org.linphone.LinphoneActivity;
 import org.linphone.core.LinphoneAddress;
@@ -35,8 +36,11 @@ public class CallHistoryActivity extends Activity implements OnClickListener, On
 
 	private Handler mHandler = new Handler();
 	private ExpandableListView historyList;
+	private TextView balanceText;
+	private ImageView balanceImage;
 	private LayoutInflater mInflater;
 	private SparseArray<List<CallLog>> mLogs; 
+	private OnClickListener balanceCLick;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,25 @@ public class CallHistoryActivity extends Activity implements OnClickListener, On
 		setContentView(R.layout.call_log_selector);
 		mInflater = getLayoutInflater();
 		
-        
+		balanceCLick = new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent data = new Intent();
+				data.putExtra("goToPaymentLink", true);
+				setResult(Activity.RESULT_OK, data);
+				finish();
+			}
+		};
+		
+		String balance = getIntent().getStringExtra("balance");
+		balanceText = (TextView) findViewById(R.id.balanceText);
+		balanceText.setText(StringEscapeUtils.unescapeHtml4(balance));
+		balanceText.setOnClickListener(balanceCLick);
+		
+		balanceImage = (ImageView) findViewById(R.id.balanceImage);
+		balanceImage.setOnClickListener(balanceCLick);
+		
         historyList = (ExpandableListView) findViewById(R.id.historyList);
         historyList.setOnChildClickListener(this);
         historyList.setOnGroupClickListener(this);
@@ -163,7 +185,7 @@ public class CallHistoryActivity extends Activity implements OnClickListener, On
 		data.putExtra("callLogPhoneNumber", log.getNumber());
 		setResult(Activity.RESULT_OK, data);
 		finish();
-		return false;
+		return true;
 	}
 	
 	

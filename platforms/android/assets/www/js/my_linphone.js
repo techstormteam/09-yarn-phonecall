@@ -22,10 +22,10 @@ window.phoneContacts = function(callback) {
     }, "LinPhonePlugin", "PhoneContacts", []);
 };
 
-window.callLogs = function(callback) {
+window.callLogs = function(balance, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "CallLogs", []);
+    }, "LinPhonePlugin", "CallLogs", [balance]);
 };
 
 window.hangUp = function(callback) {

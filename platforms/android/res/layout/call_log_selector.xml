@@ -5,18 +5,46 @@
 	android:background="@drawable/background"
 	android:orientation="vertical" >
 
-	<TextView
-			android:contentDescription="@string/content_description_delete"
-			android:id="@+id/deleteAll"
-			android:text="@string/call_log_pick"
-			android:gravity="center"
-			android:paddingTop="20dp"
-			android:textSize="17dp"
-			android:textColor="@drawable/text_button"
-			android:layout_width="match_parent"
-			android:layout_height="60dp"
-			android:scaleType="centerCrop"
-			android:adjustViewBounds="true"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+		android:layout_height="90dp" >
+		<LinearLayout
+		    android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="horizontal"
+			android:layout_alignParentLeft="true" >
+			    <TextView
+					android:contentDescription="@string/content_description_delete"
+					android:id="@+id/balanceText"
+					android:text="@string/call_log_pick"
+					android:gravity="left"
+					android:paddingTop="20dp"
+					android:textSize="17dp"
+					android:textColor="#ff6a00"
+					android:layout_width="wrap_content"
+					android:layout_height="60dp"
+					android:layout_marginLeft="10dp"
+					android:scaleType="centerCrop"
+					android:adjustViewBounds="true"/>
+			    <ImageView
+			        android:id="@+id/balanceImage"
+		            android:contentDescription="@string/content_description_delete"
+		            android:layout_width="15dp"
+					android:layout_height="15dp"
+					android:adjustViewBounds="true"
+					android:layout_marginTop="20dp"
+					android:src="@drawable/glyphicon_plus_sign" />
+		</LinearLayout>
+		
+        <ImageView
+            android:contentDescription="@string/content_description_delete"
+            android:layout_width="90dp"
+			android:layout_height="90dp"
+			android:adjustViewBounds="true"
+			android:layout_alignParentRight="true"
+			android:src="@drawable/chat" />
+    </RelativeLayout>
+	
 
 	<ExpandableListView
 		android:id="@+id/historyList"
@@ -24,7 +52,6 @@
 		android:layout_height="match_parent"
 		android:divider="@android:color/darker_gray"
 		android:cacheColorHint="@color/transparent"
-		android:layout_marginTop="40dp"
 		android:dividerHeight="1dp" />
 
 </LinearLayout>
