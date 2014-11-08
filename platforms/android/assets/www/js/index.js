@@ -382,18 +382,20 @@ function doSignOut() {
     });
 }
 function doVideoCall() {
+	global.showPopup("Yarn", "Comming soon!", "info");
+	
         // get data from dialedNumber
-    var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
-    if (dialedNumber !== '') {
-        window.videoCall(dialedNumber, function (data) {
-            if (data.internetConnectionAvailable) {
-                window.location.href = 'dial.html';
-                global.set('videoCall', true);
-            } else {
-                global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
-            }
-        });
-    }
+//    var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;
+//    if (dialedNumber !== '') {
+//        window.videoCall(dialedNumber, function (data) {
+//            if (data.internetConnectionAvailable) {
+//                window.location.href = 'dial.html';
+//                global.set('videoCall', true);
+//            } else {
+//                global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
+//            }
+//        });
+//    }
 }
 
 $('.rateText').hide();
