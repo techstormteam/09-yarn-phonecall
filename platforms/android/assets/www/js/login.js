@@ -44,8 +44,10 @@ function updateSize() {
     socialButton.height(totalHeight - sub);
     googleButton.height((socialButton.height() - 6) / 2 -2);
     googleButton.css('line-height', ((socialButton.height() - 6) / 2) + 'px');
+    googleButton.css('width', totalWidth - 300);
     fbButton.height((socialButton.height() - 6) / 2 - 2);
     fbButton.css('line-height', ((socialButton.height() - 6) / 2) + 'px');
+    fbButton.css('width', totalWidth - 300);
 }
 
 $(document).ready(function () {
