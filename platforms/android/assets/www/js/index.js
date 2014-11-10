@@ -302,33 +302,15 @@ function onSuccessGetAccessNumber(response) {
 	global.set("savedAccessNumber", response);
     if (response !== "" && response !== "NULL" && response !== undefined && response !== null) {
     	
-        swal({
-            title: 'Dial via Offline access?',
-            message: "Dial via Offline access?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            closeOnConfirm: false
-        }, function () {
-            var accessNumber = response;
-            var dialedNumber = global.get('dialedNumber_accessNum');
-            window.callingCard(accessNumber, dialedNumber, function (message) {
-            	var telno = global.get('telno');
-                var password = global.get('password');
-                global.sendInfoApi('_dialdest', {telno: telno, password: password, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
-            });
+    	var accessNumber = response;
+        var dialedNumber = global.get('dialedNumber_accessNum');
+        window.callingCard(accessNumber, dialedNumber, function (message) {
+        	var telno = global.get('telno');
+            var password = global.get('password');
+            global.sendInfoApi('_dialdest', {telno: telno, password: password, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
         });
     } else {
-        swal({
-            title: 'Dial via mobile phone?',
-            message: "Dial via mobile phone?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            closeOnConfirm: false
-        }, function () {
-            doCellularCall();
-        });
+    	doCellularCall();
     }
 }
 
