@@ -4,7 +4,8 @@
         <meta charset="utf-8" />
         <title>Home - Self Care Hosting Portal</title>
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
         <link rel="stylesheet" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" href="../css/color.css" />
@@ -37,6 +38,18 @@
                 color: #FFF !important;
                 font-weight: 300 !important;
                 text-transform: uppercase !important;
+            }
+            .ui-li-heading {
+                font-size: 14px;
+            }
+            .ui-li-desc {
+                font-size: 10px;
+            }
+            .ui-content {
+                width: 100%;
+            }
+            .ui-li-thumb, .ui-listview .ui-li-icon {
+                max-height: 70px;
             }
         </style>
     </head>
@@ -211,6 +224,11 @@
                     width: $(window).width() - 30
                 });
                 
+<<<<<<< 3f4458a611902cf5f1975445877334fda2b84c35
+=======
+//                listView.css('marginTop', 78);
+
+>>>>>>> 23a26ef46421963b032acc1140a220addb33a0fb
                 function getEmail(response) {
                     email = response;
                 }
@@ -227,7 +245,9 @@
                 window.location.href = 'payment-create.html';
             }
             
-
+            $(document).on('swipeleft swiperight touchmove', function(event) {
+                return false;
+            });
         </script>
     </body>
 </html>
