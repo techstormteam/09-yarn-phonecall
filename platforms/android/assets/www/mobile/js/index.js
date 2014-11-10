@@ -51,7 +51,7 @@ var app = {
 function Global() {
     this.debug = false;
     var data = {
-        'apiUrl':'http://portal.netcastdigital.net/ncd/selfserve/api',
+        'apiUrl':'http://portal.netcastdigital.net/selfserve/api',
         'dashboardUrl':'http://portal.netcastdigital.net/ncd/selfserve/',
         'quickTellerPaymentCompleteUrl':'http://portal.netcastdigital.net/ncd/selfserve/payment-provider-interswitch-quickteller-complete',
         'quickTellerPaymentCode':'888889'

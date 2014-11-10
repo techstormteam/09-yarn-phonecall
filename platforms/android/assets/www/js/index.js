@@ -364,7 +364,7 @@ function doSignOut() {
     });
 }
 function doVideoCall() {
-	global.showPopup("Video Calls", "Comming soon!", "info");
+	global.showPopup("Video Calls", "Coming soon!", "info");
 	
         // get data from dialedNumber
 //    var dialedNumber = getDialedNumber(); //ie: playMessage-1-24612-1;

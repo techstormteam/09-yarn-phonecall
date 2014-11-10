@@ -52,14 +52,14 @@
 
 
                 <div data-role="fieldcontain">
-                    <label for="yarn_access_numbers">Current Location:</label>
+                    <label for="yarn_access_numbers">Use Access Number:</label>
                     <select id="yarn_access_numbers">
                         <option value=""></option>
                     </select>
                 </div>
                 
-                <button onclick="updateAccessNumber();" data-theme="b" data-role="none" class="orange-btn">
-                    Update current location 
+                <button onclick="updateAccessNumber();" data-theme="b">
+                    Update Access Number
                 </button>  
 
             </div>
@@ -73,11 +73,11 @@
         </script>
         <script>
             var user = global.getUser();
-            var user_id = user.getId();
+            var user_id = global.get('uid');
 
             balance_display_in_button();
 
-            var data = {user_id: user_id};            
+            var data = {user_id: user_id};    
            global.api('yarn_access_numbers_get', data, yarn_access_numbers_display);
            global.api('yarn_access_number_get', data, yarn_access_number_display);
             
@@ -86,7 +86,7 @@
                 var yarn_access_numbers = response.details.yarn_access_numbers;
                 for(var i=0;i<yarn_access_numbers.length;i++){
                     var accessNumber = yarn_access_numbers[i];
-                    $('select#yarn_access_numbers').append('<option value="'+accessNumber['location']+'">'+accessNumber['location']+'</option>');
+                    $('select#yarn_access_numbers').append('<option value="'+accessNumber['access_number_type']+'">'+accessNumber['access_number_type']+'</option>');
                 }
             }
             function yarn_access_number_display(response){
@@ -102,8 +102,7 @@
                     sweetAlert('Oops...','Current location is required','error');
                     return false;
                 }
-                
-                var user_id = global.getUser().getId();
+                var user_id = global.get('uid');
                 var data = {user_id: user_id, value: accessNumber};
                 global.api('yarn_access_number_set', data, function(response) {
                     sweetAlert(response.details);
