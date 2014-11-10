@@ -44,14 +44,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.hardware.input.InputManager;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
 import android.text.TextUtils;
-import android.view.InputDevice;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -559,6 +558,9 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 	 public boolean isInternetReachable()
 	    {
 	        try {
+	        	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	        	StrictMode.setThreadPolicy(policy); 
+	        	
 	            //make a URL to a known source
 	            URL url = new URL("http://www.google.com");
 
