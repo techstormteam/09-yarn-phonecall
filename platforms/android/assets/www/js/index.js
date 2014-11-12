@@ -459,7 +459,7 @@ var app = {
 	    },
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
-	    	navigator.splashscreen.hide();
+//	    	navigator.splashscreen.hide();
 	    	
 	    	uid = global.get('uid');
 	        telno = global.get('telno');
