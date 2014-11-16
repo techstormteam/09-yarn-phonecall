@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.linphone.InCallActivity;
+import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
 import org.linphone.LinphoneManager.EcCalibrationListener;
 import org.linphone.LinphonePreferences;
@@ -29,6 +30,7 @@ import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCallLog;
 import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCore;
+import org.linphone.core.LinphoneCoreFactory;
 import org.linphone.core.LinphoneCore.EcCalibratorStatus;
 import org.linphone.core.LinphoneCore.RegistrationState;
 import org.linphone.core.LinphoneCoreException;
@@ -396,7 +398,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 				} else {
 //					LinphoneActivity.instance().startIncallActivity(mCall);
 				}
-			}
+			} 
 			callbackContext.success("Answer the call successfully.");
 			return true;
 		} else if (action.equals("DeclineCall")) {
@@ -531,15 +533,55 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			String sipAddress = sipUsername + "@" + domain;
 			List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
 			for (Integer accountIndex : accountIndexes) {
-				LinphonePreferences.instance().setAccountEnabled(accountIndex, false);
-				LinphoneProxyConfig proxyCfg = lc.getProxyConfigList()[accountIndex];
-				lc.removeProxyConfig(proxyCfg);
+//				LinphonePreferences.instance().setAccountEnabled(accountIndex, false);
+//				LinphoneProxyConfig proxyCfg = lc.getProxyConfigList()[accountIndex];
+//				lc.removeProxyConfig(proxyCfg);
+				deleteAccount(accountIndex);
 			}
 			
-			LinphoneAuthInfo authInfo = lc.findAuthInfo(sipUsername, null, domain);
-			lc.removeAuthInfo(authInfo);
-			lc.refreshRegisters();
+//			LinphoneAuthInfo authInfo = lc.findAuthInfo(sipUsername, null, domain);
+//			lc.removeAuthInfo(authInfo);
+//			lc.refreshRegisters();
 		}
+	}
+	
+	public void deleteAccount(int n) {
+		final LinphoneProxyConfig proxyCfg = getProxyConfig(n);
+
+		if (proxyCfg != null)
+			LinphoneManager.getLc().removeProxyConfig(proxyCfg);
+		if (LinphoneManager.getLc().getProxyConfigList().length == 0) {
+			LinphoneActivity.instance().getStatusFragment().registrationStateChanged(RegistrationState.RegistrationNone);
+		} else {
+			resetDefaultProxyConfig();
+			LinphoneManager.getLc().refreshRegisters();
+		}
+	}
+	
+	public void resetDefaultProxyConfig(){
+		int count = LinphoneManager.getLc().getProxyConfigList().length;
+		for (int i = 0; i < count; i++) {
+			if (isAccountEnabled(i)) {
+				LinphoneManager.getLc().setDefaultProxyConfig(getProxyConfig(i));
+				break;
+			}
+		}
+
+		if(LinphoneManager.getLc().getDefaultProxyConfig() == null){
+			LinphoneManager.getLc().setDefaultProxyConfig(getProxyConfig(0));
+		}
+	}
+	
+	public boolean isAccountEnabled(int n) {
+		return getProxyConfig(n).registerEnabled();
+	}
+	
+	// Accounts settings
+	private LinphoneProxyConfig getProxyConfig(int n) {
+		LinphoneProxyConfig[] prxCfgs = LinphoneManager.getLc().getProxyConfigList();
+		if (n < 0 || n >= prxCfgs.length)
+			return null;
+		return prxCfgs[n];
 	}
 	
 	private boolean checkInternetConnectionAvailable(JSONObject objJSON) throws JSONException {
