@@ -210,8 +210,9 @@ $('[data-id="delete"]').click(function () {
     $lastStr = $leftStr.substring(0, $leftStr.length - 1) + $rightStr;
     dest.val($lastStr);
     now = $lastStr;
-    
-    $tapCaret--;
+    if ($tapCaret > 0) {
+    	$tapCaret--;
+    }
     
     if(now.length < 6) {
         clearRate();
