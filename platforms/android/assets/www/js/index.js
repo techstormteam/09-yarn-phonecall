@@ -134,6 +134,8 @@ function tapholdHandler(event) {
     current += '+';
     $('[data-id="input"]').val(current);
     
+    $tapCaret++;
+    
     var callCode = current.substring(0, 3);
     var conditionLength;
 
@@ -158,10 +160,13 @@ function inputProcess(object) {
     var current = $('[data-id="input"]').val();
     
     $caret = $tapCaret;
-
+    
     $leftStr = current.substring(0, $caret);
+
     $rightStr = current.substring($caret, current.length);
+
     $lastStr = $leftStr + object.data('value') + $rightStr;
+
     dest.val($lastStr);
     
     $tapCaret++;
