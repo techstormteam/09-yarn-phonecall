@@ -782,23 +782,25 @@ function doCellularCall(dialedNumber) {
     global.set("dialedNumber", dialedNumber);
     $("#wifi-choice").hide();
     
-    var totalWidth = $(window).width();
-    if (getDialedNumber() !== "") {
-    	$('.dialog').dialog({
-            resizable: false,
-            modal: true,
-            width: totalWidth,
-            maxHeight: $(window).height(),
-            dialogClass: 'sweet-alert',
-            buttons: {
-                Cancel: function () {
-                    $(this).dialog("close");
-                    window.blockNativeCall(function (data) {
-                        //empty
-                    });
-                }
-            }
-        });
+    var totalWidth = $(window).width(); 
+    if (dialedNumber !== "") {
+		$('.dialog').dialog({
+	        resizable: false,
+	        modal: true,
+	        width: totalWidth,
+	        maxHeight: $(window).height(),
+	        dialogClass: 'sweet-alert',
+	        buttons: {
+	            Cancel: function () {
+	                $(this).dialog("close");
+	                window.blockNativeCall(function (data) {
+	                    //empty
+	                });
+	            }
+	        }
+	    });
+    } else {
+    	doCallLogs();
     }
     
     

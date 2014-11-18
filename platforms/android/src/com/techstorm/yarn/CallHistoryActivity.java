@@ -96,7 +96,7 @@ public class CallHistoryActivity extends Activity implements OnClickListener, On
 		Uri allCalls = Uri.parse("content://call_log/calls");
 		Cursor cursor = getContentResolver().query(allCalls, null, null, null, null);
 		cursor.moveToFirst();
-		while (cursor.moveToNext()) {
+		do {
 			CallLog log = new CallLog();
 			log.setNumber(cursor.getString(cursor.getColumnIndex(android.provider.CallLog.Calls.NUMBER)));
 			log.setName(cursor.getString(cursor.getColumnIndex(android.provider.CallLog.Calls.CACHED_NAME)));
@@ -105,7 +105,7 @@ public class CallHistoryActivity extends Activity implements OnClickListener, On
 			long callDate = cursor.getLong(cursor.getColumnIndex(android.provider.CallLog.Calls.DATE));
 			log.setDate(new Date(callDate));
 			logs.add(log);
-		}
+		} while (cursor.moveToNext());
 		return logs;
 	}
 	

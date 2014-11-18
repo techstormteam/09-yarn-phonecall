@@ -103,7 +103,6 @@ function btnHandler(object) {
     function check_form() {
         username = $.trim($('#txtUsername').val());
         password = $.trim($('#txtPass').val());
-
         if (username !== "" && password !== "") {
             global.set('auto_login', true);
             global.login('_id', {telno: username, password: password}, login);

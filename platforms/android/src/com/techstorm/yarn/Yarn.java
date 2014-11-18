@@ -39,6 +39,7 @@ package com.techstorm.yarn;
 import static android.content.Intent.ACTION_MAIN;
 
 import java.lang.reflect.Method;
+import java.util.TimerTask;
 
 import org.apache.cordova.CordovaActivity;
 import org.linphone.LinphoneActivity;
@@ -75,7 +76,7 @@ public class Yarn extends CordovaActivity implements
 	private Handler mHandler;
 
 	private ServiceWaitThread mThread;
-	
+	private RegistrationLoopTask loopTask;
 	private Context context;
 	
 	@Override
@@ -171,23 +172,23 @@ public class Yarn extends CordovaActivity implements
 		}
 	}
 	
+	private class RegistrationLoopTask extends TimerTask {
+	    @Override
+	    public void run() {
+	      //get and send location information 
+	    }
+	}
+	
 	private class ServiceWaitThread extends Thread {
 
 		public void run() {
-
 			while (!LinphoneService.isReady()) {
-
 				try {
-
 					sleep(30);
-
 				} catch (InterruptedException e) {
-
 					throw new RuntimeException(
 							"waiting thread sleep() has been interrupted");
-
 				}
-
 			}
 
 			mHandler.post(new Runnable() {
@@ -241,31 +242,20 @@ public class Yarn extends CordovaActivity implements
   }  
 	
 	protected void onServiceReady() {
-
 		final Class<? extends Activity> classToStart;
-
 		classToStart = LinphoneActivity.class;
-
 		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
 				classToStart, Yarn.class);
-
+		
 		mHandler.postDelayed(new Runnable() {
-
 			@Override
 			public void run() {
-
 				try {
-
 					enableAllAudioCodecs();
-
 					enableAllVideoCodecs();
-					
 				} catch (LinphoneCoreException e) {
-
 					e.printStackTrace();
-
 				}
-
 			}
 
 		}, 1000);
@@ -339,7 +329,6 @@ public class Yarn extends CordovaActivity implements
 			
 		}
 	}
-	
 	
 	@Override
 	public void onCallStateChanged(LinphoneCall call, State state,

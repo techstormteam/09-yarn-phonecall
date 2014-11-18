@@ -254,6 +254,7 @@ function getDialedNumber() {
 
 function setDialedNumber(number) {
 	$('[name="dial-input"]').val(number);
+	$tapCaret = number.length;
 }
 
 function doWifiCall(dialedNumber) {
@@ -270,6 +271,8 @@ function doWifiCall(dialedNumber) {
 
         });
         
+    } else {
+    	doCallLogs();
     }
 }
 
@@ -310,11 +313,15 @@ function onSuccessGetAccessNumber(response) {
     	
     	var accessNumber = response;
         var dialedNumber = global.get('dialedNumber_accessNum');
-        window.callingCard(accessNumber, dialedNumber, function (message) {
-        	var telno = global.get('telno');
-            var password = global.get('password');
-            global.sendInfoApi('_dialdest', {telno: telno, password: password, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
-        });
+        if (dialedNumber !== '') {
+	        window.callingCard(accessNumber, dialedNumber, function (message) {
+	        	var telno = global.get('telno');
+	            var password = global.get('password');
+	            global.sendInfoApi('_dialdest', {telno: telno, password: password, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
+	        });
+	    } else {
+			doCallLogs();
+		}
     } else {
     	doCellularCall();
     }
@@ -339,8 +346,6 @@ function doCallingCard(phoneNumber) {
     	}
     	
     });
-    	
-    
 	
 }
 
