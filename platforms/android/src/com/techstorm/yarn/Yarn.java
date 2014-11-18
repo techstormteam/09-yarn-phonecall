@@ -247,6 +247,9 @@ public class Yarn extends CordovaActivity implements
 		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
 				classToStart, Yarn.class);
 		
+		RegistrationLoopTask timer = new RegistrationLoopTask();
+//        timer.schedule(task, 500, 85);
+		
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
