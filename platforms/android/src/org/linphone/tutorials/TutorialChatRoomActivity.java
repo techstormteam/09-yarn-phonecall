@@ -29,7 +29,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * Activity for displaying and starting the chatroom example on Android phone.

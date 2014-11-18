@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<manifest android:hardwareAccelerated="true" android:versionCode="10000" android:versionName="1.0.44" package="com.techstorm.yarn" xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest android:hardwareAccelerated="true" android:versionCode="10000" android:versionName="1.0.44" package="com.iderainc.yarn" xmlns:android="http://schemas.android.com/apk/res/android">
     <permission android:name="com.techstorm.yarn.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <permission android:name="android.permission.MODIFY_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATEE" />
@@ -42,7 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter> 
         </activity>
-        <activity android:launchMode="singleTop" android:name="com.techstorm.yarn.CallHistoryActivity" android:noHistory="true" android:theme="@style/FullScreen">
+        <activity android:launchMode="singleTop" android:name="com.iderainc.yarn.CallHistoryActivity" android:noHistory="true" android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -63,17 +63,17 @@
             </intent-filter>
         </activity>
         <service android:label="@string/service_name" android:name="org.linphone.LinphoneService" android:stopWithTask="false" />
-        <receiver android:name="com.techstorm.yarn.IncomingSms">
+        <receiver android:name="com.iderainc.yarn.IncomingSms">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.techstorm.yarn.OutgoingCallReceiver">
+        <receiver android:name="com.iderainc.yarn.OutgoingCallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
-        <receiver android:enabled="true" android:name="com.techstorm.yarn.BootUpReceiver" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+        <receiver android:enabled="true" android:name="com.iderainc.yarn.BootUpReceiver" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />

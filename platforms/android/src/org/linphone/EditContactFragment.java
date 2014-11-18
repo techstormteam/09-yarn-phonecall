@@ -29,7 +29,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 public class EditContactFragment extends Fragment {
 	private View view;

@@ -32,7 +32,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 public class Digit extends Button implements AddressAware {
 

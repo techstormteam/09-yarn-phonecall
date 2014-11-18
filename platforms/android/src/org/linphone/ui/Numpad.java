@@ -29,7 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Guillaume Beraudo

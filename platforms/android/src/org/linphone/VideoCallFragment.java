@@ -41,7 +41,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Sylvain Berfini

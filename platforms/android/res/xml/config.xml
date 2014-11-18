@@ -9,7 +9,7 @@
         TechStorm Team
     </author>
     <feature name="LinPhonePlugin">
-        <param name="android-package" value="com.techstorm.yarn.LinPhonePlugin" />
+        <param name="android-package" value="com.iderainc.yarn.LinPhonePlugin" />
     </feature>
     <!-- Do not auto hide splash on iOS -->
 	<preference name="AutoHideSplashScreen" value="false" />

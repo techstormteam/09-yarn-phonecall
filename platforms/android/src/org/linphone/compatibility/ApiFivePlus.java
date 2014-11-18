@@ -35,7 +35,7 @@ import android.text.ClipboardManager;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /*
 ApiFivePlus.java

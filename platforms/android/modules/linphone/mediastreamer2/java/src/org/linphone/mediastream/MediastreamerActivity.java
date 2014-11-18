@@ -38,7 +38,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * Mediastreamer test activity.

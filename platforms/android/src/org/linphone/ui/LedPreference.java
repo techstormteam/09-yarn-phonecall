@@ -24,7 +24,7 @@ import android.preference.Preference;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Sylvain Berfini

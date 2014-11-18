@@ -52,7 +52,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Sylvain Berfini

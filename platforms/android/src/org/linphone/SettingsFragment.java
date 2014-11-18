@@ -52,7 +52,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Sylvain Berfini

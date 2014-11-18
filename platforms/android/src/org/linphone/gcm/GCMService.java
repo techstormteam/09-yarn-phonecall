@@ -26,7 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.android.gcm.GCMBaseIntentService;
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Sylvain Berfini

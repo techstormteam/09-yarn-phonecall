@@ -34,7 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 public class SlidingDrawer extends ViewGroup {
 

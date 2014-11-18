@@ -1,4 +1,4 @@
-package com.techstorm.yarn;
+package com.iderainc.yarn;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +31,8 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.iderainc.yarn.R;
 
 public class CallHistoryActivity extends Activity implements OnClickListener, OnChildClickListener, OnGroupClickListener {
 

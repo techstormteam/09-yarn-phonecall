@@ -28,7 +28,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.EditText;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Guillaume Beraudo

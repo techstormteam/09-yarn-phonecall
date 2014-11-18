@@ -34,7 +34,7 @@
 
  */
 
-package com.techstorm.yarn;
+package com.iderainc.yarn;
 
 import static android.content.Intent.ACTION_MAIN;
 
@@ -67,6 +67,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 import com.android.internal.telephony.ITelephony;
+import com.iderainc.yarn.R;
 
 public class Yarn extends CordovaActivity implements
 		LinphoneOnCallStateChangedListener

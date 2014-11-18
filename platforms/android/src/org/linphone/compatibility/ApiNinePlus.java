@@ -18,7 +18,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /*
 ApiNinePlus.java

@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Sylvain Berfini

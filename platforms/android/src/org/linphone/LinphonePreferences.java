@@ -37,7 +37,7 @@ import org.linphone.mediastream.Log;
 
 import android.content.Context;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Sylvain Berfini

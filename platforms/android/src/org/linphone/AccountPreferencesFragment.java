@@ -38,7 +38,7 @@ import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 
-import com.techstorm.yarn.R;
+import com.iderainc.yarn.R;
 
 /**
  * @author Sylvain Berfini

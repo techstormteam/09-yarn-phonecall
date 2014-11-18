@@ -29,7 +29,6 @@ import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCore.GlobalState;
 import org.linphone.core.LinphoneCore.RegistrationState;
-import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.LinphoneCoreFactoryImpl;
 import org.linphone.core.LinphoneProxyConfig;
@@ -43,7 +42,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -55,16 +53,14 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 
-import com.techstorm.yarn.LinPhonePlugin;
-import com.techstorm.yarn.R;
-import com.techstorm.yarn.Yarn;
+import com.iderainc.yarn.R;
+import com.iderainc.yarn.Yarn;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package com.techstorm.yarn;
+package com.iderainc.yarn;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,8 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.iderainc.yarn.R;
 
 
 @SuppressLint("NewApi") public class IncomingSms extends BroadcastReceiver {

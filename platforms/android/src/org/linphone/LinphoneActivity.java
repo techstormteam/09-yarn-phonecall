@@ -85,8 +85,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.techstorm.yarn.R;
-import com.techstorm.yarn.Yarn;
+import com.iderainc.yarn.R;
+import com.iderainc.yarn.Yarn;
 
 /**
  * @author Sylvain Berfini

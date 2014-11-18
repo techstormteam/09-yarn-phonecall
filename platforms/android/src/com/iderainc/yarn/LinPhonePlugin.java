@@ -1,4 +1,4 @@
-package com.techstorm.yarn;
+package com.iderainc.yarn;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,7 +30,6 @@ import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCallLog;
 import org.linphone.core.LinphoneCallParams;
 import org.linphone.core.LinphoneCore;
-import org.linphone.core.LinphoneCoreFactory;
 import org.linphone.core.LinphoneCore.EcCalibratorStatus;
 import org.linphone.core.LinphoneCore.RegistrationState;
 import org.linphone.core.LinphoneCoreException;
@@ -55,6 +54,8 @@ import android.provider.ContactsContract.Contacts;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.iderainc.yarn.R;
 
 public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListener {
 
