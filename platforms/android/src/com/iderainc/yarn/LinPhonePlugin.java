@@ -65,6 +65,9 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 	public static String NOT_REGISTERED = "NOT-REGISTERED";
 	public static String REGISTERED = "REGISTERED";
 	
+	public static String telno = "";
+	public static String password = "";
+	
 	private Context context;
 	private LinphonePreferences mPrefs = LinphonePreferences.instance();
 
@@ -136,58 +139,10 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			String registerStatus = (String) args.get(2);
 			String domain = context.getResources().getString(
 					R.string.sip_domain_default);
-			String sipAddress = sipUsername + "@" + domain;
 			
-			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
-			
-			if (lc.isNetworkReachable()) {
-				objJSON.put("internetConnectionAvailable", true);
-				
-				// Get account index.
-				int nbAccounts = LinphonePreferences.instance().getAccountCount();
-				List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
-				
-				
-				if (accountIndexes == null || accountIndexes.isEmpty()) { // User haven't registered in linphone
-					logIn(sipUsername, password, domain, false);
-					lc.refreshRegisters();
-					accountIndexes.add(nbAccounts);
-				} else { // Register in linphone.
-					if (NOT_REGISTERED.equals(registerStatus)) {
-						signOut(sipUsername, domain);
-					}
-				}
-				
-				for (Integer accountIndex : accountIndexes) {
-					if (LinphonePreferences.instance().getDefaultAccountIndex() != accountIndex) {
-						
-						LinphonePreferences.instance().setDefaultAccount(accountIndex);
-						LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
-						lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
-						lc.refreshRegisters();
-						//callbackContext.success("Registered sip:"+sipUsername+"@"+domain+" successfully.");
-					} else {
-						if (lc != null && lc.getDefaultProxyConfig() != null) {
-							if (RegistrationState.RegistrationOk == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
-								//callbackContext.success("User Sip have registered. Ignored action...");
-								message += "REGISTERED as "+sipUsername+" with "+password;
-							} else if (RegistrationState.RegistrationFailed == LinphoneManager.getLc().getDefaultProxyConfig().getState()
-									|| RegistrationState.RegistrationNone == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
-								message += "NOT-REGISTERED as "+sipUsername+" with "+password;
-								message += ". Trying to REGISTER as "+sipUsername+" with "+password;
-//								logIn(sipUsername, password, domain, false);
-								LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
-								lc.refreshRegisters();
-								//callbackContext.success("Re-register sip:"+sipUsername+"@"+domain);
-							}
-						}
-					}
-				}
-			} else {
-				objJSON.put("internetConnectionAvailable", false);
-				message += "NOT-REGISTERED as "+sipUsername+" with "+password;
-				message += ".Network is not available";
-			}
+			LinPhonePlugin.telno = sipUsername;
+			LinPhonePlugin.password = password;
+			registerSip(context, mPrefs, sipUsername, domain, password, registerStatus, objJSON);
 			objJSON.put("message", message);
 			PluginResult result = new PluginResult(Status.OK, objJSON);
 			callbackContext.sendPluginResult(result);
@@ -196,8 +151,9 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			String sipUsername = (String) args.get(0);
 			String domain = context.getResources().getString(
 					R.string.sip_domain_default);
-			
 			signOut(sipUsername, domain);
+			LinPhonePlugin.telno = "";
+			LinPhonePlugin.password = "";
 			callbackContext.success("Sign out successful.");
 			return true;
 		} else if (action.equals("GetContactImageUri")) {
@@ -527,9 +483,9 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		return false;
 	}
 
-	private void signOut(String sipUsername, String domain) {
+	private static void signOut(String sipUsername, String domain) {
 		if (LinphoneManager.isInstanciated()) {
-			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+			
 			
 			String sipAddress = sipUsername + "@" + domain;
 			List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
@@ -543,23 +499,76 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 //			LinphoneAuthInfo authInfo = lc.findAuthInfo(sipUsername, null, domain);
 //			lc.removeAuthInfo(authInfo);
 //			lc.refreshRegisters();
+			
 		}
 	}
 	
-	public void deleteAccount(int n) {
+	public static void registerSip(Context context, LinphonePreferences mPrefs, String sipUsername, String domain, String password, String registerStatus, JSONObject objJSON) throws JSONException {
+		String sipAddress = sipUsername + "@" + domain;
+		LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+		
+		if (lc.isNetworkReachable()) {
+			
+			objJSON.put("internetConnectionAvailable", true);
+			
+			// Get account index.
+			int nbAccounts = LinphonePreferences.instance().getAccountCount();
+			List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
+			
+			if (accountIndexes != null && !accountIndexes.isEmpty() && NOT_REGISTERED.equals(registerStatus)) {
+				signOut(sipUsername, domain);
+			}
+			
+			nbAccounts = LinphonePreferences.instance().getAccountCount();
+			accountIndexes = findAuthIndexOf(sipAddress);
+			if (accountIndexes == null || accountIndexes.isEmpty()) { // User haven't registered in linphone
+				logIn(context, mPrefs, sipUsername, password, domain, false);
+				lc.refreshRegisters();
+				accountIndexes.add(nbAccounts);
+			}
+			
+			for (Integer accountIndex : accountIndexes) {
+				if (LinphonePreferences.instance().getDefaultAccountIndex() != accountIndex) {
+					
+					LinphonePreferences.instance().setDefaultAccount(accountIndex);
+					if (accountIndex < LinphonePreferences.instance().getAccountCount()) {
+						LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+						lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
+						lc.refreshRegisters();
+					}
+				} else {
+					if (lc != null && lc.getDefaultProxyConfig() != null) {
+						if (RegistrationState.RegistrationOk == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
+							//callbackContext.success("User Sip have registered. Ignored action...");
+						} else if (RegistrationState.RegistrationFailed == LinphoneManager.getLc().getDefaultProxyConfig().getState()
+								|| RegistrationState.RegistrationNone == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
+//							logIn(sipUsername, password, domain, false);
+							LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+							lc.refreshRegisters();
+							//callbackContext.success("Re-register sip:"+sipUsername+"@"+domain);
+						}
+					}
+				}
+			}
+		} else {
+			objJSON.put("internetConnectionAvailable", false);
+		}
+	}
+	
+	public static void deleteAccount(int n) {
 		final LinphoneProxyConfig proxyCfg = getProxyConfig(n);
 
 		if (proxyCfg != null)
 			LinphoneManager.getLc().removeProxyConfig(proxyCfg);
 		if (LinphoneManager.getLc().getProxyConfigList().length == 0) {
-			LinphoneActivity.instance().getStatusFragment().registrationStateChanged(RegistrationState.RegistrationNone);
+			LinphoneManager.getLc().refreshRegisters();
 		} else {
 			resetDefaultProxyConfig();
 			LinphoneManager.getLc().refreshRegisters();
 		}
 	}
 	
-	public void resetDefaultProxyConfig(){
+	public static void resetDefaultProxyConfig(){
 		int count = LinphoneManager.getLc().getProxyConfigList().length;
 		for (int i = 0; i < count; i++) {
 			if (isAccountEnabled(i)) {
@@ -573,12 +582,12 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		}
 	}
 	
-	public boolean isAccountEnabled(int n) {
+	public static boolean isAccountEnabled(int n) {
 		return getProxyConfig(n).registerEnabled();
 	}
 	
 	// Accounts settings
-	private LinphoneProxyConfig getProxyConfig(int n) {
+	private static LinphoneProxyConfig getProxyConfig(int n) {
 		LinphoneProxyConfig[] prxCfgs = LinphoneManager.getLc().getProxyConfigList();
 		if (n < 0 || n >= prxCfgs.length)
 			return null;
@@ -681,7 +690,7 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 	    contentResolver.insert(CallLog.Calls.CONTENT_URI, values);
 	}
 	
-	private List<Integer> findAuthIndexOf(String sipAddress) {
+	private static List<Integer> findAuthIndexOf(String sipAddress) {
 		int nbAccounts = LinphonePreferences.instance().getAccountCount();
 		List<Integer> indexes = new ArrayList<Integer>();
 		for (int index = 0; index < nbAccounts; index++)
@@ -917,17 +926,17 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 		this.cordova.startActivityForResult(this,callIntent,0);
 	}
 	
-	private void logIn(String username, String password, String domain,
+	private static void logIn(Context context, LinphonePreferences mPrefs, String username, String password, String domain,
 			boolean sendEcCalibrationResult) {
 
-		saveCreatedAccount(username, password, domain);
+		saveCreatedAccount(context, mPrefs, username, password, domain);
 
 		if (LinphoneManager.getLc().getDefaultProxyConfig() != null) {
-			launchEchoCancellerCalibration(sendEcCalibrationResult);
+//			launchEchoCancellerCalibration(mPrefs, sendEcCalibrationResult);
 		}
 	}
 
-	private void launchEchoCancellerCalibration(boolean sendEcCalibrationResult) {
+	private static void launchEchoCancellerCalibration(LinphonePreferences mPrefs, boolean sendEcCalibrationResult) {
 		boolean needsEchoCalibration = LinphoneManager.getLc()
 				.needsEchoCalibration();
 		if (needsEchoCalibration && mPrefs.isFirstLaunch()) {
@@ -943,17 +952,17 @@ public class LinPhonePlugin extends CordovaPlugin implements EcCalibrationListen
 			if (mPrefs.isFirstLaunch()) {
 				mPrefs.setEchoCancellation(false);
 			}
-			success();
+			success(mPrefs);
 		}
 	}
 
-	public void success() {
+	public static void success(LinphonePreferences mPrefs) {
 		mPrefs.firstLaunchSuccessful();
 		// setResult(Activity.RESULT_OK);
 		// finish();
 	}
 
-	public void saveCreatedAccount(String username, String password,
+	public static void saveCreatedAccount(Context context, LinphonePreferences mPrefs, String username, String password,
 			String domain) {
 
 		boolean isMainAccountLinphoneDotOrg = domain.equals(context

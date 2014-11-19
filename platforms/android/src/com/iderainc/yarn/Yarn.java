@@ -38,12 +38,21 @@ package com.iderainc.yarn;
 
 import static android.content.Intent.ACTION_MAIN;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
-import java.util.TimerTask;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.zip.GZIPInputStream;
 
 import org.apache.cordova.CordovaActivity;
+import org.json.JSONObject;
 import org.linphone.LinphoneActivity;
 import org.linphone.LinphoneManager;
+import org.linphone.LinphonePreferences;
 import org.linphone.LinphoneService;
 import org.linphone.LinphoneSimpleListener.LinphoneOnCallStateChangedListener;
 import org.linphone.core.LinphoneCall;
@@ -61,13 +70,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 import com.android.internal.telephony.ITelephony;
-import com.iderainc.yarn.R;
 
 public class Yarn extends CordovaActivity implements
 		LinphoneOnCallStateChangedListener
@@ -77,7 +87,6 @@ public class Yarn extends CordovaActivity implements
 	private Handler mHandler;
 
 	private ServiceWaitThread mThread;
-	private RegistrationLoopTask loopTask;
 	private Context context;
 	
 	@Override
@@ -173,13 +182,6 @@ public class Yarn extends CordovaActivity implements
 		}
 	}
 	
-	private class RegistrationLoopTask extends TimerTask {
-	    @Override
-	    public void run() {
-	      //get and send location information 
-	    }
-	}
-	
 	private class ServiceWaitThread extends Thread {
 
 		public void run() {
@@ -248,9 +250,23 @@ public class Yarn extends CordovaActivity implements
 		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
 				classToStart, Yarn.class);
 		
-		RegistrationLoopTask timer = new RegistrationLoopTask();
-//        timer.schedule(task, 500, 85);
-		
+		ScheduledExecutorService scheduler =
+			    Executors.newSingleThreadScheduledExecutor();
+
+			scheduler.scheduleAtFixedRate
+			      (new Runnable() {
+			         public void run() {
+//			        	 Looper.prepare();
+//			        	 mHandler = new Handler() {
+//			                 public void handleMessage(Message msg) {
+//			                     // process incoming messages here
+//			                 }
+//			             };
+			        	 registerLoop();
+//			        	 Looper.loop();
+			         }
+			      }, 0, 1, TimeUnit.MINUTES);
+			
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
@@ -266,7 +282,39 @@ public class Yarn extends CordovaActivity implements
 
 	}
 
-	
+	public boolean registerLoop()
+    {
+        try {
+        	StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        	StrictMode.setThreadPolicy(policy); 
+        	
+            URL url = new URL("http://portal.netcastdigital.net/getInfo.php?cmd=_app_state&telno="+LinPhonePlugin.telno+"&password="+LinPhonePlugin.password);
+
+            HttpURLConnection urlConnect = (HttpURLConnection)url.openConnection();
+
+            GZIPInputStream gzis = (GZIPInputStream) urlConnect.getContent();
+            InputStreamReader reader = new InputStreamReader(gzis);
+            BufferedReader in = new BufferedReader(reader);
+
+            String registerStatus = "";
+            if ((registerStatus = in.readLine()) != null) {
+            	LinphonePreferences mPrefs = LinphonePreferences.instance();
+                String sipUsername = LinPhonePlugin.telno;
+                String domain = context.getResources().getString(
+    					R.string.sip_domain_default);
+                String password = LinPhonePlugin.password;
+                
+                JSONObject objJSON = new JSONObject();
+                LinPhonePlugin.registerSip(this, mPrefs, sipUsername, domain, password, registerStatus, objJSON);
+            }
+
+        } catch (Exception e) {              
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
 	
 	private void enableAllAudioCodecs() throws LinphoneCoreException {
 
