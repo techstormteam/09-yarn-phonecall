@@ -247,8 +247,8 @@ public class Yarn extends CordovaActivity implements
 	protected void onServiceReady() {
 		final Class<? extends Activity> classToStart;
 		classToStart = LinphoneActivity.class;
-		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
-				classToStart, Yarn.class);
+//		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(
+//				classToStart, Yarn.class);
 		
 		ScheduledExecutorService scheduler =
 			    Executors.newSingleThreadScheduledExecutor();

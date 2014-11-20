@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<manifest android:hardwareAccelerated="true" android:versionCode="10000" android:versionName="1.0.44" package="com.iderainc.yarn" xmlns:android="http://schemas.android.com/apk/res/android">
-    <permission android:name="com.techstorm.yarn.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+<manifest android:hardwareAccelerated="true" android:versionCode="10000" android:versionName="1.0.45" package="com.iderainc.yarn" xmlns:android="http://schemas.android.com/apk/res/android">
+    <permission android:name="com.iderainc.yarn.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <permission android:name="android.permission.MODIFY_PHONE_STATE" />
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATEE" />
     <uses-permission android:name="org.linphone.permission.C2D_MESSAGE" />
@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS">
     </uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+ 	<uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
