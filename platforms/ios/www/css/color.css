@@ -1,0 +1,106 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 15, 2014, 5:20:49 PM
+    Author     : VietAnh
+
+    orange: #FF6A00
+
+*/
+
+
+.orange {
+    color: #FF6A00 !important;
+}
+
+.bg-orange {
+    background: #FF6A00 !important;
+}
+
+.bg-black {
+    background: #000 !important;
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+.white {
+    color: #fff !important;
+}
+
+.red {
+    color: red;
+}
+
+.ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper  {
+    background-color: #fff !important;
+}
+
+.btn-red {
+    background: #CF3F28;
+    color: #fff;
+}
+
+.btn-blue {
+    background: #435E9E;
+    color: #fff;
+}
+
+.grey {
+    color: #777 !important;
+}
+
+.ui-header.ts-header {
+    background: #fff;
+    color: #333;
+}
+
+.ts-sub-footer {
+    background: #FF6A00;
+    color: #fff;
+}
+
+.ui-footer.ts-footer {
+    background-color: #000;
+    color: #fff;
+}
+
+.ts-balance-wrapper, .ts-input {
+    color: #777 !important;
+}
+
+.ts-login-header {
+    background: #FF6A00;
+    color: #fff;
+}
+
+[data-id="social-btn"] a, [data-id="social-btn"] a:hover, [data-id="social-btn"] a:active, [data-id="social-btn"] a:focus {
+    color: #fff;
+    text-shadow: none;
+}
+
+[data-id="social-btn"] a {
+    position: relative;
+}
+
+.sweet-alert button {
+    background-color: #FF6A00 !important;
+}
+
+.ui-dialog .confirm {
+    background-color: #FF6A00 !important;
+    color: #FFFFFF !important;
+}
+
+.ui-dialog {
+    background-color: #FFFFFF !important;
+}
+
+.ui-dialog-buttonpane button {
+    background-color: #FF6A00 !important;
+    color: #FFFFFF !important;
+}
