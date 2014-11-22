@@ -1,47 +1,175 @@
-window.callSip = function(callTo, sipUsername, password, callback) {
+window.wifiCall = function(sipAddress, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "callSip", [callTo, sipUsername, password]);
+    }, "LinPhonePlugin", "WifiCall", [sipAddress]);
 };
 
-window.cancelSip = function(str, callback) {
+window.cellularCall = function(phoneNumber, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "cancelSip", [str]);
+    }, "LinPhonePlugin", "CellularCall", [phoneNumber]);
 };
 
-window.registerSip = function(sipUsername, password, callback) {
+window.videoCall = function(sipAddress, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "registerSip", [sipUsername, password]);
+    }, "LinPhonePlugin", "VideoCall", [sipAddress]);
 };
 
-window.pauseSip = function(str, callback) {
+window.phoneContacts = function(callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "pauseSip", [str]);
+    }, "LinPhonePlugin", "PhoneContacts", []);
 };
 
-window.backWind = function(sipUsername, password, callback) {
+window.callLogs = function(balance, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "backWind", [sipUsername, password]);
+    }, "LinPhonePlugin", "CallLogs", [balance]);
 };
 
-window.forwardWind = function(sipUsername, password, callback) {
+window.hangUp = function(callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "forwardWind", [sipUsername, password]);
+    }, "LinPhonePlugin", "HangUp", []);
 };
 
-window.signOut = function(sipUsername, callback) {
+window.registerSip = function(sipUsername, password, registerStatus, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "signOut", [sipUsername]);
+    }, "LinPhonePlugin", "RegisterSip", [sipUsername, password, registerStatus]);
 };
 
-window.deregisterSip = function(sipUsername, registerStatus, callback) {
+window.settings = function(callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "deregisterSip", [sipUsername, registerStatus]);
+    }, "LinPhonePlugin", "Settings", []);
+};
+
+window.micMute = function(enable, callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "MicMute", [enable]);
+};
+
+window.showDialPad = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "ShowDialPad", []);
+};
+
+window.loudness = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "Loudness", []);
+};
+
+window.phoneness = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "Phoneness", []);
+};
+
+window.dialKeyDtmf = function(key, callback) {
+	cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "DialDtmf", [key]);
+
+};
+
+window.getCallQuality = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetCallQuality", []);
+};
+
+window.getCallDurationTime = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetCallDurationTime", []);
+};
+
+
+window.checkEndCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "CheckEndCall", []);
+};
+
+window.answerCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "AnswerCall", []);
+};
+
+window.declineCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "DeclineCall", []);
+};
+
+window.signOut = function(telno, callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "SignOut", [telno]);
+};
+
+window.getContactImageUri = function(telno, callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetContactImageUri", [telno]);
+};
+
+window.getIncommingContactImageUri = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetIncommingContactImageUri", []);
+};
+
+window.checkInternetConnection = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "CheckInternetConnection", []);
+};
+
+window.getSMSInboundPhoneNumber = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetSMSInboundPhoneNumber", []);
+};
+
+window.hideSoftInput = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "HideSoftInput", []);
+};
+
+window.sendKey = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "SendKey", []);
+};
+
+window.callingCard = function(accessNumber, phoneNumber, callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "CallingCard", [accessNumber, phoneNumber]);
+};
+
+window.blockNativeCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "BlockNativeCall", []);
+};
+
+window.allowNativeCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "AllowNativeCall", []);
+};
+
+window.startVideoActivity = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "StartVideoActivity", []);
 };

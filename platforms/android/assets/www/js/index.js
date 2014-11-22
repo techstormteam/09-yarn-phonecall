@@ -159,17 +159,17 @@ function tapholdHandler(event) {
 function inputProcess(object) {
     var current = $('[data-id="input"]').val();
     
-    $caret = $tapCaret;
+    //$caret = $tapCaret;
     
-    $leftStr = current.substring(0, $caret);
+    //$leftStr = current.substring(0, $caret);
 
-    $rightStr = current.substring($caret, current.length);
+    //$rightStr = current.substring($caret, current.length);
 
-    $lastStr = $leftStr + object.data('value') + $rightStr;
+    //$lastStr = $leftStr + object.data('value') + $rightStr;
 
-    dest.val($lastStr);
+    dest.val(current + object.data('value'));
     
-    $tapCaret++;
+    //$tapCaret++;
 
     
     current = $('[data-id="input"]').val();
@@ -205,10 +205,10 @@ $('[data-id="delete"]').click(function () {
     
     $caret = $tapCaret;
     
-    $leftStr = current.substring(0, $caret);
-    $rightStr = current.substring($caret, current.length);
-    $lastStr = $leftStr.substring(0, $leftStr.length - 1) + $rightStr;
-    dest.val($lastStr);
+    //$leftStr = current.substring(0, $caret);
+    //$rightStr = current.substring($caret, current.length);
+    //$lastStr = $leftStr.substring(0, $leftStr.length - 1) + $rightStr;
+    dest.val(current.substring(0, current.length - 1));
     now = $lastStr;
     if ($tapCaret > 0) {
     	$tapCaret--;

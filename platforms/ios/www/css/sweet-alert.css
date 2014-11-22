@@ -47,7 +47,7 @@
     margin: 0;
     line-height: normal; }
   .sweet-alert button {
-    background-color: #AEDEF4;
+    background-color: #FF6A00 !important;
     color: white;
     border: none;
     box-shadow: none;
@@ -603,7 +603,3 @@
   -webkit-animation: pulseWarningIns 0.75s infinite alternate;
   -moz-animation: pulseWarningIns 0.75s infinite alternate;
   animation: pulseWarningIns 0.75s infinite alternate; }
-  
-.sweet-alert button {
-	background-color: #3E72A4 !important;
-}

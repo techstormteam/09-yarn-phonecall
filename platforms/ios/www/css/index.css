@@ -1,115 +1,299 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+/*TYPOGRAPHY*/
+.center {
+    text-align: center;
 }
 
-body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
-    width:100%;
+.bold {
+    font-weight: bold;
 }
 
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+.ts-input {
+    font-size: 2.5em;
+    opacity: 1 !important;
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
+.v-center {
+    vertical-align: central;
 }
 
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+.v-top {
+    vertical-align: top;
 }
 
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
+.v-bottom {
+    vertical-align: bottom;
 }
 
-.event.listening {
-    background-color:#333333;
-    display:block;
+.glyphicon-plus-sign {
+    font-size: 150%;
 }
 
-.event.received {
-    background-color:#4B946A;
-    display:none;
+.rateText {
+    font-size: 70%;
 }
 
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+.not-underlined {
+    text-decoration: none;
 }
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+
+/*END  TYPOGRAPHY*/
+
+.ui-header.ts-header {
+    border: none;
+    color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    text-shadow: none;
+    padding-top: 10px;
 }
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+
+.ts-header .ui-grid-a {
+    padding: 4px;
+}
+
+.ts-user-img img {
+    height: 80px;
+}
+
+.ui-footer.ts-footer {
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    text-shadow: none;
+    border: none;
+    text-align: center;
+}
+
+.ts-icon-button img {
+    width: 50px;
+    height: auto;
+    padding: 5px;
+}
+
+.ui-input-text {
+    border: 0;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.ui-input-text input {
+    padding: 0 !important;
+}
+
+.ui-content {
+    position: relative;
+    top: 100px;
+    padding: 0;
+}
+
+.ts-sub-footer {
+    position: fixed;
+    bottom: 50px;
+    height: 50px;
+    width: 100%;
+}
+
+.ts-chat-icon img {
+    height: 80px
+}
+
+.ts-header > .ui-grid-a > .ui-block-b {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.ts-user-wrapper {
+    width: 100%;
+}
+
+.ts-user-img, .ts-user-name {
+    width: 48%;
+    display: inline-block;
+}
+
+.ts-user-name {
+    word-wrap: break-word;
+}
+
+.ts-logo-wrapper {
+    padding: 15px 0;
+    position: relative;
+    top: 100px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+}
+
+.ts-logo-wrapper img {
+    /*width: 20%;*/
+    /*height: auto;*/
+}
+
+.ts-balance-wrapper {
+    font-size: 1.2em;
+    line-height: 1.2em;
+    /*padding: 1em 0;*/
+    /*border-bottom: 1px solid #ccc;*/
+}
+
+[data-id="rate"] {
+    font-size: 1.2em;
+}
+
+.ts-balance-child {
+    line-height: 33px;
+    font-size: 1.2em;
+}
+
+.ts-numpad {
+    font-size: 2.5em;
+}
+
+.ts-numpad > .row {
+    padding-left: 20px;
+}
+
+.ts-input {
+    box-shadow: none !important;
+}
+
+.ui-content .ui-corner-all {
+    border-radius: 0 !important;
+}
+
+.ui-content .ui-shadow-inset {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.ui-content .ui-focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.ts-icon-delete {
+    position: absolute;
+    right: 0;
+}
+
+.ts-icon-delete img {
+    height: 30px;
+}
+
+.ts-sub-text {
+    color: #bbb;
+}
+
+.ts-sub-text img {
+    width: auto;
+    height: auto;
+}
+
+.ts-numpad {
+    font-family: 'Open Sans';
+    text-transform: uppercase;
+}
+
+.ts-numpad sub {
+    font-size: 40%;
+    font-weight: normal;
+}
+
+.row {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right-border {
+    border-right: 1px solid #333;
+}
+
+[data-value] {
+    cursor: pointer;
+}
+
+.ts-icon-button {
+    display: block;
+    margin: 0;
+    border: none;
+    /*background-color: transparent !important;*/
+}
+
+/*.ts-icon-button:active, .ts-icon-button:focus {
+    background: rgba(255, 255, 255, 0.2);
+}*/
+
+.btn {
+    padding: 0;
+    border-radius: 0;
+}
+
+[data-id="balanceValue"] {
+    position: relative;
+    top: -8px;
+}
+
+.ui-dialog .confirm {
+    width: 100%;
+}
+
+.dial-row div {
+    display: inline-block;
+    width: 31%;
+    padding: 0 10px;
+}
+
+.dial-row img {
+    width: 90%;
+}
+
+[data-value="1"], [data-value="4"], [data-value="7"], [data-value="*"], [data-value="3"], [data-value="6"], [data-value="9"], [data-value="#"] {
+    padding: 0 0 0 20px !important;
+}
+
+/*[data-value="2"], [data-value="5"], [data-value="8"], [data-value="0"] {
+    padding: 0 0 0 20px !important;
+}*/
+
+.ui-dialog-title, .ui-dialog-titlebar {
+    display: none;
+}
+
+.ui-dialog {
+    margin: 0 auto;
+    width: 90% !important;
+}
+
+.ui-dialog button {
+    font-size: 1em !important;
+}
+
+.ui-dialog-buttonset button {
+}
+
+#cellular-call {
+    background: grey !important;
+    box-shadow: 0 0 2px grey !important;
+}
+
+.sweet-alert .ui-dialog-buttonset button {
+    background: grey !important;
+    box-shadow: 0 0 2px grey !important;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    width: 100%;
+    text-align: center;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+    margin: 1em;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    padding: 0.5em;
 }

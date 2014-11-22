@@ -1,172 +1,85 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
         <meta name="viewport" content="width=320, initial-scale=1" />
-        <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
-        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/login.css" />
+        <link rel="stylesheet" type="text/css" href="css/color.css" />
         <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
-        <script type="text/javascript" src="js/sweet-alert.js"></script>
-        <script src="js/jquery/jquery.js"></script>
-        <script src="js/jquery-mobile/jquery.mobile.js"></script>
-        <script src="js/class.logbucket.js"></script>
-        <script src="js/class.user.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/my_linphone.js"></script>
-        <title>Login</title>
-        <style>
-            .ui-field-contain, fieldset.ui-field-contain {
-                padding:0px 0px;
-                border:0px;
-            }
-        </style>
-        <script>
-            var isMobile = {
-                Android: function() {
-                    return navigator.userAgent.match(/Android/i);
-                },
-                BlackBerry: function() {
-                    return navigator.userAgent.match(/BlackBerry/i);
-                },
-                iOS: function() {
-                    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-                },
-                Opera: function() {
-                    return navigator.userAgent.match(/Opera Mini/i);
-                },
-                Windows: function() {
-                    return navigator.userAgent.match(/IEMobile/i);
-                },
-                any: function() {
-                    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()) ? true : false;
-                }
-            };
-            /*
-            function isLowResolution() {
-                if (window.innerWidth <= 800 && window.innerHeight <= 600) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-            */
-            console.log("Is Mobile?");
-            console.log(isMobile.any());
-            //if (isMobile.any() === false) {
-            //     window.location.href = global.getDashboardUrl();
-            //}
-        </script>
+        <link href="img/icons/logo.png" rel="icon" />
+        <title>Yarn - Login</title> 
     </head>
-    <body>
-        <!-- START: Page -->
-        <div data-role="page" data-theme="b">
-            <!-- START: Title -->
-            <div data-role="header">
-                <h1>Login</h1>
-            </div>
-            <!-- END: Title -->
-
-            <!-- START: Content -->
-            <div data-role="content">
-
-                <!-- START: Message Board -->
-                <div id="message"></div>
-                <!-- END: Message Board -->
-
-                <center> <img src="img/prayerline_intro.png"> </center>
-                <div data-role="fieldcontain">
-                    <label for="username">Username:</label>
-                    <input type="text" placeholder="Username" id="username" value="" />
-                </div>
-                <div data-role="fieldcontain">
-                    <label for="password">Password:</label>
-                    <input type="password" placeholder="Password" id="password" value=""  />
-                </div>
-                <div data-role="fieldcontain">
-                    <button id="submit" onclick="check_form();" data-theme="e">Access PrayerLine</button>
-                </div>
-                <div data-role="fieldcontain">
-                    <button id="submit" onclick="window.location.href = 'password-forgot.html';" >Forgot Password?</button>
-                </div>
-                <div data-role="fieldcontain">
-                    <button id="submit" onclick="window.location.href = 'register.html';" >Sign Up</button>
-                </div>
-
-                <hr />
-
-                <div data-role="fieldcontain" style="text-align: center;">
-<!--                                        <button id="facebook_button" onclick="window.location.href = '../selfserve/social/facebook?mobile=yes';">Facebook Login</button>-->
-                <!--a href="../selfserve/social/facebook?mobile=yes" rel="external"-->
-                            <!--img src="img/mmn-facebook.png" alt="" /></a-->
-                </div>
-
-                <div data-role="fieldcontain" style="text-align: center;">
-<!--                    <button id="google_button" onclick="window.location.href = '../selfserve/social/google?mobile=yes';">Google Login</button>-->
-                           <!--a href="../selfserve/social/google?mobile=yes" rel="external"-->
-                            <!--img src="img/mmn-google.png" alt="" /></a-->
-                </div>
-
-                <div data-role="fieldcontain" style="text-align: center;">
-<!--                    <button id="linkedin_button" onclick="window.location.href = '../selfserve/social/linkedin?mobile=yes';">LinkedIn Login</button>-->
-                      <!--a href="../selfserve/social/linkedin?mobile=yes'" rel="external">
-                            <img src="img/mmn-linkedin.png" alt="" /></a!-->
-                </div>
-
-                <!--
-                <div data-role="fieldcontain">
-                    <button id="twitter_button" onclick="window.location.href = '../selfserve/social/twitter?mobile=yes';">Twitter Login</button>
-                </div>
-                -->
-            </div>
-            <!-- END: Content -->
+    <body class="bg-white">
+        <div data-id="header">
+            <a href="#" onclick="openlink('http://yarn-me.com');">
+                <img class="pull-right" src="img/login/login-logo.png" alt="login logo" />
+            </a>
         </div>
-        <!-- END: Page -->
+        <hr/>
+        <div data-id="form-login">
+            <div class="input-vgroup">
+                <input id="txtUsername" placeholder="Username" name="txtUsername" type="text" />
+                <input id="txtPass" placeholder="Password" name="txtPass" type="password" />
+            </div>
+        </div>
+        <div data-id="intro" class="container">
+            <!--<video id="video1" data-id="intro-video" loop>
+                            <source src="android.resource://com.techstorm.yarn/raw/yarn_intro" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>-->
+            <img src="img/intro/sign-in.png" alt="video" />
+        </div>
+        <div data-id="social-btn" class="center" style="display: none;">
+            <div>
+                <a data-id="google-btn" href="#" class="btn btn-red">
+                    <i class="fa fa-google-plus"></i>
+                    connect with google
+                </a>
+            </div>
+            <div>
+                <a data-id="fb-btn" href="#" class="btn btn-blue">
+                    <i class="fa fa-facebook"></i>
+                    connect with facebook
+                </a>
+            </div>
+        </div>
+        <div data-id="form-submit" class="container">
+            <div class="btn-group-wrapper">
+                <a href="#" onclick="doCheckInternetConnection();" class="btn-submit bg-orange white">
+                    SIGN IN
+                </a>
+                <div class="center grey footer-02">
+                    <a href="forgot.html" class="sign-up grey">forgotten password?</a> <a href="signup.html" class="orange sign-up">sign-up</a>
+                </div>
+            </div>
+        </div>
 
+        <!--SCRIPT-->
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script>
+                    $(document).bind("mobileinit", function () {
+                        $.mobile.ajaxEnabled = false;
+                    });
+        </script>
+        <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
         <script type="text/javascript">
-            app.initialize();
-            function login(response) {
-                //LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response:' + response);
-                if (response.result === 'success') {
-                
-                    global.set('auth', json_encode(response.details));
-                    if(response.details['status']==='9'){
-                        $('#message').html("<span style='color:red;'>Account awaiting activayion</span>").show();
-                        window.location.href = 'account-activate.html';
-                        return;
-                    }
-                    
-                    window.location.href = 'index.html';
-                    return;
-                } else {
-                    $('#message').html("<span style='color:red;'>" + response.details + "</span>").show();
-                }
-            }
-            function check_form() {
-                var username = $('#username').val();
-                var password = $('#password').val();
-                $('#message').hide();
-                if (username === '') {
-                    var msg = "<span style='color:red;'>Please enter username...</span>";
-                    $('#message').html(msg).show();
-                }
-                else if (password === '') {
-                    var msg = "<span style='color:red;'>Please enter password...</span>";
-                    $('#message').html(msg).show();
-                }
-                else {
-                    global.set('auto_login', false);
-                    global.api('login', {username: username, password: password}, login);
-                }
-            }
-
-            var username = getUrlParameter('u');
-            var password = getUrlParameter('p');
-            if (username !== null && password !== null) {
-                global.set('auto_login', true);
-                global.api('login', {username: username, password: password}, login);
-            }
+                    app.initialize();
         </script>
     </body>
 </html>
