@@ -1,0 +1,49 @@
+/*TYPOGRAPHY*/
+
+@font-face {
+    font-family: segoe;
+    src: url(../fonts/segoe.ttf);
+}
+
+.center {
+    text-align: center;
+}
+
+/*PAGE*/
+[data-id="header"] {
+    width: 100%;
+    text-align: right;
+}
+
+[data-id="logo"] img, [data-id="accept-call"] img, [data-id="deny-call"] img {
+    height: 100%;
+    width: auto;
+}
+
+[data-id="avatar"] img {
+    width: 100%;
+    height: auto;
+}
+
+[data-id="footer"] {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+}
+
+[data-id="footer"] div {
+    display: inline-block;
+    float: left;
+}
+
+[data-id="accept-call"] {
+    border-right: 1px solid #333;
+}
+
+[data-id="accept-call"], [data-id="deny-call"] {
+    cursor: pointer;
+}
+
+[data-id="accept-call"] img, [data-id="deny-call"] img {
+    padding: 10px;
+}

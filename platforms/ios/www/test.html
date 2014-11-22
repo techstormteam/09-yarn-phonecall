@@ -1,0 +1,49 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="css/jquery-ui.min.css" />
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/jquery.caret.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#testInput').on('keypress click tap keyup keydown', function () {
+                    $('#result').html($('#testInput').caret());
+                });
+
+                $('button').click(function () {
+                    // $(this).html()
+                    var currentVal = $('input').val();
+                    if (currentVal.length > 0) {
+                        $caret = $('input').caret();
+                        $left = currentVal.substring(0, $caret);
+                        $right = currentVal.substring($caret, currentVal.length);
+                        
+                        $last = $left + $(this).html() + $right;
+                        $('input').val($last);
+                    } else {
+                        alert(currentVal.length);
+                    }
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+        <!--<input type="text" id="myText" value="Some text for testing"/>
+            <button onclick="Select()">Select the second character!</button>-->
+
+        <div class="dialog">
+            result: <span id="result"></span>
+        </div>
+
+        <button id="open">Open Popup</button>
+
+        <button id="btn1">1</button>
+        <button id="btn2">2</button>
+
+        <input type="text" name="test" id="testInput" />
+
+    </body>
+</html>

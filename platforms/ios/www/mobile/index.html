@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Home - Self Care Hosting Portal</title>
+        <meta name="format-detection" content="telephone=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/color.css" />
+        <link rel="stylesheet" href="css/index.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script>
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="../cordova.js"></script>
+        <script type='text/javascript' src='../js/app.js'></script>
+        <script type='text/javascript' src='../js/my_linphone.js'></script>
+        <style>
+            .ui-btn-up-e {
+                background: #FF6A00 !important;
+                text-shadow: none;
+                border-radius: 5px !important;
+                color: #FFF !important;
+                font-weight: 300 !important;
+                text-transform: uppercase !important;
+            }
+            .ui-btn-hover-e {
+                background: #FF6A00 !important;
+                text-shadow: none;
+                border-radius: 5px !important;
+                color: #FFF !important;
+                font-weight: 300 !important;
+                text-transform: uppercase !important;
+            }
+            .ui-li-heading {
+                font-size: 14px;
+            }
+            .ui-li-desc {
+                font-size: 10px;
+            }
+            .ui-content {
+                width: 100%;
+            }
+            .ui-li-thumb, .ui-listview .ui-li-icon {
+                max-height: 70px;
+            }
+        </style>
+    </head>
+    <body> 
+        <div data-role="page">
+            <!-- START: Title -->
+            <div data-role="header">
+                <!--<h1 id="user_name" style="margin-left: 0px; margin-right: 0px;">Self Care Portal</h1>-->
+                <div class="row">
+                    <div class="col-xs-7">
+                        <div class="ts-balance-child">
+                            <span class="ts-balance orange bold">
+                                <a class="orange not-underlined" onclick="paymentHandle()">
+                                    <span data-id="balanceValue"></span>
+                                    <i class="glyphicon glyphicon-plus-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 text-right" onclick="doSignOut()">
+                        <a href="#" class="ts-chat-icon">
+                            <img src="../img/icons/chat.png" alt="chat" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <div class="center" id="introText">Self Care Portal</div>
+                <ul data-role="listview" data-inset="true">
+                    <li>
+                        <a href="callerid.html" rel="external">
+                            <img src="img/callerid.png" alt="" />
+                            <h2>My CallerIDs</h2>
+                            <p>Control over Yarn CallerID's</p></a>
+                    </li>
+                    <!--li>
+                        <a href="packages.html" rel="external">
+                            <img src="img/briefcase.png" alt="" />
+                            <h2>My Packages</h2>
+                            <p>Tariffs and app features</p></a>
+                    </li-->
+                    <!--a href="prayer-line.html" rel="external">
+                        <img src="img/prayer-line.png" alt="" />
+                        <h2>Prayer Line</h2>
+                        <p>Access PrayerLine portal</p></a>
+                </li-->
+                    <!--li>
+                        <a href="calling-circles.html" rel="external">
+                            <img src="img/internet-telephony.png" alt="" />
+                            <h2>Calling Circles</h2>
+                            <p>Local and international call groups</p></a>
+                    </li-->
+                    <li id="connect" style="display: none;">
+                        <a href="yarn_connect.html" rel="external">
+                            <img src="img/network-connect.png" alt="" />
+                            <h2>Offline Connect</h2>
+                            <p>Yarn via local access numbers</p></a>
+                    </li>
+                    <!--li>
+                        <a href="global-roaming.html" rel="external">
+                            <img src="img/globe.png" alt="" />
+                            <h2>Global Roaming</h2>
+                            <p>SIM & WiFi roaming features</p></a>
+                    </li-->
+                    <li>
+                        <a href="account.html" rel="external">
+                            <img src="img/user_male.png" alt="" />
+                            <h2>My Account</h2>
+                            <p>Account related features</p></a>
+                    </li>
+                    <li>
+                        <a href="support.html" rel="external">
+                            <img src="img/support.png" alt="" />
+                            <h2>Support</h2>
+                            <p>Support ticket management</p></a>
+                    </li>
+                    <li id="nologout_option">
+                        <a  onclick='doSignOut()' rel="external">
+                            <img src="img/logout.png" alt="" />
+                            <h2>Logout</h2>
+                            <p>Exit the Yarn app</p>
+                        </a>
+                    </li>
+                </ul>
+
+                <button style="background: #FF6A00 !important;" id="dialpad" type="submit" onclick="window.location.href = '../index.html';" data-theme="e">
+                    Back to the Dial Pad
+                </button>
+            </div>
+            <!-- END: Content -->
+        </div>
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                var username = getUrlParameter('username');
+                var password = getUrlParameter('password');
+                console.log(username);
+                console.log(password);
+                if (username !== null && password !== null) {
+                    window.location.href = 'auto.html?u=' + username + '&p=' + password;
+                } else {
+                    window.location = 'login.html';
+                }
+            }
+
+            if (global.get('auto_login') === 'true') {
+                $('#logout_option').hide();
+            } else if (global.get('auto_login') === 'false') {
+                $('#logout_option').show();
+            }
+        </script>
+        <script>
+            if (global.get('auth') === null) {
+                // Second test
+                window.location.href = 'login.html';
+            } else {
+                var user = global.getUser();
+                var user_id = user.getId();
+                var currency = user.getCurrency();
+                $('#user_name').html(user.getFirstName() + ' ' + user.getLastName());
+                if (user.getCurrency() !== 'NGN') {
+                    $('#connect').show();
+                }
+                balance_display_in_button();
+
+                global.api('usage_and_sms_last_month', {user_id: user_id, currency: currency}, usage_and_sms_last_month_display);
+
+            }
+
+            function usage_and_sms_last_month_display(result) {
+                var voice_total = result.details['voice_total'];
+                var data_total = result.details['data_total'];
+                var sms_total = result.details['sms_total'];
+
+                var html = ' <img src="img/dashboard.png" width="50" height="50" style="vertical-align:middle;">  ';
+                html += voice_total + ' mins airtime last month';
+
+                $('#title').html(html);
+            }
+
+        </script>
+        <script>
+            function doSignOut() {
+                var telno = global.get('telno');
+                window.signOut(telno, function (data) {
+                    global.set('uid', '');
+                    global.set('telno', '');
+                    global.set('password', '');
+                    window.location.href = '../login.html';
+                });
+            }
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                telno = global.get('telno');
+                password = global.get('password');
+                totalHeight = $(window).height();
+                listView = $('[data-role="listview"]');
+//                contentHeight = $('.ui-content').outerHeight(true);
+                $('.row').height(Math.ceil(totalHeight / 9));
+//                $('.ui-header').height(totalHeight - contentHeight);
+//                $('.row').height(totalHeight - contentHeight);
+                $('.row').children('div').height($('.row').height());
+                $('.ts-balance-child').css({
+                    paddingTop: Math.ceil($('.ui-header').height() / 2) - $('.ts-balance').height()
+                });
+                $('.ui-submit').css({
+                    width: $(window).width() - 30
+                });
+                
+                function getEmail(response) {
+                    email = response;
+                }
+
+                function getBalance(data) {
+                    $('[data-id="balanceValue"]').html(data);
+                }
+
+                global.login('_email', {telno: telno, password: password}, getEmail);
+                global.balance('_balance', {telno: telno, password: password}, getBalance);
+            });
+
+            function paymentHandle() {
+                window.location.href = 'payment-create.html';
+            }
+            
+            $(document).on('swipeleft swiperight touchmove', function(event) {
+                return false;
+            });
+        </script>
+    </body>
+</html>

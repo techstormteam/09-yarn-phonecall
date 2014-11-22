@@ -1,0 +1,236 @@
+x<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/color.css" />
+        <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.0.css">
+        <script src="js/class.user.js"></script>
+        <link href="img/icons/logo.png" rel="icon" />
+        <title>Yarn</title>
+    </head>
+    <body>
+        <div data-role="page" id="foo">
+
+            <!--HEADER-->
+            <!--data-id="header"-->
+            <div data-id="header" data-role="header" class="ts-header">
+                <div class="row">
+                    <div class="col-xs-7">
+                        <div class="ts-balance-child">
+                            <span class="ts-balance orange bold">
+                                <a class="orange not-underlined" onclick="paymentHandle()">
+                                    <span data-id="balanceValue"></span>
+                                    <i class="glyphicon glyphicon-plus-sign"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 text-right">
+                        <a href="#" class="ts-chat-icon">
+                            <img src="img/icons/chat.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!--LOGO-->
+            <!--data-id="logo"-->
+            <div data-id="logo" data-role="logo" class="row ts-logo-wrapper center">
+                <!--<a href="#" onclick="linkHandler()">-->
+                <a href="#">
+                    <img src="img/icons/logo.png" alt="logo" />
+                </a>
+            </div>
+
+            <!--BALANCE + NUMPAD-->
+            <!--data-id="bal-num"-->
+            <div data-id="bal-num" role="main" class="ui-content">
+                <!--BALANCE-->
+                <!--data-id="balance"-->
+                <div data-id="balance" class="row ts-balance-wrapper">
+                    <div class="col-xs-12 center">
+                        <div data-id="rate" class="bold orange"></div>
+                        <div class="rateText">(or FREE if App2App Call)</div>
+                    </div>
+                </div>
+
+                <!--INPUT-->
+                <div>
+                    <!--<span class="ts-input" data-id="input">&nbsp;</span>-->
+                    <input class="ts-input" name="dial-input" type="text" onclick="hideKeyboard();" data-id="input" disabled="" />
+                    <a href="#" class="ts-icon-delete" data-id="delete">
+                        <img src="img/icons/delete.png" alt="delete" />
+                    </a>
+                </div>
+                <!--NUMPAD-->
+                <!--data-id="numpad"-->
+                <div data-id="numpad" data-id="numpad" class="row ts-numpad orange">
+                    <div data-line="1" class="row">
+                        <div data-value="1" class="col-xs-4" onclick="doSendKey('33');">
+                            <span>1</span>
+                            <sub class="ts-sub-text">
+                                <img src="img/icons/vmail.png" alt="voice mail" />
+                            </sub>
+                        </div>
+                        <div data-value="2" class="col-xs-4">
+                            <span>2</span>
+                            <sub class="ts-sub-text">abc</sub>
+                        </div>
+                        <div data-value="3" class="col-xs-4">
+                            <span>3</span>
+                            <sub class="ts-sub-text">def</sub>
+                        </div>
+                    </div>
+
+                    <div data-line="2" class="row">
+                        <div data-value="4" class="col-xs-4">
+                            <span>4</span>
+                            <sub class="ts-sub-text">ghi</sub>
+                        </div>
+                        <div data-value="5" class="col-xs-4">
+                            <span>5</span>
+                            <sub class="ts-sub-text">jkl</sub>
+                        </div>
+                        <div data-value="6" class="col-xs-4">
+                            <span>6</span>
+                            <sub class="ts-sub-text">mno</sub>
+                        </div>
+                    </div>
+
+                    <div data-line="3" class="row">
+                        <div data-value="7" class="col-xs-4">
+                            <span>7</span>
+                            <sub class="ts-sub-text">pqrs</sub>
+                        </div>
+                        <div data-value="8" class="col-xs-4">
+                            <span>8</span>
+                            <sub class="ts-sub-text">tuv</sub>
+                        </div>
+                        <div data-value="9" class="col-xs-4">
+                            <span>9</span>
+                            <sub class="ts-sub-text">wxyz</sub>
+                        </div>
+                    </div>
+
+                    <div data-line="4" class="row">
+                        <div data-value="*" class="col-xs-4">
+                            <span>*</span>
+                        </div>
+                        <div data-value="0" class="col-xs-4">
+                            <span>0</span>
+                            <sub>+</sub>
+                        </div>
+                        <div data-value="#" class="col-xs-4">
+                            <span>#</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--SUB FOOTER-->
+            <!--data-id="sub-footer"-->
+            <div data-id="sub-footer" class="ts-sub-footer">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a center right-border" onclick="var number=getDialedNumber(); doWifiCall(number);">
+                        <a href="#" class="ts-icon-button btn">
+                            <img src="img/icons/phone-wifi.png" />
+                        </a>
+                    </div>
+                    <div id="open" class="ui-block-b center" onclick="var number=getDialedNumber(); doCellularCall(number);">
+                        <a href="#" class="ts-icon-button btn">
+                            <img src="img/icons/phone.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!--FOOTER-->
+            <!--data-id="footer"-->
+            <div data-id="footer" data-role="footer" class="ts-footer">
+                <div class="ui-grid-c">
+                    <div class="ui-block-a" onclick="doVideoCall();">
+                        <a href="#" class="ts-icon-button btn">
+                            <img src="img/icons/tv.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-b" onclick="doPhoneContacts();">
+                        <a href="#" class="ts-icon-button btn">
+                            <img src="img/icons/contacts.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-c" onclick="doCallLogs();">
+                        <a href="#" class="ts-icon-button btn">
+                            <img src="img/icons/logs.png" />
+                        </a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href='#' onclick="doSettings();" class="ts-icon-button btn">
+                            <img src="img/icons/settings.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Dialog only page -->
+<div data-role="dialog" class="dialog">
+    <div data-role="content">
+        <button id="wifi-choice" class="confirm" onclick="var number=global.get('dialedNumber'); doWifiCall(number);" tabindex="4" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">WiFi Call via ncdCLOUD</button>
+
+        <button id="calling-card" class="confirm" onclick="var number=global.get('dialedNumber'); doCallingCard(number);" tabindex="3" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via access number</button>
+
+        <button id="cellular-call" class="confirm" onclick="var number=global.get('dialedNumber'); window.cellularCall(number, function (message) {});" tabindex="2" style="background-color: rgb(221, 107, 85); box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;">Dial via native phone</button>
+    </div>
+</div>
+
+<!--<a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Sign in</a>-->
+<!--<div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all" style="display: none">
+    <form>
+        <div style="padding:10px 20px;">
+            <h3>Please sign in</h3>
+            <label for="un" class="ui-hidden-accessible">Username:</label>
+            <input name="user" id="un" value="" placeholder="username" data-theme="a" type="text">
+            <label for="pw" class="ui-hidden-accessible">Password:</label>
+            <input name="pass" id="pw" value="" placeholder="password" data-theme="a" type="password">
+            <button type="submit" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check">Sign in</button>
+        </div>
+    </form>
+</div>-->
+
+        <!--SCRIPT-->
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script>
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
+        <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery.caret.js"></script>
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+
+        <script type="text/javascript">
+                        app.initialize();
+        </script>
+    </body>
+</html>

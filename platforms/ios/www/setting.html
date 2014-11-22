@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Yarn - Setting</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/setting.css" />
+        <link rel="stylesheet" type="text/css" href="css/color.css" />
+        <link href="img/icons/logo.png" rel="icon" />
+
+        <!--SCRIPT-->
+        <!--ONLY IN SETTING PAGE BECAUSE OF MICROFICHE-->
+        <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+                $.mobile.autoInitializePage = false;
+            });
+        </script>
+        <script type="text/javascript" src="js/microfiche.js"></script>
+        <!--<script type="text/javascript" src="js/jquery.mobile.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+        <script type="text/javascript" src="js/slider_handler.js"></script>
+        <script type="text/javascript" src="js/setting_slider.js"></script>
+    </head>
+    <body>
+        <!--HEADER-->
+        <section id="header">
+            <a href="#" onclick="linkHandler()">
+                <img class="pull-right" src="img/login/login-logo.png" alt="logo" />
+            </a>
+        </section>
+
+        <!--SETTING OPTIONS-->
+        <section id="options" class="container">
+            <div id="presenceWrapper" data-type="wrapper">
+                <div class="title grey">Presence</div>
+                <div data-type='inner-wrapper'>
+                    <script>
+//                        presenceData = {
+//                            images: [
+//                                'img/settings-images/settings_gbp_presence_nga.png',
+//                                'img/settings-images/settings_gbp_presence_usa.png'
+//                            ]
+//                        };
+                        sliderGenerator('presence', presenceData);
+                    </script>
+                </div>
+            </div>
+            <div id="calleridWrapper" data-type="wrapper">
+                <div class="title grey">CallerID</div>
+                <div data-type='inner-wrapper'>
+                    <script>
+                        callerData = {
+                            images: [
+                                'img/settings-images/settings_callerid_auto.png',
+                                'img/settings-images/settings_callerid_nga.png',
+                                'img/settings-images/settings_callerid_uk.png',
+                                'img/settings-images/settings_callerid_usa.png',
+                                'img/settings-images/settings_callerid_hide.png'
+                            ]
+                        };
+                        sliderGenerator('callerid', callerData);
+                    </script>
+                </div>
+            </div>
+            <div id="accessWrapper" data-type="wrapper">
+                <div class="title grey">Access Number Dial-out</div>
+                <div data-type='inner-wrapper'>
+                    <script>
+                        accessData = {
+                            images: [
+                                'img/settings-images/settings_off.png',
+                                'img/settings-images/settings_uk_landline.png',
+                                'img/settings-images/settings_usa_landline.png',
+                                'img/settings-images/settings_cad_landline.png',
+                                'img/settings-images/settings_nga_landline.png'
+                            ]
+                        };
+                        sliderGenerator('access', accessData);
+                    </script>
+                </div>
+            </div>
+            <div id="roamingWrapper" data-type="wrapper">
+                <div class="title grey">Roaming</div>
+                <div data-type='inner-wrapper'>
+                    <script>
+                        roamingData = {
+                            images: [
+                                'img/settings-images/settings_cellular.png',
+                                'img/settings-images/settings_wifi.png'
+                            ]
+                        };
+                        sliderGenerator('roaming', roamingData);
+                    </script>
+                </div>
+            </div>
+        </section>
+
+        <!--FOOTER-->
+        <section id="footer" class="container">
+            <div class="btn-group-wrapper center">
+                <a href="#" onclick="save_settings()" class="btn-submit bg-orange white">
+                    SAVE CHANGES
+                </a>
+                <div class="center footer-02">
+                    <a href="index.html" class="sign-up grey" style='padding-right: 10px;'>don't save changes</a>
+                    <a href="#" class="sign-up red" onclick="doSignOut()">sign-out</a>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript" src="js/setting.js"></script>
+    </body>
+</html>
