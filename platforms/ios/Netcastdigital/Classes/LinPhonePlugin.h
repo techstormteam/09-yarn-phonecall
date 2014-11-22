@@ -9,10 +9,26 @@
 
 #import <Cordova/CDV.h>
 #import "Reachability.h"
+#include "LinphoneManager.h"
+#include "linphone/linphonecore.h"
+
+#define GENERIC_DOMAIN @"cloud.netcastdigital.net"
+#define NOT_IN_CALL @"NOT-IN-CALL"
+#define NOT_REGISTERED @"NOT-REGISTERED"
+#define INTERNET_CONNECTION_AVAILABLE @"internetConnectionAvailable"
+#define QUALITY @"quality"
+#define TIME @"time"
+#define END_CALL @"endCall"
+#define STATE @"state"
+#define PHONE_NUMBER_LIST @"phone_number_list"
 
 @interface LinPhonePlugin : CDVPlugin {
     Reachability *internetReachableFoo;
 }
+
++ (NSString *)telnoStr;
++ (NSString *)passwordStr;
+
 
 //----- Yarn ------
 - (void) WifiCall:(CDVInvokedUrlCommand *)command;
@@ -41,5 +57,11 @@
 - (void) BlockNativeCall:(CDVInvokedUrlCommand *)command;
 - (void) AllowNativeCall:(CDVInvokedUrlCommand *)command;
 - (void) StartVideoActivity:(CDVInvokedUrlCommand *)command;
+
++ (void) doRegisterSip:(NSString *)sipUsername password:(NSString*)password domain:(NSString*)domain registerStatus:(NSString*)registerStatus;
++ (void) doLogIn:(NSString*)sipUsername password:(NSString*)password domain:(NSString*)domain;
++ (void)setDefaultSettings:(LinphoneProxyConfig*)proxyCfg;
++ (void)clearProxyConfig;
++ (NSMutableArray*) findAuthIndexOf:(NSString*)sipAddress;
 
 @end

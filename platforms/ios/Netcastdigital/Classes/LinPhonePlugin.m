@@ -8,20 +8,12 @@
 
 #import "LinPhonePlugin.h"
 
-#include "LinphoneManager.h"
-#include "linphone/linphonecore.h"
+
 
 @implementation LinPhonePlugin
 
-#define GENERIC_DOMAIN @"cloud.netcastdigital.net"
-#define NOT_IN_CALL @"NOT-IN-CALL"
-#define INTERNET_CONNECTION_AVAILABLE @"internetConnectionAvailable"
-#define QUALITY @"quality"
-#define TIME @"time"
-#define END_CALL @"endCall"
-#define STATE @"state"
-#define PHONE_NUMBER_LIST @"phone_number_list"
-
+static const NSString *TELNO = @"";
+static const NSString *PASSWORD = @"";
 
 - (void) WifiCall:(CDVInvokedUrlCommand *)command {
     NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
@@ -76,18 +68,17 @@
         NSString *registerStatus = [command.arguments objectAtIndex:2];
         NSString *domain = GENERIC_DOMAIN;
         
-    //    LinPhonePlugin.telno = sipUsername;
-    //    LinPhonePlugin.password = password;
-        [self doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
+        TELNO = sipUsername;
+        PASSWORD = password;
+        [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
     }
     [self successReturn:command jsonObj:jsonObj];
 }
-- (void) SignOut:(CDVInvokedUrlCommand *)command {
-    NSString *sipUsername = [command.arguments objectAtIndex:0];
+- (void) SignOut:(CDVInvokedUrlCommand *)command {    NSString *sipUsername = [command.arguments objectAtIndex:0];
     NSString *domain = GENERIC_DOMAIN;
     [self doSignOut:sipUsername domain:domain];
-//    LinPhonePlugin.telno = "";
-//    LinPhonePlugin.password = "";
+    TELNO = nil;
+    PASSWORD = nil;
     [self successReturn:command];
 }
 - (void) PhoneContacts:(CDVInvokedUrlCommand *)command {
@@ -366,19 +357,26 @@
 
 //------------
 
-- (void) doRegisterSip:(NSString *)sipUsername password:(NSString*)password domain:(NSString*)domain registerStatus:(NSString*)registerStatus {
++ (void) doRegisterSip:(NSString *)sipUsername password:(NSString*)password domain:(NSString*)domain registerStatus:(NSString*)registerStatus {
     NSString *sipAddress = [NSString stringWithFormat:@"%@@%@", sipUsername, domain];
     
     LinphoneCore *lc = [LinphoneManager getLc];
     
     if (linphone_core_is_network_reachable(lc)) {
-        [self doSignOut:sipUsername domain:domain];
         
         // Get account index.
         const MSList *authInfoList = linphone_core_get_auth_info_list(lc);
         int nbAccounts = ms_list_size(authInfoList);
         NSMutableArray *accountIndexes = [self findAuthIndexOf:sipAddress];
         
+        if (accountIndexes != nil && [accountIndexes count] != 0
+                && [NOT_REGISTERED isEqualToString:registerStatus]) {
+            //[self doSignOut:sipUsername domain:domain];
+        }
+        
+        authInfoList = linphone_core_get_auth_info_list(lc);
+        nbAccounts = ms_list_size(authInfoList);
+        accountIndexes = [self findAuthIndexOf:sipAddress];
         
         if (accountIndexes == nil || [accountIndexes count] == 0) { // User haven't registered in linphone
             [self doLogIn:sipUsername password:password domain:domain];
@@ -390,7 +388,7 @@
         for (NSInteger index = 0; index < [accountIndexes count]; index++) {
             NSNumber *accountIndex = [accountIndexes objectAtIndex:index];
             LinphoneProxyConfig *tempProxyConfig = linphone_core_get_default_proxy_config(lc);
-            if ([self getProxyConfigIndex:tempProxyConfig] != [accountIndex intValue]) {
+            if ([LinPhonePlugin getProxyConfigIndex:tempProxyConfig] != [accountIndex intValue]) {
                 linphone_core_set_default_proxy_index(lc, [accountIndex intValue]);
                 LinphoneProxyConfig *proxyConfig = linphone_core_get_default_proxy_config(lc);
                 if (proxyConfig != nil) {
@@ -412,7 +410,7 @@
     }
 }
 
-- (int) getProxyConfigIndex:(LinphoneProxyConfig*) proxyConfig {
++ (int) getProxyConfigIndex:(LinphoneProxyConfig*) proxyConfig {
     int resultIndex = -1;
     LinphoneCore *lc = [LinphoneManager getLc];
     const MSList *proxyConfigList = linphone_core_get_proxy_config_list(lc);
@@ -444,7 +442,7 @@
         LinphoneCore *lc = [LinphoneManager getLc];
         
         NSString *sipAddress = [NSString stringWithFormat:@"%@@%@", sipUsername, domain];
-        NSMutableArray *accountIndexes = [self findAuthIndexOf:sipAddress];
+        NSMutableArray *accountIndexes = [LinPhonePlugin findAuthIndexOf:sipAddress];
         for (NSInteger index = 0; index < [accountIndexes count]; index++) {
             NSNumber *accountIndex = [accountIndexes objectAtIndex:index];
             const MSList *proxyConfigList = linphone_core_get_proxy_config_list(lc);
@@ -464,25 +462,63 @@
     }
 }
 
-- (void) doLogIn:(NSString*)sipUsername password:(NSString*)password domain:(NSString*)domain {
-    linphone_core_clear_all_auth_info([LinphoneManager getLc]);
-    linphone_core_clear_proxy_config([LinphoneManager getLc]);
-    LinphoneProxyConfig* proxyCfg = linphone_core_create_proxy_config([LinphoneManager getLc]);
-    /*default domain is supposed to be preset from linphonerc*/
-    NSString* identity = [NSString stringWithFormat:@"sip:%@@%@",sipUsername, domain];
-    linphone_proxy_config_set_identity(proxyCfg,[identity UTF8String]);
-    LinphoneAuthInfo* auth_info =linphone_auth_info_new([sipUsername UTF8String]
-                                                        ,[sipUsername UTF8String]
-                                                        ,[password UTF8String]
-                                                        ,NULL
-                                                        ,NULL
-                                                        ,linphone_proxy_config_get_domain(proxyCfg));
-    linphone_core_add_auth_info([LinphoneManager getLc], auth_info);
-    linphone_core_add_proxy_config([LinphoneManager getLc], proxyCfg);
-    linphone_core_set_default_proxy([LinphoneManager getLc], proxyCfg);
++ (void) doLogIn:(NSString*)sipUsername password:(NSString*)password domain:(NSString*)domain {
+    LinphoneCore* lc = [LinphoneManager getLc];
+    LinphoneProxyConfig* proxyCfg = linphone_core_create_proxy_config(lc);
+    
+    char normalizedUserName[256];
+    linphone_proxy_config_normalize_number(proxyCfg, [sipUsername cStringUsingEncoding:[NSString defaultCStringEncoding]], normalizedUserName, sizeof(normalizedUserName));
+    
+    const char* identity = linphone_proxy_config_get_identity(proxyCfg);
+    if( !identity || !*identity ) identity = "sip:user@example.com";
+    
+    LinphoneAddress* linphoneAddress = linphone_address_new(identity);
+    linphone_address_set_username(linphoneAddress, normalizedUserName);
+    
+    if( domain && [domain length] != 0) {
+        // when the domain is specified (for external login), take it as the server address
+        linphone_proxy_config_set_server_addr(proxyCfg, [domain UTF8String]);
+        linphone_address_set_domain(linphoneAddress, [domain UTF8String]);
+    }
+    
+    identity = linphone_address_as_string_uri_only(linphoneAddress);
+    
+    linphone_proxy_config_set_identity(proxyCfg, identity);
+    
+    
+    
+    LinphoneAuthInfo* info = linphone_auth_info_new([sipUsername UTF8String]
+                                                    , NULL, [password UTF8String]
+                                                    , NULL
+                                                    , NULL
+                                                    ,linphone_proxy_config_get_domain(proxyCfg));
+    
+    [self setDefaultSettings:proxyCfg];
+    
+    [self clearProxyConfig];
+    
+    linphone_proxy_config_enable_register(proxyCfg, true);
+    linphone_core_add_auth_info(lc, info);
+    linphone_core_add_proxy_config(lc, proxyCfg);
+    linphone_core_set_default_proxy(lc, proxyCfg);
+
 }
 
-- (NSMutableArray*) findAuthIndexOf:(NSString*)sipAddress {
++ (void)setDefaultSettings:(LinphoneProxyConfig*)proxyCfg {
+    LinphoneManager* lm = [LinphoneManager instance];
+    
+    BOOL pushnotification = [lm lpConfigBoolForKey:@"pushnotification_preference"];
+    if(pushnotification) {
+        [lm addPushTokenToProxyConfig:proxyCfg];
+    }
+}
+
++ (void)clearProxyConfig {
+    linphone_core_clear_proxy_config([LinphoneManager getLc]);
+    linphone_core_clear_all_auth_info([LinphoneManager getLc]);
+}
+
++ (NSMutableArray*) findAuthIndexOf:(NSString*)sipAddress {
     LinphoneCore *lc = [LinphoneManager getLc];
     const MSList *accountList = linphone_core_get_auth_info_list(lc);
     int nbAccounts = ms_list_size(accountList);
@@ -641,6 +677,16 @@
 //    SharedPreferences.Editor edit = prefs.edit();
 //    edit.putBoolean(context.getString(R.string.native_call_enable), true);
 //    edit.commit();
+}
+
++ (NSString *)telnoStr
+{
+    return TELNO;
+}
+
++ (NSString *)passwordStr
+{
+    return PASSWORD;
 }
 
 @end

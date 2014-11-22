@@ -41,6 +41,8 @@
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"
 
+#include "LinPhonePlugin.h"
+
 #import <Cordova/CDVPlugin.h>
 
 @implementation AppDelegate
@@ -161,10 +163,26 @@
     }
     if (bgStartId!=UIBackgroundTaskInvalid) [[UIApplication sharedApplication] endBackgroundTask:bgStartId];
     
+    timerAppBG = [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(applicationWillResign) userInfo:nil repeats:YES];
     
-    
-    
+    [self enableCodecs:linphone_core_get_audio_codecs([LinphoneManager getLc])];
+    [self enableCodecs:linphone_core_get_video_codecs([LinphoneManager getLc])];
     return YES;
+}
+
+- (void)enableCodecs: (const MSList *)codecs {
+    LinphoneCore *lc=[LinphoneManager getLc];
+    const MSList *elem=codecs;
+    for(;elem!=NULL;elem=elem->next){
+        PayloadType *pt=(PayloadType*)elem->data;
+        NSString *pref=[LinphoneManager getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+        if (pref){
+            linphone_core_enable_payload_type(lc,pt,YES);
+        }else{
+            [LinphoneLogger logc:LinphoneLoggerWarning format:"Codec %s/%i supported by core is not shown in iOS app config view.",
+             pt->mime_type,pt->clock_rate];
+        }
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -201,6 +219,44 @@
     [[LinphoneManager instance] destroyLibLinphone];
     [[LinphoneManager instance] startLibLinphone];
     
+}
+
+- (bool) registerLoop {
+    NSString *sipUsername = [LinPhonePlugin telnoStr];
+    NSString *password = [LinPhonePlugin passwordStr];
+    if ([LinPhonePlugin telnoStr] != nil && ![[LinPhonePlugin telnoStr] isEqualToString:@""] ) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://portal.netcastdigital.net/getInfo.php?cmd=_app_state&telno=%@&password=%@", [LinPhonePlugin telnoStr], [LinPhonePlugin passwordStr]]];
+            NSLog(@"URL : %@",url);
+            NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+            id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSMutableArray *results = object;
+            for (int x=0; x<results.count; x++)
+            {
+                NSDictionary *mDico = [results objectAtIndex:x];
+                
+    //            News *newsObj = [[News alloc] init];
+    //            [newsObj setTitle:[mDico objectForKey:@"title"]];
+    //            [newsObj setDescription:[mDico objectForKey:@"description"]];
+    //            [newsObj setImage:[mDico objectForKey:@"image"]];
+    //            [newsObjects addObject:newsObj];
+                
+            }
+                
+    //        LinphonePreferences mPrefs = LinphonePreferences.instance();
+    //        String sipUsername = LinPhonePlugin.telno;
+    //        String domain = context.getResources().getString(
+    //                                                         R.string.sip_domain_default);
+    //        String password = LinPhonePlugin.password;
+        
+    //        JSONObject objJSON = new JSONObject();
+    //    NSString *sipUsername = [LinPhonePlugin telnoStr];
+    //    NSString *password = [LinPhonePlugin passwordStr];
+        NSString *domain = GENERIC_DOMAIN;
+        NSString *registerStatus = @"";
+        [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
+    }
+    
+    return YES;
 }
 
 - (UIUserNotificationCategory*)getMessageNotificationCategory {
@@ -295,6 +351,20 @@
     }
 }
 
+- (void) applicationWillResign
+{
+//    [self registerLoop];
+    [self myVcInitMethod];
+}
+
+- (void) myVcInitMethod
+{
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationWillResign)
+     name:UIApplicationWillResignActiveNotification
+     object:NULL];
+}
 
 // this happens while we are running ( in the background, or from within our own app )
 // only valid if Netcastdigital-Info.plist specifies a protocol to handle
@@ -361,6 +431,7 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+    
     Linphone_log(@"%@", NSStringFromSelector(_cmd));
     LinphoneCore* lc = [LinphoneManager getLc];
     LinphoneCall* call = linphone_core_get_current_call(lc);

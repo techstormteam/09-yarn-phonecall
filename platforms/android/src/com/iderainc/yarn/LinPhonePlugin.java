@@ -82,8 +82,6 @@ public class LinPhonePlugin extends CordovaPlugin implements
 			this.cordova.getActivity().runOnUiThread(new Runnable() {
 				public void run() {
 					try {
-						
-						
 						JSONObject objJSON = new JSONObject();
 						String address = (String) args.get(0);
 						AddressText mAddress = new AddressText(context, null);

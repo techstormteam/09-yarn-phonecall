@@ -34,6 +34,7 @@
     @private
     UIBackgroundTaskIdentifier bgStartId;
     BOOL startedInBackground;
+    NSTimer *timerAppBG;
 }
 
 // invoke string is passed to your app on launch, this is only valid if you
