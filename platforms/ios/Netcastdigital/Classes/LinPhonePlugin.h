@@ -63,5 +63,6 @@
 + (void)setDefaultSettings:(LinphoneProxyConfig*)proxyCfg;
 + (void)clearProxyConfig;
 + (NSMutableArray*) findAuthIndexOf:(NSString*)sipAddress;
++ (void) doSignOut:(NSString*)sipUsername domain:(NSString*)domain;
 
 @end

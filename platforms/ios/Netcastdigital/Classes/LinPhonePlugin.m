@@ -76,7 +76,7 @@ static const NSString *PASSWORD = @"";
 }
 - (void) SignOut:(CDVInvokedUrlCommand *)command {    NSString *sipUsername = [command.arguments objectAtIndex:0];
     NSString *domain = GENERIC_DOMAIN;
-    [self doSignOut:sipUsername domain:domain];
+    [LinPhonePlugin doSignOut:sipUsername domain:domain];
     TELNO = nil;
     PASSWORD = nil;
     [self successReturn:command];
@@ -371,7 +371,7 @@ static const NSString *PASSWORD = @"";
         
         if (accountIndexes != nil && [accountIndexes count] != 0
                 && [NOT_REGISTERED isEqualToString:registerStatus]) {
-            //[self doSignOut:sipUsername domain:domain];
+            [LinPhonePlugin doSignOut:sipUsername domain:domain];
         }
         
         authInfoList = linphone_core_get_auth_info_list(lc);
@@ -437,7 +437,7 @@ static const NSString *PASSWORD = @"";
 
 
 
-- (void) doSignOut:(NSString*)sipUsername domain:(NSString*)domain {
++ (void) doSignOut:(NSString*)sipUsername domain:(NSString*)domain {
     if ([LinphoneManager isLcReady]) {
         LinphoneCore *lc = [LinphoneManager getLc];
         
