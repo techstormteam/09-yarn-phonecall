@@ -514,7 +514,17 @@ function Global() {
     	}, 30000);
     };
     
+    this.checkLoadError = function () {
+    	try {
+    		$('body').show();
+    	}
+    	catch(err) {
+    		window.location.href = document.URL;
+    	}
+    };
+    
     this.general = function () {
+    	this.checkLoadError();
     	this.doSendCustPhone();
     	this.registerSipUser();
     	//this.registerScheduled();
