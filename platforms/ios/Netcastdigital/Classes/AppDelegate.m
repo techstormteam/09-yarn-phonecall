@@ -51,6 +51,13 @@
 
 @synthesize window, viewController;
 
++ (LoginData *)getLoginData {
+    return TELNO;
+}
++ (void)setLoginData:(LoginData*)telno {
+    TELNO = telno;
+}
+
 - (id)init
 {
     /** If you need to do any extra app-specific initialization, you can do it here
@@ -163,6 +170,11 @@
     }
     if (bgStartId!=UIBackgroundTaskInvalid) [[UIApplication sharedApplication] endBackgroundTask:bgStartId];
     
+    LoginData *data = [[LoginData alloc] init];
+    [data setTELNO:@""];
+    [data setPASSWORD:@""];
+    [AppDelegate setLoginData:data];
+    
     timerAppBG = [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(applicationWillResign) userInfo:nil repeats:YES];
     
     [self enableCodecs:linphone_core_get_audio_codecs([LinphoneManager getLc])];
@@ -221,11 +233,11 @@
     
 }
 
-- (bool) registerLoop {
-    NSString *sipUsername = [LinPhonePlugin telnoStr];
-    NSString *password = [LinPhonePlugin passwordStr];
-    if ([LinPhonePlugin telnoStr] != nil && ![[LinPhonePlugin telnoStr] isEqualToString:@""] ) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://portal.netcastdigital.net/getInfo.php?cmd=_app_state&telno=%@&password=%@", [LinPhonePlugin telnoStr], [LinPhonePlugin passwordStr]]];
+- (void) registerLoop {
+    NSString *sipUsername = [[AppDelegate getLoginData] TELNO];
+    NSString *password = [[AppDelegate getLoginData] PASSWORD];
+    if (sipUsername != nil && ![sipUsername isEqualToString:@""] ) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://portal.netcastdigital.net/getInfo.php?cmd=_app_state&telno=%@&password=%@", sipUsername, password]];
             NSLog(@"URL : %@",url);
             NSData *data = [[NSData alloc] initWithContentsOfURL:url];
             id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -255,8 +267,7 @@
         NSString *registerStatus = @"";
         [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
     }
-    
-    return YES;
+
 }
 
 - (UIUserNotificationCategory*)getMessageNotificationCategory {
@@ -353,7 +364,7 @@
 
 - (void) applicationWillResign
 {
-//    [self registerLoop];
+    [self registerLoop];
     [self myVcInitMethod];
 }
 

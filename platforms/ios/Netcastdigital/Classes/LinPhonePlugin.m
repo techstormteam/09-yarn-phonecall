@@ -12,8 +12,7 @@
 
 @implementation LinPhonePlugin
 
-static const NSString *TELNO = @"";
-static const NSString *PASSWORD = @"";
+
 
 - (void) WifiCall:(CDVInvokedUrlCommand *)command {
     NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
@@ -49,7 +48,7 @@ static const NSString *PASSWORD = @"";
     
     [self doBlockNativeCall];
     
-    [self doCellularCall:(NSString*)phoneNumber] ;
+    [self doCellularCall:(NSString*)phoneNumber];
     [self successReturn:command];
 }
 - (void) VideoCall:(CDVInvokedUrlCommand *)command {
@@ -68,8 +67,11 @@ static const NSString *PASSWORD = @"";
         NSString *registerStatus = [command.arguments objectAtIndex:2];
         NSString *domain = GENERIC_DOMAIN;
         
-        TELNO = sipUsername;
-        PASSWORD = password;
+        LoginData *data = [[LoginData alloc] init];
+        [data setTELNO:sipUsername];
+        [data setPASSWORD:password];
+        [AppDelegate setLoginData:data];
+
         [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
     }
     [self successReturn:command jsonObj:jsonObj];
@@ -77,8 +79,10 @@ static const NSString *PASSWORD = @"";
 - (void) SignOut:(CDVInvokedUrlCommand *)command {    NSString *sipUsername = [command.arguments objectAtIndex:0];
     NSString *domain = GENERIC_DOMAIN;
     [LinPhonePlugin doSignOut:sipUsername domain:domain];
-    TELNO = nil;
-    PASSWORD = nil;
+    LoginData *data = [[LoginData alloc] init];
+    [data setTELNO:@""];
+    [data setPASSWORD:@""];
+    [AppDelegate setLoginData:data];
     [self successReturn:command];
 }
 - (void) PhoneContacts:(CDVInvokedUrlCommand *)command {
@@ -679,14 +683,5 @@ static const NSString *PASSWORD = @"";
 //    edit.commit();
 }
 
-+ (NSString *)telnoStr
-{
-    return TELNO;
-}
-
-+ (NSString *)passwordStr
-{
-    return PASSWORD;
-}
 
 @end

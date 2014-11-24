@@ -219,6 +219,7 @@
 		C9C8254915AE204D00D493FA /* transfer_call_over.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254215AE204D00D493FA /* transfer_call_over.png */; };
 		C9C8254C15AE207B00D493FA /* options_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254B15AE207B00D493FA /* options_selected.png */; };
 		C9C8254F15AE256100D493FA /* transfer_call_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C8254E15AE256100D493FA /* transfer_call_disabled.png */; };
+		D03D468C1A23611500D0AC3A /* LoginData.m in Sources */ = {isa = PBXBuildFile; fileRef = D03D468B1A23611500D0AC3A /* LoginData.m */; };
 		D0857E2B1A15065700CEC2E3 /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EB64EB1A14888F000E9ABC /* libCordova.a */; };
 		D0B112F71A20109600B25FAC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B112F61A20109600B25FAC /* Reachability.m */; };
 		D0EB64EE1A14893E000E9ABC /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = D0EB64ED1A14893E000E9ABC /* config.xml */; };
@@ -1708,6 +1709,8 @@
 		C9C8254215AE204D00D493FA /* transfer_call_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transfer_call_over.png; path = Resources/transfer_call_over.png; sourceTree = "<group>"; };
 		C9C8254B15AE207B00D493FA /* options_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = options_selected.png; path = Resources/options_selected.png; sourceTree = "<group>"; };
 		C9C8254E15AE256100D493FA /* transfer_call_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = transfer_call_disabled.png; path = Resources/transfer_call_disabled.png; sourceTree = "<group>"; };
+		D03D468B1A23611500D0AC3A /* LoginData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginData.m; sourceTree = "<group>"; };
+		D03D468E1A23612E00D0AC3A /* LoginData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginData.h; sourceTree = "<group>"; };
 		D0B112F51A20109600B25FAC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D0B112F61A20109600B25FAC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		D0EB64E61A14888F000E9ABC /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
@@ -3034,6 +3037,8 @@
 				D0EB66AA1A1489FD000E9ABC /* MainViewController.h */,
 				D0EB66AB1A1489FD000E9ABC /* MainViewController.m */,
 				D0EB66AC1A1489FD000E9ABC /* MainViewController.xib */,
+				D03D468B1A23611500D0AC3A /* LoginData.m */,
+				D03D468E1A23612E00D0AC3A /* LoginData.h */,
 			);
 			name = Classes;
 			path = Netcastdigital/Classes;
@@ -5292,6 +5297,7 @@
 				D3807FEE15C2894A005BE9BC /* IASKSettingsReader.m in Sources */,
 				D3807FF015C2894A005BE9BC /* IASKSettingsStore.m in Sources */,
 				D3807FF215C2894A005BE9BC /* IASKSettingsStoreFile.m in Sources */,
+				D03D468C1A23611500D0AC3A /* LoginData.m in Sources */,
 				D3807FF415C2894A005BE9BC /* IASKSettingsStoreUserDefaults.m in Sources */,
 				D3807FF615C2894A005BE9BC /* IASKSpecifier.m in Sources */,
 				D3807FF815C2894A005BE9BC /* IASKPSSliderSpecifierViewCell.m in Sources */,

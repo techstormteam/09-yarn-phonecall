@@ -29,6 +29,7 @@
 
 
 #import <Cordova/CDVViewController.h>
+#import "LoginData.h"
 
 @interface AppDelegate : NSObject <UIApplicationDelegate>{
     @private
@@ -46,5 +47,10 @@
 @property (nonatomic, strong) IBOutlet CDVViewController* viewController;
 @property (nonatomic, retain) NSString *configURL;
 @property (nonatomic, retain) UIAlertView *waitingIndicator;
+
+@property (nonatomic, assign) LoginData *TELNO;
+
++ (LoginData *)getLoginData;
++ (void)setLoginData:(LoginData*)telno;
 
 @end

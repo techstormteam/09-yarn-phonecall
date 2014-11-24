@@ -514,7 +514,7 @@ function Global() {
     	}, 30000);
     };
     
-    this.checkLoadError = function () {
+    this.checkLoadError = function () { // this fix white/black screen bug.
     	try {
     		$('body').show();
     	}

@@ -350,6 +350,7 @@ public class Yarn extends CordovaActivity implements
 		if (extras.containsKey("page")) {
 			String page =  extras.getString("page");
 			loadUrl(page);
+			getIntent().removeExtra("page");
 		}
 		if (extras.containsKey("callLogPhoneNumber")) {
 			String phoneNumber =  extras.getString("callLogPhoneNumber");

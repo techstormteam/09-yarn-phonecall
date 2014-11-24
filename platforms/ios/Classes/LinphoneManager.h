@@ -119,6 +119,7 @@ typedef struct _LinphoneManagerSounds {
     CallContext currentCallContextBeforeGoingBackground;
 }
 + (LinphoneManager*)instance;
+
 #ifdef DEBUG
 + (void)instanceRelease;
 #endif

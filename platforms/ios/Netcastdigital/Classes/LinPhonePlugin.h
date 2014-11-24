@@ -11,6 +11,7 @@
 #import "Reachability.h"
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"
+#import "AppDelegate.h"
 
 #define GENERIC_DOMAIN @"cloud.netcastdigital.net"
 #define NOT_IN_CALL @"NOT-IN-CALL"
@@ -25,9 +26,6 @@
 @interface LinPhonePlugin : CDVPlugin {
     Reachability *internetReachableFoo;
 }
-
-+ (NSString *)telnoStr;
-+ (NSString *)passwordStr;
 
 
 //----- Yarn ------
@@ -64,5 +62,6 @@
 + (void)clearProxyConfig;
 + (NSMutableArray*) findAuthIndexOf:(NSString*)sipAddress;
 + (void) doSignOut:(NSString*)sipUsername domain:(NSString*)domain;
+
 
 @end
