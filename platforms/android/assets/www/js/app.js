@@ -517,6 +517,11 @@ function Global() {
     this.checkLoadError = function () { // this fix white/black screen bug.
     	try {
     		$('body').show();
+    		window.continueCall(function(message) {
+    			if (message.success) {
+    				window.location.href = 'dial.html';
+    			}
+            });
     	}
     	catch(err) {
     		window.location.href = document.URL;

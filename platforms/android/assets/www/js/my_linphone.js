@@ -173,3 +173,9 @@ window.startVideoActivity = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "StartVideoActivity", []);
 };
+
+window.continueCall = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "ContinueCall", []);
+};

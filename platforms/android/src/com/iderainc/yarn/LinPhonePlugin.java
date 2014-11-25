@@ -3,6 +3,7 @@ package com.iderainc.yarn;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,8 +38,6 @@ import org.linphone.setup.EchoCancellerCalibrationFragment;
 import org.linphone.ui.AddressText;
 
 import android.annotation.SuppressLint;
-import android.app.KeyguardManager;
-import android.app.KeyguardManager.KeyguardLock;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -78,7 +77,38 @@ public class LinPhonePlugin extends CordovaPlugin implements
 	public boolean execute(String action, final JSONArray args,
 			final CallbackContext callbackContext) throws JSONException {
 		context = cordova.getActivity().getApplicationContext();
-		if (action.equals("WifiCall")) {
+		if (action.equals("ContinueCall")) {
+			this.cordova.getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					try {
+						JSONObject objJSON = new JSONObject();
+						objJSON.put("success", false);
+						LinphoneCore lc = LinphoneManager
+								.getLcIfManagerNotDestroyedOrNull();
+						if (lc.isNetworkReachable()) {
+							if (lc != null) {
+								LinphoneCall currentCall = lc.getCurrentCall();
+								if (currentCall != null && currentCall.getState() == State.Paused) {
+									pauseOrResumeCall(currentCall);
+//									appView.sendJavascript("window.location.href = 'dial.html';");
+									objJSON.put("success", true);
+								}
+							}
+						} else {
+							objJSON.put("internetConnectionAvailable", false);
+						}
+						PluginResult result = new PluginResult(Status.OK,
+								objJSON);
+						callbackContext.sendPluginResult(result);
+
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+
+			return true;
+		} else if (action.equals("WifiCall")) {
 			this.cordova.getActivity().runOnUiThread(new Runnable() {
 				public void run() {
 					try {
@@ -1232,6 +1262,45 @@ public class LinPhonePlugin extends CordovaPlugin implements
 		this.cordova.startActivityForResult(this, intent, PICK_CONTACT);
 	}
 
+	public void pauseOrResumeCall(LinphoneCall call) {
+		LinphoneCore lc = LinphoneManager.getLc();
+		if (call != null && LinphoneUtils.isCallRunning(call)) {
+			if (call.isInConference()) {
+				lc.removeFromConference(call);
+				if (lc.getConferenceSize() <= 1) {
+					lc.leaveConference();
+				}
+			} else {
+				lc.pauseCall(call);
+//				if (isVideoEnabled(LinphoneManager.getLc().getCurrentCall())) {
+//					isVideoCallPaused = true;
+//					showAudioView();
+//				}
+//				pause.setBackgroundResource(R.drawable.pause_on);
+			}
+		} else {
+			List<LinphoneCall> pausedCalls = LinphoneUtils.getCallsInState(lc, Arrays.asList(State.Paused));
+			if (pausedCalls.size() == 1) {
+				LinphoneCall callToResume = pausedCalls.get(0);
+				if ((call != null && callToResume.equals(call)) || call == null) {
+					lc.resumeCall(callToResume);
+//					if (isVideoCallPaused) {
+//						isVideoCallPaused = false;
+//						showVideoView();
+//					}
+//					pause.setBackgroundResource(R.drawable.pause_off);
+				}
+			} else if (call != null) {
+				lc.resumeCall(call);
+//				if (isVideoCallPaused) {
+//					isVideoCallPaused = false;
+//					showVideoView();
+//				}
+//				pause.setBackgroundResource(R.drawable.pause_off);
+			}
+		}
+	}
+	
 	private void callLogs(String balance) {
 		// Intent callIntent = new Intent(Intent.ACTION_PICK);
 		// callIntent.setData(Uri.parse("content://call_log/calls"));
