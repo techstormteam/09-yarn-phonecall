@@ -53,6 +53,7 @@ import android.preference.PreferenceManager;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -123,7 +124,7 @@ public class LinPhonePlugin extends CordovaPlugin implements
 							registerIfFailed(lc);
 							wifiCall(mAddress);
 							insertPlaceholderCall(context.getContentResolver(),
-									address);
+									address, CallLog.Calls.OUTGOING_TYPE);
 						} else {
 							objJSON.put("internetConnectionAvailable", false);
 						}
@@ -184,7 +185,7 @@ public class LinPhonePlugin extends CordovaPlugin implements
 							registerIfFailed(lc);
 							videoCall(mAddress);
 							insertPlaceholderCall(context.getContentResolver(),
-									address);
+									address, CallLog.Calls.OUTGOING_TYPE);
 						} else {
 							objJSON.put("internetConnectionAvailable", false);
 						}
@@ -654,9 +655,14 @@ public class LinPhonePlugin extends CordovaPlugin implements
 									.getString(R.string.phone_number_list),
 									defaultSet);
 							if (phoneSet != null && phoneSet.size() > 0) {
-								for (String phone : phoneSet) {
-									arrayJSON.put(phone);
+								TelephonyManager phoneManager = (TelephonyManager) 
+									    cordova.getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+									String phoneNumber = phoneManager.getLine1Number();
+//								for (String phone : phoneSet) {
+								for (int index = 0; index < phoneSet.size(); index++) {
+									arrayJSON.put(phoneNumber);
 								}
+//								}
 								phoneSet.clear();
 							}
 							objJSON.put(context
@@ -1031,13 +1037,13 @@ public class LinPhonePlugin extends CordovaPlugin implements
 		// });
 	}
 
-	public void insertPlaceholderCall(ContentResolver contentResolver,
-			String number) {
+	public static void insertPlaceholderCall(ContentResolver contentResolver,
+			String number, int callType) {
 		ContentValues values = new ContentValues();
 		values.put(CallLog.Calls.NUMBER, number);
 		values.put(CallLog.Calls.DATE, System.currentTimeMillis());
 		values.put(CallLog.Calls.DURATION, 0);
-		values.put(CallLog.Calls.TYPE, CallLog.Calls.OUTGOING_TYPE);
+		values.put(CallLog.Calls.TYPE, callType);
 		values.put(CallLog.Calls.NEW, 1);
 		values.put(CallLog.Calls.CACHED_NAME, "");
 		values.put(CallLog.Calls.CACHED_NUMBER_TYPE, 0);

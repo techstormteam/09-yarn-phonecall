@@ -34,11 +34,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iderainc.yarn.LinPhonePlugin;
 import com.iderainc.yarn.R;
 import com.iderainc.yarn.Yarn;
 
@@ -146,6 +148,7 @@ public class IncomingCallActivity extends Activity implements LinphoneOnCallStat
 	@Override
 	public void onCallStateChanged(LinphoneCall call, State state, String msg) {
 		if (call == mCall && State.CallEnd == state) {
+			LinPhonePlugin.insertPlaceholderCall(getContentResolver(), mCall.getCallLog().getFrom().getUserName(), CallLog.Calls.MISSED_TYPE);
 			finish();
 		}
 		if (state == State.StreamsRunning) {
@@ -172,6 +175,7 @@ public class IncomingCallActivity extends Activity implements LinphoneOnCallStat
 			// the above method takes care of Samsung Galaxy S
 			Toast.makeText(this, R.string.couldnt_accept_call, Toast.LENGTH_LONG).show();
 		} else {
+			LinPhonePlugin.insertPlaceholderCall(getContentResolver(), mCall.getCallLog().getFrom().getUserName(), CallLog.Calls.INCOMING_TYPE);
 			Intent intent = new Intent( this, Yarn.class );
 			intent.putExtra( "page", "file:///android_asset/www/dial.html" );
 			startActivity(intent);
