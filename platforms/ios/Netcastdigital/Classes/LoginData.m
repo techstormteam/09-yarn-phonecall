@@ -14,23 +14,23 @@
 
 - (NSString *)telnoStr
 {
-    return _TELNO;
+    return TELNO;
 }
 
 - (NSString *)passwordStr
 {
-    return _PASSWORD;
+    return PASSWORD;
 }
 
 
 - (void)setTelno:(NSString*)telno
 {
-    _TELNO = telno;
+    TELNO = telno;
 }
 
 - (void)setPassword:(NSString*)password
 {
-    _PASSWORD = password;
+    PASSWORD = password;
 }
 
 @end

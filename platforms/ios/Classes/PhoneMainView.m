@@ -333,6 +333,10 @@ static RootViewManager* rootViewManagerInstance = nil;
     }
 }
 
+- (void)changeToCallLogView {
+    [self changeCurrentView:[HistoryViewController compositeViewDescription]];
+}
+
 - (void)callUpdate:(NSNotification*)notif {
     LinphoneCall *call = [[notif.userInfo objectForKey: @"call"] pointerValue];
     LinphoneCallState state = [[notif.userInfo objectForKey: @"state"] intValue];

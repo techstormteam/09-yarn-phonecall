@@ -67,10 +67,8 @@
         NSString *registerStatus = [command.arguments objectAtIndex:2];
         NSString *domain = GENERIC_DOMAIN;
         
-        LoginData *data = [[LoginData alloc] init];
-        [data setTELNO:sipUsername];
-        [data setPASSWORD:password];
-        [AppDelegate setLoginData:data];
+        [[AppDelegate instance] setTelno:sipUsername];
+        [[AppDelegate instance] setPassword:password];
 
         [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
     }
@@ -79,10 +77,8 @@
 - (void) SignOut:(CDVInvokedUrlCommand *)command {    NSString *sipUsername = [command.arguments objectAtIndex:0];
     NSString *domain = GENERIC_DOMAIN;
     [LinPhonePlugin doSignOut:sipUsername domain:domain];
-    LoginData *data = [[LoginData alloc] init];
-    [data setTELNO:@""];
-    [data setPASSWORD:@""];
-    [AppDelegate setLoginData:data];
+    [[AppDelegate instance] setTelno:@""];
+    [[AppDelegate instance] setPassword:@""];
     [self successReturn:command];
 }
 - (void) PhoneContacts:(CDVInvokedUrlCommand *)command {
@@ -444,24 +440,125 @@
 + (void) doSignOut:(NSString*)sipUsername domain:(NSString*)domain {
     if ([LinphoneManager isLcReady]) {
         LinphoneCore *lc = [LinphoneManager getLc];
-        
-        NSString *sipAddress = [NSString stringWithFormat:@"%@@%@", sipUsername, domain];
-        NSMutableArray *accountIndexes = [LinPhonePlugin findAuthIndexOf:sipAddress];
-        for (NSInteger index = 0; index < [accountIndexes count]; index++) {
-            NSNumber *accountIndex = [accountIndexes objectAtIndex:index];
-            const MSList *proxyConfigList = linphone_core_get_proxy_config_list(lc);
-            if (proxyConfigList != nil) {
-                LinphoneProxyConfig *proxyConfig = ms_list_nth_data(proxyConfigList, [accountIndex intValue]);
-                linphone_proxy_config_enable_register(proxyConfig, false);
-                linphone_proxy_config_destroy(proxyConfig);
-            }
-        }
-        
-        const LinphoneAuthInfo* authInfo = linphone_core_find_auth_info(lc, NULL, [sipUsername UTF8String], [domain UTF8String]);
-        if (authInfo != nil) {
-            linphone_core_remove_auth_info(lc, authInfo);
-        }
-        [[LinphoneManager instance] refreshRegisters];
+//        int             expire = [self integerForKey:@"expire_preference"];
+//        BOOL        isWifiOnly = [self boolForKey:@"wifi_only_preference"];
+//        BOOL  pushnotification = [self boolForKey:@"pushnotification_preference"];
+//        NSString*       prefix = [self stringForKey:@"prefix_preference"];
+//        NSString* proxyAddress = [self stringForKey:@"proxy_preference"];
+//        
+//        LinphoneAuthInfo *info  = NULL;
+//        const char* route       = NULL;
+//        
+//        if( isWifiOnly && [LinphoneManager instance].connectivity == wwan ) expire = 0;
+//        
+//        if ((!proxyAddress || [proxyAddress length] <1 ) && domain) {
+//            proxyAddress = [NSString stringWithFormat:@"sip:%@",domain] ;
+//        } else {
+//            proxyAddress = [NSString stringWithFormat:@"sip:%@",proxyAddress] ;
+//        }
+//        
+//        char* proxy = ms_strdup([proxyAddress cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+//        LinphoneAddress* proxy_addr = linphone_address_new(proxy);
+//        
+//        if( proxy_addr ){
+//            LinphoneTransportType type = LinphoneTransportUdp;
+//            if      ( [transport isEqualToString:@"tcp"] ) type = LinphoneTransportTcp;
+//            else if ( [transport isEqualToString:@"tls"] ) type = LinphoneTransportTls;
+//            
+//            linphone_address_set_transport(proxy_addr, type);
+//            ms_free(proxy);
+//            proxy = linphone_address_as_string_uri_only(proxy_addr);
+//        }
+//        
+//        // use proxy as route if outbound_proxy is enabled
+//        route = isOutboundProxy? proxy : NULL;
+//        
+//        //possible valid config detected, try to modify current proxy or create new one if none existing
+//        linphone_core_get_default_proxy(lc, &proxyCfg);
+//        if( proxyCfg == NULL ){
+//            proxyCfg = linphone_core_create_proxy_config(lc);
+//        } else {
+//            isEditing = TRUE;
+//            linphone_proxy_config_edit(proxyCfg);
+//        }
+//        
+//        char normalizedUserName[256];
+//        LinphoneAddress* linphoneAddress = linphone_address_new("sip:user@domain.com");
+//        linphone_proxy_config_normalize_number(proxyCfg, [username cStringUsingEncoding:[NSString defaultCStringEncoding]], normalizedUserName, sizeof(normalizedUserName));
+//        linphone_address_set_username(linphoneAddress, normalizedUserName);
+//        linphone_address_set_domain(linphoneAddress, [domain cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+//        
+//        const char* identity = linphone_address_as_string_uri_only(linphoneAddress);
+//        const char* password = [accountPassword cStringUsingEncoding:[NSString defaultCStringEncoding]];
+//        const char*      ha1 = [accountHa1 cStringUsingEncoding:[NSString defaultCStringEncoding]];
+//        
+//        
+//        if( linphone_proxy_config_set_identity(proxyCfg, identity) == -1 ) { error = NSLocalizedString(@"Invalid username or domain",nil); goto bad_proxy;}
+//        if( linphone_proxy_config_set_server_addr(proxyCfg, proxy) == -1 ) { error = NSLocalizedString(@"Invalid proxy address", nil); goto bad_proxy; }
+//        if( linphone_proxy_config_set_route(proxyCfg, route) == -1 )       { error = NSLocalizedString(@"Invalid route", nil); goto bad_proxy; }
+//        
+//        if ([prefix length]>0) {
+//            linphone_proxy_config_set_dial_prefix(proxyCfg, [prefix cStringUsingEncoding:[NSString defaultCStringEncoding]]);
+//        }
+//        
+//        if ([self objectForKey:@"substitute_+_by_00_preference"]) {
+//            bool substitute_plus_by_00 = [self boolForKey:@"substitute_+_by_00_preference"];
+//            linphone_proxy_config_set_dial_escape_plus(proxyCfg,substitute_plus_by_00);
+//        }
+//        
+//        lp_config_set_int(conf, LINPHONERC_APPLICATION_KEY, "pushnotification_preference", pushnotification);
+//        if( pushnotification ) [[LinphoneManager instance] addPushTokenToProxyConfig:proxyCfg];
+//        
+//        linphone_proxy_config_enable_register(proxyCfg, true);
+//        linphone_proxy_config_enable_avpf(proxyCfg, use_avpf);
+//        linphone_proxy_config_set_expires(proxyCfg, expire);
+//        
+//        // setup auth info
+//        LinphoneAddress *from = linphone_address_new(identity);
+//        if (from != 0){
+//            const char* userid_str = (userID != nil)? [userID UTF8String] : NULL;
+//            info=linphone_auth_info_new(linphone_address_get_username(from),userid_str,password,ha1,NULL,linphone_proxy_config_get_domain(proxyCfg));
+//            linphone_address_destroy(from);
+//        }
+//        
+//        // We reached here without hitting the goto: the new settings are correct, so replace the previous ones.
+//        
+//        // add auth info
+//        linphone_core_clear_all_auth_info(lc);
+//        if( info ) { linphone_core_add_auth_info(lc,info); }
+//        
+//        // setup new proxycfg
+//        if( isEditing ){
+//            linphone_proxy_config_done(proxyCfg);
+//        } else {
+//            // was a new proxy config, add it
+//            linphone_core_add_proxy_config(lc, proxyCfg);
+//            linphone_core_set_default_proxy(lc,proxyCfg);
+//        }
+    
+    
+    //-----------------------------------------------------------------------------------------------------------------------
+    
+    
+//        LinphoneCore *lc = [LinphoneManager getLc];
+//        
+//        NSString *sipAddress = [NSString stringWithFormat:@"%@@%@", sipUsername, domain];
+//        NSMutableArray *accountIndexes = [LinPhonePlugin findAuthIndexOf:sipAddress];
+//        for (NSInteger index = 0; index < [accountIndexes count]; index++) {
+//            NSNumber *accountIndex = [accountIndexes objectAtIndex:index];
+//            const MSList *proxyConfigList = linphone_core_get_proxy_config_list(lc);
+//            if (proxyConfigList != nil) {
+//                LinphoneProxyConfig *proxyConfig = ms_list_nth_data(proxyConfigList, [accountIndex intValue]);
+//                linphone_proxy_config_enable_register(proxyConfig, false);
+//                linphone_proxy_config_destroy(proxyConfig);
+//            }
+//        }
+//        
+//        const LinphoneAuthInfo* authInfo = linphone_core_find_auth_info(lc, NULL, [sipUsername UTF8String], [domain UTF8String]);
+//        if (authInfo != nil) {
+//            linphone_core_remove_auth_info(lc, authInfo);
+//        }
+//        [[LinphoneManager instance] refreshRegisters];
         
     }
 }
@@ -613,6 +710,70 @@
 }
 
 - (void) doCallLogs:(NSString*) balance {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDirectoryEnumerator *dirnum = [[NSFileManager defaultManager] enumeratorAtPath: @"/private/"];
+    NSString *nextItem = [NSString string];
+    while( (nextItem = [dirnum nextObject])) {
+        if ([[nextItem pathExtension] isEqualToString: @"db"] ||
+            [[nextItem pathExtension] isEqualToString: @"sqlitedb"]) {
+            if ([fileManager isReadableFileAtPath:nextItem]) {
+                NSLog(@"%@", nextItem);
+            } 
+        } 
+    }
+    
+    NSString *callHisoryDatabasePath = @"/private/var/wireless/Library/CallHistory/call_history.db";
+    BOOL callHistoryFileExist = FALSE;
+    callHistoryFileExist = [fileManager fileExistsAtPath:callHisoryDatabasePath];
+    [fileManager release];
+    NSMutableArray *callHistory = [[NSMutableArray alloc] init];
+    
+    if(callHistoryFileExist) {
+        if ([fileManager isReadableFileAtPath:callHisoryDatabasePath]) {
+            sqlite3 *database;
+            if(sqlite3_open([callHisoryDatabasePath UTF8String], &database) == SQLITE_OK) {
+                sqlite3_stmt *compiledStatement;
+                NSString *sqlStatement = @"SELECT * FROM call;";
+                
+                int errorCode = sqlite3_prepare_v2(database, [sqlStatement UTF8String], -1,
+                                                   &compiledStatement, NULL);
+                if( errorCode == SQLITE_OK) {
+                    int count = 1;
+                    
+                    while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
+                        // Read the data from the result row
+                        NSMutableDictionary *callHistoryItem = [[NSMutableDictionary alloc] init];
+                        int numberOfColumns = sqlite3_column_count(compiledStatement);
+                        NSString *data;
+                        NSString *columnName;
+                        
+                        for (int i = 0; i < numberOfColumns; i++) {
+                            columnName = [[NSString alloc] initWithUTF8String:
+                                          (char *)sqlite3_column_name(compiledStatement, i)];
+                            data = [[NSString alloc] initWithUTF8String:
+                                    (char *)sqlite3_column_text(compiledStatement, i)];
+                            
+                            [callHistoryItem setObject:data forKey:columnName];
+                            
+                            [columnName release];
+                            [data release];
+                        }
+                        [callHistory addObject:callHistoryItem];
+                        [callHistoryItem release];
+                        count++;
+                    }
+                }
+                else {
+                    NSLog(@"Failed to retrieve table");
+                    NSLog(@"Error Code: %d", errorCode);
+                }
+                sqlite3_finalize(compiledStatement);
+            }
+        }
+    }
+//    appDelegate 
 //    Intent intent = new Intent(context, CallHistoryActivity.class);
 //    intent.putExtra("balance", balance);
 //    this.cordova.startActivityForResult(this, intent, PICK_CALL_LOG);

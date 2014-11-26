@@ -83,6 +83,7 @@
 - (void)updateStatusBar:(UICompositeViewDescription*)to_view;
 - (void)startUp;
 - (void)displayIncomingCall:(LinphoneCall*) call;
+- (void)changeToCallLogView;
 - (void)setVolumeHidden:(BOOL)hidden;
 
 - (void)addInhibitedEvent:(id)event;

@@ -51,11 +51,36 @@
 
 @synthesize window, viewController;
 
-+ (LoginData *)getLoginData {
-    return TELNO;
+static AppDelegate* appInstance = nil;
+
++ (AppDelegate *)instance {
+    if( !appInstance ){
+//        appInstance = [[AppDelegate alloc] init];
+        appInstance = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    }
+    return appInstance;
 }
-+ (void)setLoginData:(LoginData*)telno {
-    TELNO = telno;
+
+- (NSString *)getTelno
+{
+    return [NSString stringWithFormat:@"%s", TELNO];
+}
+
+- (NSString *)getPassword
+{
+    return [NSString stringWithFormat:@"%s", PASSWORD];
+}
+
+
+- (void)setTelno:(NSString*)telno
+{
+    char* s = (char*)[telno UTF8String];
+    TELNO = (char*)[telno UTF8String];
+}
+
+- (void)setPassword:(NSString*)password
+{
+    PASSWORD = (char*)[password UTF8String];
 }
 
 - (id)init
@@ -160,6 +185,7 @@
 //    [RootViewManager setupWithPortrait:(PhoneMainView*)self.window.rootViewController];
 //    [[PhoneMainView instance] startUp];
 //    [[PhoneMainView instance] updateStatusBar:nil];
+//    [[PhoneMainView instance] changeToCallLogView];
     
     
     
@@ -170,11 +196,9 @@
     }
     if (bgStartId!=UIBackgroundTaskInvalid) [[UIApplication sharedApplication] endBackgroundTask:bgStartId];
     
-    LoginData *data = [[LoginData alloc] init];
-    [data setTELNO:@""];
-    [data setPASSWORD:@""];
-    [AppDelegate setLoginData:data];
     
+    [[AppDelegate instance] setPassword:@""];
+    [[AppDelegate instance] setTelno:@""];
     timerAppBG = [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(applicationWillResign) userInfo:nil repeats:YES];
     
     [self enableCodecs:linphone_core_get_audio_codecs([LinphoneManager getLc])];
@@ -234,37 +258,16 @@
 }
 
 - (void) registerLoop {
-    NSString *sipUsername = [[AppDelegate getLoginData] TELNO];
-    NSString *password = [[AppDelegate getLoginData] PASSWORD];
+    NSString *sipUsername = [[AppDelegate instance] getTelno];
+    NSString *password = [[AppDelegate instance] getPassword];
+//    NSString *sipUsername = @"123456";
+//    NSString *password = @"1234566";
     if (sipUsername != nil && ![sipUsername isEqualToString:@""] ) {
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://portal.netcastdigital.net/getInfo.php?cmd=_app_state&telno=%@&password=%@", sipUsername, password]];
-            NSLog(@"URL : %@",url);
-            NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-            id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSMutableArray *results = object;
-            for (int x=0; x<results.count; x++)
-            {
-                NSDictionary *mDico = [results objectAtIndex:x];
-                
-    //            News *newsObj = [[News alloc] init];
-    //            [newsObj setTitle:[mDico objectForKey:@"title"]];
-    //            [newsObj setDescription:[mDico objectForKey:@"description"]];
-    //            [newsObj setImage:[mDico objectForKey:@"image"]];
-    //            [newsObjects addObject:newsObj];
-                
-            }
-                
-    //        LinphonePreferences mPrefs = LinphonePreferences.instance();
-    //        String sipUsername = LinPhonePlugin.telno;
-    //        String domain = context.getResources().getString(
-    //                                                         R.string.sip_domain_default);
-    //        String password = LinPhonePlugin.password;
-        
-    //        JSONObject objJSON = new JSONObject();
-    //    NSString *sipUsername = [LinPhonePlugin telnoStr];
-    //    NSString *password = [LinPhonePlugin passwordStr];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://portal.netcastdigital.net/getInfo.php?cmd=_app_state&telno=%@&password=%@", sipUsername, password]];
+        NSLog(@"URL : %@",url);
+        NSData *data = [[NSData alloc] initWithContentsOfURL:url];
         NSString *domain = GENERIC_DOMAIN;
-        NSString *registerStatus = @"";
+        NSString *registerStatus = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
     }
 
@@ -387,7 +390,8 @@
 
     // calls into javascript global function 'handleOpenURL'
     NSString* jsString = [NSString stringWithFormat:@"handleOpenURL(\"%@\");", url];
-    [self.viewController.webView stringByEvaluatingJavaScriptFromString:jsString];
+    CDVViewController* viewCont = (CDVViewController*)self.viewController;
+    [viewCont.webView stringByEvaluatingJavaScriptFromString:jsString];
 
     // all plugins will get the notification, and their handlers will be called
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:CDVPluginHandleOpenURLNotification object:url]];
@@ -473,6 +477,7 @@
         [[PhoneMainView instance] startUp];
         [[PhoneMainView instance] updateStatusBar:nil];
     }
+    
     LinphoneManager* instance = [LinphoneManager instance];
     
     [instance becomeActive];

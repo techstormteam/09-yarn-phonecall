@@ -36,6 +36,9 @@
     UIBackgroundTaskIdentifier bgStartId;
     BOOL startedInBackground;
     NSTimer *timerAppBG;
+    
+    char *TELNO;
+    char *PASSWORD;
 }
 
 // invoke string is passed to your app on launch, this is only valid if you
@@ -43,14 +46,16 @@
 // a simple tutorial can be found here :
 // http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
 
+@property (nonatomic, strong) UIWindow* linPhoneWindow;
 @property (nonatomic, strong) IBOutlet UIWindow* window;
-@property (nonatomic, strong) IBOutlet CDVViewController* viewController;
+@property (nonatomic, strong) IBOutlet UIViewController* viewController;
 @property (nonatomic, retain) NSString *configURL;
 @property (nonatomic, retain) UIAlertView *waitingIndicator;
 
-@property (nonatomic, assign) LoginData *TELNO;
-
-+ (LoginData *)getLoginData;
-+ (void)setLoginData:(LoginData*)telno;
++ (AppDelegate *)instance;
+- (NSString *)getTelno;
+- (NSString *)getPassword;
+- (void)setTelno:(NSString*)telno;
+- (void)setPassword:(NSString*)password;
 
 @end

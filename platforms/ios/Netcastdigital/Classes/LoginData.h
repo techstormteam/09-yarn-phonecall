@@ -9,11 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface LoginData : NSObject  {
-    //NSString *TELNO;
+    NSString *TELNO;
+    NSString *PASSWORD;
 }
-
-@property (nonatomic, assign) NSString *TELNO;
-@property (nonatomic, assign) NSString *PASSWORD;
 
 - (NSString *)telnoStr;
 - (NSString *)passwordStr;
