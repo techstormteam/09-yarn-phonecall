@@ -51,38 +51,6 @@
 
 @synthesize window, viewController;
 
-static AppDelegate* appInstance = nil;
-
-+ (AppDelegate *)instance {
-    if( !appInstance ){
-//        appInstance = [[AppDelegate alloc] init];
-        appInstance = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    }
-    return appInstance;
-}
-
-- (NSString *)getTelno
-{
-    return [NSString stringWithFormat:@"%s", TELNO];
-}
-
-- (NSString *)getPassword
-{
-    return [NSString stringWithFormat:@"%s", PASSWORD];
-}
-
-
-- (void)setTelno:(NSString*)telno
-{
-    char* s = (char*)[telno UTF8String];
-    TELNO = (char*)[telno UTF8String];
-}
-
-- (void)setPassword:(NSString*)password
-{
-    PASSWORD = (char*)[password UTF8String];
-}
-
 - (id)init
 {
     /** If you need to do any extra app-specific initialization, you can do it here
@@ -197,29 +165,12 @@ static AppDelegate* appInstance = nil;
     if (bgStartId!=UIBackgroundTaskInvalid) [[UIApplication sharedApplication] endBackgroundTask:bgStartId];
     
     
-    [[AppDelegate instance] setPassword:@""];
-    [[AppDelegate instance] setTelno:@""];
-    timerAppBG = [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(applicationWillResign) userInfo:nil repeats:YES];
     
-    [self enableCodecs:linphone_core_get_audio_codecs([LinphoneManager getLc])];
-    [self enableCodecs:linphone_core_get_video_codecs([LinphoneManager getLc])];
+    
     return YES;
 }
 
-- (void)enableCodecs: (const MSList *)codecs {
-    LinphoneCore *lc=[LinphoneManager getLc];
-    const MSList *elem=codecs;
-    for(;elem!=NULL;elem=elem->next){
-        PayloadType *pt=(PayloadType*)elem->data;
-        NSString *pref=[LinphoneManager getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
-        if (pref){
-            linphone_core_enable_payload_type(lc,pt,YES);
-        }else{
-            [LinphoneLogger logc:LinphoneLoggerWarning format:"Codec %s/%i supported by core is not shown in iOS app config view.",
-             pt->mime_type,pt->clock_rate];
-        }
-    }
-}
+
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -255,22 +206,6 @@ static AppDelegate* appInstance = nil;
     [[LinphoneManager instance] destroyLibLinphone];
     [[LinphoneManager instance] startLibLinphone];
     
-}
-
-- (void) registerLoop {
-    NSString *sipUsername = [[AppDelegate instance] getTelno];
-    NSString *password = [[AppDelegate instance] getPassword];
-//    NSString *sipUsername = @"123456";
-//    NSString *password = @"1234566";
-    if (sipUsername != nil && ![sipUsername isEqualToString:@""] ) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://portal.netcastdigital.net/getInfo.php?cmd=_app_state&telno=%@&password=%@", sipUsername, password]];
-        NSLog(@"URL : %@",url);
-        NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-        NSString *domain = GENERIC_DOMAIN;
-        NSString *registerStatus = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
-    }
-
 }
 
 - (UIUserNotificationCategory*)getMessageNotificationCategory {
@@ -365,20 +300,7 @@ static AppDelegate* appInstance = nil;
     }
 }
 
-- (void) applicationWillResign
-{
-    [self registerLoop];
-    [self myVcInitMethod];
-}
 
-- (void) myVcInitMethod
-{
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(applicationWillResign)
-     name:UIApplicationWillResignActiveNotification
-     object:NULL];
-}
 
 // this happens while we are running ( in the background, or from within our own app )
 // only valid if Netcastdigital-Info.plist specifies a protocol to handle

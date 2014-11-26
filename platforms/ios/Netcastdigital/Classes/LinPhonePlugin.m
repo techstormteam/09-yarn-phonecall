@@ -67,8 +67,8 @@
         NSString *registerStatus = [command.arguments objectAtIndex:2];
         NSString *domain = GENERIC_DOMAIN;
         
-        [[AppDelegate instance] setTelno:sipUsername];
-        [[AppDelegate instance] setPassword:password];
+        [[LinphoneAppDelegate instance] setTelno:sipUsername];
+        [[LinphoneAppDelegate instance] setPassword:password];
 
         [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
     }
@@ -77,8 +77,8 @@
 - (void) SignOut:(CDVInvokedUrlCommand *)command {    NSString *sipUsername = [command.arguments objectAtIndex:0];
     NSString *domain = GENERIC_DOMAIN;
     [LinPhonePlugin doSignOut:sipUsername domain:domain];
-    [[AppDelegate instance] setTelno:@""];
-    [[AppDelegate instance] setPassword:@""];
+    [[LinphoneAppDelegate instance] setTelno:@""];
+    [[LinphoneAppDelegate instance] setPassword:@""];
     [self successReturn:command];
 }
 - (void) PhoneContacts:(CDVInvokedUrlCommand *)command {
@@ -388,21 +388,23 @@
         for (NSInteger index = 0; index < [accountIndexes count]; index++) {
             NSNumber *accountIndex = [accountIndexes objectAtIndex:index];
             LinphoneProxyConfig *tempProxyConfig = linphone_core_get_default_proxy_config(lc);
-            if ([LinPhonePlugin getProxyConfigIndex:tempProxyConfig] != [accountIndex intValue]) {
-                linphone_core_set_default_proxy_index(lc, [accountIndex intValue]);
-                LinphoneProxyConfig *proxyConfig = linphone_core_get_default_proxy_config(lc);
-                if (proxyConfig != nil) {
-                    linphone_proxy_config_enable_register(proxyConfig, true);
-                    [[LinphoneManager instance] refreshRegisters];
-                }
-            } else {
-                if (lc != nil && linphone_core_get_default_proxy_config(lc) != nil) {
-                    if (LinphoneRegistrationOk == linphone_proxy_config_get_state(linphone_core_get_default_proxy_config(lc))) {
-                        //empty
-                    } else if (LinphoneRegistrationFailed == linphone_proxy_config_get_state(linphone_core_get_default_proxy_config(lc))
-                               || LinphoneRegistrationNone == linphone_proxy_config_get_state(linphone_core_get_default_proxy_config(lc))) {
-                        linphone_proxy_config_register_enabled(linphone_core_get_default_proxy_config(lc));
+            if (tempProxyConfig != nil) {
+                if ([LinPhonePlugin getProxyConfigIndex:tempProxyConfig] != [accountIndex intValue]) {
+                    linphone_core_set_default_proxy_index(lc, [accountIndex intValue]);
+                    LinphoneProxyConfig *proxyConfig = linphone_core_get_default_proxy_config(lc);
+                    if (proxyConfig != nil) {
+                        linphone_proxy_config_enable_register(proxyConfig, true);
                         [[LinphoneManager instance] refreshRegisters];
+                    }
+                } else {
+                    if (lc != nil && linphone_core_get_default_proxy_config(lc) != nil) {
+                        if (LinphoneRegistrationOk == linphone_proxy_config_get_state(linphone_core_get_default_proxy_config(lc))) {
+                            //empty
+                        } else if (LinphoneRegistrationFailed == linphone_proxy_config_get_state(linphone_core_get_default_proxy_config(lc))
+                                   || LinphoneRegistrationNone == linphone_proxy_config_get_state(linphone_core_get_default_proxy_config(lc))) {
+                            linphone_proxy_config_register_enabled(linphone_core_get_default_proxy_config(lc));
+                            [[LinphoneManager instance] refreshRegisters];
+                        }
                     }
                 }
             }
@@ -710,7 +712,7 @@
 }
 
 - (void) doCallLogs:(NSString*) balance {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    LinphoneAppDelegate *appDelegate = (LinphoneAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSDirectoryEnumerator *dirnum = [[NSFileManager defaultManager] enumeratorAtPath: @"/private/"];

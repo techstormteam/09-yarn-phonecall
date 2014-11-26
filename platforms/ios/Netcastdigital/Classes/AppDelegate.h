@@ -37,8 +37,7 @@
     BOOL startedInBackground;
     NSTimer *timerAppBG;
     
-    char *TELNO;
-    char *PASSWORD;
+    
 }
 
 // invoke string is passed to your app on launch, this is only valid if you
@@ -51,11 +50,5 @@
 @property (nonatomic, strong) IBOutlet UIViewController* viewController;
 @property (nonatomic, retain) NSString *configURL;
 @property (nonatomic, retain) UIAlertView *waitingIndicator;
-
-+ (AppDelegate *)instance;
-- (NSString *)getTelno;
-- (NSString *)getPassword;
-- (void)setTelno:(NSString*)telno;
-- (void)setPassword:(NSString*)password;
 
 @end

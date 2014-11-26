@@ -35,11 +35,11 @@ int main(int argc, char *argv[]) {
 #ifdef DEBUG
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
 #endif
-//    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-//    int retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([LinphoneAppDelegate class]));
-//	[pool release];
-//    return retVal;
-    
-    int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    int retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([LinphoneAppDelegate class]));
+	[pool release];
     return retVal;
+    
+//    int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
+//    return retVal;
 }

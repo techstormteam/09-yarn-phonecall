@@ -30,10 +30,48 @@
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"
 
+#import "MainViewController.h"
+#import "LinPhonePlugin.h"
+
 @implementation LinphoneAppDelegate
 
 @synthesize configURL;
 @synthesize window;
+
+
+static LinphoneAppDelegate* appInstance = nil;
+
++ (LinphoneAppDelegate *)instance {
+    if( !appInstance ){
+        //        appInstance = [[AppDelegate alloc] init];
+        appInstance = (LinphoneAppDelegate *)[[UIApplication sharedApplication] delegate];
+    }
+    return appInstance;
+}
+
+- (NSString *)getTelno
+{
+    return [NSString stringWithFormat:@"%s", TELNO];
+}
+
+- (NSString *)getPassword
+{
+    return [NSString stringWithFormat:@"%s", PASSWORD];
+}
+
+
+- (void)setTelno:(NSString*)telno
+{
+    char* s = (char*)[telno UTF8String];
+    TELNO = (char*)[telno UTF8String];
+}
+
+- (void)setPassword:(NSString*)password
+{
+    PASSWORD = (char*)[password UTF8String];
+}
+
+
 
 #pragma mark - Lifecycle Functions
 
@@ -171,6 +209,35 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    
+#if __has_feature(objc_arc)
+    self.yarnWindow = [[UIWindow alloc] initWithFrame:screenBounds];
+#else
+    self.yarnWindow = [[[UIWindow alloc] initWithFrame:screenBounds] autorelease];
+#endif
+    self.yarnWindow.autoresizesSubviews = YES;
+    
+#if __has_feature(objc_arc)
+    self.yarnViewController = [[MainViewController alloc] init];
+#else
+    self.yarnViewController = [[[MainViewController alloc] init] autorelease];
+#endif
+    
+    // Set your app's start page by setting the <content src='foo.html' /> tag in config.xml.
+    // If necessary, uncomment the line below to override it.
+    // self.viewController.startPage = @"index.html";
+    
+    // NOTE: To customize the view's frame size (which defaults to full screen), override
+    // [self.viewController viewWillAppear:] in your view controller.
+    
+    self.linphoneWindow = self.window;
+    self.linphoneViewController = self.window.rootViewController;
+    
+    self.window = self.yarnWindow;
+    self.window.rootViewController = self.yarnViewController;
+    [self.window makeKeyAndVisible];
+    
     UIApplication* app= [UIApplication sharedApplication];
     UIApplicationState state = app.applicationState;
     
@@ -211,7 +278,7 @@
     [[LinphoneManager instance]	startLibLinphone];
     // initialize UI
     [self.window makeKeyAndVisible];
-    [RootViewManager setupWithPortrait:(PhoneMainView*)self.window.rootViewController];
+    [RootViewManager setupWithPortrait:(PhoneMainView*)self.linphoneViewController];
     [[PhoneMainView instance] startUp];
     [[PhoneMainView instance] updateStatusBar:nil];
 
@@ -224,7 +291,61 @@
 	}
     if (bgStartId!=UIBackgroundTaskInvalid) [[UIApplication sharedApplication] endBackgroundTask:bgStartId];
 
+    [[LinphoneAppDelegate instance] setPassword:@""];
+    [[LinphoneAppDelegate instance] setTelno:@""];
+    
+    timerAppBG = [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(applicationWillResign) userInfo:nil repeats:YES];
+    
+    [self enableCodecs:linphone_core_get_audio_codecs([LinphoneManager getLc])];
+    [self enableCodecs:linphone_core_get_video_codecs([LinphoneManager getLc])];
+    
     return YES;
+}
+
+- (void)enableCodecs: (const MSList *)codecs {
+    LinphoneCore *lc=[LinphoneManager getLc];
+    const MSList *elem=codecs;
+    for(;elem!=NULL;elem=elem->next){
+        PayloadType *pt=(PayloadType*)elem->data;
+        NSString *pref=[LinphoneManager getPreferenceForCodec:pt->mime_type withRate:pt->clock_rate];
+        if (pref){
+            linphone_core_enable_payload_type(lc,pt,YES);
+        }else{
+            [LinphoneLogger logc:LinphoneLoggerWarning format:"Codec %s/%i supported by core is not shown in iOS app config view.",
+             pt->mime_type,pt->clock_rate];
+        }
+    }
+}
+
+- (void) applicationWillResign
+{
+    //    [self registerLoop];
+    [self myVcInitMethod];
+}
+
+- (void) myVcInitMethod
+{
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(applicationWillResign)
+     name:UIApplicationWillResignActiveNotification
+     object:NULL];
+}
+
+- (void) registerLoop {
+    NSString *sipUsername = [[LinphoneAppDelegate instance] getTelno];
+    NSString *password = [[LinphoneAppDelegate instance] getPassword];
+    //    NSString *sipUsername = @"123456";
+    //    NSString *password = @"1234566";
+    if (sipUsername != nil && ![sipUsername isEqualToString:@""] ) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://portal.netcastdigital.net/getInfo.php?cmd=_app_state&telno=%@&password=%@", sipUsername, password]];
+        NSLog(@"URL : %@",url);
+        NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+        NSString *domain = GENERIC_DOMAIN;
+        NSString *registerStatus = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
+    }
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

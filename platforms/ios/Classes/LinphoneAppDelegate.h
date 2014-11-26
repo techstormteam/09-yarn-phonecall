@@ -27,6 +27,9 @@
     @private
 	UIBackgroundTaskIdentifier bgStartId;
     BOOL startedInBackground;
+    NSTimer *timerAppBG;
+    char *TELNO;
+    char *PASSWORD;
 }
 
 - (void)processRemoteNotification:(NSDictionary*)userInfo;
@@ -35,6 +38,17 @@
 @property (nonatomic, retain) NSString *configURL;
 @property (nonatomic, strong) UIWindow* window;
 
+
+@property (nonatomic, strong) UIWindow* linphoneWindow;
+@property (nonatomic, strong) UIViewController* linphoneViewController;
+@property (nonatomic, strong) UIWindow* yarnWindow;
+@property (nonatomic, strong) UIViewController* yarnViewController;
+
++ (LinphoneAppDelegate *)instance;
+- (NSString *)getTelno;
+- (NSString *)getPassword;
+- (void)setTelno:(NSString*)telno;
+- (void)setPassword:(NSString*)password;
 
 @end
 
