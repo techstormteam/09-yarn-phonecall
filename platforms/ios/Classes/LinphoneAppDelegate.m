@@ -234,9 +234,9 @@ static LinphoneAppDelegate* appInstance = nil;
     self.linphoneWindow = self.window;
     self.linphoneViewController = self.window.rootViewController;
     
-    self.window = self.yarnWindow;
-    self.window.rootViewController = self.yarnViewController;
-    [self.window makeKeyAndVisible];
+//    [self showYarnWindow];
+//    [self showLinphoneWindow];
+    
     
     UIApplication* app= [UIApplication sharedApplication];
     UIApplicationState state = app.applicationState;
@@ -282,7 +282,7 @@ static LinphoneAppDelegate* appInstance = nil;
     [[PhoneMainView instance] startUp];
     [[PhoneMainView instance] updateStatusBar:nil];
 
-
+    [self showLinphoneCallLogView];
 
 	NSDictionary *remoteNotif =[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotif){
@@ -300,6 +300,28 @@ static LinphoneAppDelegate* appInstance = nil;
     [self enableCodecs:linphone_core_get_video_codecs([LinphoneManager getLc])];
     
     return YES;
+}
+
+- (void)showLinphoneWindow {
+    self.window = self.linphoneWindow;
+    self.window.rootViewController = self.linphoneViewController;
+    [self.window makeKeyAndVisible];
+}
+
+- (void)showYarnWindow {
+    self.window = self.yarnWindow;
+    self.window.rootViewController = self.yarnViewController;
+    [self.window makeKeyAndVisible];
+}
+
+- (void)showLinphoneCallLogView {
+    [self showLinphoneWindow];
+    [[PhoneMainView instance] changeToCallLogView];
+}
+
+- (void)showLinphoneContactView {
+    [self showLinphoneWindow];
+    [[PhoneMainView instance] changeToContactView];
 }
 
 - (void)enableCodecs: (const MSList *)codecs {

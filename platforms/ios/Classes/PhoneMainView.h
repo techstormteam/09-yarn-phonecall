@@ -84,6 +84,7 @@
 - (void)startUp;
 - (void)displayIncomingCall:(LinphoneCall*) call;
 - (void)changeToCallLogView;
+- (void)changeToContactView;
 - (void)setVolumeHidden:(BOOL)hidden;
 
 - (void)addInhibitedEvent:(id)event;
