@@ -333,8 +333,10 @@ static RootViewManager* rootViewManagerInstance = nil;
     }
 }
 
-- (void)changeToCallLogView {
-    [self changeCurrentView:[HistoryViewController compositeViewDescription]];
+- (void)changeToCallLogView:(NSString*) balance {
+    UICompositeViewDescription *compositeViewDescription = [HistoryViewController compositeViewDescription];
+    [[LinphoneAppDelegate instance] setBalance:balance];
+    [self changeCurrentView:compositeViewDescription];
 }
 
 - (void)changeToContactView {

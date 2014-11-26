@@ -59,10 +59,14 @@ static LinphoneAppDelegate* appInstance = nil;
     return [NSString stringWithFormat:@"%s", PASSWORD];
 }
 
+- (NSString *)getBalance
+{
+    return [NSString stringWithFormat:@"%s", BALANCE];
+}
 
 - (void)setTelno:(NSString*)telno
 {
-    char* s = (char*)[telno UTF8String];
+//    char* s = (char*)[telno UTF8String];
     TELNO = (char*)[telno UTF8String];
 }
 
@@ -71,6 +75,10 @@ static LinphoneAppDelegate* appInstance = nil;
     PASSWORD = (char*)[password UTF8String];
 }
 
+- (void)setBalance:(NSString*)balance
+{
+    BALANCE = (char*)[balance UTF8String];
+}
 
 
 #pragma mark - Lifecycle Functions
@@ -282,7 +290,7 @@ static LinphoneAppDelegate* appInstance = nil;
     [[PhoneMainView instance] startUp];
     [[PhoneMainView instance] updateStatusBar:nil];
 
-    [self showLinphoneCallLogView];
+    [self showYarnWindow];
 
 	NSDictionary *remoteNotif =[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotif){
@@ -314,9 +322,9 @@ static LinphoneAppDelegate* appInstance = nil;
     [self.window makeKeyAndVisible];
 }
 
-- (void)showLinphoneCallLogView {
+- (void)showLinphoneCallLogView:(NSString*) balance {
     [self showLinphoneWindow];
-    [[PhoneMainView instance] changeToCallLogView];
+    [[PhoneMainView instance] changeToCallLogView:balance];
 }
 
 - (void)showLinphoneContactView {

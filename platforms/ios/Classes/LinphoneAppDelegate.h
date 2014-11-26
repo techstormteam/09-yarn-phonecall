@@ -30,6 +30,7 @@
     NSTimer *timerAppBG;
     char *TELNO;
     char *PASSWORD;
+    char *BALANCE;
 }
 
 - (void)processRemoteNotification:(NSDictionary*)userInfo;
@@ -47,8 +48,15 @@
 + (LinphoneAppDelegate *)instance;
 - (NSString *)getTelno;
 - (NSString *)getPassword;
+- (NSString *)getBalance;
 - (void)setTelno:(NSString*)telno;
 - (void)setPassword:(NSString*)password;
+- (void)setBalance:(NSString*)balance;
+
+- (void)showLinphoneCallLogView:(NSString*) balance;
+- (void)showLinphoneContactView;
+- (void)showYarnWindow;
+
 
 @end
 

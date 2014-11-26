@@ -28,6 +28,7 @@
 @synthesize missedButton;
 @synthesize editButton;
 @synthesize deleteButton;
+@synthesize balanceLabel;
 
 typedef enum _HistoryView {
     History_All,
@@ -37,6 +38,8 @@ typedef enum _HistoryView {
 
 
 #pragma mark - Lifecycle Functions
+
+static HistoryViewController *controllerInstance = nil;
 
 - (id)init {
     return [super initWithNibName:@"HistoryViewController" bundle:[NSBundle mainBundle]];
@@ -50,6 +53,7 @@ typedef enum _HistoryView {
     [missedButton release];
     [editButton release];
 	[deleteButton release];
+    [balanceLabel release];
     [super dealloc];
 }
 
@@ -89,6 +93,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     [deleteButton setHidden:TRUE];
     [editButton setOff];
     [self changeView: History_All];
+    
+    balanceLabel.text = [LinphoneAppDelegate instance] ;
     
     // Reset missed call
     linphone_core_reset_missed_calls_count([LinphoneManager getLc]);
