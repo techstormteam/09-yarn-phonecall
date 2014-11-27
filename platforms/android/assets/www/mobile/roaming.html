@@ -64,13 +64,11 @@
 
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
         </script>
         <script>
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             balance_display_in_button();
             global.api('roaming', {user_id: user_id}, roaming_result);
             function roaming_result(result) {
@@ -131,8 +129,8 @@
                 }
             }
             function other_lines() {
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 global.api('other_lines', {user_id: user_id}, other_lines_response);
             }
             function other_lines_response(response) {
@@ -144,8 +142,8 @@
                 }
             }
             function purchase_sim() {
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 global.api('purchase_sim', {user_id: user_id}, purchase_sim_response);
             }
             function purchase_sim_response(response) {

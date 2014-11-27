@@ -57,27 +57,33 @@
         </div>
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
         </script>
         <script>
-            var user = global.getUser();
-            var user_id = user.getId();
-            var callerid_autoswitch = user.getCallerid_autoswitch();
+            
+            function setCallerId(callerId) {
 
-            if (callerid_autoswitch === 'AUTO') {
-                $('#radio-choice-1').prop('checked', true);
-            } else if (callerid_autoswitch === 'UK') {
-                $('#radio-choice-2').prop('checked', true);
-            } else if (callerid_autoswitch === 'USA') {
-                $('#radio-choice-3').prop('checked', true);
-            } else if (callerid_autoswitch === 'NGN') {
-                $('#radio-choice-4').prop('checked', true);
-            } else if (callerid_autoswitch === 'HIDE') {
-                $('#radio-choice-5').prop('checked', true);
-            }
+				var callerid_autoswitch = callerId;
 
+	            if (callerid_autoswitch === 'AUTO') {
+	                $('#radio-choice-1').prop('checked', true);
+	            } else if (callerid_autoswitch === 'UK') {
+	                $('#radio-choice-2').prop('checked', true);
+	            } else if (callerid_autoswitch === 'USA') {
+	                $('#radio-choice-3').prop('checked', true);
+	            } else if (callerid_autoswitch === 'NGN') {
+	                $('#radio-choice-4').prop('checked', true);
+	            } else if (callerid_autoswitch === 'HIDE') {
+	                $('#radio-choice-5').prop('checked', true);
+	            }
+			}
+            
+            var user_id = global.get('uid');
+            var telno = global.get('telno');
+            var password = global.get('password');
+
+            global.infoApi('_callerid_autoswitch', {telno: telno, password: password}, setCallerId);
+            
             balance_display_in_button();
 
 

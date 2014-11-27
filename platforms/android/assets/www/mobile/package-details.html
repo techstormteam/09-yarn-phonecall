@@ -56,12 +56,10 @@
         </div>
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
         </script>
         <script>
-            var user = global.getUser();
+            
             var currency = user.getCurrency();
             var package_id = getUrlParameter('package_id');
 

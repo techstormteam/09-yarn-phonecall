@@ -45,9 +45,7 @@
             <!-- END: Content -->
             <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
             </script>
             <script>
                 $('#trusted_number').keyup(function() {
@@ -62,8 +60,8 @@
                 
                 function check_form() {
                     $('#message').html('');
-                    var user = global.getUser();
-                    var user_id = user.getId();
+                    
+                    var user_id = global.get('uid');
                     var trusted_number = $.trim($('#trusted_number').val());
                     if (trusted_number === '') {
                         $('#message').html('<span style="color:red;">Trusted number is required field</span>');

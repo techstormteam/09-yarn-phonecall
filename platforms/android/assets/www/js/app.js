@@ -778,7 +778,8 @@ function doNativeCallAsk(dialedNumber) {
 function doSettings() {
 	window.settings(function (message) {
 		if (!global.showPopupInternetNotAvailable(message)) {
-			window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
+			//window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
+			window.location.href = 'mobile/index.html';
 		}
     });
     

@@ -56,9 +56,7 @@
         </div>
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
         </script>
         <script>
             $('#first_number').keyup(function() {
@@ -77,8 +75,8 @@
                 $('#third_number').val(ref);
             });
             var profile_id = getUrlParameter('id');
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             global.api('get_rule', {user_id: user_id, profile_id: profile_id}, rule_data_response);
 
             function rule_data_response(response) {
@@ -96,8 +94,8 @@
             function check_form() {
                 $('#message').html('');
 
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 var name = $('#name').val();
                 var first_number = $.trim($('#first_number').val());
                 var second_number = $.trim($('#second_number').val());

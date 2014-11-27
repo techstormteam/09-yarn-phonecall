@@ -66,9 +66,7 @@
         </div>
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
         </script>
         <script>
             var ticket_id = getUrlParameter('ticket_id');
@@ -78,8 +76,8 @@
             function ticket_details_by_ticket_id_display(result) {
                 var ticket = result.details['ticket'];
                 var ticket_comments = result.details['ticket_comments'];
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 
                 var rows = '';
                 
@@ -120,8 +118,8 @@
 
             function add_note() {
                 var note = $('#note').val();
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
 
                 global.api('ticket_note_add', {user_id: user_id, ticket_id: ticket_id, note: note}, ticket_note_add_response);
             }

@@ -69,13 +69,11 @@
             <!-- END: Content -->
             <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
             </script>
             <script>
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 balance_display_in_button(); 
                 global.api('circles_by_user_id', {user_id: user_id}, circles_fill);
 
