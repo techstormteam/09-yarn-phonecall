@@ -12,6 +12,7 @@
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"
 #import "LinphoneAppDelegate.h"
+#import "GKPeoplePickerNavigationController.h"
 
 #define GENERIC_DOMAIN @"cloud.netcastdigital.net"
 #define NOT_IN_CALL @"NOT-IN-CALL"

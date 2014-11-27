@@ -706,9 +706,14 @@
 }
 
 - (void) doPhoneContacts {
-//    Intent intent = new Intent(Intent.ACTION_PICK, Contacts.CONTENT_URI);
-//    intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-//    this.cordova.startActivityForResult(this, intent, PICK_CONTACT);
+    [GKPeoplePickerNavigationController requestAccessToAddressBookWithCompletion:^(bool granted, CFErrorRef error) {
+        if (granted) {
+            
+            GKPeoplePickerNavigationController *ctr = [[GKPeoplePickerNavigationController alloc] init];
+            [[LinphoneAppDelegate instance] showYarnPhoneContactList:ctr];
+            
+        }
+    }];
 }
 
 - (void) doCallLogs:(NSString*) balance {

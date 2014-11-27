@@ -322,6 +322,13 @@ static LinphoneAppDelegate* appInstance = nil;
     [self.window makeKeyAndVisible];
 }
 
+- (void)showYarnPhoneContactList:(GKPeoplePickerNavigationController*)peoplePickerNavigationController {
+    self.window = self.yarnWindow;
+    self.window.rootViewController = self.yarnViewController;
+//    [self.yarnViewController presentViewController:peoplePickerNavigationController animated:YES completion:nil];
+    [self.window makeKeyAndVisible];
+}
+
 - (void)showLinphoneCallLogView:(NSString*) balance {
     [self showLinphoneWindow];
     [[PhoneMainView instance] changeToCallLogView:balance];

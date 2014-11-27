@@ -19,6 +19,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/ABPeoplePickerNavigationController.h>
+#import "GKPeoplePickerNavigationController.h"
 
 
 #import "LinphoneCoreSettingsStore.h"
@@ -56,6 +57,7 @@
 - (void)showLinphoneCallLogView:(NSString*) balance;
 - (void)showLinphoneContactView;
 - (void)showYarnWindow;
+- (void)showYarnPhoneContactList:(GKPeoplePickerNavigationController*)peoplePickerNavigationController;
 
 
 @end
