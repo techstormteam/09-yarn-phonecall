@@ -242,10 +242,6 @@ static LinphoneAppDelegate* appInstance = nil;
     self.linphoneWindow = self.window;
     self.linphoneViewController = self.window.rootViewController;
     
-//    [self showYarnWindow];
-//    [self showLinphoneWindow];
-    
-    
     UIApplication* app= [UIApplication sharedApplication];
     UIApplicationState state = app.applicationState;
     
@@ -291,6 +287,7 @@ static LinphoneAppDelegate* appInstance = nil;
     [[PhoneMainView instance] updateStatusBar:nil];
 
     [self showYarnWindow];
+    
 
 	NSDictionary *remoteNotif =[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotif){
@@ -316,17 +313,25 @@ static LinphoneAppDelegate* appInstance = nil;
     [self.window makeKeyAndVisible];
 }
 
+- (void)showYarnApplyDialedNumber:(char*)number {
+    [self showYarnWindow];
+    MainViewController *mainController = (MainViewController*)self.yarnViewController;
+    [mainController.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"setDialedNumber('%s')", number]];
+}
+
 - (void)showYarnWindow {
     self.window = self.yarnWindow;
     self.window.rootViewController = self.yarnViewController;
     [self.window makeKeyAndVisible];
 }
 
-- (void)showYarnPhoneContactList:(GKPeoplePickerNavigationController*)peoplePickerNavigationController {
+- (void)showYarnPhoneContactList {
     self.window = self.yarnWindow;
     self.window.rootViewController = self.yarnViewController;
-//    [self.yarnViewController presentViewController:peoplePickerNavigationController animated:YES completion:nil];
     [self.window makeKeyAndVisible];
+    MainViewController *mainController = (MainViewController*)self.yarnViewController;
+    [mainController showPeoplePickerStandard];
+
 }
 
 - (void)showLinphoneCallLogView:(NSString*) balance {

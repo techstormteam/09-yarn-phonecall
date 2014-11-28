@@ -26,6 +26,7 @@
 //
 
 #import "MainViewController.h"
+#import "GKPeoplePickerNavigationController.h"
 
 @implementation MainViewController
 
@@ -82,6 +83,16 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)showPeoplePickerStandard {
+    [GKPeoplePickerNavigationController requestAccessToAddressBookWithCompletion:^(bool granted, CFErrorRef error) {
+        if (granted) {
+            
+            GKPeoplePickerNavigationController *ctr = [[GKPeoplePickerNavigationController alloc] init];
+            [self.presentedViewController presentViewController:ctr animated:YES completion:nil];
+        }
+    }];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

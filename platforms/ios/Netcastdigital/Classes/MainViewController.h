@@ -31,6 +31,8 @@
 
 @interface MainViewController : CDVViewController
 
+- (void)showPeoplePickerStandard;
+
 @end
 
 @interface MainCommandDelegate : CDVCommandDelegateImpl

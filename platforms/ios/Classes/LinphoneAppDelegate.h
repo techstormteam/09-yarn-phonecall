@@ -57,7 +57,8 @@
 - (void)showLinphoneCallLogView:(NSString*) balance;
 - (void)showLinphoneContactView;
 - (void)showYarnWindow;
-- (void)showYarnPhoneContactList:(GKPeoplePickerNavigationController*)peoplePickerNavigationController;
+- (void)showYarnPhoneContactList;
+- (void)showYarnApplyDialedNumber:(char*)number;
 
 
 @end

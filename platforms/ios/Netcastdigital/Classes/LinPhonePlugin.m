@@ -706,14 +706,8 @@
 }
 
 - (void) doPhoneContacts {
-    [GKPeoplePickerNavigationController requestAccessToAddressBookWithCompletion:^(bool granted, CFErrorRef error) {
-        if (granted) {
-            
-            GKPeoplePickerNavigationController *ctr = [[GKPeoplePickerNavigationController alloc] init];
-            [[LinphoneAppDelegate instance] showYarnPhoneContactList:ctr];
-            
-        }
-    }];
+    [[LinphoneAppDelegate instance] showYarnPhoneContactList];
+
 }
 
 - (void) doCallLogs:(NSString*) balance {
