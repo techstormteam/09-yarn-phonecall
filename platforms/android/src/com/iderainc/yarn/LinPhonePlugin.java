@@ -46,8 +46,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.CallLog;
@@ -55,6 +53,7 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -526,30 +525,14 @@ public class LinPhonePlugin extends CordovaPlugin implements
 									|| state == LinphoneCall.State.CallEnd
 									|| state == LinphoneCall.State.CallReleased) {
 								hangUp();
-								
-								// enable lockscreen
-//								PowerManager pm = (PowerManager) context.getSystemService(context.POWER_SERVICE);
-//								WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
-//						                | PowerManager.ACQUIRE_CAUSES_WAKEUP
-//						                | PowerManager.ON_AFTER_RELEASE, "INFO");
-//						        wl.release();
-
-//						        KeyguardManager km = (KeyguardManager) context.getSystemService(context.KEYGUARD_SERVICE);
-//						        KeyguardLock kl = km.newKeyguardLock("name");
-//						        kl.reenableKeyguard();
-						        
 								objJSON.put("endCall", true);
 							} else {
 								// disable lockscreen
-								PowerManager pm = (PowerManager) context.getSystemService(context.POWER_SERVICE);
-								WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
-						                | PowerManager.ACQUIRE_CAUSES_WAKEUP
-						                | PowerManager.ON_AFTER_RELEASE, "INFO");
-						        wl.acquire();
-
-//						        KeyguardManager km = (KeyguardManager) context.getSystemService(context.KEYGUARD_SERVICE);
-//						        KeyguardLock kl = km.newKeyguardLock("name");
-//						        kl.disableKeyguard();
+						        cordova.getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+						        // set this flag so this activity will stay in front of the keyguard
+						        int flags = WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON;
+						        cordova.getActivity().getWindow().addFlags(flags);
+						        
 						        
 								objJSON.put("endCall", false);
 							}

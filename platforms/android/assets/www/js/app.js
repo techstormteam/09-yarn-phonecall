@@ -785,6 +785,10 @@ function doSettings() {
     
 }
 
+function loadUrlDialScreen() {
+	window.location.href = "dial.html";
+}
+
 function doCellularCall(dialedNumber) {
     global.set("dialedNumber", dialedNumber);
     $("#wifi-choice").hide();
@@ -810,6 +814,9 @@ function doCellularCall(dialedNumber) {
     	doCallLogs();
     }
     
+    function loadUrlDialScreen() {
+    	window.location.href = "dial.html";
+    }
     
     window.allowNativeCall(dialedNumber, function (message) {
         //empty

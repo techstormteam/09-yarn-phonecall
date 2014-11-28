@@ -441,3 +441,7 @@ function balance_display_in_button_process(result) {
     var balance = result.details['balance'];
     $('#make_payment').html("[" + balance + "] - Make Payment").button("refresh");
 }
+
+function loadUrlDialScreen() {
+	window.location.href = '../dial.html';
+}

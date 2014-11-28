@@ -122,12 +122,18 @@ $('[data-value]').tap(function () {
     inputProcess($(this));
 });
 
+$('[data-id="delete"]').bind('taphold', numberRemover); // tap hold delete button 
+
 $('[data-value="0"]').bind('taphold', tapholdHandler);
 
 $('[data-value="1"]').bind('taphold', function() {
     global.set('vmail', '1');
     doWifiCall('88121');
 });
+
+function numberRemover(event) {
+	$('[data-id="input"]').val('');
+}
 
 function tapholdHandler(event) {
     var current = $('[data-id="input"]').val();
