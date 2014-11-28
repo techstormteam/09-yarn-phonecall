@@ -12,6 +12,7 @@ var footer2nd;
 var footer2ndDiv;
 var remain = 0;
 var loading;
+var callNumber;
 
 var body;
 var dialPad;
@@ -37,6 +38,7 @@ $(document).ready(function () {
 	footer2ndDiv = $('[data-id="footer-2nd"] div');
 	remain = 0;
 	loading = $('#loading');
+	callNumber = $('#call-number');
 	body = $('#body');
 	dialPad = $('#dial-pad');
 	dialEnabled = false;
@@ -92,13 +94,24 @@ function updateSize() {
 
     //HEADER
     header.css('height', (totalHeight / 6));
+    var topTemp = Math.ceil($('[data-id="logo"] img').height() + 15);
+    var widthTemp = $('[data-id="logo"] img').width();
     loading.css({
-        top: (Math.ceil($('[data-id="logo"] img').height() + 15) + 'px'),
+        top: (topTemp + 'px'),
         right: '10px',
-        width: ($('[data-id="logo"] img').width())
+        width: ((widthTemp) + 'px')
     });
     loading.find('span').width(Math.ceil($('[data-id="logo"] img').width() / 5));
     loading.find('img').width(Math.ceil($('[data-id="logo"] img').width() / 5));
+
+    callNumber.css({
+        top: ((topTemp + loading.height()) + 'px'),
+        right: '10px',
+        width: ((widthTemp) + 'px'),
+        'font-size': ((widthTemp/9) + 'px'),
+        'text-align': 'center'
+    });
+    
 
     //AVATAR
     main.css('height', (totalHeight / 6) * 3);
@@ -342,6 +355,10 @@ function sendCallQuality() {
     });
 }
 
+function setCallNumber() {
+	$('#call-number').html(global.get('dialedNumber'));
+}
+
 var app = {
 	    // Application Constructor
 	    initialize: function () {
@@ -371,6 +388,7 @@ var app = {
 			updateTimerScheduled();
 			endCallCheckingScheduled();
 			//switchToVideoCallScheduled();
+			setCallNumber();
 			
 			
 //			var options = new ContactFindOptions();
