@@ -137,6 +137,7 @@ $('[data-value="1"]').bind('taphold', function() {
 
 function numberRemover(event) {
 	$('[data-id="input"]').val('');
+	clearRate();
 }
 
 function tapholdHandler(event) {
@@ -151,7 +152,7 @@ function tapholdHandler(event) {
 
     if (callCode === '009') {
         conditionLength = 9;
-    } else if (callCode.substring(0, 2) === '0') {
+    } else if (callCode.substring(0, 2) === '00') {
         conditionLength = 8;
     } else if (callCode.substring(0, 1) === '+') {
         conditionLength = 7;
@@ -159,7 +160,7 @@ function tapholdHandler(event) {
         conditionLength = 6;
     }
 
-    if (current.length === conditionLength) {
+    if (current.length >= conditionLength) {
         global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
     } else if (current.length < conditionLength) {
         clearRate();
@@ -186,10 +187,9 @@ function inputProcess(object) {
     
     var callCode = current.substring(0, 3);
     var conditionLength;
-
     if (callCode === '009') {
         conditionLength = 9;
-    } else if (callCode.substring(0, 2) === '0') {
+    } else if (callCode.substring(0, 2) === '00') {
         conditionLength = 8;
     } else if (callCode.substring(0, 1) === '+') {
         conditionLength = 7;
@@ -203,7 +203,7 @@ function inputProcess(object) {
         $('[data-id="input"]').css('font-size', inputFontSize);
     }
 
-    if (current.length === conditionLength) {
+    if (current.length >= conditionLength) {
         global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
     } else if (current.length < conditionLength) {
         clearRate();
@@ -213,22 +213,27 @@ function inputProcess(object) {
 $('[data-id="delete"]').click(function () {
     var current = $('[data-id="input"]').val();
     
-    $caret = $tapCaret;
-    
-    //$leftStr = current.substring(0, $caret);
-    //$rightStr = current.substring($caret, current.length);
-    //$lastStr = $leftStr.substring(0, $leftStr.length - 1) + $rightStr;
     dest.val(current.substring(0, current.length - 1));
-    now = $lastStr;
-    if ($tapCaret > 0) {
-    	$tapCaret--;
-    }
+    current = dest.val();
     
-    if(now.length < 6) {
+    var callCode = current.substring(0, 3);
+    var conditionLength;
+    if (callCode === '009') {
+        conditionLength = 9;
+    } else if (callCode.substring(0, 2) === '00') {
+        conditionLength = 8;
+    } else if (callCode.substring(0, 1) === '+') {
+        conditionLength = 7;
+    } else {
+        conditionLength = 6;
+    }
+
+    if (current.length < conditionLength) {
         clearRate();
     }
     
-    if(now.length > 15) {
+    
+    if(current.length > 15) {
         $('[data-id="input"]').css('font-size', parseFloat(inputFontSize) / 10 * 6 + 'px');
     } else {
         $('[data-id="input"]').css('font-size', inputFontSize);
@@ -270,20 +275,17 @@ function setDialedNumber(number) {
 	
     var callCode = current.substring(0, 3);
     var conditionLength;
-
     if (callCode === '009') {
         conditionLength = 9;
-    } else if (callCode.substring(0, 2) === '0') {
+    } else if (callCode.substring(0, 2) === '00') {
         conditionLength = 8;
     } else if (callCode.substring(0, 1) === '+') {
         conditionLength = 7;
     } else {
         conditionLength = 6;
-
     }
 
-    
-    if (current.length === conditionLength) {
+    if (current.length >= conditionLength) {
         global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
     } else if (current.length < conditionLength) {
         clearRate();

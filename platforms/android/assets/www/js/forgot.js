@@ -97,7 +97,7 @@ function forgot(response) {
             type: 'error',
             confirmButtonText: "OK"
         }, function() {
-            window.location.href = 'login.html';
+            //window.location.href = 'login.html';
         });
     }
 }
@@ -106,11 +106,7 @@ function check_form() {
     phone = $('#txtPhone').val();
     email = $('#txtEmail').val();
 
-    if (phone !== "" && email !== "") {
-        global.forgot('_forgotpaswd', {email: email, phone: phone}, forgot);
-    } else {
-        global.showPopup('Oops...', 'Please enter your registered phone number and/or password, in order to receive a password reminder', 'error');
-    }
+    global.forgot('_forgotpaswd', {email: email, phone: phone}, forgot);
 }
 
 function doCheckInternetConnection() {
