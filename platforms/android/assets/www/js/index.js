@@ -368,17 +368,17 @@ function accessNumberCalling() {
 }
 
 function onSuccessAccNumInfo(response) {
-	swal({   
-		title: "",   
-		text: response,   
-		type: "warning",   
-		showCancelButton: true,   
-		confirmButtonText: "OK",   
-		closeOnConfirm: true,   
-		}, function(isConfirm){   
-			$("#calling-card").hide();
-			doCellularCall();
-		});
+		swal({   
+			title: "",   
+			text: response,   
+			type: "warning", 
+			confirmButtonText: "OK",   
+			closeOnConfirm: true,   
+			}, function(isConfirm){   
+				$("#calling-card").hide();
+				doCellularCall();
+			});
+	
 }
 
 function onFailedAccNumInfo() {
