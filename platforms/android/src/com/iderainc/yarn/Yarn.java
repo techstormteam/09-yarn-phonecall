@@ -69,6 +69,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -93,12 +94,14 @@ public class Yarn extends CordovaActivity implements
 	private Context context;
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-
-	{
-
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.context = getApplicationContext();
+		
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		prefs.edit().clear();
+		
 		//file:///android_asset/www/index.html
 		// Set by <content src="index.html" /> in config.xml
 		String pageUrl = getIntent().getStringExtra("page");
@@ -370,24 +373,22 @@ public class Yarn extends CordovaActivity implements
 			}
 		}
 		
-		SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
+//		SharedPreferences prefs = PreferenceManager
+//                .getDefaultSharedPreferences(context);
 		
 		
-		if (prefs.contains(context.getString(R.string.do_cellular_call))) {
-			Boolean doNativeCall =  prefs.getBoolean(context.getString(R.string.do_cellular_call), false);
-			String dialedNumber =  prefs.getString(context.getString(R.string.do_cellular_call_number), "");
-			if (doNativeCall) {
-//				loadUrl(launchUrl);
-//				appView.sendJavascript("setDialedNumber('"+dialedNumber+"')");
-				appView.sendJavascript("doNativeCallAsk('"+dialedNumber+"')");
-				SharedPreferences.Editor edit = prefs.edit();
-				edit.putBoolean(context.getString(R.string.do_cellular_call), false);
-				edit.putString(context.getString(R.string.do_cellular_call_number), "");
-		        edit.commit();
-			}
-			
-		}
+//		if (prefs.contains(context.getString(R.string.do_cellular_call))) {
+//			Boolean doNativeCall =  prefs.getBoolean(context.getString(R.string.do_cellular_call), false);
+//			String dialedNumber =  prefs.getString(context.getString(R.string.do_cellular_call_number), "");
+//			if (doNativeCall) {
+//				appView.sendJavascript("doNativeCallAsk('"+dialedNumber+"')");
+//				SharedPreferences.Editor edit = prefs.edit();
+//				edit.putBoolean(context.getString(R.string.do_cellular_call), false);
+//				edit.putString(context.getString(R.string.do_cellular_call_number), "");
+//		        edit.commit();
+//			}
+//			
+//		}
 	}
 	
 	@Override

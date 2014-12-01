@@ -90,6 +90,15 @@ function forgot(response) {
         }, function () {
             window.location.href = 'login.html';
         });
+    } else {
+    	sweetAlert({
+            title: "Error!",
+            text: response,
+            type: 'error',
+            confirmButtonText: "OK"
+        }, function() {
+            window.location.href = 'login.html';
+        });
     }
 }
 

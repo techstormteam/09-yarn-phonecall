@@ -707,7 +707,6 @@ public class LinPhonePlugin extends CordovaPlugin implements
 						JSONObject objJSON = new JSONObject();
 						String accessNumber = (String) args.get(0);
 						String phoneNumber = (String) args.get(1);
-						blockNativeCall();
 						callingCard(accessNumber, phoneNumber);
 						PluginResult result = new PluginResult(Status.OK,
 								objJSON);
@@ -732,7 +731,7 @@ public class LinPhonePlugin extends CordovaPlugin implements
 			this.cordova.getActivity().runOnUiThread(new Runnable() {
 				public void run() {
 					JSONObject objJSON = new JSONObject();
-					allowNativeCall();
+					//allowNativeCall();
 					PluginResult result = new PluginResult(Status.OK, objJSON);
 					callbackContext.sendPluginResult(result);
 				}
@@ -1441,7 +1440,7 @@ public class LinPhonePlugin extends CordovaPlugin implements
 	}
 
 	private boolean wifiCall(AddressText mAddress) {
-		blockNativeCall();
+		//blockNativeCall();
 		try {
 			// echoCalibration();
 			if (!LinphoneManager.getInstance().acceptCallIfIncomingPending()) {

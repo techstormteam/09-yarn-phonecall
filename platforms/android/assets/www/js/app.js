@@ -789,60 +789,18 @@ function loadUrlDialScreen() {
 	window.location.href = "dial.html";
 }
 
-function doCellularCall(dialedNumber) {
-    global.set("dialedNumber", dialedNumber);
-    $("#wifi-choice").hide();
-    
+function doCellularCall() {
     var totalWidth = $(window).width(); 
-    if (dialedNumber !== "") {
-		$('.dialog').dialog({
-	        resizable: false,
-	        modal: true,
-	        width: totalWidth,
-	        maxHeight: $(window).height(),
-	        dialogClass: 'sweet-alert',
-	        buttons: {
-	            Cancel: function () {
-	                $(this).dialog("close");
-	                window.blockNativeCall(function (data) {
-	                    //empty
-	                });
-	            }
-	        }
-	    });
-    } else {
-    	doCallLogs();
-    }
-    
-    function loadUrlDialScreen() {
-    	window.location.href = "dial.html";
-    }
-    
-    window.allowNativeCall(dialedNumber, function (message) {
-        //empty
+	$('.dialog').dialog({
+        resizable: false,
+        modal: true,
+        width: totalWidth,
+        maxHeight: $(window).height(),
+        dialogClass: 'sweet-alert',
+        buttons: {
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
     });
-    
-//	$( "#cellular-call" ).dialog({ buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } } ] });
-//    swal({
-//		  title: "Calling Choices",
-//		  text: "",
-//		  type: "warning",
-//		  showCancelButton: true,
-//		  confirmButtonColor: "#DD6B55",
-//		  confirmButtonText: "Dial via access number!",
-//		  cancelButtonText: "Dial via native phone!",
-//		  closeOnConfirm: true,
-//		  closeOnCancel: true
-//		},
-//		function(isConfirm){
-//		  if (isConfirm) {
-//			  doCallingCard(dialedNumber);
-//		  } else {
-//			  // call native phone
-//			  // get data from dialedNumber
-//			    window.cellularCall(dialedNumber, function (message) {
-//			        //empty
-//			    });
-//		  }
-//		});
 }

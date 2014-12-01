@@ -97,7 +97,7 @@ function check_rform() {
     } else {
     	var data = {fname: firstName, lname: lastName, email: email, phone: phone, psw: password, psw2: rePassword};
     	if (discountCode) {
-	    	data.code = discountCode;s
+	    	data.code = discountCode;
     	}
         global.register('_signup', data, register);
     }

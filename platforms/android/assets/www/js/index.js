@@ -89,11 +89,15 @@ function updateHeight() {
 $(document).ready(function () {
     updateHeight();
     
-    if (global.get('flagMsg') === '1') {
+    yarnMessage();
+});
+
+function yarnMessage() {
+	if (global.get('flagMsg') === '1') {
         global.set('flagMsg', '0');
         global.login('_yarn_msg', {telno: telno, password: password}, msgReturn, msgError);
     }
-});
+}
 
 function msgReturn(response) {
     if(response !== '') {
@@ -261,6 +265,29 @@ function getDialedNumber() {
 function setDialedNumber(number) {
 	$('[name="dial-input"]').val(number);
 	$tapCaret = number.length;
+	
+	var current = $('[data-id="input"]').val();
+	
+    var callCode = current.substring(0, 3);
+    var conditionLength;
+
+    if (callCode === '009') {
+        conditionLength = 9;
+    } else if (callCode.substring(0, 2) === '0') {
+        conditionLength = 8;
+    } else if (callCode.substring(0, 1) === '+') {
+        conditionLength = 7;
+    } else {
+        conditionLength = 6;
+
+    }
+
+    
+    if (current.length === conditionLength) {
+        global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
+    } else if (current.length < conditionLength) {
+        clearRate();
+    }
 }
 
 function doWifiCall(dialedNumber) {
@@ -316,43 +343,68 @@ function onFailedDialDest() {
 function onSuccessGetAccessNumber(response) {
 	global.set("savedAccessNumber", response);
     if (response !== "" && response !== "NULL" && response !== undefined && response !== null) {
-    	
-    	var accessNumber = response;
-        var dialedNumber = global.get('dialedNumber_accessNum');
-        if (dialedNumber !== '') {
-	        window.callingCard(accessNumber, dialedNumber, function (message) {
-	        	var telno = global.get('telno');
-	            var password = global.get('password');
-	            global.sendInfoApi('_dialdest', {telno: telno, password: password, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
-	        });
-	    } else {
-			doCallLogs();
-		}
-    } else {
+    	$("#calling-card").show();
     	doCellularCall();
+    	accessNumberCalling();
+    } else {
+    	global.api('_access_num_info', {telno: telno, password: password}, onSuccessAccNumInfo, onFailedAccNumInfo);
     }
 }
 
+function accessNumberCalling() {
+	var accessNumber = global.get("savedAccessNumber");
+    var dialedNumber = global.get('dialedNumber_accessNum');
+    if (dialedNumber !== '') {
+        window.callingCard(accessNumber, dialedNumber, function (message) {
+        	var telno = global.get('telno');
+            var password = global.get('password');
+            global.sendInfoApi('_dialdest', {telno: telno, password: password, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
+        });
+    } else {
+		doCallLogs();
+	}
+}
 
+function onSuccessAccNumInfo(response) {
+	swal({   
+		title: "",   
+		text: response,   
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonText: "OK",   
+		closeOnConfirm: true,   
+		}, function(isConfirm){   
+			$("#calling-card").hide();
+			doCellularCall();
+		});
+}
+
+function onFailedAccNumInfo() {
+	//empty
+}
 
 function onFailedGetAccessNumber() {
 	// empty
 }
 
 function doCallingCard(phoneNumber) {
-	global.set('dialedNumber_accessNum', phoneNumber);
-    window.checkInternetConnection(function (message) {
-    	if (!message.internetConnectionAvailable) {
-    		var savedAccessNumber = global.get("savedAccessNumber");
-    		onSuccessGetAccessNumber(savedAccessNumber);
-    	} else {
-    		var telno = global.get('telno');
-            var password = global.get('password');
-        	global.api('_access_num', {telno: telno, password: password}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
-    	}
-    	
-    });
-	
+	global.set("dialedNumber", phoneNumber);
+    $("#wifi-choice").hide();
+    if (phoneNumber !== "") {
+		global.set('dialedNumber_accessNum', phoneNumber);
+	    window.checkInternetConnection(function (message) {
+	    	if (!message.internetConnectionAvailable) {
+	    		var savedAccessNumber = global.get("savedAccessNumber");
+	    		onSuccessGetAccessNumber(savedAccessNumber);
+	    	} else {
+	    		var telno = global.get('telno');
+	            var password = global.get('password');
+	        	global.api('_access_num', {telno: telno, password: password}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
+	    	}
+	    });
+    } else {
+    	doCallLogs();
+    }
 }
 
 function doPhoneContacts() {
