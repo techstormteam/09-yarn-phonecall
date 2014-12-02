@@ -36,6 +36,11 @@ $('.btn-submit').click(function() {
     btnHandler($(this));
 });
 
+$(".form").submit(function(e){
+	doCheckInternetConnection();
+    return false;
+});
+
 function btnHandler(object) {
     object.animate({opacity: '0.5'}, 100)
             .delay(100)
