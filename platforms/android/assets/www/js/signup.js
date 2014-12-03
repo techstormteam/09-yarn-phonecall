@@ -29,7 +29,8 @@ function updateSize(totalHeight) {
     formLogin.children('div').find('input').css('min-height', (((loginHeight) / 8)-5) + 'px');
     formLogin.children('div').find('input').css('font-size', '1.5em');
     
-//    formSubmit.height(btnGroupHeight);
+    formSubmit.css('top', (totalHeight - formSubmit.height()) +'px');
+
 }
 
 $('.btn-submit').click(function() {
@@ -54,13 +55,13 @@ $(document).ready(function () {
     ready = true;
 });
 
-$(window).resize(function () {
-    if (ready) {
-        var totalHeight = $(window).height();
-
-        updateSize(totalHeight);
-    }
-});
+//$(window).resize(function () {
+//    if (ready) {
+//        var totalHeight = $(window).height();
+//
+//        updateSize(totalHeight);
+//    }
+//});
 
 var firstName = null;
 var lastName = null;

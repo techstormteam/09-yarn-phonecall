@@ -84,7 +84,6 @@ hr {
 [data-id="form-submit"] {
     padding-bottom: 10px;
     position: fixed;
-    bottom: 0;
     width: 100%;
 }
 
