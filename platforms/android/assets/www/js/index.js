@@ -347,7 +347,6 @@ function onSuccessGetAccessNumber(response) {
     if (response !== "" && response !== "NULL" && response !== undefined && response !== null) {
     	$("#calling-card").show();
     	doCellularCall();
-    	accessNumberCalling();
     } else {
     	global.api('_access_num_info', {telno: telno, password: password}, onSuccessAccNumInfo, onFailedAccNumInfo);
     }
@@ -401,6 +400,7 @@ function doCallingCard(phoneNumber) {
 	    	} else {
 	    		var telno = global.get('telno');
 	            var password = global.get('password');
+		            
 	        	global.api('_access_num', {telno: telno, password: password}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
 	    	}
 	    });
