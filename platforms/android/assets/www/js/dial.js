@@ -259,18 +259,7 @@ function doHome() {
     // Need to code
     window.location.href = 'index.html';
 }
-function doPhoneContacts() {
 
-    window.phoneContacts(function (message) {
-        //empty
-    });
-}
-function doCallLogs() {
-
-    window.callLogs(function (message) {
-        //empty
-    });
-}
 function doGetContactImageUri() {
 	var telno = global.get('telnoCallingTo');
     window.getContactImageUri(telno, function (data) {
