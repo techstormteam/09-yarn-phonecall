@@ -68,20 +68,19 @@
                     
         </script>
         <script>
-            
+
             function setCallerId(callerId) {
 				var callerid_autoswitch = callerId;
-
 	            if (callerid_autoswitch === 'AUTO') {
-	                $('#radio-choice-1').prop('checked', true);
+	                $('#radio-choice-1').prop('checked', true).checkboxradio("refresh");
 	            } else if (callerid_autoswitch === 'UK') {
-	                $('#radio-choice-2').prop('checked', true);
+	                $('#radio-choice-2').prop('checked', true).checkboxradio("refresh");
 	            } else if (callerid_autoswitch === 'USA') {
-	                $('#radio-choice-3').prop('checked', true);
-	            } else if (callerid_autoswitch === 'NGN') {
-	                $('#radio-choice-4').prop('checked', true);
+	                $('#radio-choice-3').prop('checked', true).checkboxradio("refresh");
+	            } else if (callerid_autoswitch === 'NGA') {
+	                $('#radio-choice-4').prop('checked', true).checkboxradio("refresh");
 	            } else if (callerid_autoswitch === 'HIDE') {
-	                $('#radio-choice-5').prop('checked', true);
+	                $('#radio-choice-5').prop('checked', true).checkboxradio("refresh");
 	            }
 	        }
             
@@ -108,7 +107,12 @@
                         showCancelButton: false,
                         closeOnConfirm: false
                     }, function() {
-                        global.updateUser(function(){window.location.href = 'index.html';});
+                    	var telno = global.get('telno');
+						var password = global.get('password');
+                    	global.infoApi("_user_ccy", { telno: telno, password: password}, function(response){
+                    		global.set('currency', response);
+                    		window.location.href = 'index.html';
+                    	});
                     });
                 } else {
                     sweetAlert('Oops...', response.details, 'error');

@@ -163,7 +163,6 @@ function blink(i) {
 }
 
 $(document).ready(function() {
-                  
     ready = true;
     global.set('flagMsg', '1');
     updateSize();

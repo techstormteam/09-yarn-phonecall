@@ -28,10 +28,13 @@ function updateSize() {
     formLogin.find('input').height(oneNineth / 2 - 11.2);
 
     //INTRO
+    
+    
     intro.height(oneSixth * 2);
     formSubmit.height(oneSixth - 10);
     formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
     formSubmit.children('div').css('marginTop', formSubmit.height() - formSubmit.children('div').height());
+    formSubmit.css('top', (totalHeight - formSubmit.children('div').height() - formSubmit.children('div').children('div').height()) +'px');
     
     //SOCIAL BUTTON
     var sub = 0;
@@ -48,6 +51,8 @@ function updateSize() {
     fbButton.height((socialButton.height() - 6) / 2 - 2);
     fbButton.css('line-height', ((socialButton.height() - 6) / 2) + 'px');
     fbButton.css('width', totalWidth - 300);
+    
+    
 }
 
 $(document).ready(function () {
@@ -63,12 +68,17 @@ $(document).ready(function () {
     }
 });
 
-$(window).resize(function () {
-    updateSize();
-});
+//$(window).resize(function () {
+//    updateSize();
+//});
 
 $('.btn-submit').click(function() {
     btnHandler($(this));
+});
+
+$(".form").submit(function(e){
+	doCheckInternetConnection();
+    return false;
 });
 
 function btnHandler(object) {

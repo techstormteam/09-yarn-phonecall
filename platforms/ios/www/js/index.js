@@ -93,7 +93,6 @@ $(document).ready(function () {
 });
 
 function yarnMessage() {
-    
 	if (global.get('flagMsg') === '1') {
         global.set('flagMsg', '0');
         global.login('_yarn_msg', {telno: telno, password: password}, msgReturn, msgError);
@@ -101,7 +100,6 @@ function yarnMessage() {
 }
 
 function msgReturn(response) {
-    
     if(response !== '') {
         swal({
             title: "Notification",
@@ -139,6 +137,7 @@ $('[data-value="1"]').bind('taphold', function() {
 
 function numberRemover(event) {
 	$('[data-id="input"]').val('');
+	clearRate();
 }
 
 function tapholdHandler(event) {
@@ -153,7 +152,7 @@ function tapholdHandler(event) {
 
     if (callCode === '009') {
         conditionLength = 9;
-    } else if (callCode.substring(0, 2) === '0') {
+    } else if (callCode.substring(0, 2) === '00') {
         conditionLength = 8;
     } else if (callCode.substring(0, 1) === '+') {
         conditionLength = 7;
@@ -161,7 +160,7 @@ function tapholdHandler(event) {
         conditionLength = 6;
     }
 
-    if (current.length === conditionLength) {
+    if (current.length >= conditionLength) {
         global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
     } else if (current.length < conditionLength) {
         clearRate();
@@ -188,10 +187,9 @@ function inputProcess(object) {
     
     var callCode = current.substring(0, 3);
     var conditionLength;
-
     if (callCode === '009') {
         conditionLength = 9;
-    } else if (callCode.substring(0, 2) === '0') {
+    } else if (callCode.substring(0, 2) === '00') {
         conditionLength = 8;
     } else if (callCode.substring(0, 1) === '+') {
         conditionLength = 7;
@@ -205,7 +203,7 @@ function inputProcess(object) {
         $('[data-id="input"]').css('font-size', inputFontSize);
     }
 
-    if (current.length === conditionLength) {
+    if (current.length >= conditionLength) {
         global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
     } else if (current.length < conditionLength) {
         clearRate();
@@ -215,22 +213,27 @@ function inputProcess(object) {
 $('[data-id="delete"]').click(function () {
     var current = $('[data-id="input"]').val();
     
-    $caret = $tapCaret;
-    
-    //$leftStr = current.substring(0, $caret);
-    //$rightStr = current.substring($caret, current.length);
-    //$lastStr = $leftStr.substring(0, $leftStr.length - 1) + $rightStr;
     dest.val(current.substring(0, current.length - 1));
-    now = $lastStr;
-    if ($tapCaret > 0) {
-    	$tapCaret--;
-    }
+    current = dest.val();
     
-    if(now.length < 6) {
+    var callCode = current.substring(0, 3);
+    var conditionLength;
+    if (callCode === '009') {
+        conditionLength = 9;
+    } else if (callCode.substring(0, 2) === '00') {
+        conditionLength = 8;
+    } else if (callCode.substring(0, 1) === '+') {
+        conditionLength = 7;
+    } else {
+        conditionLength = 6;
+    }
+
+    if (current.length < conditionLength) {
         clearRate();
     }
     
-    if(now.length > 15) {
+    
+    if(current.length > 15) {
         $('[data-id="input"]').css('font-size', parseFloat(inputFontSize) / 10 * 6 + 'px');
     } else {
         $('[data-id="input"]').css('font-size', inputFontSize);
@@ -267,6 +270,26 @@ function getDialedNumber() {
 function setDialedNumber(number) {
 	$('[name="dial-input"]').val(number);
 	$tapCaret = number.length;
+	
+	var current = $('[data-id="input"]').val();
+	
+    var callCode = current.substring(0, 3);
+    var conditionLength;
+    if (callCode === '009') {
+        conditionLength = 9;
+    } else if (callCode.substring(0, 2) === '00') {
+        conditionLength = 8;
+    } else if (callCode.substring(0, 1) === '+') {
+        conditionLength = 7;
+    } else {
+        conditionLength = 6;
+    }
+
+    if (current.length >= conditionLength) {
+        global.rate('_rate', {telno: telno, password: password, dest: dest.val()}, getRate);
+    } else if (current.length < conditionLength) {
+        clearRate();
+    }
 }
 
 function doWifiCall(dialedNumber) {
@@ -322,43 +345,68 @@ function onFailedDialDest() {
 function onSuccessGetAccessNumber(response) {
 	global.set("savedAccessNumber", response);
     if (response !== "" && response !== "NULL" && response !== undefined && response !== null) {
-    	
-    	var accessNumber = response;
-        var dialedNumber = global.get('dialedNumber_accessNum');
-        if (dialedNumber !== '') {
-	        window.callingCard(accessNumber, dialedNumber, function (message) {
-	        	var telno = global.get('telno');
-	            var password = global.get('password');
-	            global.sendInfoApi('_dialdest', {telno: telno, password: password, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
-	        });
-	    } else {
-			doCallLogs();
-		}
-    } else {
+    	$("#calling-card").show();
     	doCellularCall();
+    } else {
+    	global.api('_access_num_info', {telno: telno, password: password}, onSuccessAccNumInfo, onFailedAccNumInfo);
     }
 }
 
+function accessNumberCalling() {
+	var accessNumber = global.get("savedAccessNumber");
+    var dialedNumber = global.get('dialedNumber_accessNum');
+    if (dialedNumber !== '') {
+        window.callingCard(accessNumber, dialedNumber, function (message) {
+        	var telno = global.get('telno');
+            var password = global.get('password');
+            global.sendInfoApi('_dialdest', {telno: telno, password: password, dest: dialedNumber}, onSuccessDialDest, onFailedDialDest);
+        });
+    } else {
+		doCallLogs();
+	}
+}
 
+function onSuccessAccNumInfo(response) {
+		swal({   
+			title: "",   
+			text: response,   
+			type: "warning", 
+			confirmButtonText: "OK",   
+			closeOnConfirm: true,   
+			}, function(isConfirm){   
+				$("#calling-card").hide();
+				doCellularCall();
+			});
+	
+}
+
+function onFailedAccNumInfo() {
+	//empty
+}
 
 function onFailedGetAccessNumber() {
 	// empty
 }
 
 function doCallingCard(phoneNumber) {
-	global.set('dialedNumber_accessNum', phoneNumber);
-    window.checkInternetConnection(function (message) {
-    	if (!message.internetConnectionAvailable) {
-    		var savedAccessNumber = global.get("savedAccessNumber");
-    		onSuccessGetAccessNumber(savedAccessNumber);
-    	} else {
-    		var telno = global.get('telno');
-            var password = global.get('password');
-        	global.api('_access_num', {telno: telno, password: password}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
-    	}
-    	
-    });
-	
+	global.set("dialedNumber", phoneNumber);
+    $("#wifi-choice").hide();
+    if (phoneNumber !== "") {
+		global.set('dialedNumber_accessNum', phoneNumber);
+	    window.checkInternetConnection(function (message) {
+	    	if (!message.internetConnectionAvailable) {
+	    		var savedAccessNumber = global.get("savedAccessNumber");
+	    		onSuccessGetAccessNumber(savedAccessNumber);
+	    	} else {
+	    		var telno = global.get('telno');
+	            var password = global.get('password');
+		            
+	        	global.api('_access_num', {telno: telno, password: password}, onSuccessGetAccessNumber, onFailedGetAccessNumber);
+	    	}
+	    });
+    } else {
+    	doCallLogs();
+    }
 }
 
 function doPhoneContacts() {

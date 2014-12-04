@@ -431,9 +431,8 @@ function getUrlParameter(name) {
     return decodeURIComponent(result);
 }
 function balance_display_in_button() {
-    var user = global.getUser();
-    var user_id = user.getId();
-    var currency = user.getCurrency();
+    var user_id = global.get('uid');
+    var currency = global.get('currency');
     global.api('get_balance_by_user_id', {user_id: user_id, currency: currency}, balance_display_in_button_process);
 }
 

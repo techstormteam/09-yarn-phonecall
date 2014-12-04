@@ -29,11 +29,17 @@ function updateSize(totalHeight) {
     formLogin.children('div').find('input').css('min-height', (((loginHeight) / 8)-5) + 'px');
     formLogin.children('div').find('input').css('font-size', '1.5em');
     
-//    formSubmit.height(btnGroupHeight);
+    formSubmit.css('top', (totalHeight - formSubmit.height()) +'px');
+
 }
 
 $('.btn-submit').click(function() {
     btnHandler($(this));
+});
+
+$(".form").submit(function(e){
+	doCheckInternetConnection();
+    return false;
 });
 
 function btnHandler(object) {
@@ -49,13 +55,13 @@ $(document).ready(function () {
     ready = true;
 });
 
-$(window).resize(function () {
-    if (ready) {
-        var totalHeight = $(window).height();
-
-        updateSize(totalHeight);
-    }
-});
+//$(window).resize(function () {
+//    if (ready) {
+//        var totalHeight = $(window).height();
+//
+//        updateSize(totalHeight);
+//    }
+//});
 
 var firstName = null;
 var lastName = null;
@@ -97,7 +103,7 @@ function check_rform() {
     } else {
     	var data = {fname: firstName, lname: lastName, email: email, phone: phone, psw: password, psw2: rePassword};
     	if (discountCode) {
-	    	data.code = discountCode;s
+	    	data.code = discountCode;
     	}
         global.register('_signup', data, register);
     }

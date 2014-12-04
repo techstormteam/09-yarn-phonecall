@@ -191,7 +191,6 @@ function Global() {
 
     this.login = function (cmd, data, callback_success, callback_error, callback_complete) {
         var url = this.getApiUrl() + '?cmd=' + cmd + '&telno=' + data.telno + '&password=' + data.password;
-
         if (this.debug === true) {
             LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
         }
@@ -779,71 +778,36 @@ function doNativeCallAsk(dialedNumber) {
 function doSettings() {
 	window.settings(function (message) {
 		if (!global.showPopupInternetNotAvailable(message)) {
-			//window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
-			window.location.href = 'mobile/index.html';
+			var telno = global.get('telno');
+			var password = global.get('password');
+			global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
 		}
     });
     
+}
+
+function onSuccessGetCurrency(response) {
+	global.set('currency', response);
+	//window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
+	window.location.href = 'mobile/index.html';
 }
 
 function loadUrlDialScreen() {
 	window.location.href = "dial.html";
 }
 
-function doCellularCall(dialedNumber) {
-    global.set("dialedNumber", dialedNumber);
-    $("#wifi-choice").hide();
-    
+function doCellularCall() {
     var totalWidth = $(window).width(); 
-    if (dialedNumber !== "") {
-		$('.dialog').dialog({
-	        resizable: false,
-	        modal: true,
-	        width: totalWidth,
-	        maxHeight: $(window).height(),
-	        dialogClass: 'sweet-alert',
-	        buttons: {
-	            Cancel: function () {
-	                $(this).dialog("close");
-	                window.blockNativeCall(function (data) {
-	                    //empty
-	                });
-	            }
-	        }
-	    });
-    } else {
-    	doCallLogs();
-    }
-    
-    function loadUrlDialScreen() {
-    	window.location.href = "dial.html";
-    }
-    
-    window.allowNativeCall(dialedNumber, function (message) {
-        //empty
+	$('.dialog').dialog({
+        resizable: false,
+        modal: true,
+        width: totalWidth,
+        maxHeight: $(window).height(),
+        dialogClass: 'sweet-alert',
+        buttons: {
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
     });
-    
-//	$( "#cellular-call" ).dialog({ buttons: [ { text: "Cancel", click: function() { $( this ).dialog( "close" ); } } ] });
-//    swal({
-//		  title: "Calling Choices",
-//		  text: "",
-//		  type: "warning",
-//		  showCancelButton: true,
-//		  confirmButtonColor: "#DD6B55",
-//		  confirmButtonText: "Dial via access number!",
-//		  cancelButtonText: "Dial via native phone!",
-//		  closeOnConfirm: true,
-//		  closeOnCancel: true
-//		},
-//		function(isConfirm){
-//		  if (isConfirm) {
-//			  doCallingCard(dialedNumber);
-//		  } else {
-//			  // call native phone
-//			  // get data from dialedNumber
-//			    window.cellularCall(dialedNumber, function (message) {
-//			        //empty
-//			    });
-//		  }
-//		});
 }

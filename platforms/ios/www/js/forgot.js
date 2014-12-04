@@ -32,6 +32,7 @@ function updateSize() {
     formSubmit.height(oneSixth - 10);
     formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
     formSubmit.children('div').css('marginTop', formSubmit.height() - formSubmit.children('div').height());
+    formSubmit.css('top', (totalHeight - formSubmit.children('div').height() - formSubmit.children('div').children('div').height()) +'px');
     
     //SOCIAL BUTTON
     var sub = 0;
@@ -63,12 +64,17 @@ $(document).ready(function () {
     }
 });
 
-$(window).resize(function () {
-    updateSize();
-});
+//$(window).resize(function () {
+//    updateSize();
+//});
 
 $('.btn-submit').click(function() {
     btnHandler($(this));
+});
+
+$(".form").submit(function(e){
+	doCheckInternetConnection();
+    return false;
 });
 
 function btnHandler(object) {
@@ -90,6 +96,15 @@ function forgot(response) {
         }, function () {
             window.location.href = 'login.html';
         });
+    } else {
+    	sweetAlert({
+            title: "Error!",
+            text: response,
+            type: 'error',
+            confirmButtonText: "OK"
+        }, function() {
+            //window.location.href = 'login.html';
+        });
     }
 }
 
@@ -97,11 +112,7 @@ function check_form() {
     phone = $('#txtPhone').val();
     email = $('#txtEmail').val();
 
-    if (phone !== "" && email !== "") {
-        global.forgot('_forgotpaswd', {email: email, phone: phone}, forgot);
-    } else {
-        global.showPopup('Oops...', 'Please enter your registered phone number and/or password, in order to receive a password reminder', 'error');
-    }
+    global.forgot('_forgotpaswd', {email: email, phone: phone}, forgot);
 }
 
 function doCheckInternetConnection() {

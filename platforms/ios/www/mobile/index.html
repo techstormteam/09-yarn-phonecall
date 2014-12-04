@@ -155,9 +155,9 @@
         </script>
         <script>
             var user_id = global.get('uid');
-            var currency = user.getCurrency();
+            var currency = global.get('currency');
             $('#user_name').html(user.getFirstName() + ' ' + user.getLastName());
-            if (user.getCurrency() !== 'NGN') {
+            if (global.get('currency') !== 'NGN') {
                 $('#connect').show();
             }
             balance_display_in_button();
