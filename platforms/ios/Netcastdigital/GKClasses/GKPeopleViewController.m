@@ -58,7 +58,8 @@
 - (void)addSection:(NSMutableArray *)section identifier:(NSString *)identifier
 {
     NSDictionary *dict = @{ @"identifier": identifier, @"items":section };
-    [_data addObject:dict];
+    int s = [self.data count];
+    [self.data addObject:dict];
     [_index addObject:identifier];
 }
 

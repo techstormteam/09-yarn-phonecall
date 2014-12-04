@@ -280,7 +280,8 @@ static void sync_address_book (ABAddressBookRef addressBook, CFDictionaryRef inf
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	OrderedDictionary *subDic = [addressBookMap objectForKey: [addressBookMap keyAtIndex: [indexPath section]]];
 	ABRecordRef lPerson = [subDic objectForKey: [subDic keyAtIndex:[indexPath row]]];
-
+    
+    
 	// Go to Contact details view
 	ContactDetailsViewController *controller = DYNAMIC_CAST([[PhoneMainView instance] changeCurrentView:[ContactDetailsViewController compositeViewDescription] push:TRUE], ContactDetailsViewController);
 	if(controller != nil) {

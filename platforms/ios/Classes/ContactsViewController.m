@@ -20,6 +20,7 @@
 #import "ContactsViewController.h"
 #import "PhoneMainView.h"
 #import "Utils.h"
+#import "NSString+HTML.h"
 
 #import <AddressBook/ABPerson.h>
 
@@ -119,6 +120,7 @@ typedef enum _HistoryView {
 	[addButton release];
 
 	[_searchBar release];
+    [_balanceLabel release];
 	[super dealloc];
 }
 
@@ -132,7 +134,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 										content:@"ContactsViewController"
 										stateBar:nil
 										stateBarEnabled:false
-										tabBar:@"UIMainBar"
+										tabBar:/*@"UIMainBar"*/nil
 										tabBarEnabled:true
 										fullscreen:false
 										landscapeMode:[LinphoneManager runningOnIpad]
@@ -157,6 +159,8 @@ static UICompositeViewDescription *compositeDescription = nil;
 	// [searchText setFont:[UIFont fontWithName:@"CustomFont" size:12]];
 	_searchBar.showsCancelButton = (_searchBar.text.length > 0);
 
+    _balanceLabel.text = [[[[[LinphoneAppDelegate instance] getBalance] stringByStrippingTags] stringByRemovingNewLinesAndWhitespace] stringByDecodingHTMLEntities];
+    
 	BOOL use_system = [[LinphoneManager instance] lpConfigBoolForKey:@"use_system_contacts"];
 	if( use_system && !self.sysViewController){// use system contacts
 		ABPeoplePickerNavigationController* picker = [[ABPeoplePickerNavigationController alloc] init];
@@ -265,12 +269,12 @@ static UICompositeViewDescription *compositeDescription = nil;
 	switch ([ContactSelection getSelectionMode]) {
 		case ContactSelectionModePhone:
 		case ContactSelectionModeMessage:
-			[addButton setHidden:TRUE];
-			[backButton setHidden:FALSE];
+			//[addButton setHidden:TRUE];
+			//[backButton setHidden:FALSE];
 			break;
 		default:
-			[addButton setHidden:FALSE];
-			[backButton setHidden:TRUE];
+			//[addButton setHidden:FALSE];
+			//[backButton setHidden:TRUE];
 			break;
 	}
 	if([ContactSelection getSipFilter]) {

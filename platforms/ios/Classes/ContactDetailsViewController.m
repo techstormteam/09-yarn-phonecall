@@ -249,9 +249,9 @@ static void sync_address_book (ABAddressBookRef addressBook, CFDictionaryRef inf
     [super viewWillAppear:animated];
     if([ContactSelection getSelectionMode] == ContactSelectionModeEdit ||
        [ContactSelection getSelectionMode] == ContactSelectionModeNone) {
-        [editButton setHidden:FALSE];
+//        [editButton setHidden:FALSE];
     } else {
-        [editButton setHidden:TRUE];
+//        [editButton setHidden:TRUE];
     }
     if ([[UIDevice currentDevice].systemVersion doubleValue] < 5.0) {
         [tableController viewWillAppear:animated];
@@ -283,7 +283,7 @@ static UICompositeViewDescription *compositeDescription = nil;
                                                                 content:@"ContactDetailsViewController" 
                                                                stateBar:nil 
                                                         stateBarEnabled:false 
-                                                                 tabBar:@"UIMainBar" 
+                                                                 tabBar:/*@"UIMainBar"*/nil
                                                           tabBarEnabled:true 
                                                              fullscreen:false
                                                           landscapeMode:[LinphoneManager runningOnIpad]

@@ -108,7 +108,8 @@
     [self successReturn:command];
 }
 - (void) PhoneContacts:(CDVInvokedUrlCommand *)command {
-    [self doPhoneContacts];
+    NSString *balance = [command.arguments objectAtIndex:0];
+    [self doPhoneContacts:balance];
     [self successReturn:command];
 }
 - (void) CallLogs:(CDVInvokedUrlCommand *)command {
@@ -731,8 +732,8 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telString]];
 }
 
-- (void) doPhoneContacts {
-    [[LinphoneAppDelegate instance] showLinphonePhoneContactList];
+- (void) doPhoneContacts:(NSString*) balance  {
+    [[LinphoneAppDelegate instance] showLinphoneContactView:balance];
 
 }
 

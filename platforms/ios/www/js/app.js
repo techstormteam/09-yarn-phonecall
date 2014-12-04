@@ -796,6 +796,30 @@ function loadUrlDialScreen() {
 	window.location.href = "dial.html";
 }
 
+function getBalanceCallLogs(balance) {
+	window.callLogs(balance, function (message) {
+        //empty
+    });
+}
+
+function doCallLogs() {
+	var telno = global.get('telno');
+	var password = global.get('password');
+	global.balance('_balance', {telno: telno, password: password}, getBalanceCallLogs);
+}
+
+function doPhoneContacts() {
+	var telno = global.get('telno');
+	var password = global.get('password');
+	global.balance('_balance', {telno: telno, password: password}, getBalancePhoneContacts);
+}
+
+function getBalancePhoneContacts(balance) {
+	window.phoneContacts(balance, function (message) {
+        //empty
+    });
+}
+
 function doCellularCall() {
     var totalWidth = $(window).width(); 
 	$('.dialog').dialog({

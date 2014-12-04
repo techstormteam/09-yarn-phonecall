@@ -237,6 +237,7 @@
 		D0ADB69A1A271D3800F1C8CB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B5F03410CE6B2F00777D97 /* AddressBook.framework */; };
 		D0ADB69B1A271D3800F1C8CB /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B5EFA210CE50BD00777D97 /* AddressBookUI.framework */; };
 		D0B112F71A20109600B25FAC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B112F61A20109600B25FAC /* Reachability.m */; };
+		D0D491FE1A303CCD000B971F /* PeoplePickerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0D491FD1A303CCD000B971F /* PeoplePickerAppDelegate.m */; };
 		D0EB64EE1A14893E000E9ABC /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = D0EB64ED1A14893E000E9ABC /* config.xml */; };
 		D0EB66A11A148985000E9ABC /* www in Resources */ = {isa = PBXBuildFile; fileRef = D0EB66A01A148985000E9ABC /* www */; };
 		D0EB66AD1A1489FD000E9ABC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EB66A51A1489FD000E9ABC /* AppDelegate.m */; };
@@ -1761,6 +1762,8 @@
 		D0ADB68A1A271AE500F1C8CB /* me@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me@2x.png"; sourceTree = "<group>"; };
 		D0B112F51A20109600B25FAC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		D0B112F61A20109600B25FAC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		D0D491FC1A303CCD000B971F /* PeoplePickerAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeoplePickerAppDelegate.h; sourceTree = "<group>"; };
+		D0D491FD1A303CCD000B971F /* PeoplePickerAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeoplePickerAppDelegate.m; sourceTree = "<group>"; };
 		D0EB64E61A14888F000E9ABC /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
 		D0EB64ED1A14893E000E9ABC /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = config.xml; path = Netcastdigital/config.xml; sourceTree = "<group>"; };
 		D0EB66A01A148985000E9ABC /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
@@ -3114,6 +3117,8 @@
 		D0EB66A31A1489FD000E9ABC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D0D491FC1A303CCD000B971F /* PeoplePickerAppDelegate.h */,
+				D0D491FD1A303CCD000B971F /* PeoplePickerAppDelegate.m */,
 				D05627BE1A2ED4810056535F /* ViewController.h */,
 				D05627BF1A2ED4810056535F /* ViewController.m */,
 				D05627C01A2ED4810056535F /* ViewController.xib */,
@@ -5397,6 +5402,7 @@
 				D3F7998115BD32370018C273 /* TPMultiLayoutViewController.m in Sources */,
 				D3807FBF15C28940005BE9BC /* DCRoundSwitch.m in Sources */,
 				D3807FC115C28940005BE9BC /* DCRoundSwitchKnobLayer.m in Sources */,
+				D0D491FE1A303CCD000B971F /* PeoplePickerAppDelegate.m in Sources */,
 				D3807FC315C28940005BE9BC /* DCRoundSwitchOutlineLayer.m in Sources */,
 				D3807FC515C28940005BE9BC /* DCRoundSwitchToggleLayer.m in Sources */,
 				D3807FE815C2894A005BE9BC /* IASKAppSettingsViewController.m in Sources */,

@@ -647,22 +647,25 @@ static const ContactSections_e contactSections[ContactSections_MAX] = {ContactSe
             CFRelease(lMap);
         }
         if(dest != nil) {
-            NSString *displayName = [FastAddressBook getContactDisplayName:contact];
-            if([ContactSelection getSelectionMode] != ContactSelectionModeMessage) {
-                // Go to dialer view
-                DialerViewController *controller = DYNAMIC_CAST([[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]], DialerViewController);
-                if(controller != nil) {
-                    [controller call:dest displayName:displayName];
-                }
-            } else {
-                // Go to Chat room view
-                [[PhoneMainView instance] popToView:[ChatViewController compositeViewDescription]]; // Got to Chat and push ChatRoom
-                ChatRoomViewController *controller = DYNAMIC_CAST([[PhoneMainView instance] changeCurrentView:[ChatRoomViewController compositeViewDescription] push:TRUE], ChatRoomViewController);
-                if(controller != nil) {
-                    LinphoneChatRoom* room = linphone_core_get_or_create_chat_room([LinphoneManager getLc], [dest UTF8String]);
-                   [controller setChatRoom:room];
-                }
-            }
+            
+            [[LinphoneAppDelegate instance] showYarnApplyDialedNumber:[dest UTF8String]];
+            
+//            NSString *displayName = [FastAddressBook getContactDisplayName:contact];
+//            if([ContactSelection getSelectionMode] != ContactSelectionModeMessage) {
+//                // Go to dialer view
+//                DialerViewController *controller = DYNAMIC_CAST([[PhoneMainView instance] changeCurrentView:[DialerViewController compositeViewDescription]], DialerViewController);
+//                if(controller != nil) {
+//                    [controller call:dest displayName:displayName];
+//                }
+//            } else {
+//                // Go to Chat room view
+//                [[PhoneMainView instance] popToView:[ChatViewController compositeViewDescription]]; // Got to Chat and push ChatRoom
+//                ChatRoomViewController *controller = DYNAMIC_CAST([[PhoneMainView instance] changeCurrentView:[ChatRoomViewController compositeViewDescription] push:TRUE], ChatRoomViewController);
+//                if(controller != nil) {
+//                    LinphoneChatRoom* room = linphone_core_get_or_create_chat_room([LinphoneManager getLc], [dest UTF8String]);
+//                   [controller setChatRoom:room];
+//                }
+//            }
         }
     } else {
         NSString *key = nil;

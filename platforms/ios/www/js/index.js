@@ -409,22 +409,6 @@ function doCallingCard(phoneNumber) {
     }
 }
 
-function doPhoneContacts() {
-
-    window.phoneContacts(function (message) {
-        //empty
-    });
-}
-
-function getBalanceCallLogs(data) {
-	window.callLogs(data, function (message) {
-        //empty
-    });
-}
-
-function doCallLogs() {
-	global.balance('_balance', {telno: telno, password: password}, getBalanceCallLogs);
-}
 function doSignOut() {
 	var telno = global.get('telno');
     window.signOut(telno, function (data) {

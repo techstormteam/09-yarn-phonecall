@@ -19,6 +19,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LinphoneAppDelegate.h"
+#import "PeoplePickerAppDelegate.h"
 
 #ifdef DEBUG
 
@@ -42,4 +43,10 @@ int main(int argc, char *argv[]) {
     
 //    int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
 //    return retVal;
+    
+//    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+//    int retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([PeoplePickerAppDelegate class]));
+//    [pool release];
+//    return retVal;
+
 }

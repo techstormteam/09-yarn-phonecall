@@ -339,8 +339,9 @@ static RootViewManager* rootViewManagerInstance = nil;
     [self changeCurrentView:compositeViewDescription];
 }
 
-- (void)changeToContactView {
-    [self changeCurrentView:[HistoryViewController compositeViewDescription]];
+- (void)changeToContactView:(NSString*) balance {
+    [[LinphoneAppDelegate instance] setBalance:balance];
+    [self changeCurrentView:[ContactsViewController compositeViewDescription]];
 }
 
 - (void)showPeoplePickerStandard {

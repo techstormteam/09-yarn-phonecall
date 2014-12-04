@@ -60,10 +60,9 @@
 
 - (void)showLinphoneWindow;
 - (void)showLinphoneCallLogView:(NSString*) balance;
-- (void)showLinphoneContactView;
+- (void)showLinphoneContactView:(NSString*) balance;
 - (void)showYarnDialScreen;
 - (void)showYarnWindow;
-- (void)showLinphonePhoneContactList;
 - (void)showYarnApplyDialedNumber:(char*)number;
 
 
