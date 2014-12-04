@@ -46,9 +46,7 @@
         </div>
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
         </script>
         <script>
             $('#destination_number').keyup(function() {
@@ -63,8 +61,8 @@
             function check_form() {
                 $('#message').html('');
 
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 var destination_number = $.trim($('#destination_number').val());
                 var destination_name = $.trim($('#destination_name').val());
                 if (destination_number === '') {

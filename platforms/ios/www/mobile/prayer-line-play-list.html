@@ -149,15 +149,12 @@
         </div>
         <script type="text/javascript">
             app.initialize();
-            if (global.get('auth') === null) {
-                window.location = 'login.html';
-            }
             //$('#player_popup_close').parent().find('.ui-btn-inner').css('background', 'red');
             //$('#player_popup_close').button().button('refresh');
         </script>
         <script>
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             var entity_id = 0; // To be dynamicly recalculated
 
             getkeyword();
@@ -291,8 +288,8 @@
             }
 
             function deleteMessage(msg_id) {
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 global.api('delete_message', {user_id: user_id, msg_id: msg_id}, delete_message_display);
             }
 
@@ -305,8 +302,8 @@
 
 
             function autoplay(msg_id) {
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 global.api('autoplay', {user_id: user_id, msg_id: msg_id}, autoplay_display);
             }
 
@@ -318,8 +315,8 @@
             }
 
             function messagePriorityChange(messageID, newPlayPriority) {
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 global.api('play_list_update', {user_id: user_id, msg_id: messageID, newPriority: newPlayPriority}, function(data) {
                     alert(data.details);
                     search(); // Execute search

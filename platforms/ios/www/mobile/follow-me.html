@@ -108,13 +108,11 @@
         <!-- END: Schedule Delete -->
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
         </script>
         <script>
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             balance_display_in_button();
             global.api('rules_and_schedules', {user_id: user_id}, rules_and_schedules_result);
 

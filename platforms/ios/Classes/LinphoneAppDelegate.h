@@ -21,10 +21,12 @@
 #import <AddressBookUI/ABPeoplePickerNavigationController.h>
 #import "GKPeoplePickerNavigationController.h"
 
+#import "ViewController.h"
+
 
 #import "LinphoneCoreSettingsStore.h"
 
-@interface LinphoneAppDelegate : NSObject <UIApplicationDelegate,UIAlertViewDelegate> {
+@interface LinphoneAppDelegate : UIResponder <UIApplicationDelegate,UIAlertViewDelegate> {
     @private
 	UIBackgroundTaskIdentifier bgStartId;
     BOOL startedInBackground;
@@ -45,6 +47,8 @@
 @property (nonatomic, strong) UIViewController* linphoneViewController;
 @property (nonatomic, strong) UIWindow* yarnWindow;
 @property (nonatomic, strong) UIViewController* yarnViewController;
+@property (nonatomic, strong) UIWindow* peoplePickerWindow;
+@property (nonatomic, strong) ViewController* peoplePickerViewController;
 
 + (LinphoneAppDelegate *)instance;
 - (NSString *)getTelno;
@@ -54,10 +58,12 @@
 - (void)setPassword:(NSString*)password;
 - (void)setBalance:(NSString*)balance;
 
+- (void)showLinphoneWindow;
 - (void)showLinphoneCallLogView:(NSString*) balance;
 - (void)showLinphoneContactView;
+- (void)showYarnDialScreen;
 - (void)showYarnWindow;
-- (void)showYarnPhoneContactList;
+- (void)showLinphonePhoneContactList;
 - (void)showYarnApplyDialedNumber:(char*)number;
 
 

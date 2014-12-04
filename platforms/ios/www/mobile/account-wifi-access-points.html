@@ -43,15 +43,13 @@
         </div>
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
         </script>
         <script>
 
             balance_display_in_button();
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             
             global.api('get_ssid_name', {user_id: user_id}, ssid_name_display);
             function ssid_name_display(result) {

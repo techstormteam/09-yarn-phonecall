@@ -343,6 +343,16 @@ static RootViewManager* rootViewManagerInstance = nil;
     [self changeCurrentView:[HistoryViewController compositeViewDescription]];
 }
 
+- (void)showPeoplePickerStandard {
+//    [GKPeoplePickerNavigationController requestAccessToAddressBookWithCompletion:^(bool granted, CFErrorRef error) {
+//        if (granted) {
+//            
+//            GKPeoplePickerNavigationController *ctr = [[GKPeoplePickerNavigationController alloc] init];
+//            [self.presentViewConlitroller presentViewController:ctr animated:YES completion:nil];
+//        }
+//    }];
+}
+
 - (void)callUpdate:(NSNotification*)notif {
     LinphoneCall *call = [[notif.userInfo objectForKey: @"call"] pointerValue];
     LinphoneCallState state = [[notif.userInfo objectForKey: @"state"] intValue];
@@ -359,6 +369,7 @@ static RootViewManager* rootViewManagerInstance = nil;
 		case LinphoneCallIncomingReceived: 
         {
 			[self displayIncomingCall:call];
+            [[LinphoneAppDelegate instance] showLinphoneWindow];
 			break;
         }
 		case LinphoneCallOutgoingInit: 
@@ -366,7 +377,7 @@ static RootViewManager* rootViewManagerInstance = nil;
 		case LinphoneCallConnected:
         case LinphoneCallStreamsRunning:
         {
-            [self changeCurrentView:[InCallViewController compositeViewDescription]];
+//            [self changeCurrentView:[InCallViewController compositeViewDescription]];
             break;
         }
         case LinphoneCallUpdatedByRemote:
@@ -386,12 +397,13 @@ static RootViewManager* rootViewManagerInstance = nil;
 		case LinphoneCallEnd: 
         {
             if (canHideInCallView) {
-                // Go to dialer view
-                DialerViewController *controller = DYNAMIC_CAST([self changeCurrentView:[DialerViewController compositeViewDescription]], DialerViewController);
-                if(controller != nil) {
-                    [controller setAddress:@""];
-                    [controller setTransferMode:FALSE];
-                }
+                [[LinphoneAppDelegate instance] showYarnWindow];
+//                // Go to dialer view
+//                DialerViewController *controller = DYNAMIC_CAST([self changeCurrentView:[DialerViewController compositeViewDescription]], DialerViewController);
+//                if(controller != nil) {
+//                    [controller setAddress:@""];
+//                    [controller setTransferMode:FALSE];
+//                }
             } else {
                 [self changeCurrentView:[InCallViewController compositeViewDescription]];
 			}

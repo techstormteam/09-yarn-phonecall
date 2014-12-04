@@ -68,12 +68,9 @@
         </div>
         <script type="text/javascript">
             app.initialize();
-            if (global.get('auth') === null) {
-                window.location = 'login.html';
-            }
         </script>
         <script>
-            var user = global.getUser();
+            
             var user_id = global.get('uid');
 
             balance_display_in_button();

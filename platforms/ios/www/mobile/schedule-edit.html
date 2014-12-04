@@ -60,9 +60,6 @@
         </div>
         <script type="text/javascript">
                         app.initialize();
-                        if (global.get('auth') === null) {
-                            window.location = 'login.html';
-                        }
         </script>
         <script>
             $('#phone_number').keyup(function() {
@@ -70,8 +67,8 @@
                 ref = ref.replace(/\D/g, '');
                 $('#phone_number').val(ref);
             });
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             var schedule_id = getUrlParameter('schedule_id');
             var profile_id = getUrlParameter('profile_id');
 
@@ -94,8 +91,8 @@
             function check_form() {
                 $('#message').html('');
 
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 var name = $('#name').val();
                 var phone_number = $.trim($('#phone_number').val());
                 var week_day = $.trim($('#week_day').val());

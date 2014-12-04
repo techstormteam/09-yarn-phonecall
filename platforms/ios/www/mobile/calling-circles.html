@@ -59,13 +59,11 @@
 
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location = 'login.html';
-                    }
+                    
         </script>
         <script>
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             
             balance_display_in_button(); 
             
@@ -121,8 +119,8 @@
             }
             function activate(circle_id) {
                 var circle_id = circle_id;
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 global.api('circles_activated', {user_id: user_id, circle_id: circle_id}, circles_activated);
             }
             function circles_activated(response) {
@@ -135,8 +133,8 @@
             }
             function suspend(circle_id) {
                 var circle_id = circle_id;
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 global.api('circles_suspend', {user_id: user_id}, circles_suspend);
             }
             function circles_suspend(response) {

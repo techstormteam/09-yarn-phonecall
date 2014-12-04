@@ -60,6 +60,8 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+    [[LinphoneAppDelegate instance] showYarnWindow];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self 
                                                  name:kLinphoneCallUpdate
                                                object:nil];
@@ -173,6 +175,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 - (IBAction)onAcceptClick:(id)event {
     [self dismiss];
     [delegate incomingCallAccepted:call];
+    [[LinphoneAppDelegate instance] showYarnDialScreen];
 }
 
 - (IBAction)onDeclineClick:(id)event {

@@ -64,9 +64,6 @@
         </div>
         <script type="text/javascript">
                         app.initialize();
-                        if (global.get('auth') === null) {
-                            window.location = 'login.html';
-                        }
         </script>
         <script>
             $('#first_forward_number').keyup(function() {
@@ -90,8 +87,8 @@
             function check_form() {
                 $('#message').html('');
 
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 var rule_name = $('#rule_name').val();
                 var first_forward_number = $.trim($('#first_forward_number').val());
                 var second_forward_number = $.trim($('#second_forward_number').val());

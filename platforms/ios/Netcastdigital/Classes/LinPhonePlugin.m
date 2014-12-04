@@ -13,7 +13,33 @@
 @implementation LinPhonePlugin
 
 
-
+- (void) ContinueCall:(CDVInvokedUrlCommand *)command {
+    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                    initWithObjectsAndKeys :
+                                    @"true", @"success",
+                                    nil
+                                    ];
+    [jsonObj setObject:@NO forKey:SUCCESS_STATUS];
+    
+    if ([self checkInternetConnectionAvailable:jsonObj]) {
+        
+        LinphoneCore* lc = [LinphoneManager getLc];
+        if (lc != nil) {
+            LinphoneCall* currentCall = linphone_core_get_current_call(lc);
+            if (currentCall != nil) {
+                LinphoneCallState state = linphone_call_get_state(currentCall);
+                if (currentCall != nil && state == LinphoneCallPaused) {
+                    //pauseOrResumeCall(currentCall);
+                    [jsonObj setObject:@YES forKey:SUCCESS_STATUS];
+                    
+                } else {
+                    
+                }
+            }
+        }
+    }
+    [self successReturn:command jsonObj:jsonObj];
+}
 - (void) WifiCall:(CDVInvokedUrlCommand *)command {
     NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
                              initWithObjectsAndKeys :
@@ -706,7 +732,7 @@
 }
 
 - (void) doPhoneContacts {
-    [[LinphoneAppDelegate instance] showYarnPhoneContactList];
+    [[LinphoneAppDelegate instance] showLinphonePhoneContactList];
 
 }
 

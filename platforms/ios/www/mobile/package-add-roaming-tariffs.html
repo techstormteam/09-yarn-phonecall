@@ -73,9 +73,6 @@
 
         <script type="text/javascript">
                     app.initialize();
-                    if (global.get('auth') === null) {
-                        window.location.href = 'login.html';
-                    }
                     balance_display_in_button();
                     function tariffs_display(result) {
                         var tariffs = result.details;
@@ -148,8 +145,8 @@
                     }
 
                     $(document).delegate('body', 'pageinit', function() {
-                        var user = global.getUser();
-                        var user_id = user.getId();
+                        
+                        var user_id = global.get('uid');
                         var data = {user_id: user_id};
                         global.api('packages_data_roaming', data, tariffs_display);
                     });

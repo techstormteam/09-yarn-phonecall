@@ -104,9 +104,6 @@
 
         <script type="text/javascript">
             app.initialize();
-            if (global.get('auth') === null) {
-                window.location = 'login.html';
-            }
         </script>
         <script>
             var today = new Date();
@@ -188,8 +185,8 @@
                 global.api('payments_by_user_id', {user_id: user_id, payment_ref: payment_ref, start_date: start_date, end_date: end_date}, payments_display);
             }
 
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
 
             balance_display_in_button();
 

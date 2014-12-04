@@ -33,6 +33,8 @@
 #import "MainViewController.h"
 #import "LinPhonePlugin.h"
 
+
+
 @implementation LinphoneAppDelegate
 
 @synthesize configURL;
@@ -242,6 +244,9 @@ static LinphoneAppDelegate* appInstance = nil;
     self.linphoneWindow = self.window;
     self.linphoneViewController = self.window.rootViewController;
     
+    self.peoplePickerWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.peoplePickerViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    
     UIApplication* app= [UIApplication sharedApplication];
     UIApplicationState state = app.applicationState;
     
@@ -286,7 +291,8 @@ static LinphoneAppDelegate* appInstance = nil;
     [[PhoneMainView instance] startUp];
     [[PhoneMainView instance] updateStatusBar:nil];
 
-    [self showYarnWindow];
+//    [self showYarnWindow];
+    [self showPeoplePickerWindow];
     
 
 	NSDictionary *remoteNotif =[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -323,15 +329,43 @@ static LinphoneAppDelegate* appInstance = nil;
     self.window = self.yarnWindow;
     self.window.rootViewController = self.yarnViewController;
     [self.window makeKeyAndVisible];
+    MainViewController *mainController = (MainViewController*)self.yarnViewController;
+    [mainController.webView stringByEvaluatingJavaScriptFromString:@"yarnMessage()"];
+    
 }
 
-- (void)showYarnPhoneContactList {
+- (void)showPeoplePickerWindow {
+    self.window = self.peoplePickerWindow;
+    self.window.rootViewController = self.peoplePickerViewController;
+    [self.window makeKeyAndVisible];
+}
+
+
+- (void)showLinphonePhoneContactList {
+    [self showPeoplePickerWindow];
+//    self.peoplePickerWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    // Override point for customization after application launch.
+//    self.peoplePickerViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+//    self.window.rootViewController = self.peoplePickerViewController;
+//    [self.window makeKeyAndVisible];
+//    
+//    [GKPeoplePickerNavigationController requestAccessToAddressBookWithCompletion:^(bool granted, CFErrorRef error) {
+//        if (granted) {
+//            
+//            GKPeoplePickerNavigationController *ctr = [[GKPeoplePickerNavigationController alloc] init];
+//            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//            self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+//            [self.window.rootViewController presentViewController:ctr animated:YES completion:nil];
+//        }
+//    }];
+}
+
+- (void)showYarnDialScreen {
     self.window = self.yarnWindow;
     self.window.rootViewController = self.yarnViewController;
     [self.window makeKeyAndVisible];
     MainViewController *mainController = (MainViewController*)self.yarnViewController;
-    [mainController showPeoplePickerStandard];
-
+    [mainController.webView stringByEvaluatingJavaScriptFromString:@"loadUrlDialScreen()"];
 }
 
 - (void)showLinphoneCallLogView:(NSString*) balance {

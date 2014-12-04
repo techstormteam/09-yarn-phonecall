@@ -191,6 +191,7 @@ function Global() {
 
     this.login = function (cmd, data, callback_success, callback_error, callback_complete) {
         var url = this.getApiUrl() + '?cmd=' + cmd + '&telno=' + data.telno + '&password=' + data.password;
+
         if (this.debug === true) {
             LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
         }
@@ -514,7 +515,22 @@ function Global() {
     	}, 30000);
     };
     
+    this.checkLoadError = function () { // this fix white/black screen bug.
+    	try {
+    		$('body').show();
+    		window.continueCall(function(message) {
+    			if (message.success) {
+    				window.location.href = 'dial.html';
+    			}
+            });
+    	}
+    	catch(err) {
+    		window.location.href = document.URL;
+    	}
+    };
+    
     this.general = function () {
+    	this.checkLoadError();
     	this.doSendCustPhone();
     	this.registerSipUser();
     	//this.registerScheduled();
@@ -763,10 +779,15 @@ function doNativeCallAsk(dialedNumber) {
 function doSettings() {
 	window.settings(function (message) {
 		if (!global.showPopupInternetNotAvailable(message)) {
-			window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
+			//window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
+			window.location.href = 'mobile/index.html';
 		}
     });
     
+}
+
+function loadUrlDialScreen() {
+	window.location.href = "dial.html";
 }
 
 function doCellularCall(dialedNumber) {
@@ -794,6 +815,9 @@ function doCellularCall(dialedNumber) {
     	doCallLogs();
     }
     
+    function loadUrlDialScreen() {
+    	window.location.href = "dial.html";
+    }
     
     window.allowNativeCall(dialedNumber, function (message) {
         //empty

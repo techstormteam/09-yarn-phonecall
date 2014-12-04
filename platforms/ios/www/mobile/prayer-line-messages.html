@@ -143,13 +143,10 @@
         </div>
         <script type="text/javascript">
             app.initialize();
-            if (global.get('auth') === null) {
-                window.location = 'login.html';
-            }
         </script>
         <script>
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             var currentMessage = null;
 
             getkeyword();
@@ -261,8 +258,8 @@
             }
 
             function playListAdd(message_id) {
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 var data = {message_id: message_id, user_id: user_id};
                 global.api('play_list_add', data, playListAddSuccess);
             }
@@ -275,8 +272,8 @@
             }
 
             function deleteMessage(message_id) {
-                var user = global.getUser();
-                var user_id = user.getId();
+                
+                var user_id = global.get('uid');
                 var data = {msg_id: message_id, user_id: user_id};
                 global.api('delete_message', data, deleteMessageSuccess);
             }

@@ -182,9 +182,6 @@
 
         <script type="text/javascript">
                         app.initialize();
-                        if (global.get('auth') === null) {
-                            window.location.href = 'login.html';
-                        }
                         balance_display_in_button();  
                         function tariffs_display(result) {
                             var tariffs = result.details;
@@ -299,8 +296,8 @@
                             $('#pmb_table_title').hide();
                             $('#cc_table_title').hide();
                             $('#cug_table_title').hide();
-                            var user = global.getUser();
-                            var user_id = user.getId();
+                            
+                            var user_id = global.get('uid');
                             var data = {user_id: user_id};
                             global.api('packages_voice_tariffs', data, tariffs_display);
                         });

@@ -8,8 +8,8 @@ function updateSize(totalHeight) {
 //    var sub = 0;
 //    var remain = 0;
     
-    header.height(totalHeight / 6);
-    formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
+    header.height(totalHeight / 7);
+    formSubmit.first('a').css('lineHeight', (((totalHeight / 7 * 2) / 5)) + 'px');
     formSubmit.children('div').css('marginTop', 10);
     
     var loginHeight = $(window).height() - header.height() - formSubmit.outerHeight(true);
@@ -23,10 +23,10 @@ function updateSize(totalHeight) {
 
     formLogin.height(loginHeight - 30);
     formLogin.children('div').height(loginHeight - 30);
-    formLogin.children('div').find('div').height(((loginHeight) / 7)-5);
-    formLogin.children('div').find('input').height(((loginHeight) / 7)-5);
-    formLogin.children('div').find('input').css('line-height', (((loginHeight) / 7)-5) + 'px');
-    formLogin.children('div').find('input').css('min-height', (((loginHeight) / 7)-5) + 'px');
+    formLogin.children('div').find('div').height(((loginHeight) / 8)-5);
+    formLogin.children('div').find('input').height(((loginHeight) / 8)-5);
+    formLogin.children('div').find('input').css('line-height', (((loginHeight) / 8)-5) + 'px');
+    formLogin.children('div').find('input').css('min-height', (((loginHeight) / 8)-5) + 'px');
     formLogin.children('div').find('input').css('font-size', '1.5em');
     
 //    formSubmit.height(btnGroupHeight);
@@ -63,6 +63,7 @@ var email = null;
 var phone = null;
 var password = null;
 var rePassword = null;
+var discountCode = null;
 
 function register(response) {
     if (response.indexOf('success') > -1) {
@@ -86,13 +87,19 @@ function check_rform() {
     phone = $('#phone').val();
     password = $('#password').val();
     rePassword = $('#rePassword').val();
+    discountCode = $('#discountCode').val();
+    
 
     if (!firstName || !lastName || !email || !phone || !password || !rePassword) {
-        sweetAlert("Oops...", 'Please fill in all fields', "error");
+        sweetAlert("Oops...", 'Please fill in all mandatory fields', "error");
     } else if (password !== rePassword) {
         sweetAlert("Oops...", 'Password mismatch!', "error");
     } else {
-        global.register('_signup', {fname: firstName, lname: lastName, email: email, phone: phone, psw: password, psw2: rePassword}, register);
+    	var data = {fname: firstName, lname: lastName, email: email, phone: phone, psw: password, psw2: rePassword};
+    	if (discountCode) {
+	    	data.code = discountCode;s
+    	}
+        global.register('_signup', data, register);
     }
 }
 

@@ -85,15 +85,7 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void)showPeoplePickerStandard {
-    [GKPeoplePickerNavigationController requestAccessToAddressBookWithCompletion:^(bool granted, CFErrorRef error) {
-        if (granted) {
-            
-            GKPeoplePickerNavigationController *ctr = [[GKPeoplePickerNavigationController alloc] init];
-            [self.presentedViewController presentViewController:ctr animated:YES completion:nil];
-        }
-    }];
-}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

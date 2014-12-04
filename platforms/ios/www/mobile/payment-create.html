@@ -201,9 +201,6 @@
 
         <script type="text/javascript">
             app.initialize();
-            if (global.get('auth') === null) {
-                window.location = 'login.html';
-            }
             $(function () {
                 var user_id = global.getUser().data['id'];
                 $('#paypal_custom_topup').val(user_id);
@@ -249,8 +246,8 @@
                 ref = ref.replace(/\D/g, '');
                 $('#pin_number').val(ref);
             });
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             if (user.getCurrency() !== 'NGN') {
                 //$('#paypal_view').show();
                 $('#paypal').prop('checked', true);

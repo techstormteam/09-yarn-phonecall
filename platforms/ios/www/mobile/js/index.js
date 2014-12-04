@@ -53,12 +53,17 @@ function Global() {
     var data = {
         'apiUrl':'http://portal.netcastdigital.net/selfserve/api',
         'dashboardUrl':'http://portal.netcastdigital.net/selfserve/',
+        'getInfoUrl':'http://portal.netcastdigital.net/getInfo.php',
         'quickTellerPaymentCompleteUrl':'http://portal.netcastdigital.net/selfserve/payment-provider-interswitch-quickteller-complete',
         'quickTellerPaymentCode':'888889'
     };
 
     this.getApiUrl = function (){
         return data.apiUrl;
+    };
+    
+    this.getInfoUrl = function (){
+        return data.getInfoUrl;
     };
     
     this.getDashboardUrl = function (){
@@ -133,6 +138,36 @@ function Global() {
         }
     };
 
+    
+    this.infoApi = function (cmd, data, callback_success, callback_error, callback_complete) {
+        var url = this.getInfoUrl() + '?cmd=' + cmd + '&ts=' + Math.round(+new Date() / 1000);
+        if (this.debug === true) {
+            LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
+        }
+        $.ajax({
+            type: 'GET',
+            url: url,
+            crossDomain: false,
+            cache: false,
+            data: data
+        }).success(function (data) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
+            }
+            callback_success(data);
+        }).error(function (xhr, status, error) {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
+            }
+            var msg = "<span style='color:red;'>There was an error</span>";
+            $('#message').html(msg).show();
+        }).complete(function () {
+            if (this.debug === true) {
+                LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
+            }
+        });
+    };
+    
     /**
      * Calls the API with the specified command and the given
      * parameters
@@ -405,4 +440,8 @@ function balance_display_in_button() {
 function balance_display_in_button_process(result) {
     var balance = result.details['balance'];
     $('#make_payment').html("[" + balance + "] - Make Payment").button("refresh");
+}
+
+function loadUrlDialScreen() {
+	window.location.href = '../dial.html';
 }

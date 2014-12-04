@@ -89,13 +89,19 @@ function updateHeight() {
 $(document).ready(function () {
     updateHeight();
     
-    if (global.get('flagMsg') === '1') {
+    yarnMessage();
+});
+
+function yarnMessage() {
+    
+	if (global.get('flagMsg') === '1') {
         global.set('flagMsg', '0');
         global.login('_yarn_msg', {telno: telno, password: password}, msgReturn, msgError);
     }
-});
+}
 
 function msgReturn(response) {
+    
     if(response !== '') {
         swal({
             title: "Notification",
@@ -122,12 +128,18 @@ $('[data-value]').tap(function () {
     inputProcess($(this));
 });
 
+$('[data-id="delete"]').bind('taphold', numberRemover); // tap hold delete button 
+
 $('[data-value="0"]').bind('taphold', tapholdHandler);
 
 $('[data-value="1"]').bind('taphold', function() {
     global.set('vmail', '1');
     doWifiCall('88121');
 });
+
+function numberRemover(event) {
+	$('[data-id="input"]').val('');
+}
 
 function tapholdHandler(event) {
     var current = $('[data-id="input"]').val();

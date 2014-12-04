@@ -23,6 +23,7 @@
 #define END_CALL @"endCall"
 #define STATE @"state"
 #define PHONE_NUMBER_LIST @"phone_number_list"
+#define SUCCESS_STATUS @"success"
 
 @interface LinPhonePlugin : CDVPlugin {
     Reachability *internetReachableFoo;

@@ -76,9 +76,6 @@
 
     <script type="text/javascript">
                 app.initialize();
-                if (global.get('auth') === null) {
-                    window.location = 'login.html';
-                }
     </script>
     <script>
         $('#trusted_number').keyup(function() {
@@ -88,8 +85,8 @@
             $('#trusted_number').val(ref);
         });
 
-        var user = global.getUser();
-        var user_id = user.getId();
+        
+        var user_id = global.get('uid');
         balance_display_in_button();  
         manage_trusted_number_show_page(0);
         function manage_trusted_number_show_page(page) {

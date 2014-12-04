@@ -101,9 +101,6 @@
 
     <script type="text/javascript">
                 app.initialize();
-                if (global.get('auth') === null) {
-                    window.location = 'login.html';
-                }
     </script>
     <script>
         var today = new Date();
@@ -184,8 +181,8 @@
             var end_date = $('#end_date').val();
             global.api('tickets_by_user_id', {user_id: user_id, ticket_ref: ticket_ref, start_date: start_date, end_date: end_date, status: 1}, tickets_display);
         }
-        var user = global.getUser();
-        var user_id = user.getId();
+        
+        var user_id = global.get('uid');
         balance_display_in_button();
         tickets_show_page(0);
         function tickets_show_page(page) {
@@ -263,8 +260,8 @@
             }
         }
         function ticket_reopen(ticket_id) {
-            var user = global.getUser();
-            var user_id = user.getId();
+            
+            var user_id = global.get('uid');
             global.api('ticket_reopen', {user_id: user_id, ticket_id: ticket_id}, ticket_reopen_response);
         }
         function ticket_reopen_response(response) {
