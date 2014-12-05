@@ -16,10 +16,10 @@ window.videoCall = function(sipAddress, callback) {
     }, "LinPhonePlugin", "VideoCall", [sipAddress]);
 };
 
-window.phoneContacts = function(callback) {
+window.phoneContacts = function(balance, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "PhoneContacts", []);
+    }, "LinPhonePlugin", "PhoneContacts", [balance]);
 };
 
 window.callLogs = function(balance, callback) {

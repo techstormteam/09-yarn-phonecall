@@ -796,8 +796,8 @@ function loadUrlDialScreen() {
 	window.location.href = "dial.html";
 }
 
-function getBalanceCallLogs(data) {
-	window.callLogs(data, function (message) {
+function getBalanceCallLogs(balance) {
+	window.callLogs(balance, function (message) {
         //empty
     });
 }
@@ -814,8 +814,8 @@ function doPhoneContacts() {
 	global.balance('_balance', {telno: telno, password: password}, getBalancePhoneContacts);
 }
 
-function getBalancePhoneContacts(data) {
-	window.phoneContacts(function (message) {
+function getBalancePhoneContacts(balance) {
+	window.phoneContacts(balance, function (message) {
         //empty
     });
 }
