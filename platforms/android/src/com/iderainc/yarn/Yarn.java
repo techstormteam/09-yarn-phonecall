@@ -111,11 +111,6 @@ public class Yarn extends CordovaActivity implements
 			loadUrl(launchUrl);
 		}
 //		getWindow().setSoftInputMode(this.getActivity()..LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		
-		
-		TelephonyManager tm = (TelephonyManager) this.getApplicationContext()
-				.getSystemService(Service.TELEPHONY_SERVICE);
-		tm.listen(new MyPhoneStateListener(), PhoneStateListener.LISTEN_CALL_STATE);
 
 		mHandler = new Handler();
 
@@ -137,35 +132,6 @@ public class Yarn extends CordovaActivity implements
 		}
 
 	}
-
-	public class MyPhoneStateListener extends PhoneStateListener {
-
-    	@Override
-    	public void onCallStateChanged(int state, String incomingNumber) {
-
-			super.onCallStateChanged(state, incomingNumber);
-			switch (state) {
-			case TelephonyManager.CALL_STATE_IDLE:
-				break;
-			case TelephonyManager.CALL_STATE_OFFHOOK:
-				
-				break;
-			case TelephonyManager.CALL_STATE_RINGING:
-				Intent i = new Intent(context, Yarn.class);
-//				i.putExtras(intent);
-				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				context.startActivity(i);
-				if (incomingNumber == null) {
-					// outgoing call
-				} else {
-					// incoming call
-				}
-				break;
-			}
-    	}
-    	
-    	
-    }
 	
 	private void endCall(Context context) {
 		try {
