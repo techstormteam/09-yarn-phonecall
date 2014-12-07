@@ -442,6 +442,10 @@ function getBalance(data) {
     balVal.html(data);
 }
 
+function onSuccessGetCurrency(response) {
+	global.set('currency', response);
+}
+
 function getRate(data) {
     rateVal.html(data);
     $('.rateText').show();
@@ -526,7 +530,7 @@ var app = {
 	        }
 	        global.balance('_balance', {telno: telno, password: password}, getBalance);
 	        global.login('_email', {telno: telno, password: password}, getEmail);
-	    	
+			global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
 	    	
 	    	global.general();
 	        $('.dialog').hide();

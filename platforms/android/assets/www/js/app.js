@@ -778,18 +778,10 @@ function doNativeCallAsk(dialedNumber) {
 function doSettings() {
 	window.settings(function (message) {
 		if (!global.showPopupInternetNotAvailable(message)) {
-			var telno = global.get('telno');
-			var password = global.get('password');
-			global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
+			window.location.href = 'mobile/index.html';
 		}
     });
-    
-}
-
-function onSuccessGetCurrency(response) {
-	global.set('currency', response);
-	//window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
-	window.location.href = 'mobile/index.html';
+	
 }
 
 function loadUrlDialScreen() {
