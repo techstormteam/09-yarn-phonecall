@@ -289,6 +289,7 @@
             }
 
             function show_paymen_view() {
+            	$('#continue').parent().hide();
                 if ($('#inter_switch').is(':checked'))
                 {
                     $('#inter_switch_view').show();
@@ -298,6 +299,16 @@
                     $('#paypal_view').show();
                     $('#inter_switch_view').hide();
                 }
+                
+                $('#inter_switch').click(function(e) {
+                	$('#inter_switch_view').show();
+                    $('#paypal_view').hide();
+                });
+                $('#paypal').click(function(e) {
+                	$('#paypal_view').show();
+                    $('#inter_switch_view').hide();
+                });
+                
             }
         </script>
     </body>
