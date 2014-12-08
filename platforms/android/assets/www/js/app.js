@@ -794,6 +794,15 @@ function getBalanceCallLogs(balance) {
     });
 }
 
+function togglePasswordView(elm) {
+    var field = $(elm).parent().find('input');
+    if (field.attr('type') === "password") {
+        field.attr('type', 'text');
+    } else {
+        field.attr('type', 'password');
+    }
+}
+
 function doCallLogs() {
 	var telno = global.get('telno');
 	var password = global.get('password');

@@ -134,8 +134,6 @@ function btnHandler(object) {
     function openlink(url) {
         var ref = window.open(url, '_blank', 'location=yes');
     }
-    
-    
  
 var app = {
 	    // Application Constructor

@@ -41,10 +41,20 @@
                 <input id="phone" placeholder="Phone (Your username will be sent here)" name="phone" type="text" />
                 </form>
                 <form class="form" action="#" method="GET">
-                <input id="password" placeholder="Password" name="password" type="password" />
+                <div class="input-group">
+	                <input id="password" placeholder="Password" name="password" type="password" />
+	                <span class="input-group-addon" onclick="togglePasswordView(this)" style="cursor:pointer">
+	                    <span class="glyphicon glyphicon-eye-open"></span>
+	                </span>
+                </div>
                 </form>
                 <form class="form" action="#" method="GET">
-                <input id="rePassword" placeholder="Retype Password" name="rePassword" type="password" />
+                <div class="input-group">
+	                <input id="rePassword" placeholder="Retype Password" name="rePassword" type="password" />
+	                <span class="input-group-addon" onclick="togglePasswordView(this)" style="cursor:pointer">
+	                    <span class="glyphicon glyphicon-eye-open"></span>
+	                </span>
+                </div>
                 </form>
                 <form class="form" action="#" method="GET">
                 <input id="discountCode" placeholder="Discount code (if applicable)" name="discountCode" type="text" />
