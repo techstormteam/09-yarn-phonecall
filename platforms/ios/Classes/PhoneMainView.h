@@ -84,7 +84,8 @@
 - (void)startUp;
 - (void)displayIncomingCall:(LinphoneCall*) call;
 - (void)changeToCallLogView:(NSString*) balance;
-- (void)changeToContactView:(NSString*) balance;;
+- (void)changeToContactView:(NSString*) balance;
+- (void)changeToSettingsView;
 - (void)showPeoplePickerStandard;
 - (void)setVolumeHidden:(BOOL)hidden;
 

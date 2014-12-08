@@ -344,6 +344,10 @@ static RootViewManager* rootViewManagerInstance = nil;
     [self changeCurrentView:[ContactsViewController compositeViewDescription]];
 }
 
+- (void)changeToSettingsView {
+    [self changeCurrentView:[SettingsViewController compositeViewDescription]];
+}
+
 - (void)showPeoplePickerStandard {
 //    [GKPeoplePickerNavigationController requestAccessToAddressBookWithCompletion:^(bool granted, CFErrorRef error) {
 //        if (granted) {

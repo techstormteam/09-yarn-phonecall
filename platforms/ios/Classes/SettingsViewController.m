@@ -456,6 +456,8 @@ static UICompositeViewDescription *compositeDescription = nil;
     
 	settingsStore = [[LinphoneCoreSettingsStore alloc] init];
 	
+    [settingsStore synchronizeAccount];
+    
     settingsController.showDoneButton = FALSE;
     settingsController.delegate = self;
     settingsController.showCreditsFooter = FALSE;

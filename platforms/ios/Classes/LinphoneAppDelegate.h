@@ -65,6 +65,8 @@
 - (void)showYarnWindow;
 - (void)showYarnApplyDialedNumber:(char*)number;
 
+- (void)signout;
+
 
 @end
 

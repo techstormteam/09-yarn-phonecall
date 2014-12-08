@@ -358,6 +358,11 @@ static LinphoneAppDelegate* appInstance = nil;
     [[PhoneMainView instance] changeToContactView:balance];
 }
 
+- (void)signout {
+    [[PhoneMainView instance] changeToSettingsView];
+    [[PhoneMainView instance] changeToCallLogView:@""];
+}
+
 - (void)enableCodecs: (const MSList *)codecs {
     LinphoneCore *lc=[LinphoneManager getLc];
     const MSList *elem=codecs;
