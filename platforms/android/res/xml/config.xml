@@ -79,4 +79,7 @@
     <feature name="Camera">
         <param name="android-package" value="com.wezka.nativecamera.NativeCameraLauncher" />
     </feature>
+    <feature name="PayPalMobile">
+        <param name="android-package" value="com.paypal.cordova.sdk.PayPalMobileCordovaPlugin" />
+    </feature>
 </widget>

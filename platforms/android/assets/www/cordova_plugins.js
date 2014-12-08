@@ -34,13 +34,21 @@ module.exports = [
         "clobbers": [
             "CameraPopoverHandle"
         ]
+    },
+    {
+        "file": "plugins/com.paypal.cordova.mobilesdk/www/cdv-plugin-paypal-mobile-sdk.js",
+        "id": "com.paypal.cordova.mobilesdk.PayPalMobile",
+        "clobbers": [
+            "PayPalMobile"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "org.apache.cordova.inappbrowser": "0.5.4-dev",
-    "com.wezka.nativecamera": "0.1.2"
+    "com.wezka.nativecamera": "0.1.2",
+    "com.paypal.cordova.mobilesdk": "2.2.1"
 }
 // BOTTOM OF METADATA
 });
