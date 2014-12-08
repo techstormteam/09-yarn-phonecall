@@ -49,13 +49,14 @@
 
         <script type="text/javascript">
             function displayQuickTellerForm() {
+
                 var amount = getUrlParameter('amount');
-                var user_id = global.getUser().data['id'];
-                var user_email = global.getUser().data['email'];
-                var dextersim_ngn = global.getUser().data['dextersim_ngn'];
-                var mobile_phone = global.getUser().data['dextersim_uk'];
+                var user_id = global.get('uid');
+                var user_email = global.get('email');
+                var dextersim_ngn = global.get('dextersim_ngn');
+                var mobile_phone = global.get('dextersim_uk');
                 if ($.trim(mobile_phone) === '') {
-                    mobile_phone = global.getUser().data['phone'];
+                    mobile_phone = global.get('telno');
                 }
 
                 var form = '';
@@ -69,30 +70,45 @@
                 form += '<input type="hidden" name="ispopup" value="false" />';
                 form += '<input type="hidden" name="emailAddress" value="' + user_email + '" />';
                 form += '<input type="hidden" name="mobileNumber" value="' + mobile_phone + '" />';
-                form += '<button type="submit" name="pay" id="pay" value="Submit" style="border:0;background-color: transparent;">';
+                form += '<button name="pay" id="pay" value="Submit" style="border:0;background-color: transparent;">';
                 form += '<img src="img/pay-with-quickteller-small.png" />';
                 form += '</button>';
                 form += '</form>';
                 $('#qt_form_board').html(form);
+                
+                $("#quickteller_payment_form").submit(function(e){
+		            $.ajax({
+			            type: $(this).attr('method'),
+			            url: $(this).attr('action'),
+			            crossDomain: false,
+			            cache: false,
+			            data: $(this).serialize()
+			        }).success(function (data) {
+			            window.location.href = "../index.html";
+			        }).error(function (xhr, status, error) {
+			        	//empty
+			        }).complete(function () {
+			            //empty
+			        });
+		            
+				    return false;
+				});
             }
             app.initialize();
-
-
+            
             $(function() {
                 var amount = getUrlParameter('amount');
-                console.log(amount);
                 $("#quickteller_amount").val(number_format(amount, 2, '.', ','));
                 displayQuickTellerForm();
             });
             var amount = getUrlParameter('amount');
-            console.log(amount);
             $("#quickteller_amount").val(amount);
 
             $.ajax({
                 type: 'GET',
                 url: global.getDashboardUrl() + 'login',
                 crossDomain: true,
-                data: {UserName: global.getUser().data['email'], Password: global.getUser().data['uipass'], auto: 'yes', mobile_root_url: global.getRootUrl()},
+                data: {UserName: global.get('email'), Password: global.get('password'), auto: 'yes', mobile_root_url: global.getRootUrl()},
                 dataType: 'jsonp',
                 success: function(responseData, textStatus, jqXHR) {
                 },

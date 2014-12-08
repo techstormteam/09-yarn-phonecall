@@ -74,10 +74,6 @@ function Global() {
         return data.quickTellerPaymentCompleteUrl;
     };
     
-    this.getQuicktellerPaymentCompleteUrl = function (){
-        return data.quickTellerPaymentCompleteUrl;
-    };
-    
     this.getQuicktellerPaymentCode = function (){
         return data.quickTellerPaymentCode;
     };

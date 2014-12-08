@@ -446,6 +446,15 @@ function onSuccessGetCurrency(response) {
 	global.set('currency', response);
 }
 
+function onSuccessGetInterSwitchInfo(response) {
+	var bundle = response.substring(21,response.length);
+	var values = bundle.split(";");
+	
+	global.set('email', values[0]);
+	global.set('dextersim_ngn', values[1]);
+	global.set('dextersim_uk', values[2]);
+}
+
 function getRate(data) {
     rateVal.html(data);
     $('.rateText').show();
@@ -530,8 +539,8 @@ var app = {
 	        }
 	        global.balance('_balance', {telno: telno, password: password}, getBalance);
 	        global.login('_email', {telno: telno, password: password}, getEmail);
-			global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
-	    	
+	        global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
+	        global.api("_intersw_params", { telno: telno, password: password}, onSuccessGetInterSwitchInfo);
 	    	global.general();
 	        $('.dialog').hide();
 	        
