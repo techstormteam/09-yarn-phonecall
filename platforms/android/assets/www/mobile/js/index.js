@@ -45,6 +45,9 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+        
+        // start to initialize PayPalMobile library
+        global.initPaymentUI();
     }
 };
 
@@ -86,8 +89,8 @@ function Global() {
     }
 
     /**
-     * @returns {User}
-     */
+	 * @returns {User}
+	 */
     this.getUser = function() {
         if (this.get('auth') === null) {
             return null;
@@ -109,10 +112,12 @@ function Global() {
     }
 
     /**
-     * Gets a key from the key-vaue store, if it does not exist returns NULL
-     * @param {string} key
-     * @returns {Object}
-     */
+	 * Gets a key from the key-vaue store, if it does not exist returns NULL
+	 * 
+	 * @param {string}
+	 *            key
+	 * @returns {Object}
+	 */
     this.get = function(key) {
         if (localStorage.getItem(key) !== null) {
             return window.localStorage.getItem(key);
@@ -121,11 +126,14 @@ function Global() {
         }
     };
     /**
-     * Sets a value to a key
-     * @param {string} key
-     * @param {Object} value
-     * @returns {void}
-     */
+	 * Sets a value to a key
+	 * 
+	 * @param {string}
+	 *            key
+	 * @param {Object}
+	 *            value
+	 * @returns {void}
+	 */
     this.set = function(key, value) {
         if (value === null) {
             localStorage.removeItem(key, value);
@@ -165,15 +173,20 @@ function Global() {
     };
     
     /**
-     * Calls the API with the specified command and the given
-     * parameters
-     * @param {string} cmd
-     * @param {Object} cmd
-     * @param {function} callback_success
-     * @param {function} callback_error
-     * @param {function} callback_complete
-     * @returns {void}
-     */
+	 * Calls the API with the specified command and the given parameters
+	 * 
+	 * @param {string}
+	 *            cmd
+	 * @param {Object}
+	 *            cmd
+	 * @param {function}
+	 *            callback_success
+	 * @param {function}
+	 *            callback_error
+	 * @param {function}
+	 *            callback_complete
+	 * @returns {void}
+	 */
     this.api = function(cmd, data, callback_success, callback_error, callback_complete) {
         var url = this.getApiUrl()+'?cmd=' + cmd + '&ts=' + Math.round(+new Date() / 1000);
         if (this.debug === true) {
@@ -202,6 +215,55 @@ function Global() {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
             }
         });
+    };
+    
+    this.initPaymentUI : function () {
+	        var clientIDs = {
+		        "PayPalEnvironmentProduction": "YOUR_PRODUCTION_CLIENT_ID",
+		        "PayPalEnvironmentSandbox": "YOUR_SANDBOX_CLIENT_ID"
+	        };
+	        PayPalMobile.init(clientIDs, app.onPayPalMobileInit);
+         
+    };
+        
+    this.onSuccesfulPayment : function(payment) {
+        console.log("payment success: " + JSON.stringify(payment, null, 4));
+    };
+    this.onFuturePaymentAuthorization : function(authorization) {
+    	console.log("authorization: " + JSON.stringify(authorization, null, 4));
+    };
+    this.createPayment : function () {
+	    // for simplicity use predefined amount
+	    var paymentDetails = new PayPalPaymentDetails("1.50", "0.40", "0.05");
+	    var payment = new PayPalPayment("1.95", "USD", "Awesome Sauce", "Sale", paymentDetails);
+	    return payment;
+    };
+    this.configuration : function () {
+	    // for more options see `paypal-mobile-js-helper.js`
+	    var config = new PayPalConfiguration({merchantName: "My test shop", merchantPrivacyPolicyURL: "https://mytestshop.com/policy", merchantUserAgreementURL: "https://mytestshop.com/agreement"});
+	    return config;
+    };
+    this.onPrepareRender : function() {
+	    var buyNowBtn = document.getElementById("buyNowBtn");
+	    var buyInFutureBtn = document.getElementById("buyInFutureBtn");
+	     
+	    buyNowBtn.onclick = function(e) {
+	    // single payment
+	    PayPalMobile.renderSinglePaymentUI(global.createPayment(), global.onSuccesfulPayment, global.onUserCanceled);
+	    };
+	     
+	    buyInFutureBtn.onclick = function(e) {
+	    // future payment
+	    PayPalMobile.renderFuturePaymentUI(global.onFuturePaymentAuthorization, global.onUserCanceled);
+	    };
+    };
+    this.onPayPalMobileInit : function() {
+	    // must be called
+	    // use PayPalEnvironmentNoNetwork mode to get look and feel of the flow
+	    PayPalMobile.prepareToRender("PayPalEnvironmentNoNetwork", global.configuration(), global.onPrepareRender);
+    };
+    this.onUserCanceled : function(result) {
+    	console.log(result);
     };
 }
 
@@ -232,8 +294,10 @@ function json_decode(str_json) {
     var text = str_json;
 
     // Parsing happens in four stages. In the first stage, we replace certain
-    // Unicode characters with escape sequences. JavaScript handles many characters
-    // incorrectly, either silently deleting them, or treating them as line endings.
+    // Unicode characters with escape sequences. JavaScript handles many
+	// characters
+    // incorrectly, either silently deleting them, or treating them as line
+	// endings.
     cx.lastIndex = 0;
     if (cx.test(text)) {
         text = text.replace(cx, function(a) {
@@ -241,25 +305,33 @@ function json_decode(str_json) {
         });
     }
 
-    // In the second stage, we run the text against regular expressions that look
+    // In the second stage, we run the text against regular expressions that
+	// look
     // for non-JSON patterns. We are especially concerned with '()' and 'new'
     // because they can cause invocation, and '=' because it can cause mutation.
     // But just to be safe, we want to reject all unexpected forms.
-    // We split the second stage into 4 regexp operations in order to work around
+    // We split the second stage into 4 regexp operations in order to work
+	// around
     // crippling inefficiencies in IE's and Safari's regexp engines. First we
-    // replace the JSON backslash pairs with '@' (a non-JSON character). Second, we
+    // replace the JSON backslash pairs with '@' (a non-JSON character). Second,
+	// we
     // replace all simple value tokens with ']' characters. Third, we delete all
-    // open brackets that follow a colon or comma or that begin the text. Finally,
-    // we look to see that the remaining characters are only whitespace or ']' or
+    // open brackets that follow a colon or comma or that begin the text.
+	// Finally,
+    // we look to see that the remaining characters are only whitespace or ']'
+	// or
     // ',' or ':' or '{' or '}'. If that is so, then the text is safe for eval.
     if ((/^[\],:{}\s]*$/).
             test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@').
                     replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
                     replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
-        // In the third stage we use the eval function to compile the text into a
-        // JavaScript structure. The '{' operator is subject to a syntactic ambiguity
-        // in JavaScript: it can begin a block or an object literal. We wrap the text
+        // In the third stage we use the eval function to compile the text into
+		// a
+        // JavaScript structure. The '{' operator is subject to a syntactic
+		// ambiguity
+        // in JavaScript: it can begin a block or an object literal. We wrap the
+		// text
         // in parens to eliminate the ambiguity.
         j = eval('(' + text + ')');
 
@@ -275,8 +347,10 @@ function json_encode(mixed_val) {
     var retVal, json = this.window.JSON;
     try {
         if (typeof json === 'object' && typeof json.stringify === 'function') {
-            retVal = json.stringify(mixed_val); // Errors will not be caught here if our own equivalent to resource
-            //  (an instance of PHPJS_Resource) is used
+            retVal = json.stringify(mixed_val); // Errors will not be caught
+												// here if our own equivalent to
+												// resource
+            // (an instance of PHPJS_Resource) is used
             if (retVal === undefined) {
                 throw new SyntaxError('json_encode');
             }
@@ -315,7 +389,8 @@ function json_encode(mixed_val) {
             var partial = [];
             var value = holder[key];
 
-            // If the value has a toJSON method, call it to obtain a replacement value.
+            // If the value has a toJSON method, call it to obtain a replacement
+			// value.
             if (value && typeof value === 'object' && typeof value.toJSON === 'function') {
                 value = value.toJSON(key);
             }
@@ -326,20 +401,25 @@ function json_encode(mixed_val) {
                     return quote(value);
 
                 case 'number':
-                    // JSON numbers must be finite. Encode non-finite numbers as null.
+                    // JSON numbers must be finite. Encode non-finite numbers as
+					// null.
                     return isFinite(value) ? String(value) : 'null';
 
                 case 'boolean':
                 case 'null':
-                    // If the value is a boolean or null, convert it to a string. Note:
-                    // typeof null does not produce 'null'. The case is included here in
+                    // If the value is a boolean or null, convert it to a
+					// string. Note:
+                    // typeof null does not produce 'null'. The case is included
+					// here in
                     // the remote chance that this gets fixed someday.
                     return String(value);
 
                 case 'object':
-                    // If the type is 'object', we might be dealing with an object or an array or
+                    // If the type is 'object', we might be dealing with an
+					// object or an array or
                     // null.
-                    // Due to a specification blunder in ECMAScript, typeof null is 'object',
+                    // Due to a specification blunder in ECMAScript, typeof null
+					// is 'object',
                     // so watch out for that case.
                     if (!value) {
                         return 'null';
@@ -348,20 +428,23 @@ function json_encode(mixed_val) {
                         throw new SyntaxError('json_encode');
                     }
 
-                    // Make an array to hold the partial results of stringifying this object value.
+                    // Make an array to hold the partial results of stringifying
+					// this object value.
                     gap += indent;
                     partial = [];
 
                     // Is the value an array?
                     if (Object.prototype.toString.apply(value) === '[object Array]') {
-                        // The value is an array. Stringify every element. Use null as a placeholder
+                        // The value is an array. Stringify every element. Use
+						// null as a placeholder
                         // for non-JSON values.
                         length = value.length;
                         for (i = 0; i < length; i += 1) {
                             partial[i] = str(i, value) || 'null';
                         }
 
-                        // Join all of the elements together, separated with commas, and wrap them in
+                        // Join all of the elements together, separated with
+						// commas, and wrap them in
                         // brackets.
                         v = partial.length === 0 ? '[]' : gap ? '[\n' + gap + partial.join(',\n' + gap) + '\n' + mind + ']' : '[' + partial.join(',') + ']';
                         gap = mind;
@@ -378,7 +461,8 @@ function json_encode(mixed_val) {
                         }
                     }
 
-                    // Join all of the member texts together, separated with commas,
+                    // Join all of the member texts together, separated with
+					// commas,
                     // and wrap them in braces.
                     v = partial.length === 0 ? '{}' : gap ? '{\n' + gap + partial.join(',\n' + gap) + '\n' + mind + '}' : '{' + partial.join(',') + '}';
                     gap = mind;
@@ -398,7 +482,8 @@ function json_encode(mixed_val) {
             '': value
         });
 
-    } catch (err) { // Todo: ensure error handling above throws a SyntaxError in all cases where it could
+    } catch (err) { // Todo: ensure error handling above throws a SyntaxError in
+					// all cases where it could
         // (i.e., when the JSON global is not available and there is an error)
         if (!(err instanceof SyntaxError)) {
             throw new Error('Unexpected error type in json_encode()');
@@ -413,7 +498,9 @@ var month_names_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
 
 /**
  * Retrns GET parameter from URL
- * @param {string} parameter name
+ * 
+ * @param {string}
+ *            parameter name
  * @returns {string|null} parameter value or null
  */
 function getUrlParameter(name) {
