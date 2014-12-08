@@ -1,4 +1,4 @@
-//
+cordova.define("com.paypal.cordova.mobilesdk.PayPalMobile", function(require, exports, module) { //
 // Copyright (c) 2014 PayPal. All rights reserved.
 //
 
@@ -124,3 +124,5 @@ PayPalMobile.prototype.renderProfileSharingUI = function(scopes, completionCallb
  * Plugin setup boilerplate.
  */
 module.exports = new PayPalMobile();
+
+});

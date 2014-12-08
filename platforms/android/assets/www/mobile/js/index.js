@@ -37,14 +37,6 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
         
         // start to initialize PayPalMobile library
         global.initPaymentUI();
@@ -217,52 +209,53 @@ function Global() {
         });
     };
     
-    this.initPaymentUI : function () {
+    this.initPaymentUI = function () {
 	        var clientIDs = {
-		        "PayPalEnvironmentProduction": "YOUR_PRODUCTION_CLIENT_ID",
-		        "PayPalEnvironmentSandbox": "YOUR_SANDBOX_CLIENT_ID"
+	        	"PayPalEnvironmentProduction": "Af5OMBDPiR6VBFuSRvHX0zDUzs8mlZKXxKg7MC9_-Wzql61o-0f3lQbbB3-m"
+		        ,"PayPalEnvironmentSandbox": "AaAKIxBQm2C5B81YE0hrTaJfFieg597VBHPpnA3vydQdWkSKREaPVnXmIOMO"
 	        };
-	        PayPalMobile.init(clientIDs, app.onPayPalMobileInit);
-         
+	        PayPalMobile.init(clientIDs, global.onPayPalMobileInit);
     };
         
-    this.onSuccesfulPayment : function(payment) {
+    this.onSuccesfulPayment = function(payment) {
         console.log("payment success: " + JSON.stringify(payment, null, 4));
     };
-    this.onFuturePaymentAuthorization : function(authorization) {
+    this.onFuturePaymentAuthorization = function(authorization) {
     	console.log("authorization: " + JSON.stringify(authorization, null, 4));
     };
-    this.createPayment : function () {
+    this.createPayment = function () {
 	    // for simplicity use predefined amount
-	    var paymentDetails = new PayPalPaymentDetails("1.50", "0.40", "0.05");
-	    var payment = new PayPalPayment("1.95", "USD", "Awesome Sauce", "Sale", paymentDetails);
+	    
+	    var paypalTopup = $('#paypalTopup');
+	    var amount = paypalTopup.find('[name="amount"]').val();
+	    var paymentDetails = new PayPalPaymentDetails(amount, "0", "0");
+	    var payment = new PayPalPayment(amount, "GBP", "[GBP] WebPAYG", "Sale", paymentDetails);
 	    return payment;
     };
-    this.configuration : function () {
+    this.configuration = function () {
 	    // for more options see `paypal-mobile-js-helper.js`
-	    var config = new PayPalConfiguration({merchantName: "My test shop", merchantPrivacyPolicyURL: "https://mytestshop.com/policy", merchantUserAgreementURL: "https://mytestshop.com/agreement"});
+	    var config = new PayPalConfiguration({merchantName: "DexterTech UK Ltd", merchantPrivacyPolicyURL: "http://www.yarn-me.com/cookies-and-privacy-policy", merchantUserAgreementURL: "http://www.yarn-me.com/terms-of-use"});
 	    return config;
     };
-    this.onPrepareRender : function() {
-	    var buyNowBtn = document.getElementById("buyNowBtn");
-	    var buyInFutureBtn = document.getElementById("buyInFutureBtn");
-	     
-	    buyNowBtn.onclick = function(e) {
-	    // single payment
-	    PayPalMobile.renderSinglePaymentUI(global.createPayment(), global.onSuccesfulPayment, global.onUserCanceled);
+    this.onPrepareRender = function() {
+	    var paypalTopupButton = document.getElementById("paypalTopupButton");
+	    var paypalAutoPayButton = document.getElementById("paypalAutoPayButton");
+	    paypalTopupButton.onclick = function(e) {
+		    // single payment
+		    PayPalMobile.renderSinglePaymentUI(global.createPayment(), global.onSuccesfulPayment, global.onUserCanceled);
 	    };
 	     
-	    buyInFutureBtn.onclick = function(e) {
-	    // future payment
-	    PayPalMobile.renderFuturePaymentUI(global.onFuturePaymentAuthorization, global.onUserCanceled);
+	    paypalAutoPayButton.onclick = function(e) {
+		    // future payment
+		    PayPalMobile.renderFuturePaymentUI(global.onFuturePaymentAuthorization, global.onUserCanceled);
 	    };
     };
-    this.onPayPalMobileInit : function() {
+    this.onPayPalMobileInit = function() {
 	    // must be called
 	    // use PayPalEnvironmentNoNetwork mode to get look and feel of the flow
-	    PayPalMobile.prepareToRender("PayPalEnvironmentNoNetwork", global.configuration(), global.onPrepareRender);
+	    PayPalMobile.prepareToRender("PayPalEnvironmentProduction", global.configuration(), global.onPrepareRender);
     };
-    this.onUserCanceled : function(result) {
+    this.onUserCanceled = function(result) {
     	console.log(result);
     };
 }
