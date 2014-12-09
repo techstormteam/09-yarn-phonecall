@@ -137,3 +137,11 @@ hr {
 .btn-submit:hover {
     text-decoration: none;
 }
+
+.ui-input-text {
+	margin: 0 0 !important;
+}
+
+.control-input {
+	margin: .5em 0;
+}
