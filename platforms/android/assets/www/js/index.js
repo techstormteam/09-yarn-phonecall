@@ -75,11 +75,12 @@ function updateHeight() {
 
     //NUMPAD = 3/5 of 3/6
 //    numpad.css('height', (parseInt(balanceHeight) / 5) * 3);
-    $('.dial-row').css('height', (parseInt(balanceHeight) / 5) * 3 / 4);
-    $('.dial-row div').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
-    $('.dial-row div img').css('height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
-//    $('[data-line]').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
-    
+    var rowHeight = (parseInt(balanceHeight) / 6) * 3 / 4;
+    $('.dial-row').css('height', rowHeight);
+    $('.dial-row div').css('line-height', rowHeight + "px");
+    $('.dial-row div img').css('height', rowHeight + "px");
+//    $('[data-line]').css('line-height', rowHeight + "px");
+     
 //    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
 //    vmail.height($('[data-value="4"] sub').height() * 2);
     $('.dial-row div');
