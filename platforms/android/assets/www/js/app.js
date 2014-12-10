@@ -821,6 +821,10 @@ function getBalancePhoneContacts(balance) {
     });
 }
 
+function openlink(url) {
+    var ref = window.open(url, '_blank', 'location=yes');
+}
+
 function doCellularCall() {
     var totalWidth = $(window).width(); 
 	$('.dialog').dialog({

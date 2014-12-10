@@ -61,13 +61,13 @@ public class CallHistoryActivity extends Activity implements OnClickListener, On
 			}
 		};
 		
-		String balance = getIntent().getStringExtra("balance");
-		balanceText = (TextView) findViewById(R.id.balanceText);
-		balanceText.setText(StringEscapeUtils.unescapeHtml4(balance));
-		balanceText.setOnClickListener(balanceCLick);
+//		String balance = getIntent().getStringExtra("balance");
+//		balanceText = (TextView) findViewById(R.id.balanceText);
+//		balanceText.setText(StringEscapeUtils.unescapeHtml4(balance));
+//		balanceText.setOnClickListener(balanceCLick);
 		
-		balanceImage = (ImageView) findViewById(R.id.balanceImage);
-		balanceImage.setOnClickListener(balanceCLick);
+//		balanceImage = (ImageView) findViewById(R.id.balanceImage);
+//		balanceImage.setOnClickListener(balanceCLick);
 		
         historyList = (ExpandableListView) findViewById(R.id.historyList);
         historyList.setOnChildClickListener(this);

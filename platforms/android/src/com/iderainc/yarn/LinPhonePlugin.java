@@ -312,14 +312,9 @@ public class LinPhonePlugin extends CordovaPlugin implements
 		} else if (action.equals("CallLogs")) {
 			this.cordova.getActivity().runOnUiThread(new Runnable() {
 				public void run() {
-					try {
-						String balance = (String) args.get(0).toString();
-						callLogs(balance);
+						callLogs();
 						callbackContext
 								.success("Go to Call Logs successfully.");
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
 				}
 			});
 			return true;
@@ -1289,41 +1284,10 @@ public class LinPhonePlugin extends CordovaPlugin implements
 		}
 	}
 	
-	private void callLogs(String balance) {
-		// Intent callIntent = new Intent(Intent.ACTION_PICK);
-		// callIntent.setData(Uri.parse("content://call_log/calls"));
-		// this.cordova.startActivityForResult(this,callIntent,PICK_CONTACT);
-
-		// List<CallLog> logs = new ArrayList<CallLog>();
-		// Uri allCalls = Uri.parse("content://call_log/calls");
-		// Cursor cursor =
-		// cordova.getActivity().getContentResolver().query(allCalls, null,
-		// null, null, null);
-		// cursor.moveToFirst();
-		// while (cursor.moveToNext()) {
-		// CallLog log = new CallLog();
-		// log.cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER));//
-		// for number
-		// String name=
-		// cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_NAME));//
-		// for name
-		// String duration =
-		// cursor.getString(cursor.getColumnIndex(CallLog.Calls.DURATION));//
-		// for duration
-		// int type =
-		// Integer.parseInt(cursor.getString(cursor.getColumnIndex(CallLog.Calls.TYPE)));//
-		// for call type, Incoming or out going
-		//
-		// }
-
+	private void callLogs() {
 		Intent intent = new Intent(context, CallHistoryActivity.class);
-		intent.putExtra("balance", balance);
-		// intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+//		intent.putExtra("balance", balance);
 		this.cordova.startActivityForResult(this, intent, PICK_CALL_LOG);
-
-		// Intent intent = new Intent(Intent.ACTION_PICK, Contacts.CONTENT_URI);
-		// intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-		// this.cordova.startActivityForResult(this,intent,PICK_CONTACT);
 	}
 
 	private void cellularCall(String phoneNumber) {

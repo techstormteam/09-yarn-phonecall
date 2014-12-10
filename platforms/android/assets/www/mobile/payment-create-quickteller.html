@@ -66,7 +66,7 @@
                 }
 
                 var form = '';
-                form += '<form action="https://paywith.quickteller.com" method="post" id="quickteller_payment_form" name="quickteller_payment_form">';
+                form += '<form action="https://paywith.quickteller.com" method="post" target="_blank" id="quickteller_payment_form" name="quickteller_payment_form">';
                 form += '<input type="hidden" name="paymentCode" value="' + global.getQuicktellerPaymentCode() + '" />';
                 form += '<input type="hidden" name="amount" value="' + amount * 100 + '" />';
                 form += '<input type="hidden" name="site_name" value="Self Serve" />';
@@ -81,24 +81,12 @@
                 form += '</button>';
                 form += '</form>';
                 $('#qt_form_board').html(form);
-                /*
-                $("#quickteller_payment_form").submit(function(e){
-		            $.ajax({
-			            type: $(this).attr('method'),
-			            url: $(this).attr('action'),
-			            crossDomain: false,
-			            cache: false,
-			            data: $(this).serialize()
-			        }).success(function (data) {
-			            window.location.href = "../index.html";
-			        }).error(function (xhr, status, error) {
-			        	//empty
-			        }).complete(function () {
-			            //empty
-			        });
+                
+                /*$("#quickteller_payment_form").submit(function(e){
+		            form.setAttribute("target", "_blank");
 		            
-				    return false;
-				}); */
+				    return true;
+				});*/ 
             }
             app.initialize();
             $(function() {
@@ -108,7 +96,7 @@
             });
             var amount = getUrlParameter('amount');
             $("#quickteller_amount").val(amount);
-
+			
             $.ajax({
                 type: 'GET',
                 url: global.getDashboardUrl() + 'login',
@@ -120,7 +108,7 @@
                 error: function(responseData, textStatus, errorThrown) {
                 }
             });
-
+			
             //$.post('http://clients.sinevia.com/dashboardsmall/selfserve/login', {
             //    UserName:global.getUser().data['email'],
             //    Password:global.getUser().data['uipass'],
