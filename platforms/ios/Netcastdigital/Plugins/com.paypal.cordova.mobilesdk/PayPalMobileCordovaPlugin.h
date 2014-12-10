@@ -13,10 +13,7 @@
 
 - (void)init:(CDVInvokedUrlCommand *)command;
 - (void)prepareToRender:(CDVInvokedUrlCommand *)command;
-
-- (void)renderSinglePaymentUI:(CDVInvokedUrlCommand *)command;
-
-- (void)applicationCorrelationIDForEnvironment:(CDVInvokedUrlCommand *)command;
+ - (void)applicationCorrelationIDForEnvironment:(CDVInvokedUrlCommand *)command;
 - (void)renderFuturePaymentUI:(CDVInvokedUrlCommand *)command;
 - (void)renderProfileSharingUI:(CDVInvokedUrlCommand *)command;
 
