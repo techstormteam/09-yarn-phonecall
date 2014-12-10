@@ -8,6 +8,11 @@
         <meta name="viewport" content="width=320, initial-scale=1" />
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
         <script src="js/jquery/jquery.js"></script>
+        <script>
+            $(document).bind("mobileinit", function () {
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
@@ -48,6 +53,7 @@
         </div>
 
         <script type="text/javascript">
+       
             function displayQuickTellerForm() {
 
                 var amount = getUrlParameter('amount');
@@ -75,7 +81,7 @@
                 form += '</button>';
                 form += '</form>';
                 $('#qt_form_board').html(form);
-                
+                /*
                 $("#quickteller_payment_form").submit(function(e){
 		            $.ajax({
 			            type: $(this).attr('method'),
@@ -92,10 +98,9 @@
 			        });
 		            
 				    return false;
-				});
+				}); */
             }
             app.initialize();
-            
             $(function() {
                 var amount = getUrlParameter('amount');
                 $("#quickteller_amount").val(number_format(amount, 2, '.', ','));
