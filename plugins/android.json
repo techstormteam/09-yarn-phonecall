@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"com.wezka.nativecamera.NativeCameraLauncher\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PayPalMobile\"><param name=\"android-package\" value=\"com.paypal.cordova.sdk.PayPalMobileCordovaPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -39,6 +43,84 @@
                         {
                             "xml": "<activity android:label=\"nativecameraplugin\" android:name=\"com.wezka.nativecamera.CameraActivity\" android:screenOrientation=\"portrait\" android:theme=\"@android:style/Theme.NoTitleBar.Fullscreen\"></activity>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<service android:exported=\"false\" android:name=\"com.paypal.android.sdk.payments.PayPalService\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.paypal.android.sdk.payments.PaymentActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.paypal.android.sdk.payments.LoginActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.paypal.android.sdk.payments.PaymentMethodActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.paypal.android.sdk.payments.PaymentConfirmActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.paypal.android.sdk.payments.PayPalFuturePaymentActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.paypal.android.sdk.payments.FuturePaymentConsentActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.paypal.android.sdk.payments.FuturePaymentInfoActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.paypal.android.sdk.payments.PayPalProfileSharingActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.paypal.android.sdk.payments.ProfileSharingConsentActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:configChanges=\"keyboardHidden|orientation\" android:name=\"io.card.payment.CardIOActivity\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"io.card.payment.DataEntryActivity\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-feature android:name=\"android.hardware.camera.autofocus\" android:required=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -51,6 +133,9 @@
         },
         "com.wezka.nativecamera": {
             "PACKAGE_NAME": "com.techstorm.yarn"
+        },
+        "com.paypal.cordova.mobilesdk": {
+            "PACKAGE_NAME": "com.iderainc.yarn"
         }
     },
     "dependent_plugins": {}
