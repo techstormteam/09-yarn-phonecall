@@ -1,4 +1,7 @@
-var ready = false;
+var ready = true;
+var portrait;
+var totalHeight;
+var totalWidth;
 
 function updateSize(totalHeight) {
     var header = $('[data-id="header"]');
@@ -23,11 +26,14 @@ function updateSize(totalHeight) {
 
     formLogin.height(loginHeight - 30);
     formLogin.children('div').height(loginHeight - 30);
-    formLogin.children('div').find('div').height(((loginHeight) / 8)-5);
-    formLogin.children('div').find('input').height(((loginHeight) / 8)-5);
-    formLogin.children('div').find('input').css('line-height', (((loginHeight) / 8)-5) + 'px');
-    formLogin.children('div').find('input').css('min-height', (((loginHeight) / 8)-5) + 'px');
+    
+    var size = ((loginHeight) / 8)-5;
+    formLogin.children('div').find('div').height(size);
+    formLogin.children('div').find('input').height(size);
+    formLogin.children('div').find('input').css('line-height', (size) + 'px');
+    formLogin.children('div').find('input').css('min-height', (size) + 'px');
     formLogin.children('div').find('input').css('font-size', '1.5em');
+    formLogin.children('div').find('.input-group-addon').css('height', '1px');
     
     formSubmit.css('top', (totalHeight - formSubmit.height()) +'px');
 
@@ -42,6 +48,14 @@ $(".form").submit(function(e){
     return false;
 });
 
+$("input").focus(function(e){
+	ready = false;
+});
+
+$("input").blur(function(e){
+	ready = true;
+});
+
 function btnHandler(object) {
     object.animate({opacity: '0.5'}, 100)
             .delay(100)
@@ -49,19 +63,40 @@ function btnHandler(object) {
 }
 
 $(document).ready(function () {
-    var totalHeight = $(window).height();
+	if (window.orientation === -90 || window.orientation === 90 ) {
+		portrait = false;
+	} else {
+		portrait = true;
+	}
+    totalHeight = $(window).height();
+    totalWidth = $(window).width();
 
     updateSize(totalHeight);
-    ready = true;
 });
 
-//$(window).resize(function () {
-//    if (ready) {
-//        var totalHeight = $(window).height();
-//
-//        updateSize(totalHeight);
-//    }
-//});
+$(window).resize(function () {
+	if (window.orientation === -90 || window.orientation === 90 ) {
+		if (portrait) {
+			var temp = totalHeight;
+			totalHeight = totalWidth - 40;
+		    totalWidth = temp;
+		    portrait = !portrait;
+		    updateSize(totalHeight);
+		}
+		
+	} else if (window.orientation === 0 || window.orientation === 180) {
+		if (!portrait) { // landscape
+			var temp = totalHeight;
+			totalHeight = totalWidth;
+		    totalWidth = temp + 40;
+		    portrait = !portrait;
+		    updateSize(totalHeight);
+		}
+		
+	}
+	
+	
+});
 
 var firstName = null;
 var lastName = null;
