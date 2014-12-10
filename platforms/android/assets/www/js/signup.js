@@ -27,7 +27,7 @@ function updateSize(totalHeight) {
     formLogin.height(loginHeight - 30);
     formLogin.children('div').height(loginHeight - 30);
     
-    var size = ((loginHeight) / 8)-5;
+    var size = ((loginHeight) / 10)-5;
     formLogin.children('div').find('div').height(size);
     formLogin.children('div').find('input').height(size);
     formLogin.children('div').find('input').css('line-height', (size) + 'px');
