@@ -85,7 +85,7 @@
                 /*$("#quickteller_payment_form").submit(function(e){
 		            form.setAttribute("target", "_blank");
 		            
-				    return true;
+				    return true; 
 				});*/ 
             }
             app.initialize();
@@ -97,17 +97,25 @@
             var amount = getUrlParameter('amount');
             $("#quickteller_amount").val(amount);
 			
-            $.ajax({
-                type: 'GET',
-                url: global.getDashboardUrl() + 'login',
-                crossDomain: true,
-                data: {UserName: global.get('email'), Password: global.get('password'), auto: 'yes', mobile_root_url: global.getRootUrl()},
-                dataType: 'jsonp',
-                success: function(responseData, textStatus, jqXHR) {
-                },
-                error: function(responseData, textStatus, errorThrown) {
-                }
-            });
+			$.ajax({
+	            type: 'GET',
+	            url: global.getDashboardUrl() + 'login',
+	            crossDomain: false,
+	            cache: false,
+	            data: {UserName: global.get('email'), Password: global.get('password'), auto: 'yes', mobile_root_url: global.getRootUrl()}
+	        }).success(function (responseData, textStatus, jqXHR) {
+	            /*alert('444');
+                alert(responseData);
+                alert(textStatus);
+                alert(jqXHR);*/
+	        }).error(function (responseData, textStatus, errorThrown) {
+	        	/*alert('55');
+                alert(JSON.stringify(responseData));
+                alert(textStatus);
+                alert(errorThrown);*/
+	        }).complete(function () {
+	            //empty
+	        });
 			
             //$.post('http://clients.sinevia.com/dashboardsmall/selfserve/login', {
             //    UserName:global.getUser().data['email'],

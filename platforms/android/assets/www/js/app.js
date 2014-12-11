@@ -798,13 +798,13 @@ function togglePasswordView(elm) {
 }
 
 function doCallLogs() {
-	window.callLogs(balance, function (message) {
+	window.callLogs("", function (message) {
         //empty
     });
 }
 
 function doPhoneContacts() {
-	window.phoneContacts(balance, function (message) {
+	window.phoneContacts("", function (message) {
         //empty
     });
 }
