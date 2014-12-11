@@ -30,7 +30,7 @@ function updateSize(totalHeight) {
     var size = ((loginHeight) / 10)-5;
     formLogin.children('div').find('div').height(size);
     formLogin.children('div').find('input').height(size);
-    formLogin.children('div').find('input').css('line-height', (size) + 'px');
+//    formLogin.children('div').find('input').css('line-height', (size) + 'px');
     formLogin.children('div').find('input').css('min-height', (size) + 'px');
     formLogin.children('div').find('input').css('font-size', (size - 5) + 'px');
     formLogin.children('div').find('.input-group-addon').css('height', '1px');
@@ -87,9 +87,9 @@ $(window).resize(function () {
 		
 	} else if (window.orientation === 0 || window.orientation === 180) {
 		if (!portrait) { // landscape
-			var temp = totalHeight;
-			totalHeight = totalWidth;
-		    totalWidth = temp + 40;
+//			var temp = totalHeight;
+//			totalHeight = totalWidth;
+//		    totalWidth = temp + 40;
 		    portrait = !portrait;
 		    totalHeight = $(window).height();
 		    updateSize(totalHeight);
