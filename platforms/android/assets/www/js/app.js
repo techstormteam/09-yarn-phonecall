@@ -788,12 +788,6 @@ function loadUrlDialScreen() {
 	window.location.href = "dial.html";
 }
 
-function getBalanceCallLogs(balance) {
-	window.callLogs(balance, function (message) {
-        //empty
-    });
-}
-
 function togglePasswordView(elm) {
     var field = $(elm).parent().find('input');
     if (field.attr('type') === "password") {
@@ -804,18 +798,12 @@ function togglePasswordView(elm) {
 }
 
 function doCallLogs() {
-	var telno = global.get('telno');
-	var password = global.get('password');
-	global.balance('_balance', {telno: telno, password: password}, getBalanceCallLogs);
+	window.callLogs(balance, function (message) {
+        //empty
+    });
 }
 
 function doPhoneContacts() {
-	var telno = global.get('telno');
-	var password = global.get('password');
-	global.balance('_balance', {telno: telno, password: password}, getBalancePhoneContacts);
-}
-
-function getBalancePhoneContacts(balance) {
 	window.phoneContacts(balance, function (message) {
         //empty
     });
