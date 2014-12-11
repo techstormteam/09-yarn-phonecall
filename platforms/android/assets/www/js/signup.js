@@ -32,7 +32,7 @@ function updateSize(totalHeight) {
     formLogin.children('div').find('input').height(size);
     formLogin.children('div').find('input').css('line-height', (size) + 'px');
     formLogin.children('div').find('input').css('min-height', (size) + 'px');
-    formLogin.children('div').find('input').css('font-size', '1.5em');
+    formLogin.children('div').find('input').css('font-size', (size - 5) + 'px');
     formLogin.children('div').find('.input-group-addon').css('height', '1px');
     
     formSubmit.css('top', (totalHeight - formSubmit.height()) +'px');
@@ -77,10 +77,11 @@ $(document).ready(function () {
 $(window).resize(function () {
 	if (window.orientation === -90 || window.orientation === 90 ) {
 		if (portrait) {
-			var temp = totalHeight;
-			totalHeight = totalWidth - 40;
-		    totalWidth = temp;
+//			var temp = totalHeight;
+//			totalHeight = totalWidth - 40;
+//		    totalWidth = temp;
 		    portrait = !portrait;
+		    totalHeight = $(window).height();
 		    updateSize(totalHeight);
 		}
 		
@@ -90,11 +91,11 @@ $(window).resize(function () {
 			totalHeight = totalWidth;
 		    totalWidth = temp + 40;
 		    portrait = !portrait;
+		    totalHeight = $(window).height();
 		    updateSize(totalHeight);
 		}
 		
 	}
-	
 	
 });
 

@@ -75,19 +75,23 @@ $(document).ready(function () {
 $(window).resize(function () {
 	if (window.orientation === -90 || window.orientation === 90 ) {
 		if (portrait) {
-			var temp = totalHeight;
-			totalHeight = totalWidth - 40;
-		    totalWidth = temp;
+//			var temp = totalHeight;
+//			totalHeight = totalWidth - 40;
+//		    totalWidth = temp;
 		    portrait = !portrait;
+		    totalHeight = $(window).height();
+		    totalWidth = $(window).width();
 		    updateSize(totalWidth, totalHeight);
 		}
 		
 	} else if (window.orientation === 0 || window.orientation === 180) {
 		if (!portrait) { // landscape
-			var temp = totalHeight;
-			totalHeight = totalWidth;
-		    totalWidth = temp + 40;
+//			var temp = totalHeight;
+//			totalHeight = totalWidth;
+//		    totalWidth = temp + 40;
 		    portrait = !portrait;
+		    totalHeight = $(window).height();
+		    totalWidth = $(window).width();
 		    updateSize(totalWidth, totalHeight);
 		}
 		
