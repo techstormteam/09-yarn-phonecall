@@ -35,7 +35,6 @@
 @property (nonatomic, retain) IBOutlet UIButton* missedButton;
 @property (nonatomic, retain) IBOutlet UIToggleButton* editButton;
 @property (nonatomic, retain) IBOutlet UIButton* deleteButton;
-@property (retain, nonatomic) IBOutlet UILabel *balanceLabel;
 
 - (IBAction)onAllClick:(id) event;
 - (IBAction)onMissedClick:(id) event;

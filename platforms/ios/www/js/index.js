@@ -75,10 +75,13 @@ function updateHeight() {
 
     //NUMPAD = 3/5 of 3/6
 //    numpad.css('height', (parseInt(balanceHeight) / 5) * 3);
-    $('.dial-row').css('height', (parseInt(balanceHeight) / 5) * 3 / 4);
-    $('.dial-row div').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
-//    $('[data-line]').css('line-height', (parseInt(balanceHeight) / 5) * 3 / 4 + "px");
-    
+    var rowHeight = (parseInt(balanceHeight) / 6) * 3 / 4;
+    rowHeight = rowHeight * 1.05;
+    $('.dial-row').css('height', rowHeight);
+    $('.dial-row div').css('line-height', rowHeight + "px");
+    $('.dial-row div img').css('height', rowHeight + "px");
+//    $('[data-line]').css('line-height', rowHeight + "px");
+     
 //    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
 //    vmail.height($('[data-value="4"] sub').height() * 2);
     $('.dial-row div');
@@ -441,6 +444,19 @@ function getBalance(data) {
     balVal.html(data);
 }
 
+function onSuccessGetCurrency(response) {
+	global.set('currency', response);
+}
+
+function onSuccessGetInterSwitchInfo(response) {
+	var bundle = response.substring(21,response.length);
+	var values = bundle.split(";");
+	
+	global.set('email', values[0]);
+	global.set('dextersim_ngn', values[1]);
+	global.set('dextersim_uk', values[2]);
+}
+
 function getRate(data) {
     rateVal.html(data);
     $('.rateText').show();
@@ -525,8 +541,8 @@ var app = {
 	        }
 	        global.balance('_balance', {telno: telno, password: password}, getBalance);
 	        global.login('_email', {telno: telno, password: password}, getEmail);
-	    	
-	    	
+	        global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
+	        global.api("_intersw_params", { telno: telno, password: password}, onSuccessGetInterSwitchInfo);
 	    	global.general();
 	        $('.dialog').hide();
 	        

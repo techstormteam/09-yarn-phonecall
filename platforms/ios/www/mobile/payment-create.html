@@ -26,8 +26,16 @@
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>        
         <script src="../js/sweet-alert.js"></script>
-    </head>
+        <script type="text/javascript" src="../cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="../js/my_linphone.js"></script>
+        <script type="text/javascript" src="../js/paypal-mobile-js-helper.js"></script>
+		<script type="text/javascript" src="../js/cdv-plugin-paypal-mobile-sdk.js"></script>
+    </head> 
     <body>
+    
+
+ 
         <div data-role="page" data-add-back-btn="true">
             <!-- START: Title -->
             <div data-role="header">
@@ -84,7 +92,7 @@
                 <div id="paypal_view" style="display: none;">
                     <!-- START: PayPal Topup -->
                     <div id="paypalTopup">
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                        <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post">-->
                             <input type="hidden" name="cmd" value="_xclick">
                             <input type="hidden" name="business" value="ZRX6JLVU7XXM6">
                             <input type="hidden" name="lc" value="GB">
@@ -112,17 +120,17 @@
                             </select>
                             <input type="hidden" name="currency_code2" value="GBP" />
                             <center>
-                                <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_paynowCC_LG.gif" name="submit" alt="PayPal ? The safer, easier way to pay online.">
+                                <input id="paypalTopupButton" type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_paynowCC_LG.gif"  alt="PayPal ? The safer, easier way to pay online.">
                             </center>
                             <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">       
-                        </form>
+                        <!--</form>-->
                     </div>
                     <!-- END: PayPal Topup -->
                     <hr>
 
                     <!-- START: PayPal AutoPay -->
                     <div id="paypalAutopay">
-                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                        <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post">-->
                             <input type="hidden" name="cmd" value="_xclick-subscriptions">
                             <input id="paypal_custom_autoplay" type="hidden" name="custom" value="">
                             <input type="hidden" name="business" value="ZRX6JLVU7XXM6"> <input type="hidden" name="lc" value="GB">
@@ -140,7 +148,7 @@
                             <input type="hidden" name="notify_url" value="http://dextersim.com/dex_ipn_main_handler.php">
                             <input type="hidden" name="on0" value="Payment Options"> <input type="hidden" name="os0" value="Auto Topup">
                             <center> Auto Topup Options </center>
-                            <select name="a3"id="paypal_autopay_amount">
+                            <select name="a3" id="paypal_autopay_amount">
                                 <option value="10">Auto Topup : £10.00 - monthly</option>
                                 <option value="20">Auto Topup : £20.00 - monthly</option>
                                 <option value="50">Auto Topup : £50.00 - monthly</option>
@@ -150,10 +158,10 @@
 
                             <input type="hidden" name="currency_code" value="GBP"> 
                             <center>
-                                <input type="image" src="http://dexterconnect.com/includes/templates/connect/images/Button.png" style="border:none;" name="submit" alt="PayPal — The safer, easier way to pay online.">
+                                <input id="paypalAutoPayButton" type="image" src="http://dexterconnect.com/includes/templates/connect/images/Button.png" style="border:none;" alt="PayPal — The safer, easier way to pay online.">
                             </center>
                             <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1"> 
-                        </form>
+                        <!--</form>-->
                     </div>
                     <!-- END: PayPal AutoPay-->
                 </div>
@@ -202,7 +210,7 @@
         <script type="text/javascript">
             app.initialize();
             $(function () {
-                var user_id = global.getUser().data['id'];
+                var user_id = global.get('uid');
                 $('#paypal_custom_topup').val(user_id);
                 $('#paypal_custom_autoplay').val(user_id);
             });
@@ -210,12 +218,12 @@
         <script>
             if (window.location.href.indexOf('/prayerline/') !== -1) {
                 $('#creditTransferPayment').hide();
-                global.api('religious_entity_charge', {user_id: global.getUser().getId()}, religious_entity_charge_response);
+                global.api('religious_entity_charge', {user_id: global.get('uid')}, religious_entity_charge_response);
             }
             function religious_entity_charge_response(response) {
                 if (response.result === 'success') {
                     var charge = response.details;
-                    //if (global.getUser().getCurrency() === 'NGN') {
+                    //if (global.get('currency') === 'NGN') {
                         $('#quickteller_amount').val(charge);
                         $('#quickteller_amount').attr('disabled','disabled');
                     //}else{
@@ -248,7 +256,7 @@
             });
             
             var user_id = global.get('uid');
-            if (user.getCurrency() !== 'NGN') {
+            if (global.get('currency') !== 'NGN') {
                 //$('#paypal_view').show();
                 $('#paypal').prop('checked', true);
             } else {
@@ -289,6 +297,7 @@
             }
 
             function show_paymen_view() {
+            	$('#continue').parent().hide();
                 if ($('#inter_switch').is(':checked'))
                 {
                     $('#inter_switch_view').show();
@@ -298,6 +307,16 @@
                     $('#paypal_view').show();
                     $('#inter_switch_view').hide();
                 }
+                
+                $('#inter_switch').click(function(e) {
+                	$('#inter_switch_view').show();
+                    $('#paypal_view').hide();
+                });
+                $('#paypal').click(function(e) {
+                	$('#paypal_view').show();
+                    $('#inter_switch_view').hide();
+                });
+                
             }
         </script>
     </body>

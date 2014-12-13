@@ -14,371 +14,382 @@
 
 
 - (void) ContinueCall:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                                    initWithObjectsAndKeys :
-                                    @"true", @"success",
-                                    nil
-                                    ];
-    [jsonObj setObject:@NO forKey:SUCCESS_STATUS];
     
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                        initWithObjectsAndKeys :
+                                        @"true", @"success",
+                                        nil
+                                        ];
+        [jsonObj setObject:@NO forKey:SUCCESS_STATUS];
         
-        LinphoneCore* lc = [LinphoneManager getLc];
-        if (lc != nil) {
-            LinphoneCall* currentCall = linphone_core_get_current_call(lc);
-            if (currentCall != nil) {
-                LinphoneCallState state = linphone_call_get_state(currentCall);
-                if (currentCall != nil && state == LinphoneCallPaused) {
-                    //pauseOrResumeCall(currentCall);
-                    [jsonObj setObject:@YES forKey:SUCCESS_STATUS];
-                    
-                } else {
-                    
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            
+            LinphoneCore* lc = [LinphoneManager getLc];
+            if (lc != nil) {
+                LinphoneCall* currentCall = linphone_core_get_current_call(lc);
+                if (currentCall != nil) {
+                    LinphoneCallState state = linphone_call_get_state(currentCall);
+                    if (currentCall != nil && state == LinphoneCallPaused) {
+                        //pauseOrResumeCall(currentCall);
+                        [jsonObj setObject:@YES forKey:SUCCESS_STATUS];
+                        
+                    } else {
+                        
+                    }
                 }
             }
         }
-    }
-    [self successReturn:command jsonObj:jsonObj];
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) WifiCall:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-        
-        NSString *callTo = [command.arguments objectAtIndex:0];
-        NSString *domain = GENERIC_DOMAIN;
-        [self doSip:[NSString stringWithFormat:@"sip:%@@%@", callTo, domain]];
-        [self insertPlaceholderCall:callTo];
-        [self successReturn:command jsonObj:jsonObj];
-    }
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            
+            NSString *callTo = [command.arguments objectAtIndex:0];
+            NSString *domain = GENERIC_DOMAIN;
+            [self doSip:[NSString stringWithFormat:@"sip:%@@%@", callTo, domain]];
+            [self insertPlaceholderCall:callTo];
+            [self successReturn:command jsonObj:jsonObj];
+        }
+    }];
 }
 - (void) CellularCall:(CDVInvokedUrlCommand *)command {
-    
-    NSString *phoneNumber = [command.arguments objectAtIndex:0];
-//    SharedPreferences prefs = PreferenceManager
-//    .getDefaultSharedPreferences(context);
-//    SharedPreferences.Editor edit1 = prefs.edit();
-//    edit1.putStringSet(
-//                       context.getString(R.string.phone_number_list),
-//                       new HashSet<String>());
-//    edit1.commit();
-    
-//    SharedPreferences.Editor edit = prefs.edit();
-//    edit.putBoolean(
-//                    context.getString(R.string.native_call_enable),
-//                    true);
-//    edit.commit();
-    
-    [self doBlockNativeCall];
-    
-    [self doCellularCall:(NSString*)phoneNumber];
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        NSString *phoneNumber = [command.arguments objectAtIndex:0];
+    //    SharedPreferences prefs = PreferenceManager
+    //    .getDefaultSharedPreferences(context);
+    //    SharedPreferences.Editor edit1 = prefs.edit();
+    //    edit1.putStringSet(
+    //                       context.getString(R.string.phone_number_list),
+    //                       new HashSet<String>());
+    //    edit1.commit();
+        
+    //    SharedPreferences.Editor edit = prefs.edit();
+    //    edit.putBoolean(
+    //                    context.getString(R.string.native_call_enable),
+    //                    true);
+    //    edit.commit();
+        
+        [self doBlockNativeCall];
+        
+        [self doCellularCall:(NSString*)phoneNumber];
+        [self successReturn:command];
+    }];
 }
 - (void) VideoCall:(CDVInvokedUrlCommand *)command {
-    
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        [self successReturn:command];
+    }];
 }
 - (void) RegisterSip:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-        NSString *sipUsername = [command.arguments objectAtIndex:0];
-        NSString *password = [command.arguments objectAtIndex:1];
-        NSString *registerStatus = [command.arguments objectAtIndex:2];
-        NSString *domain = GENERIC_DOMAIN;
-        
-        [[LinphoneAppDelegate instance] setTelno:sipUsername];
-        [[LinphoneAppDelegate instance] setPassword:password];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            NSString *sipUsername = [command.arguments objectAtIndex:0];
+            NSString *password = [command.arguments objectAtIndex:1];
+            NSString *registerStatus = [command.arguments objectAtIndex:2];
+            NSString *domain = GENERIC_DOMAIN;
+            
+            [[LinphoneAppDelegate instance] setTelno:sipUsername];
+            [[LinphoneAppDelegate instance] setPassword:password];
 
-        [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
-    }
-    [self successReturn:command jsonObj:jsonObj];
+            [LinPhonePlugin doRegisterSip:sipUsername password:password domain:domain registerStatus:registerStatus];
+        }
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) SignOut:(CDVInvokedUrlCommand *)command {    NSString *sipUsername = [command.arguments objectAtIndex:0];
-    NSString *domain = GENERIC_DOMAIN;
-    [LinPhonePlugin doSignOut:sipUsername domain:domain];
-    [[LinphoneAppDelegate instance] setTelno:@""];
-    [[LinphoneAppDelegate instance] setPassword:@""];
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        NSString *domain = GENERIC_DOMAIN;
+        [LinPhonePlugin doSignOut:sipUsername domain:domain];
+        [[LinphoneAppDelegate instance] setTelno:@""];
+        [[LinphoneAppDelegate instance] setPassword:@""];
+        [self successReturn:command];
+    }];
 }
 - (void) PhoneContacts:(CDVInvokedUrlCommand *)command {
-    NSString *balance = [command.arguments objectAtIndex:0];
-    [self doPhoneContacts:balance];
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        NSString *balance = [command.arguments objectAtIndex:0];
+        [self doPhoneContacts:balance];
+        [self successReturn:command];
+    }];
 }
 - (void) CallLogs:(CDVInvokedUrlCommand *)command {
-    NSString *balance = [command.arguments objectAtIndex:0];
-    [self doCallLogs:balance];
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        [self doCallLogs];
+        [self successReturn:command];
+    }];
 }
 - (void) HangUp:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-        [self doHangUp];
-    }
-    [self successReturn:command jsonObj:jsonObj];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            [self doHangUp];
+        }
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) Settings:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-        // nothing
-    }
-    [self successReturn:command jsonObj:jsonObj];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            // nothing
+        }
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) MicMute:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-        bool enableMicMute = [command.arguments objectAtIndex:0];
-        LinphoneCore *lc = [LinphoneManager getLc];
-        linphone_core_enable_mic(lc, enableMicMute);
-    }
-    [self successReturn:command jsonObj:jsonObj];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            bool enableMicMute = [command.arguments objectAtIndex:0];
+            [self initUISpeaker];
+//            LinphoneCore *lc = [LinphoneManager getLc];
+//            [[LinphoneManager instance] allowSpeaker];
+            [[LinphoneManager instance] setSpeakerEnabled:TRUE];
+//            linphone_core_enable_mic(lc, enableMicMute);
+        }
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
+static void audioRouteChangeListenerCallback (
+                                              void                   *inUserData,                                 // 1
+                                              AudioSessionPropertyID inPropertyID,                                // 2
+                                              UInt32                 inPropertyValueSize,                         // 3
+                                              const void             *inPropertyValue                             // 4
+) {
+    if (inPropertyID != kAudioSessionProperty_AudioRouteChange) return; // 5
+    LinPhonePlugin* plugin = (LinPhonePlugin*)inUserData;
+    [plugin update];
+}
+
+- (bool)update {
+    [[LinphoneManager instance] allowSpeaker];
+    return [[LinphoneManager instance] speakerEnabled];
+}
+
 - (void) ShowDialPad:(CDVInvokedUrlCommand *)command {
-    // no code
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        // no code
+        [self successReturn:command];
+    }];
 }
 - (void) Loudness:(CDVInvokedUrlCommand *)command {
-    
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-        [[LinphoneManager instance] allowSpeaker];
-    }
-    [self successReturn:command jsonObj:jsonObj];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            [self initUISpeaker];
+            [[LinphoneManager instance] setSpeakerEnabled:TRUE];
+        }
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) Phoneness:(CDVInvokedUrlCommand *)command {
-    
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-//        LinphoneManager.getInstance()
-//        .routeAudioToReceiver();
-//        LinphoneManager.getLc().enableSpeaker(false);
-        [[LinphoneManager instance] setSpeakerEnabled:FALSE];
-    }
-    [self successReturn:command jsonObj:jsonObj];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            [self initUISpeaker];
+            [[LinphoneManager instance] setSpeakerEnabled:FALSE];
+        }
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) DialDtmf:(CDVInvokedUrlCommand *)command {
-    
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-        NSString *sipUsername = [command.arguments objectAtIndex:0];
-        [self doDialDtmf:[sipUsername characterAtIndex:0]];
-    }
-    [self successReturn:command jsonObj:jsonObj];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            NSString *sipUsername = [command.arguments objectAtIndex:0];
+            [self doDialDtmf:[sipUsername characterAtIndex:0]];
+        }
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) GetCallQuality:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-        LinphoneCore *lc = [LinphoneManager getLc];
-        LinphoneCall *currentCall = linphone_core_get_current_call(lc);
-        
-        if (currentCall != nil) {
-            [jsonObj setObject:[NSNumber numberWithFloat:[self doGetCallQuality:currentCall]] forKey:QUALITY];
-//            result = new PluginResult(Status.OK, objJSON);
-        } else {
-            [jsonObj setObject:[NSNumber numberWithInt:0] forKey:QUALITY];
-//            result = new PluginResult(Status.NO_RESULT, objJSON);
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            LinphoneCore *lc = [LinphoneManager getLc];
+            LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+            
+            if (currentCall != nil) {
+                [jsonObj setObject:[NSNumber numberWithFloat:[self doGetCallQuality:currentCall]] forKey:QUALITY];
+    //            result = new PluginResult(Status.OK, objJSON);
+            } else {
+                [jsonObj setObject:[NSNumber numberWithInt:0] forKey:QUALITY];
+    //            result = new PluginResult(Status.NO_RESULT, objJSON);
+            }
         }
-    }
-    [self successReturn:command jsonObj:jsonObj];
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) GetCallDurationTime:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    LinphoneCore *lc = [LinphoneManager getLc];
-    LinphoneCall *currentCall = linphone_core_get_current_call(lc);
-    if (currentCall != nil) {
-        int duration = linphone_core_get_current_call_duration(lc);
-        [jsonObj setObject:[NSString stringWithFormat:@"%02d:%02d", duration / 60, duration % 60] forKey:TIME];
-    } else {
-        [jsonObj setObject:@"00:00" forKey:TIME];
-    }
-    [self successReturn:command jsonObj:jsonObj];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        LinphoneCore *lc = [LinphoneManager getLc];
+        LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+        if (currentCall != nil) {
+            int duration = linphone_core_get_current_call_duration(lc);
+            [jsonObj setObject:[NSString stringWithFormat:@"%02d:%02d", duration / 60, duration % 60] forKey:TIME];
+        } else {
+            [jsonObj setObject:@"00:00" forKey:TIME];
+        }
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) CheckEndCall:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    LinphoneCore *lc = [LinphoneManager getLc];
-    LinphoneCall *currentCall = linphone_core_get_current_call(lc);
-    if (currentCall == nil) {
-        [jsonObj setObject:@YES forKey:END_CALL];
-    } else {
-        LinphoneCallState state = linphone_call_get_state(currentCall);
-        if (state == LinphoneCallIdle
-            || state == LinphoneCallError
-            || state == LinphoneCallEnd
-            || state == LinphoneCallReleased) {
-            [self doHangUp];
-            
-            // enable lockscreen
-            //								PowerManager pm = (PowerManager) context.getSystemService(context.POWER_SERVICE);
-            //								WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
-            //						                | PowerManager.ACQUIRE_CAUSES_WAKEUP
-            //						                | PowerManager.ON_AFTER_RELEASE, "INFO");
-            //						        wl.release();
-            
-            //						        KeyguardManager km = (KeyguardManager) context.getSystemService(context.KEYGUARD_SERVICE);
-            //						        KeyguardLock kl = km.newKeyguardLock("name");
-            //						        kl.reenableKeyguard();
-            
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        LinphoneCore *lc = [LinphoneManager getLc];
+        LinphoneCall *currentCall = linphone_core_get_current_call(lc);
+        if (currentCall == nil) {
             [jsonObj setObject:@YES forKey:END_CALL];
         } else {
-            // disable lockscreen
-//            PowerManager pm = (PowerManager) context.getSystemService(context.POWER_SERVICE);
-//            WakeLock wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
-//                                         | PowerManager.ACQUIRE_CAUSES_WAKEUP
-//                                         | PowerManager.ON_AFTER_RELEASE, "INFO");
-//            wl.acquire();
-            
-            //						        KeyguardManager km = (KeyguardManager) context.getSystemService(context.KEYGUARD_SERVICE);
-            //						        KeyguardLock kl = km.newKeyguardLock("name");
-            //						        kl.disableKeyguard();
+            LinphoneCallState state = linphone_call_get_state(currentCall);
+            if (state == LinphoneCallIdle
+                || state == LinphoneCallError
+                || state == LinphoneCallEnd
+                || state == LinphoneCallReleased) {
+                [self doHangUp];
 
-            [jsonObj setObject:@NO forKey:END_CALL];
+                [jsonObj setObject:@YES forKey:END_CALL];
+            } else {
+                [jsonObj setObject:@NO forKey:END_CALL];
+            }
         }
-    }
-    [self successReturn:command jsonObj:jsonObj];
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) AnswerCall:(CDVInvokedUrlCommand *)command {
-    LinphoneCall *incommingCall = [self doGetIncommingCall];
-//    LinphoneCallParams *params = linphone_core_create_call_params([LinphoneManager getLc], incommingCall);
-//    .createDefaultCallParameters();
-//    
-//    bool isLowBandwidthConnection = !LinphoneUtils
-//    .isHightBandwidthConnection(cordova.getActivity()
-//                                .getApplicationContext());
-//    if (isLowBandwidthConnection) {
-//        params.enableLowBandwidth(true);
-//        // Low bandwidth enabled in call params
-//    }
-//    
-//    if (!LinphoneManager.getInstance().acceptCallWithParams(
-//                                                            incommingCall, params)) {
-//        // the above method takes care of Samsung Galaxy S
-//        // Toast.makeText(this,
-//        // R.string.couldnt_accept_call,
-//        // Toast.LENGTH_LONG).show();
-//    } else {
-//        // if (!LinphoneActivity.isInstanciated()) {
-//        // return false;
-//        // }
-//        final LinphoneCallParams remoteParams = incommingCall
-//								.getRemoteParams();
-//        if (remoteParams != null
-//            && remoteParams.getVideoEnabled()
-//            && LinphonePreferences
-//            .instance()
-//            .shouldAutomaticallyAcceptVideoRequests()) {
-//            // LinphoneActivity.instance().startVideoActivity(mCall);
-//        } else {
-//            // LinphoneActivity.instance().startIncallActivity(mCall);
-//        }
-//    }
-    
-    [[LinphoneManager instance] acceptCall:incommingCall];
-    
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        LinphoneCall *incommingCall = [self doGetIncommingCall];
+        [[LinphoneManager instance] acceptCall:incommingCall];
+        
+        [self successReturn:command];
+    }];
 }
 - (void) DeclineCall:(CDVInvokedUrlCommand *)command {
-    LinphoneCall *incommingCall = [self doGetIncommingCall];
-    linphone_core_terminate_call([LinphoneManager getLc], incommingCall);
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        LinphoneCall *incommingCall = [self doGetIncommingCall];
+        linphone_core_terminate_call([LinphoneManager getLc], incommingCall);
+        [self successReturn:command];
+    }];
 }
 - (void) Voicemail:(CDVInvokedUrlCommand *)command {
-    // No need to code
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        // No need to code
+        [self successReturn:command];
+    }];
 }
 - (void) CheckInternetConnection:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    [self checkInternetConnectionAvailable:jsonObj];
-    [self successReturn:command jsonObj:jsonObj];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        [self checkInternetConnectionAvailable:jsonObj];
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) GetSMSInboundPhoneNumber:(CDVInvokedUrlCommand *)command {
-    NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
-                             initWithObjectsAndKeys :
-                             @"true", @"success",
-                             nil
-                             ];
-    if ([self checkInternetConnectionAvailable:jsonObj]) {
-        NSMutableArray * arrayJSON = [[NSMutableArray alloc] init];
-//        SharedPreferences prefs = PreferenceManager
-//        .getDefaultSharedPreferences(context);
-//        Set<String> defaultSet = new HashSet<String>();
-//        Set<String> phoneSet = prefs.getStringSet(context
-//                                                  .getString(R.string.phone_number_list),
-//                                                  defaultSet);
-//        if (phoneSet != null && phoneSet.size() > 0) {
-//            for (String phone : phoneSet) {
-//                [arrayJSON addObject:phone]];
-//            }
-//            phoneSet.clear();
-//        }
-        [jsonObj setObject:arrayJSON forKey:PHONE_NUMBER_LIST];
-    }
-    [self successReturn:command jsonObj:jsonObj];
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                 initWithObjectsAndKeys :
+                                 @"true", @"success",
+                                 nil
+                                 ];
+        if ([self checkInternetConnectionAvailable:jsonObj]) {
+            NSMutableArray * arrayJSON = [[NSMutableArray alloc] init];
+    //        SharedPreferences prefs = PreferenceManager
+    //        .getDefaultSharedPreferences(context);
+    //        Set<String> defaultSet = new HashSet<String>();
+    //        Set<String> phoneSet = prefs.getStringSet(context
+    //                                                  .getString(R.string.phone_number_list),
+    //                                                  defaultSet);
+    //        if (phoneSet != null && phoneSet.size() > 0) {
+    //            for (String phone : phoneSet) {
+    //                [arrayJSON addObject:phone]];
+    //            }
+    //            phoneSet.clear();
+    //        }
+            [jsonObj setObject:arrayJSON forKey:PHONE_NUMBER_LIST];
+        }
+        [self successReturn:command jsonObj:jsonObj];
+    }];
 }
 - (void) CallingCard:(CDVInvokedUrlCommand *)command {
-    NSString *accessNumber = [command.arguments objectAtIndex:0];
-    NSString *phoneNumber = [command.arguments objectAtIndex:1];
-    [self doBlockNativeCall];
-    [self doCallingCard:accessNumber phoneNumber:phoneNumber];
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        NSString *accessNumber = [command.arguments objectAtIndex:0];
+        NSString *phoneNumber = [command.arguments objectAtIndex:1];
+        [self doBlockNativeCall];
+        [self doCallingCard:accessNumber phoneNumber:phoneNumber];
+        [self successReturn:command];
+    }];
 }
 - (void) BlockNativeCall:(CDVInvokedUrlCommand *)command {
-    [self doBlockNativeCall];
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        [self doBlockNativeCall];
+        [self successReturn:command];
+    }];
 }
 - (void) AllowNativeCall:(CDVInvokedUrlCommand *)command {
-    [self doAllowNativeCall];
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        [self doAllowNativeCall];
+        [self successReturn:command];
+    }];
 }
 - (void) StartVideoActivity:(CDVInvokedUrlCommand *)command {
-    // No need to code
-    [self successReturn:command];
+    [self.commandDelegate runInBackground:^{
+        // No need to code
+        [self successReturn:command];
+    }];
 }
 
 
@@ -441,63 +452,78 @@
 
 + (void) doSignOut:(NSString*)sipUsername domain:(NSString*)domain {
     if ([LinphoneManager isLcReady]) {
-    
         LinphoneCore *lc = [LinphoneManager getLc];
-        
-//        NSString *sipAddress = [NSString stringWithFormat:@"%@@%@", sipUsername, domain];
-//        NSMutableArray *accountIndexes = [LinPhonePlugin findAuthIndexOf:sipAddress];
-//        for (NSInteger index = 0; index < [accountIndexes count]; index++) {
-//            NSNumber *accountIndex = [accountIndexes objectAtIndex:index];
-//            const MSList *proxyConfigList = linphone_core_get_proxy_config_list(lc);
-//            if (proxyConfigList != nil) {
-//                LinphoneProxyConfig *proxyConfig = ms_list_nth_data(proxyConfigList, [accountIndex intValue]);
-//                linphone_proxy_config_enable_register(proxyConfig, false);
-//                linphone_proxy_config_destroy(proxyConfig);
-//            }
-//        }
-//        
-//        const LinphoneAuthInfo* authInfo = linphone_core_find_auth_info(lc, NULL, [sipUsername UTF8String], [domain UTF8String]);
-//        if (authInfo != nil) {
-//            linphone_core_remove_auth_info(lc, authInfo);
-//        }
-//        [[LinphoneManager instance] refreshRegisters];
-        
-        
-        
-        
-        
-        //----------------
-        
-        LinphoneCoreSettingsStore *settingsStore = [[LinphoneCoreSettingsStore alloc] init];
-        [settingsStore switchAccount:@"logout"];
-        
-        
-//        LinphoneProxyConfig* proxyCfg = NULL;
-//        linphone_core_get_default_proxy(lc, &proxyCfg);
-//        if (proxyCfg != NULL) {
-//            linphone_proxy_config_edit(proxyCfg);
-//            LinphoneRegistrationState ds = linphone_proxy_config_get_state(proxyCfg);
-//            linphone_proxy_config_enable_register(proxyCfg, false);
-//            
-//            
-//            linphone_proxy_config_done(proxyCfg);
-//            [self clearProxyConfig];
-//            LinphoneRegistrationState ds1 = linphone_proxy_config_get_state(proxyCfg);
-//            LinphoneRegistrationState ds2 = linphone_proxy_config_get_state(proxyCfg);
-        
-        
+        LinphoneProxyConfig* proxyCfg = NULL;
+        linphone_core_get_default_proxy(lc, &proxyCfg);
+        if (proxyCfg != NULL) {
             
-//            LinphoneRegistrationState ds3 = linphone_proxy_config_get_state(proxyCfg);
-//            LinphoneRegistrationState ds4 = linphone_proxy_config_get_state(proxyCfg);
+            linphone_proxy_config_edit(proxyCfg);
+            linphone_proxy_config_enable_register(proxyCfg, false);
+            linphone_proxy_config_done(proxyCfg);
             
-//            linphone_core_set_default_proxy(lc, nil);
-            
-//            [self clearProxyConfig];
-//            [[LinphoneManager instance] refreshRegisters];
-//        }
-//        [[LinphoneAppDelegate instance] signout];
+            linphone_core_get_default_proxy([LinphoneManager getLc], &proxyCfg);
+            [LinPhonePlugin doProxyConfigUpdate:proxyCfg];
+
+        }
     }
 }
+
++ (void)doProxyConfigUpdate: (LinphoneProxyConfig*) config {
+    LinphoneRegistrationState state = LinphoneRegistrationNone;
+    NSString* message = nil;
+//    UIImage* image = nil;
+    LinphoneCore* lc = [LinphoneManager getLc];
+    LinphoneGlobalState gstate = linphone_core_get_global_state(lc);
+    
+    if( gstate == LinphoneGlobalConfiguring ){
+        message = NSLocalizedString(@"Fetching remote configuration", nil);
+    } else if (config == NULL) {
+        state = LinphoneRegistrationNone;
+        if(linphone_core_is_network_reachable([LinphoneManager getLc]))
+            message = NSLocalizedString(@"No SIP account configured", nil);
+        else
+            message = NSLocalizedString(@"Network down", nil);
+    } else {
+        state = linphone_proxy_config_get_state(config);
+        
+        switch (state) {
+            case LinphoneRegistrationOk:
+                message = NSLocalizedString(@"Registered", nil); break;
+            case LinphoneRegistrationNone:
+            case LinphoneRegistrationCleared:
+                message =  NSLocalizedString(@"Not registered", nil); break;
+            case LinphoneRegistrationFailed:
+                message =  NSLocalizedString(@"Registration failed", nil); break;
+            case LinphoneRegistrationProgress:
+                message =  NSLocalizedString(@"Registration in progress", nil); break;
+            default: break;
+        }
+    }
+    
+//    registrationStateLabel.hidden = NO;
+    switch(state) {
+        case LinphoneRegistrationFailed:
+//            registrationStateImage.hidden = NO;
+//            image = [UIImage imageNamed:@"led_error.png"];
+            break;
+        case LinphoneRegistrationCleared:
+        case LinphoneRegistrationNone:
+//            registrationStateImage.hidden = NO;
+//            image = [UIImage imageNamed:@"led_disconnected.png"];
+            break;
+        case LinphoneRegistrationProgress:
+//            registrationStateImage.hidden = NO;
+//            image = [UIImage imageNamed:@"led_inprogress.png"];
+            break;
+        case LinphoneRegistrationOk:
+//            registrationStateImage.hidden = NO;
+//            image = [UIImage imageNamed:@"led_connected.png"];
+            break;
+    }
+//    [registrationStateLabel setText:message];
+//    [registrationStateImage setImage:image];
+}
+
 
 + (void) doLogIn:(NSString*)sipUsername password:(NSString*)password domain:(NSString*)domain {
     LinphoneCore* lc = [LinphoneManager getLc];
@@ -640,74 +666,12 @@
 }
 
 - (void) doPhoneContacts:(NSString*) balance  {
-    [[LinphoneAppDelegate instance] showLinphoneContactView:balance];
+    [[LinphoneAppDelegate instance] showLinphoneContactView];
 
 }
 
-- (void) doCallLogs:(NSString*) balance {
-    [[LinphoneAppDelegate instance] showLinphoneCallLogView:balance];
-    
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    NSDirectoryEnumerator *dirnum = [[NSFileManager defaultManager] enumeratorAtPath: @"/private/"];
-//    NSString *nextItem = [NSString string];
-//    while( (nextItem = [dirnum nextObject])) {
-//        if ([[nextItem pathExtension] isEqualToString: @"db"] ||
-//            [[nextItem pathExtension] isEqualToString: @"sqlitedb"]) {
-//            if ([fileManager isReadableFileAtPath:nextItem]) {
-//                NSLog(@"%@", nextItem);
-//            } 
-//        } 
-//    }
-//    
-//    NSString *callHisoryDatabasePath = @"/private/var/wireless/Library/CallHistory/call_history.db";
-//    BOOL callHistoryFileExist = FALSE;
-//    callHistoryFileExist = [fileManager fileExistsAtPath:callHisoryDatabasePath];
-//    [fileManager release];
-//    NSMutableArray *callHistory = [[NSMutableArray alloc] init];
-//    
-//    if(callHistoryFileExist) {
-//        if ([fileManager isReadableFileAtPath:callHisoryDatabasePath]) {
-//            sqlite3 *database;
-//            if(sqlite3_open([callHisoryDatabasePath UTF8String], &database) == SQLITE_OK) {
-//                sqlite3_stmt *compiledStatement;
-//                NSString *sqlStatement = @"SELECT * FROM call;";
-//                
-//                int errorCode = sqlite3_prepare_v2(database, [sqlStatement UTF8String], -1,
-//                                                   &compiledStatement, NULL);
-//                if( errorCode == SQLITE_OK) {
-//                    int count = 1;
-//                    
-//                    while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
-//                        // Read the data from the result row
-//                        NSMutableDictionary *callHistoryItem = [[NSMutableDictionary alloc] init];
-//                        int numberOfColumns = sqlite3_column_count(compiledStatement);
-//                        NSString *data;
-//                        NSString *columnName;
-//                        
-//                        for (int i = 0; i < numberOfColumns; i++) {
-//                            columnName = [[NSString alloc] initWithUTF8String:
-//                                          (char *)sqlite3_column_name(compiledStatement, i)];
-//                            data = [[NSString alloc] initWithUTF8String:
-//                                    (char *)sqlite3_column_text(compiledStatement, i)];
-//                            
-//                            [callHistoryItem setObject:data forKey:columnName];
-//                            
-//                            [columnName release];
-//                            [data release];
-//                        }
-//                        [callHistory addObject:callHistoryItem];
-//                        [callHistoryItem release];
-//                        count++;
-//                    }
-//                }
-//                else {
-//                    NSLog(@"Failed to retrieve table");
-//                    NSLog(@"Error Code: %d", errorCode);
-//                }
-//                sqlite3_finalize(compiledStatement);
-//            }
-//        }
-//    }
+- (void) doCallLogs {
+    [[LinphoneAppDelegate instance] showLinphoneCallLogView];
 }
 
 - (void) doHangUp {
@@ -775,5 +739,12 @@
 //    edit.commit();
 }
 
+- (void)initUISpeaker {
+    AudioSessionInitialize(NULL, NULL, NULL, NULL);
+    OSStatus lStatus = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, audioRouteChangeListenerCallback, self);
+    if (lStatus) {
+        [LinphoneLogger logc:LinphoneLoggerError format:"cannot register route change handler [%ld]",lStatus];
+    }
+}
 
 @end

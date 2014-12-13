@@ -61,11 +61,6 @@ static LinphoneAppDelegate* appInstance = nil;
     return [NSString stringWithFormat:@"%s", PASSWORD];
 }
 
-- (NSString *)getBalance
-{
-    return [NSString stringWithFormat:@"%s", BALANCE];
-}
-
 - (void)setTelno:(NSString*)telno
 {
 //    char* s = (char*)[telno UTF8String];
@@ -75,11 +70,6 @@ static LinphoneAppDelegate* appInstance = nil;
 - (void)setPassword:(NSString*)password
 {
     PASSWORD = (char*)[password UTF8String];
-}
-
-- (void)setBalance:(NSString*)balance
-{
-    BALANCE = (char*)[balance UTF8String];
 }
 
 
@@ -348,19 +338,19 @@ static LinphoneAppDelegate* appInstance = nil;
     [mainController.webView stringByEvaluatingJavaScriptFromString:@"loadUrlDialScreen()"];
 }
 
-- (void)showLinphoneCallLogView:(NSString*) balance {
+- (void)showLinphoneCallLogView {
     [self showLinphoneWindow];
-    [[PhoneMainView instance] changeToCallLogView:balance];
+    [[PhoneMainView instance] changeToCallLogView];
 }
 
-- (void)showLinphoneContactView:(NSString*) balance {
+- (void)showLinphoneContactView {
     [self showLinphoneWindow];
-    [[PhoneMainView instance] changeToContactView:balance];
+    [[PhoneMainView instance] changeToContactView];
 }
 
 - (void)signout {
     [[PhoneMainView instance] changeToSettingsView];
-    [[PhoneMainView instance] changeToCallLogView:@""];
+    [[PhoneMainView instance] changeToCallLogView];
 }
 
 - (void)enableCodecs: (const MSList *)codecs {

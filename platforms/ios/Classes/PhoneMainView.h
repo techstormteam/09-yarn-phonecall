@@ -83,8 +83,8 @@
 - (void)updateStatusBar:(UICompositeViewDescription*)to_view;
 - (void)startUp;
 - (void)displayIncomingCall:(LinphoneCall*) call;
-- (void)changeToCallLogView:(NSString*) balance;
-- (void)changeToContactView:(NSString*) balance;
+- (void)changeToCallLogView;
+- (void)changeToContactView;
 - (void)changeToSettingsView;
 - (void)showPeoplePickerStandard;
 - (void)setVolumeHidden:(BOOL)hidden;

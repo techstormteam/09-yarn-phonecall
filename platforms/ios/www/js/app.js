@@ -778,46 +778,39 @@ function doNativeCallAsk(dialedNumber) {
 function doSettings() {
 	window.settings(function (message) {
 		if (!global.showPopupInternetNotAvailable(message)) {
-			var telno = global.get('telno');
-			var password = global.get('password');
-			global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
+			window.location.href = 'mobile/index.html';
 		}
     });
-    
-}
-
-function onSuccessGetCurrency(response) {
-	global.set('currency', response);
-	//window.location.href = 'mobile/auto.html?u=' + email + '&p=' + password;
-	window.location.href = 'mobile/index.html';
+	
 }
 
 function loadUrlDialScreen() {
 	window.location.href = "dial.html";
 }
 
-function getBalanceCallLogs(balance) {
-	window.callLogs(balance, function (message) {
-        //empty
-    });
+function togglePasswordView(elm) {
+    var field = $(elm).parent().find('input');
+    if (field.attr('type') === "password") {
+        field.attr('type', 'text');
+    } else {
+        field.attr('type', 'password');
+    }
 }
 
 function doCallLogs() {
-	var telno = global.get('telno');
-	var password = global.get('password');
-	global.balance('_balance', {telno: telno, password: password}, getBalanceCallLogs);
+	window.callLogs("", function (message) {
+        //empty
+    });
 }
 
 function doPhoneContacts() {
-	var telno = global.get('telno');
-	var password = global.get('password');
-	global.balance('_balance', {telno: telno, password: password}, getBalancePhoneContacts);
-}
-
-function getBalancePhoneContacts(balance) {
-	window.phoneContacts(balance, function (message) {
+	window.phoneContacts("", function (message) {
         //empty
     });
+}
+
+function openlink(url) {
+    var ref = window.open(url, '_blank', 'location=yes');
 }
 
 function doCellularCall() {

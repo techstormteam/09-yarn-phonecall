@@ -9,10 +9,11 @@ var formSubmit = $('[data-id="form-submit"]');
 var socialButton = $('[data-id="social-btn"]');
 var googleButton = $('[data-id="google-btn"]');
 var fbButton = $('[data-id="fb-btn"]');
+var ready = true;
+var portrait = true;
 
-function updateSize() {
-    totalHeight = $(window).height();
-    totalWidth = $(window).width();
+function updateSize(totalWidth, totalHeight) {
+    
     oneTenth = totalHeight / 10;
     oneSixth = totalHeight / 6;
     oneNineth = totalHeight / 9;
@@ -33,7 +34,6 @@ function updateSize() {
     formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
     formSubmit.children('div').css('marginTop', formSubmit.height() - formSubmit.children('div').height());
     formSubmit.css('top', (totalHeight - formSubmit.children('div').height() - formSubmit.children('div').children('div').height()) +'px');
-    
     //SOCIAL BUTTON
     var sub = 0;
     sub += header.outerHeight(true);
@@ -50,7 +50,15 @@ function updateSize() {
 }
 
 $(document).ready(function () {
-    updateSize();
+	if (window.orientation === -90 || window.orientation === 90 ) {
+		portrait = false;
+	} else {
+		portrait = true;
+	}
+	
+	totalHeight = $(window).height();
+    totalWidth = $(window).width();
+    updateSize(totalWidth, totalHeight);
     $('[data-id="intro"] video').autoplay = "true";
     $('[data-id="intro"] video').load();
 
@@ -64,9 +72,32 @@ $(document).ready(function () {
     }
 });
 
-//$(window).resize(function () {
-//    updateSize();
-//});
+$(window).resize(function () {
+	if (window.orientation === -90 || window.orientation === 90 ) {
+		if (portrait) {
+//			var temp = totalHeight;
+//			totalHeight = totalWidth - 40;
+//		    totalWidth = temp;
+		    portrait = !portrait;
+		    totalHeight = $(window).height();
+		    totalWidth = $(window).width();
+		    updateSize(totalWidth, totalHeight);
+		}
+		
+	} else if (window.orientation === 0 || window.orientation === 180) {
+		if (!portrait) { // landscape
+//			var temp = totalHeight;
+//			totalHeight = totalWidth;
+//		    totalWidth = temp + 40;
+		    portrait = !portrait;
+		    totalHeight = $(window).height();
+		    totalWidth = $(window).width();
+		    updateSize(totalWidth, totalHeight);
+		}
+		
+	}
+	
+});
 
 $('.btn-submit').click(function() {
     btnHandler($(this));
@@ -75,6 +106,14 @@ $('.btn-submit').click(function() {
 $(".form").submit(function(e){
 	doCheckInternetConnection();
     return false;
+});
+
+$("input").focus(function(e){
+	ready = false;
+});
+
+$("input").blur(function(e){
+	ready = true;
 });
 
 function btnHandler(object) {
@@ -146,10 +185,5 @@ var app = {
 	    },
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
-	    	window.plugins.html5Video.initialize({
-	            "video1" : "forgottenpassword.mp4"
-	        });
-	        window.plugins.html5Video.play("video1");
-	        console.log('Received Event: ' + id);
 	    }
 	};

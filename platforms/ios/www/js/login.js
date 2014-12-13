@@ -9,10 +9,11 @@ var formSubmit = $('[data-id="form-submit"]');
 var socialButton = $('[data-id="social-btn"]');
 var googleButton = $('[data-id="google-btn"]');
 var fbButton = $('[data-id="fb-btn"]');
+var ready = true;
+var portrait = true;
 
-function updateSize() {
-    totalHeight = $(window).height();
-    totalWidth = $(window).width();
+function updateSize(totalWidth, totalHeight) {
+    
     oneTenth = totalHeight / 10;
     oneSixth = totalHeight / 6;
     oneNineth = totalHeight / 9;
@@ -26,6 +27,7 @@ function updateSize() {
     //FORM
     formLogin.height(oneNineth);
     formLogin.find('input').height(oneNineth / 2 - 11.2);
+    formLogin.children('div').find('.input-group-addon').css('height', '1px');
 
     //INTRO
     
@@ -56,7 +58,15 @@ function updateSize() {
 }
 
 $(document).ready(function () {
-    updateSize();
+	if (window.orientation === -90 || window.orientation === 90 ) {
+		portrait = false;
+	} else {
+		portrait = true;
+	}
+	
+	totalHeight = $(window).height();
+    totalWidth = $(window).width();
+    updateSize(totalWidth, totalHeight);
 
     var gBtn = $('[data-id="google-btn"]');
     var fbBtn = $('[data-id="fb-btn"]');
@@ -68,9 +78,34 @@ $(document).ready(function () {
     }
 });
 
-//$(window).resize(function () {
-//    updateSize();
-//});
+$(window).resize(function () {
+	
+	if (window.orientation === -90 || window.orientation === 90 ) {
+		if (portrait) {
+//			var temp = totalHeight;
+//			totalHeight = totalWidth - 40;
+//		    totalWidth = temp;
+		    portrait = !portrait;
+		    totalHeight = $(window).height();
+		    totalWidth = $(window).width();
+		    updateSize(totalWidth, totalHeight);
+		}
+		
+	} else if (window.orientation === 0 || window.orientation === 180) {
+		if (!portrait) { // landscape
+//			var temp = totalHeight;
+//			totalHeight = totalWidth;
+//		    totalWidth = temp + 40;
+		    portrait = !portrait;
+		    totalHeight = $(window).height();
+		    totalWidth = $(window).width();
+		    updateSize(totalWidth, totalHeight);
+		}
+		
+	}
+	
+	
+});
 
 $('.btn-submit').click(function() {
     btnHandler($(this));
@@ -79,6 +114,14 @@ $('.btn-submit').click(function() {
 $(".form").submit(function(e){
 	doCheckInternetConnection();
     return false;
+});
+
+$("input").focus(function(e){
+	ready = false;
+});
+
+$("input").blur(function(e){
+	ready = true;
 });
 
 function btnHandler(object) {
@@ -129,10 +172,6 @@ function btnHandler(object) {
     			global.showPopup("Internet Connection Problem", "Internet connection not available. Please enable online access");
     		}
 	    });
-    }
-    
-    function openlink(url) {
-        var ref = window.open(url, '_blank', 'location=yes');
     }
     
     

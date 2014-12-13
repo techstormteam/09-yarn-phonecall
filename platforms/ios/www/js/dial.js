@@ -57,19 +57,30 @@ $('[data-value]').tap(function () {
 function doDialPad() {
     if(!dialEnabled) {
         dialPad.show();
-        var dialHeight = $(window).height() - ($('header').height() + $('#loading').height());
-        dialPad.css({
-            position: 'fixed',
-            bottom: '0',
-            zIndex: '1000',
-            background: 'rgba(0,0,0,0.8)',
-            height: dialHeight
-        });
+        updateSizeDialPad();
+        
         dialEnabled = true;
     } else {
         dialPad.hide();
         dialEnabled = false;
     }
+}
+
+function updateSizeDialPad() {
+	var dialHeight = $(window).height() - ($('header').height() + $('#loading').height());
+    dialPad.css({
+        position: 'fixed',
+        bottom: '0',
+        zIndex: '1000',
+        background: 'rgba(0,0,0,0.8)',
+        height: dialHeight
+    });
+    
+    // RESIZE DIAL PAD
+    var dialRowHeight = parseInt(dialPad.height()) / 7;
+    dialPad.find('.dial-row').css('height', dialRowHeight + (dialRowHeight / 5)  + "px");
+    dialPad.find('.dial-row div').css('line-height', dialRowHeight + "px");
+    dialPad.find('.dial-row div img').css('height', dialRowHeight + "px");
 }
 
 $('[data-value]').tap(function () {
@@ -86,9 +97,9 @@ function hideDialPad() {
 
 function updateSize() {
     
-    if(dialEnabled) {
-        return false;
-    }
+//    if(dialEnabled) {
+//        return false;
+//    }
     
     totalHeight = $(window).height();
 
@@ -147,6 +158,8 @@ function updateSize() {
     $('[data-id="contacts-icon"] img').css('width', $('[data-id="contacts-icon"] img').height() + 11);
     $('[data-id="logs-icon"] img').css('width', $('[data-id="logs-icon"] img').height() + 11);
     $('[data-id="settings-icon"] img').css('width', $('[data-id="settings-icon"] img').height() + 11);
+    
+    updateSizeDialPad();
 }
 
 function blink(i) {
@@ -237,7 +250,7 @@ function doMicMute(enable) {
 function doLoudness() {
 	
 		var loudnessIcon = $('[data-id="loudness-icon"] img').attr('src');
-	    
+
 	    if(loudnessIcon === 'img/icons/loudness.png') {
 	    	window.loudness(function (message) {
 	    		global.showPopupInternetNotAvailable(message);

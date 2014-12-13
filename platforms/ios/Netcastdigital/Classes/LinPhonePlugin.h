@@ -13,6 +13,7 @@
 #include "linphone/linphonecore.h"
 #import "LinphoneAppDelegate.h"
 #import "GKPeoplePickerNavigationController.h"
+#import "UISpeakerButton.h"
 
 #define GENERIC_DOMAIN @"cloud.netcastdigital.net"
 #define NOT_IN_CALL @"NOT-IN-CALL"
@@ -64,6 +65,10 @@
 + (void)clearProxyConfig;
 + (NSMutableArray*) findAuthIndexOf:(NSString*)sipAddress;
 + (void) doSignOut:(NSString*)sipUsername domain:(NSString*)domain;
++ (void)doProxyConfigUpdate:(LinphoneProxyConfig*)config;
+
+
+- (bool)update;
 
 
 @end

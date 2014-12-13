@@ -159,7 +159,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 	// [searchText setFont:[UIFont fontWithName:@"CustomFont" size:12]];
 	_searchBar.showsCancelButton = (_searchBar.text.length > 0);
 
-    _balanceLabel.text = [[[[[LinphoneAppDelegate instance] getBalance] stringByStrippingTags] stringByRemovingNewLinesAndWhitespace] stringByDecodingHTMLEntities];
+//    _balanceLabel.text = [[[[[LinphoneAppDelegate instance] getBalance] stringByStrippingTags] stringByRemovingNewLinesAndWhitespace] stringByDecodingHTMLEntities];
     
 	BOOL use_system = [[LinphoneManager instance] lpConfigBoolForKey:@"use_system_contacts"];
 	if( use_system && !self.sysViewController){// use system contacts
