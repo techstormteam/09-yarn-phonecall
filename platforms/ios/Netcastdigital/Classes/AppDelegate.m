@@ -43,7 +43,7 @@
 
 #include "LinPhonePlugin.h"
 
-#import <Cordova/CDVPlugin.h>
+#import "Cordova/CDVPlugin.h"
 
 @implementation AppDelegate
 

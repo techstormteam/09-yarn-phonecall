@@ -28,7 +28,7 @@
 #import <UIKit/UIKit.h>
 
 
-#import <Cordova/CDVViewController.h>
+#import "Cordova/CDVViewController.h"
 #import "LoginData.h"
 
 @interface AppDelegate : NSObject <UIApplicationDelegate>{

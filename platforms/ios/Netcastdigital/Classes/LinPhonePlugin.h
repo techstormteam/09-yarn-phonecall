@@ -7,7 +7,7 @@
 //
 
 
-#import <Cordova/CDV.h>
+#import "Cordova/CDVViewController.h"
 #import "Reachability.h"
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"

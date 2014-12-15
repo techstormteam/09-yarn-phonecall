@@ -4,7 +4,7 @@
 //
 
 
-#import <Cordova/CDV.h>
+#import "Cordova/CDVViewController.h"
 #import "PayPalMobile.h"
 
 @interface PayPalMobileCordovaPlugin : CDVPlugin<PayPalPaymentDelegate, PayPalFuturePaymentDelegate, PayPalProfileSharingDelegate>
