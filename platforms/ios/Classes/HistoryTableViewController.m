@@ -31,6 +31,8 @@
 
 #pragma mark - Lifecycle Functions
 
+static HistoryViewController *controllerInstance = nil;
+
 - (void)initHistoryTableViewController {
     callLogs = [[NSMutableArray alloc] init];
     missedFilter = false;

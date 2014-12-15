@@ -319,8 +319,8 @@ static LinphoneAppDelegate* appInstance = nil;
     self.window = self.yarnWindow;
     self.window.rootViewController = self.yarnViewController;
     [self.window makeKeyAndVisible];
-    MainViewController *mainController = (MainViewController*)self.yarnViewController;
-    [mainController.webView stringByEvaluatingJavaScriptFromString:@"yarnMessage()"];
+//    MainViewController *mainController = (MainViewController*)self.yarnViewController;
+//    [mainController.webView stringByEvaluatingJavaScriptFromString:@"yarnMessage()"];
     
 }
 

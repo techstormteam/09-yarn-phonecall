@@ -334,8 +334,7 @@ static RootViewManager* rootViewManagerInstance = nil;
 }
 
 - (void)changeToCallLogView {
-    UICompositeViewDescription *compositeViewDescription = [HistoryViewController compositeViewDescription];
-    [self changeCurrentView:compositeViewDescription];
+    [self changeCurrentView:[HistoryViewController compositeViewDescription]];
 }
 
 - (void)changeToContactView {

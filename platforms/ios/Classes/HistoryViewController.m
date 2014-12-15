@@ -65,7 +65,7 @@ static UICompositeViewDescription *compositeDescription = nil;
                                                                 content:@"HistoryViewController" 
                                                                stateBar:nil 
                                                         stateBarEnabled:false 
-                                                                 tabBar:/*@"UIMainBar"*/nil
+                                                                 tabBar:@"UIMainBar"
                                                           tabBarEnabled:true 
                                                              fullscreen:false
                                                           landscapeMode:[LinphoneManager runningOnIpad]
@@ -87,11 +87,10 @@ static UICompositeViewDescription *compositeDescription = nil;
     if([tableController isEditing]) {
         [tableController setEditing:FALSE animated:FALSE];
     }
-    [deleteButton setHidden:TRUE];
-    [editButton setOff];
-    [self changeView: History_All];
+//    [deleteButton setHidden:TRUE];
+//    [editButton setOff];
+//    [self changeView: History_All];
     
-//    balanceLabel.text = [[[[[LinphoneAppDelegate instance] getBalance] stringByStrippingTags] stringByRemovingNewLinesAndWhitespace] stringByDecodingHTMLEntities];
     // Reset missed call
     linphone_core_reset_missed_calls_count([LinphoneManager getLc]);
     // Fake event

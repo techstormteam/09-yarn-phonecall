@@ -166,11 +166,7 @@
                                  ];
         if ([self checkInternetConnectionAvailable:jsonObj]) {
             bool enableMicMute = [command.arguments objectAtIndex:0];
-            [self initUISpeaker];
-//            LinphoneCore *lc = [LinphoneManager getLc];
-//            [[LinphoneManager instance] allowSpeaker];
-            [[LinphoneManager instance] setSpeakerEnabled:TRUE];
-//            linphone_core_enable_mic(lc, enableMicMute);
+            linphone_core_mute_mic([LinphoneManager getLc], enableMicMute);
         }
         [self successReturn:command jsonObj:jsonObj];
     }];
@@ -741,10 +737,10 @@ static void audioRouteChangeListenerCallback (
 
 - (void)initUISpeaker {
     AudioSessionInitialize(NULL, NULL, NULL, NULL);
-    OSStatus lStatus = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, audioRouteChangeListenerCallback, self);
-    if (lStatus) {
-        [LinphoneLogger logc:LinphoneLoggerError format:"cannot register route change handler [%ld]",lStatus];
-    }
+//    OSStatus lStatus = AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange, audioRouteChangeListenerCallback, self);
+//    if (lStatus) {
+//        [LinphoneLogger logc:LinphoneLoggerError format:"cannot register route change handler [%ld]",lStatus];
+//    }
 }
 
 @end
