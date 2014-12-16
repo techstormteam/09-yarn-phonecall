@@ -156,6 +156,7 @@ static RootViewManager* rootViewManagerInstance = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    loaded = YES;
 
     volumeView = [[MPVolumeView alloc] initWithFrame: CGRectMake(-100,-100,16,16)];
     volumeView.showsRouteButton = false;
@@ -198,7 +199,7 @@ static RootViewManager* rootViewManagerInstance = nil;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
+    
     if ([[UIDevice currentDevice].systemVersion doubleValue] < 5.0) {
         [mainViewController viewWillDisappear:animated];
     }
@@ -228,7 +229,7 @@ static RootViewManager* rootViewManagerInstance = nil;
     [super viewDidAppear:animated];
     if ([[UIDevice currentDevice].systemVersion doubleValue] < 5.0) {
         [mainViewController viewDidAppear:animated];
-    }   
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -334,15 +335,21 @@ static RootViewManager* rootViewManagerInstance = nil;
 }
 
 - (void)changeToCallLogView {
-    [self changeCurrentView:[HistoryViewController compositeViewDescription]];
+    if (loaded) {
+        [self changeCurrentView:[HistoryViewController compositeViewDescription]];
+    }
 }
 
 - (void)changeToContactView {
-    [self changeCurrentView:[ContactsViewController compositeViewDescription]];
+    if (loaded) {
+        [self changeCurrentView:[ContactsViewController compositeViewDescription]];
+    }
 }
 
 - (void)changeToSettingsView {
-    [self changeCurrentView:[SettingsViewController compositeViewDescription]];
+    if (loaded) {
+        [self changeCurrentView:[SettingsViewController compositeViewDescription]];
+    }
 }
 
 - (void)showPeoplePickerStandard {
@@ -573,7 +580,6 @@ static RootViewManager* rootViewManagerInstance = nil;
     }
 #endif
 }
-
 
 - (void)fullScreen:(BOOL)enabled {
     [statusBarBG setHidden:enabled];

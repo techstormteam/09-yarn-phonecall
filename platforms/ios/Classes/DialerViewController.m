@@ -124,58 +124,60 @@ static UICompositeViewDescription *compositeDescription = nil;
 #pragma mark - ViewController Functions
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    // Set observer
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(callUpdateEvent:)
-                                                 name:kLinphoneCallUpdate
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(coreUpdateEvent:)
-                                                 name:kLinphoneCoreUpdate
-                                               object:nil];
-
-    // technically not needed, but older versions of linphone had this button
-    // disabled by default. In this case, updating by pushing a new version with
-    // xcode would result in the callbutton being disabled all the time.
-    // We force it enabled anyway now.
-    [callButton setEnabled:TRUE];
-
-    // Update on show
-    LinphoneManager *mgr=[LinphoneManager instance];
-    LinphoneCore* lc = [LinphoneManager getLc];
-    LinphoneCall* call = linphone_core_get_current_call(lc);
-    LinphoneCallState state = (call != NULL)?linphone_call_get_state(call): 0;
-    [self callUpdate:call state:state];
-
-    if([LinphoneManager runningOnIpad]) {
-        if(linphone_core_video_enabled(lc) && [mgr lpConfigBoolForKey:@"preview_preference"]) {
-            linphone_core_set_native_preview_window_id(lc, (unsigned long)videoPreview);
-            [backgroundView setHidden:FALSE];
-            [videoCameraSwitch setHidden:FALSE];
-        } else {
-            linphone_core_set_native_preview_window_id(lc, (unsigned long)NULL);
-            linphone_core_enable_video_preview(lc, FALSE);
-            [backgroundView setHidden:TRUE];
-            [videoCameraSwitch setHidden:TRUE];
-        }
-    }
-
-    [addressField setText:@""];
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0 // attributed string only available since iOS6
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-        // fix placeholder bar color in iOS7
-        UIColor *color = [UIColor grayColor];
-        NSAttributedString* placeHolderString = [[NSAttributedString alloc]
-                                                 initWithString:NSLocalizedString(@"Enter an address", @"Enter an address")
-                                                 attributes:@{NSForegroundColorAttributeName: color}];
-        addressField.attributedPlaceholder = placeHolderString;
-        [placeHolderString release];
-    }
-#endif
+    [[PhoneMainView instance] changeToCallLogView];
+    
+//    [super viewWillAppear:animated];
+//
+//    // Set observer
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(callUpdateEvent:)
+//                                                 name:kLinphoneCallUpdate
+//                                               object:nil];
+//
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(coreUpdateEvent:)
+//                                                 name:kLinphoneCoreUpdate
+//                                               object:nil];
+//
+//    // technically not needed, but older versions of linphone had this button
+//    // disabled by default. In this case, updating by pushing a new version with
+//    // xcode would result in the callbutton being disabled all the time.
+//    // We force it enabled anyway now.
+//    [callButton setEnabled:TRUE];
+//
+//    // Update on show
+//    LinphoneManager *mgr=[LinphoneManager instance];
+//    LinphoneCore* lc = [LinphoneManager getLc];
+//    LinphoneCall* call = linphone_core_get_current_call(lc);
+//    LinphoneCallState state = (call != NULL)?linphone_call_get_state(call): 0;
+//    [self callUpdate:call state:state];
+//
+//    if([LinphoneManager runningOnIpad]) {
+//        if(linphone_core_video_enabled(lc) && [mgr lpConfigBoolForKey:@"preview_preference"]) {
+//            linphone_core_set_native_preview_window_id(lc, (unsigned long)videoPreview);
+//            [backgroundView setHidden:FALSE];
+//            [videoCameraSwitch setHidden:FALSE];
+//        } else {
+//            linphone_core_set_native_preview_window_id(lc, (unsigned long)NULL);
+//            linphone_core_enable_video_preview(lc, FALSE);
+//            [backgroundView setHidden:TRUE];
+//            [videoCameraSwitch setHidden:TRUE];
+//        }
+//    }
+//
+//    [addressField setText:@""];
+//
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0 // attributed string only available since iOS6
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+//        // fix placeholder bar color in iOS7
+//        UIColor *color = [UIColor grayColor];
+//        NSAttributedString* placeHolderString = [[NSAttributedString alloc]
+//                                                 initWithString:NSLocalizedString(@"Enter an address", @"Enter an address")
+//                                                 attributes:@{NSForegroundColorAttributeName: color}];
+//        addressField.attributedPlaceholder = placeHolderString;
+//        [placeHolderString release];
+//    }
+//#endif
 
 }
 
@@ -193,29 +195,29 @@ static UICompositeViewDescription *compositeDescription = nil;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-
-	[zeroButton    setDigit:'0'];
-	[oneButton     setDigit:'1'];
-	[twoButton     setDigit:'2'];
-	[threeButton   setDigit:'3'];
-	[fourButton    setDigit:'4'];
-	[fiveButton    setDigit:'5'];
-	[sixButton     setDigit:'6'];
-	[sevenButton   setDigit:'7'];
-	[eightButton   setDigit:'8'];
-	[nineButton    setDigit:'9'];
-	[starButton    setDigit:'*'];
-	[sharpButton   setDigit:'#'];
-
-    [addressField setAdjustsFontSizeToFitWidth:TRUE]; // Not put it in IB: issue with placeholder size
-
-    if([LinphoneManager runningOnIpad]) {
-        if ([LinphoneManager instance].frontCamId != nil) {
-            // only show camera switch button if we have more than 1 camera
-            [videoCameraSwitch setHidden:FALSE];
-        }
-    }
+//    [super viewDidLoad];
+//
+//	[zeroButton    setDigit:'0'];
+//	[oneButton     setDigit:'1'];
+//	[twoButton     setDigit:'2'];
+//	[threeButton   setDigit:'3'];
+//	[fourButton    setDigit:'4'];
+//	[fiveButton    setDigit:'5'];
+//	[sixButton     setDigit:'6'];
+//	[sevenButton   setDigit:'7'];
+//	[eightButton   setDigit:'8'];
+//	[nineButton    setDigit:'9'];
+//	[starButton    setDigit:'*'];
+//	[sharpButton   setDigit:'#'];
+//
+//    [addressField setAdjustsFontSizeToFitWidth:TRUE]; // Not put it in IB: issue with placeholder size
+//
+//    if([LinphoneManager runningOnIpad]) {
+//        if ([LinphoneManager instance].frontCamId != nil) {
+//            // only show camera switch button if we have more than 1 camera
+//            [videoCameraSwitch setHidden:FALSE];
+//        }
+//    }
 }
 
 - (void)viewDidUnload {

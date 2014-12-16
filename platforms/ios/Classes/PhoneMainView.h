@@ -63,6 +63,7 @@
     @private
     NSMutableArray *inhibitedEvents;
     NSTimer *batteryTimer;
+    BOOL loaded;
 }
 
 @property (nonatomic, retain) IBOutlet UIView *statusBarBG;

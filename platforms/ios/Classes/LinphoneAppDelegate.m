@@ -281,6 +281,7 @@ static LinphoneAppDelegate* appInstance = nil;
     [[PhoneMainView instance] startUp];
     [[PhoneMainView instance] updateStatusBar:nil];
 
+//    [self showLinphoneWindow];
     [self showYarnWindow];
 //    [self showPeoplePickerWindow];
     
@@ -339,13 +340,13 @@ static LinphoneAppDelegate* appInstance = nil;
 }
 
 - (void)showLinphoneCallLogView {
-    [self showLinphoneWindow];
     [[PhoneMainView instance] changeToCallLogView];
+    [self showLinphoneWindow];
 }
 
 - (void)showLinphoneContactView {
-    [self showLinphoneWindow];
     [[PhoneMainView instance] changeToContactView];
+    [self showLinphoneWindow];
 }
 
 - (void)signout {
