@@ -134,7 +134,7 @@ static UICompositeViewDescription *compositeDescription = nil;
 										content:@"ContactsViewController"
 										stateBar:nil
 										stateBarEnabled:false
-										tabBar:@"UIMainBar"
+										tabBar:/*@"UIMainBar"*/nil
 										tabBarEnabled:true
 										fullscreen:false
 										landscapeMode:[LinphoneManager runningOnIpad]

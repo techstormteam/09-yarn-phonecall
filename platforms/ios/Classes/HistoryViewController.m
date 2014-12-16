@@ -65,7 +65,7 @@ static UICompositeViewDescription *compositeDescription = nil;
                                                                 content:@"HistoryViewController" 
                                                                stateBar:nil 
                                                         stateBarEnabled:false 
-                                                                 tabBar:@"UIMainBar"
+                                                                 tabBar:/*@"UIMainBar"*/nil
                                                           tabBarEnabled:true 
                                                              fullscreen:false
                                                           landscapeMode:[LinphoneManager runningOnIpad]
