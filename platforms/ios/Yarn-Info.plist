@@ -10,10 +10,10 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>linphone_icon_57.png</string>
-		<string>linphone_icon_72.png</string>
-		<string>linphone_icon_57@2x.png</string>
-		<string>linphone_icon_72@2x.png</string>
+		<string>icon_50.png</string>
+		<string>icon_72.png</string>
+		<string>icon_50@2x.png</string>
+		<string>icon_72@2x.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict/>
