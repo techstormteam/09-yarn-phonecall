@@ -6026,7 +6026,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mr Odunaiya (942P93SN8W)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mr Odunaiya (942P93SN8W)";
-				COMPRESS_PNG_FILES = NO;
+				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -6214,7 +6214,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mr Odunaiya (942P93SN8W)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mr Odunaiya (942P93SN8W)";
-				COMPRESS_PNG_FILES = NO;
+				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = c99;

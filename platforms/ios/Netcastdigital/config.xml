@@ -22,6 +22,9 @@
     <feature name="LinPhonePlugin">
         <param name="ios-package" value="LinPhonePlugin" />
     </feature>
+    <feature name="PayPalMobile">
+        <param name="ios-package" value="PayPalMobileCordovaPlugin" />
+    </feature>
     <name>Netcastdigital</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
