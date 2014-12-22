@@ -76,7 +76,7 @@ function updateHeight() {
     //NUMPAD = 3/5 of 3/6
 //    numpad.css('height', (parseInt(balanceHeight) / 5) * 3);
     var rowHeight = (parseInt(balanceHeight) / 6) * 3 / 4;
-    rowHeight = rowHeight * 1.05;
+    rowHeight = rowHeight * 1.04;
     $('.dial-row').css('height', rowHeight);
     $('.dial-row div').css('line-height', rowHeight + "px");
     $('.dial-row div img').css('height', rowHeight + "px");

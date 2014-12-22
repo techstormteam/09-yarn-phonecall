@@ -250,7 +250,7 @@ function doMicMute(enable) {
 function doLoudness() {
 	
 		var loudnessIcon = $('[data-id="loudness-icon"] img').attr('src');
-
+	    
 	    if(loudnessIcon === 'img/icons/loudness.png') {
 	    	window.loudness(function (message) {
 	    		global.showPopupInternetNotAvailable(message);
