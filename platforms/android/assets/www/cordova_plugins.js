@@ -41,6 +41,13 @@ module.exports = [
         "clobbers": [
             "PayPalMobile"
         ]
+    },
+    {
+        "file": "plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js",
+        "id": "com.phonegap.plugins.facebookconnect.FacebookConnectPlugin",
+        "clobbers": [
+            "facebookConnectPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -48,7 +55,8 @@ module.exports.metadata =
 {
     "org.apache.cordova.inappbrowser": "0.5.4-dev",
     "com.wezka.nativecamera": "0.1.2",
-    "com.paypal.cordova.mobilesdk": "2.2.1"
+    "com.paypal.cordova.mobilesdk": "2.2.1",
+    "com.phonegap.plugins.facebookconnect": "0.11.0"
 }
 // BOTTOM OF METADATA
 });
