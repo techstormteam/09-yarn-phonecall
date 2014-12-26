@@ -661,40 +661,6 @@ public class LinPhonePlugin extends CordovaPlugin implements
 				}
 			});
 			return true;
-		} else if (action.equals("HideSoftInput")) {
-			this.cordova.getActivity().runOnUiThread(new Runnable() {
-				public void run() {
-					try {
-						JSONObject objJSON = new JSONObject();
-						InputMethodManager imm = (InputMethodManager) cordova
-								.getActivity().getSystemService(
-										Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(cordova.getActivity()
-								.getCurrentFocus().getWindowToken(), 0);
-						objJSON.put("hided", !imm.isActive()); // not work;
-
-						PluginResult result = new PluginResult(Status.OK,
-								objJSON);
-						callbackContext.sendPluginResult(result);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-			});
-			return true;
-		} else if (action.equals("SendKey")) {
-			// JSONObject objJSON = new JSONObject();
-			// InputMethodManager imm =
-			// (InputMethodManager)cordova.getActivity().getSystemService(
-			// Context.INPUT_METHOD_SERVICE);
-			// InputManager ss =
-			// (InputManager)cordova.getActivity().getSystemService(
-			// Context.INPUT_SERVICE);
-			// InputDevice s;
-			// // s.
-			// PluginResult result = new PluginResult(Status.OK, objJSON);
-			// callbackContext.sendPluginResult(result);
-			// return true;
 		} else if (action.equals("CallingCard")) {
 			this.cordova.getActivity().runOnUiThread(new Runnable() {
 				public void run() {

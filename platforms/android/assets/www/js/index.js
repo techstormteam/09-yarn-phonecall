@@ -261,7 +261,10 @@ $('[data-value]').tap(function () {
     //doSendDmtf($(this).data('value'));
 });
 
-
+$('[name="dial-input"]').keyup(function() {
+    var $th = $(this);
+    $th.val( $th.val().replace(/[^0-9+,]/g, function(str) { return ''; } ) );
+});
 
 
 function getDialedNumber() {
@@ -314,26 +317,12 @@ function doWifiCall(dialedNumber) {
     }
 }
 
-function doHideSoftInput() {
-    window.hideSoftInput(function (data) {
-    	
-    	if (data.hided) {
-
-    		if (intervalHandleHideKeyboard !== null) {
-	    		clearInterval(intervalHandleHideKeyboard);
-	    		intervalHandleHideKeyboard = null;
-    		}
-    	}
-    });
-}
-
-var intervalHandleHideKeyboard = null;
-
-function hideKeyboard() {
-	if (intervalHandleHideKeyboard === null) {
-		intervalHandleHideKeyboard = setInterval(function(){
-			doHideSoftInput();
-		}, 30);
+function doDialInputClicked() {
+	var inputValue = $('[name="dial-input"]').val();
+	if (inputValue === "") {
+		doPhoneContacts();
+	} else {
+		// Change softkeyboard to number keyboard
 	}
 }
 
@@ -490,16 +479,6 @@ function paymentHandle() {
 
     });
 
-}
-
-function doSendKey(key) {
-	var press = jQuery.Event("keypress");
-	press.ctrlKey = false;
-	press.which = 40;
-    
-//	window.sendKey(key, function (message) {
-//        //empty
-//    });
 }
 
 function loginSuccess(response) {
