@@ -6,12 +6,20 @@ module.exports = [
         "clobbers": [
             "PayPalMobile"
         ]
+    },
+    {
+        "file": "plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js",
+        "id": "com.phonegap.plugins.facebookconnect.FacebookConnectPlugin",
+        "clobbers": [
+            "facebookConnectPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.paypal.cordova.mobilesdk": "2.2.1"
+    "com.paypal.cordova.mobilesdk": "2.2.1",
+    "com.phonegap.plugins.facebookconnect": "0.11.0"
 }
 // BOTTOM OF METADATA
 });
