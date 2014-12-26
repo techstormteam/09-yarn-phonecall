@@ -46,13 +46,15 @@ function updateSize(totalWidth, totalHeight) {
     sub += intro.outerHeight(true);
     sub += formSubmit.outerHeight(true);
     
+    
+    var widthSocialButton = totalWidth * 3/5;
     socialButton.height(totalHeight - sub);
     googleButton.height((socialButton.height() - 6) / 2 -2);
     googleButton.css('line-height', ((socialButton.height() - 6) / 2) + 'px');
-    googleButton.css('width', totalWidth - 300);
+    googleButton.css('width', widthSocialButton);
     fbButton.height((socialButton.height() - 6) / 2 - 2);
     fbButton.css('line-height', ((socialButton.height() - 6) / 2) + 'px');
-    fbButton.css('width', totalWidth - 300);
+    fbButton.css('width', widthSocialButton);
     
     
 }
