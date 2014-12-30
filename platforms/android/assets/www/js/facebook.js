@@ -1,14 +1,42 @@
+
+ function register(response) {
+ //	alert(response);
+            
+            }
+
 var loginFacebook = function () {
     if (!window.cordova) {
         var appId = prompt("Enter FB Application ID", "");
         facebookConnectPlugin.browserInit(appId);
     }
-    
-    facebookConnectPlugin.login( ["email"],
-                                function (response) { alert(JSON.stringify(response)) },
-                                function (response) { alert(JSON.stringify(response)) });
-    
-}
+   
+    facebookConnectPlugin.login(["email"], function(response) {
+             if (response.authResponse) {
+                 facebookConnectPlugin.api('/me', null,
+                     function(response) {
+	 //                           alert(JSON.stringify(response, null, 4));
+	//					alert(response.first_name + '   '+ response.last_name + '    '+ response.email + '    '+ response.id);		
+			            var data = {
+			fname : response.first_name,
+			lname : response.last_name ,
+			email : response.email ,
+			phone : '4364363464',
+			psw : response.id,
+			psw2 : response.id,
+			 
+		};
+		//alert('aa');
+		global.register('_signup', data, register); 
+		  //     	alert('cc');
+                     });
+
+             }
+         });
+     }
+
+
+
+
 
 var showDialog = function () {
     facebookConnectPlugin.showDialog( { method: "feed" },
