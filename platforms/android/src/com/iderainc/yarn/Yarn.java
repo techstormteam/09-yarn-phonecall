@@ -82,6 +82,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 import com.android.internal.telephony.ITelephony;
+import com.facebook.AppEventsLogger;
 
 public class Yarn extends CordovaActivity implements
 		LinphoneOnCallStateChangedListener
@@ -96,8 +97,7 @@ public class Yarn extends CordovaActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.context = getApplicationContext();
-		
+		this.context = getApplicationContext(); 
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		prefs.edit().clear();
@@ -314,13 +314,17 @@ public class Yarn extends CordovaActivity implements
 
 	}
 
-	
+	@Override
+	protected void onPause() { 
+	  super.onPause(); 
+//	  AppEventsLogger.deactivateApp(this);
+	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+//		AppEventsLogger.activateApp(this); 
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras.containsKey("page")) {
