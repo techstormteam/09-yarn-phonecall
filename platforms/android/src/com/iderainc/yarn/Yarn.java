@@ -108,7 +108,7 @@ public class Yarn extends CordovaActivity implements
 		if (pageUrl != null) {
 			loadUrl(pageUrl);
 		} else {
-			loadUrl(launchUrl);
+			loadUrl("file:///android_asset/www/index.html");
 		}
 //		getWindow().setSoftInputMode(this.getActivity()..LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
