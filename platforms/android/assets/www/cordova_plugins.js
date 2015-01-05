@@ -48,6 +48,13 @@ module.exports = [
         "clobbers": [
             "facebookConnectPlugin"
         ]
+    },
+    {
+        "file": "plugins/com.cabot.plugins.googleplus/www/plugins/googleConnectPlugin.js",
+        "id": "com.cabot.plugins.googleplus.GoogleConnectPlugin",
+        "clobbers": [
+            "navigator.googleConnectPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -56,7 +63,8 @@ module.exports.metadata =
     "org.apache.cordova.inappbrowser": "0.5.4-dev",
     "com.wezka.nativecamera": "0.1.2",
     "com.paypal.cordova.mobilesdk": "2.2.1",
-    "com.phonegap.plugins.facebookconnect": "0.11.0"
+    "com.phonegap.plugins.facebookconnect": "0.11.0",
+    "com.cabot.plugins.googleplus": "0.0.1"
 }
 // BOTTOM OF METADATA
 });

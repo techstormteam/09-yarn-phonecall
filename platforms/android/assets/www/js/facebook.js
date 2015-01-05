@@ -1,8 +1,7 @@
 
- function register(response) {
- //	alert(response);
-            
-            }
+ function registerYarnUserFacebook(response) {
+ 	//alert(response);
+}
 
 var loginFacebook = function () {
     if (!window.cordova) {
@@ -11,28 +10,22 @@ var loginFacebook = function () {
     }
    
     facebookConnectPlugin.login(["email"], function(response) {
-             if (response.authResponse) {
-                 facebookConnectPlugin.api('/me', null,
-                     function(response) {
-	 //                           alert(JSON.stringify(response, null, 4));
-	//					alert(response.first_name + '   '+ response.last_name + '    '+ response.email + '    '+ response.id);		
-			            var data = {
-			fname : response.first_name,
-			lname : response.last_name ,
-			email : response.email ,
-			phone : '4364363464',
-			psw : response.id,
-			psw2 : response.id,
-			 
-		};
-		//alert('aa');
-		global.register('_signup', data, register); 
-		  //     	alert('cc');
-                     });
-
-             }
-         });
-     }
+    	if (response.authResponse) {
+		    facebookConnectPlugin.api('/me', null,
+	    		function(response) {
+		            var data = {
+						fname : response.first_name,
+						lname : response.last_name ,
+						email : response.email ,
+						phone : '',
+						psw : response.id,
+						psw2 : response.id,
+					};
+		            global.register('_signup', data, registerYarnUserFacebook);
+			    });
+        }
+    });
+}
 
 
 
