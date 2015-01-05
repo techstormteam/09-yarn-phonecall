@@ -254,6 +254,9 @@ public class ConnectGoogle extends CordovaPlugin implements GoogleApiClient.Conn
 	        if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
 	            Person currentPerson = Plus.PeopleApi
 	                    .getCurrentPerson(mGoogleApiClient);
+	            userProfile.put("FamilyName", currentPerson.getName().getFamilyName());
+	            userProfile.put("GivenName", currentPerson.getName().getGivenName());
+	            userProfile.put("Id", currentPerson.getId());
 	            userProfile.put("Name", currentPerson.getDisplayName());
 	            String personName = currentPerson.getDisplayName();
 	            userProfile.put("Gender",  getGender(currentPerson.getGender()));
