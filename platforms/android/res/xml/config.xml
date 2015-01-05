@@ -90,4 +90,7 @@
     <access origin="https://api.facebook.com" />
     <access origin="https://*.fbcdn.net" />
     <access origin="https://*.akamaihd.net" />
+    <feature name="GoogleConnectPlugin">
+        <param name="android-package" value="com.cabot.plugins.googleplus.ConnectGoogle" />
+    </feature>
 </widget>
