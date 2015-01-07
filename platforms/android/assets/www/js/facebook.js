@@ -1,6 +1,6 @@
 
  function registerYarnUserFacebook(response) {
- 	//alert(response);
+ 	alert(response);
 }
 
 var loginFacebook = function () {
