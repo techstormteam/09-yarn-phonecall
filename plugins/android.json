@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"PayPalMobile\"><param name=\"android-package\" value=\"com.paypal.cordova.sdk.PayPalMobileCordovaPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"GoogleConnectPlugin\"><param name=\"android-package\" value=\"com.cabot.plugins.googleplus.ConnectGoogle\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -91,6 +95,10 @@
                         {
                             "xml": "<activity android:name=\"io.card.payment.DataEntryActivity\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<meta-data android:name=\"com.google.android.gms.version\" android:value=\"@integer/google_play_services_version\" />",
+                            "count": 1
                         }
                     ],
                     "/manifest": [
@@ -121,6 +129,14 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -135,6 +151,10 @@
             "PACKAGE_NAME": "com.techstorm.yarn"
         },
         "com.paypal.cordova.mobilesdk": {
+            "PACKAGE_NAME": "com.iderainc.yarn"
+        },
+        "com.cabot.plugins.googleplus": {
+            "CLIENT_ID": "138083921595-iudeh7ht39cco7uvrs63816se7c0hi1v.apps.googleusercontent.com",
             "PACKAGE_NAME": "com.iderainc.yarn"
         }
     },
