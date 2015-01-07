@@ -41,6 +41,7 @@ function signUpPLUserGooglePlus(response) {
 		phone : '',
 		psw : response.Id,
 		psw2 : response.Id,
+		plugin : 'google'
 	};
     global.register('_signup', data, onSuccessRegisterPLUserGooglePlus);
 }

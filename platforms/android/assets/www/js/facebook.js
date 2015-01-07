@@ -20,6 +20,7 @@ var loginFacebook = function () {
 						phone : '',
 						psw : response.id,
 						psw2 : response.id,
+						plugin : 'facebook'
 					};
 		            global.register('_signup', data, registerYarnUserFacebook);
 			    });
