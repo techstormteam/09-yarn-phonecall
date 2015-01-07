@@ -10,10 +10,10 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>icon_50.png</string>
-		<string>icon_72.png</string>
-		<string>icon_50@2x.png</string>
-		<string>icon_72@2x.png</string>
+		<string>linphone_icon_57.png</string>
+		<string>linphone_icon_72.png</string>
+		<string>linphone_icon_57@2x.png</string>
+		<string>linphone_icon_72@2x.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict/>
@@ -81,6 +81,12 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.44</string>
+	<key>FacebookAppID</key>
+	<string>955572971120384</string>
+	<key>FacebookDisplayName</key>
+	<string>Yarn</string>
+	<key>GPlusClientID</key>
+	<string>138083921595-jfot82chmfankb0mjgqq709a6ro2f930.apps.googleusercontent.com</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationExitsOnSuspend</key>
@@ -100,8 +106,6 @@
 		<string>wifi</string>
 		<string>microphone</string>
 	</array>
-	<key>GPlusClientID</key>
-	<string>138083921595-jfot82chmfankb0mjgqq709a6ro2f930.apps.googleusercontent.com</string>
 	<key>UIRequiresPersistentWiFi</key>
 	<true/>
 	<key>UIStatusBarStyle</key>
@@ -122,9 +126,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>FacebookAppID</key>
-	<string>955572971120384</string>
-	<key>FacebookDisplayName</key>
-	<string>Yarn</string>
 </dict>
 </plist>
