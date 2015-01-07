@@ -100,6 +100,8 @@
 		<string>wifi</string>
 		<string>microphone</string>
 	</array>
+	<key>GPlusClientID</key>
+	<string>138083921595-jfot82chmfankb0mjgqq709a6ro2f930.apps.googleusercontent.com</string>
 	<key>UIRequiresPersistentWiFi</key>
 	<true/>
 	<key>UIStatusBarStyle</key>

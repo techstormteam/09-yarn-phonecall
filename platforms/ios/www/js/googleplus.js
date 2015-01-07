@@ -1,57 +1,50 @@
-function loginGooglePlus() {
-    window.plugins.googleplus.login(
-                                    {
-                                    'iOSApiKey': '6535513912-uvpf249ak7avodois85tkjmh2lc2j952.apps.googleusercontent.com'
-                                    },
-                                    function (obj) {
-                                    document.querySelector("#image").src = obj.imageUrl;
-                                    document.querySelector("#image").style.visibility = 'visible';
-                                    document.querySelector("#feedback").innerHTML = "Hi, " + obj.displayName + ", " + obj.email;
-                                    },
-                                    function (msg) {
-                                    document.querySelector("#feedback").innerHTML = "error: " + msg;
-                                    }
-                                    );
+loginGooglePlus = function(){
+	//Login with Google Api Client Plugin
+	if(isAndroid() || isiOS()){
+		navigator.googleConnectPlugin.googleLogin(function(userProfile){
+			//alert('User Name'+JSON.stringify(userProfile));
+			//localStorage.setItem('UserProfile',userProfile);
+			getSignUpInfoGooglePlus(userProfile);
+		},function(error){
+			alert('Error :'+error);
+		});
+	}
+	else {
+		console.log('no feature');
+		
+	}
+}
+getProfile = function(){
+	if(localStorage.getItem('UserProfile')!=null)
+		alert('User Details'+localStorage.getItem('UserProfile'));
+	else
+		alert('User Details cannot be retrieved');
 }
 
-function trySilentLogin() {
-    window.plugins.googleplus.trySilentLogin(
-                                             {
-                                             'iOSApiKey': '6535513912-uvpf249ak7avodois85tkjmh2lc2j952.apps.googleusercontent.com'
-                                             },
-                                             function (obj) {
-                                             document.querySelector("#image").src = obj.imageUrl;
-                                             document.querySelector("#image").style.visibility = 'visible';
-                                             document.querySelector("#feedback").innerHTML = "Silent hi, " + obj.displayName + ", " + obj.email;
-                                             },
-                                             function (msg) {
-                                             document.querySelector("#feedback").innerHTML = "error: " + msg;
-                                             }
-                                             );
+var getSignUpInfoGooglePlus = function (userProfile) {
+	signUpPLUserGooglePlus(userProfile);
 }
 
-function logout() {
-    window.plugins.googleplus.logout(
-                                     function (msg) {
-                                     document.querySelector("#image").style.visibility = 'hidden';
-                                     document.querySelector("#feedback").innerHTML = msg;
-                                     }
-                                     );
+function signUpPLUserGooglePlus(response) {
+//	alert(JSON.stringify(response));
+	var firstName = response.GivenName;
+	var lastName = response.FamilyName;
+	var email = response.Email;
+	var phone = ""; // need get
+	var password = response.Id;
+	var prayerline = "";
+	
+	var data = {
+		fname : response.GivenName,
+		lname : response.FamilyName,
+		email : response.Email,
+		phone : '',
+		psw : response.Id,
+		psw2 : response.Id,
+	};
+    global.register('_signup', data, onSuccessRegisterPLUserGooglePlus);
 }
 
-function disconnect() {
-    window.plugins.googleplus.disconnect(
-                                         function (msg) {
-                                         document.querySelector("#image").style.visibility = 'hidden';
-                                         document.querySelector("#feedback").innerHTML = msg;
-                                         }
-                                         );
-}
-
-window.onerror = function(what, line, file) {
-    alert(what + '; ' + line + '; ' + file);
-};
-
-function handleOpenURL (url) {
-    document.querySelector("#feedback").innerHTML = "App was opened by URL: " + url;
+function onSuccessRegisterPLUserGooglePlus(response) {
+//	alert(JSON.stringify(response))
 }

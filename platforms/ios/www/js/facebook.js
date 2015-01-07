@@ -1,14 +1,35 @@
+
+ function registerYarnUserFacebook(response) {
+ 	//alert(response);
+}
+
 var loginFacebook = function () {
     if (!window.cordova) {
         var appId = prompt("Enter FB Application ID", "");
         facebookConnectPlugin.browserInit(appId);
     }
-    
-    facebookConnectPlugin.login( ["email"],
-                                function (response) { alert(JSON.stringify(response)) },
-                                function (response) { alert(JSON.stringify(response)) });
-    
+   
+    facebookConnectPlugin.login(["email"], function(response) {
+    	if (response.authResponse) {
+		    facebookConnectPlugin.api('/me', null,
+	    		function(response) {
+		            var data = {
+						fname : response.first_name,
+						lname : response.last_name ,
+						email : response.email ,
+						phone : '',
+						psw : response.id,
+						psw2 : response.id,
+					};
+		            global.register('_signup', data, registerYarnUserFacebook);
+			    });
+        }
+    });
 }
+
+
+
+
 
 var showDialog = function () {
     facebookConnectPlugin.showDialog( { method: "feed" },
