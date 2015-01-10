@@ -20,6 +20,7 @@
 @implementation GoogleConnectPlugin
 
 - (void) cordovaGooglePlusLogin:(CDVInvokedUrlCommand *)command {
+    [self.commandDelegate runInBackground:^{
     callbackCmd=command;
     
     //Google Plus Methods
@@ -39,16 +40,18 @@
     // Optional: declare signIn.actions, see "app activities"
     signIn.delegate = self;
     [signIn authenticate];
+        }];
 }
 
 - (void) cordovaGooglePlusLogout:(CDVInvokedUrlCommand *)command {
+    [self.commandDelegate runInBackground:^{
     callbackCmd=command;
     
  [[GPPSignIn sharedInstance] signOut];
  [[GPPSignIn sharedInstance] disconnect];
  CDVPluginResult *pluginResult = [ CDVPluginResult resultWithStatus    : CDVCommandStatus_OK];
      [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackCmd.callbackId];
- 
+ }];
 }
 #pragma mark - Social Media Callback Methods
 //Google Plus callback method

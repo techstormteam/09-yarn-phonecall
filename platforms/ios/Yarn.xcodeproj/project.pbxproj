@@ -6068,8 +6068,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Idera Inc (U9ZV3HH4BT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Idera Inc (U9ZV3HH4BT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mr Odunaiya (942P93SN8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mr Odunaiya (942P93SN8W)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6104,17 +6104,18 @@
 					"$(PROJECT_DIR)/PayPalMobile",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_NAME = Yarn;
-				PROVISIONING_PROFILE = "f1af4366-9e69-406a-a3f9-cf3e7d86d9f2";
+				PROVISIONING_PROFILE = "7e55329b-c830-4c78-b06a-e946246c5106";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(OBJROOT)/UninstalledProducts/include";
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WARNING_CFLAGS = (
 					"-Werror=objc-method-access",
 					"-Werror=incomplete-implementation",
@@ -6160,7 +6161,7 @@
 				PRODUCT_NAME = "Yarn-no-gpl-thirdparties";
 				PROVISIONING_PROFILE = "f1af4366-9e69-406a-a3f9-cf3e7d86d9f2";
 				SKIP_INSTALL = NO;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -6202,7 +6203,7 @@
 				PRODUCT_NAME = "Yarn-no-gpl-thirdparties";
 				PROVISIONING_PROFILE = "f1af4366-9e69-406a-a3f9-cf3e7d86d9f2";
 				SKIP_INSTALL = NO;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -6259,8 +6260,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Idera Inc (U9ZV3HH4BT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Idera Inc (U9ZV3HH4BT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mr Odunaiya (942P93SN8W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mr Odunaiya (942P93SN8W)";
 				COMPRESS_PNG_FILES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6293,17 +6294,18 @@
 					"$(PROJECT_DIR)/PayPalMobile",
 				);
 				LINK_WITH_STANDARD_LIBRARIES = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				ORDER_FILE = "";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_NAME = Yarn;
-				PROVISIONING_PROFILE = "f1af4366-9e69-406a-a3f9-cf3e7d86d9f2";
+				PROVISIONING_PROFILE = "7e55329b-c830-4c78-b06a-e946246c5106";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(OBJROOT)/UninstalledProducts/include";
-				VALID_ARCHS = armv7;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WARNING_CFLAGS = (
 					"-Werror=objc-method-access",
 					"-Werror=incomplete-implementation",
