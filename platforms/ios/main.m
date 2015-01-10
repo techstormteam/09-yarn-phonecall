@@ -19,7 +19,6 @@
 
 #import <UIKit/UIKit.h>
 #import "LinphoneAppDelegate.h"
-#import "PeoplePickerAppDelegate.h"
 
 #ifdef DEBUG
 

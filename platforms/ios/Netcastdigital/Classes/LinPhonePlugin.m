@@ -392,7 +392,7 @@ static void audioRouteChangeListenerCallback (
 //------------
 
 + (void) doRegisterSip:(NSString *)sipUsername password:(NSString*)password domain:(NSString*)domain registerStatus:(NSString*)registerStatus {
-    NSString *sipAddress = [NSString stringWithFormat:@"%@@%@", sipUsername, domain];
+    //NSString *sipAddress = [NSString stringWithFormat:@"%@@%@", sipUsername, domain];
     
     LinphoneCore *lc = [LinphoneManager getLc];
     

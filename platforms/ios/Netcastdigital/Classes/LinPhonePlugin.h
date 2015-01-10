@@ -12,7 +12,6 @@
 #include "LinphoneManager.h"
 #include "linphone/linphonecore.h"
 #import "LinphoneAppDelegate.h"
-#import "GKPeoplePickerNavigationController.h"
 #import "UISpeakerButton.h"
 
 #define GENERIC_DOMAIN @"cloud.netcastdigital.net"

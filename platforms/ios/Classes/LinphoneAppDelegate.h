@@ -19,9 +19,6 @@
 
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/ABPeoplePickerNavigationController.h>
-#import "GKPeoplePickerNavigationController.h"
-
-#import "ViewController.h"
 
 
 #import "LinphoneCoreSettingsStore.h"
@@ -46,8 +43,6 @@
 @property (nonatomic, strong) UIViewController* linphoneViewController;
 @property (nonatomic, strong) UIWindow* yarnWindow;
 @property (nonatomic, strong) UIViewController* yarnViewController;
-@property (nonatomic, strong) UIWindow* peoplePickerWindow;
-@property (nonatomic, strong) ViewController* peoplePickerViewController;
 
 + (LinphoneAppDelegate *)instance;
 - (NSString *)getTelno;

@@ -234,9 +234,6 @@ static LinphoneAppDelegate* appInstance = nil;
     self.linphoneWindow = self.window;
     self.linphoneViewController = self.window.rootViewController;
     
-    self.peoplePickerWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.peoplePickerViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    
     UIApplication* app= [UIApplication sharedApplication];
     UIApplicationState state = app.applicationState;
     
@@ -323,12 +320,6 @@ static LinphoneAppDelegate* appInstance = nil;
 //    MainViewController *mainController = (MainViewController*)self.yarnViewController;
 //    [mainController.webView stringByEvaluatingJavaScriptFromString:@"yarnMessage()"];
     
-}
-
-- (void)showPeoplePickerWindow {
-    self.window = self.peoplePickerWindow;
-    self.window.rootViewController = self.peoplePickerViewController;
-    [self.window makeKeyAndVisible];
 }
 
 - (void)showYarnDialScreen {
