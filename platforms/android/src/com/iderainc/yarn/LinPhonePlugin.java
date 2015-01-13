@@ -242,37 +242,6 @@ public class LinPhonePlugin extends CordovaPlugin implements
 				}
 			});
 			return true;
-		} else if (action.equals("GetContactImageUri")) {
-			this.cordova.getActivity().runOnUiThread(new Runnable() {
-				public void run() {
-					try {
-						JSONObject objJSON = new JSONObject();
-
-						String contactId = (String) args.get(0);
-						PluginResult result = null;
-						if (!contactId.equals("-1")) {
-							objJSON.put(
-									"uri",
-									String.format(
-											"content://com.android.contacts/contacts/%s/photo",
-											contactId));
-							// objJSON.put("uri",
-							// String.format("content://com.android.contacts/contacts/272/photo",
-							// contactId));
-							result = new PluginResult(Status.OK, objJSON);
-						} else {
-							objJSON.put("uri", "");
-							result = new PluginResult(Status.NO_RESULT, objJSON);
-						}
-						callbackContext.sendPluginResult(result);
-						callbackContext
-								.success("Get contact image uri successfully.");
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-			});
-			return true;
 		} else if (action.equals("GetIncommingContactImageUri")) {
 			// JSONObject objJSON = new JSONObject();
 			// LinphoneCore lc = LinphoneManager.getLc();
