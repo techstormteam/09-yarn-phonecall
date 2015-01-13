@@ -13,15 +13,15 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"com.wezka.nativecamera.NativeCameraLauncher\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"PayPalMobile\"><param name=\"android-package\" value=\"com.paypal.cordova.sdk.PayPalMobileCordovaPlugin\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"GoogleConnectPlugin\"><param name=\"android-package\" value=\"com.cabot.plugins.googleplus.ConnectGoogle\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Contacts\"><param name=\"android-package\" value=\"org.apache.cordova.contacts.ContactManager\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -31,23 +31,19 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "xml": "<uses-permission android:name=\"android.permission.READ_CONTACTS\" />",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\" />",
                             "count": 1
                         },
                         {
-                            "xml": "<uses-feature android:name=\"android.hardware.camera.autofocus\" android:required=\"false\" />",
+                            "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
                             "count": 1
                         }
                     ],
                     "/manifest/application": [
-                        {
-                            "xml": "<activity android:label=\"nativecameraplugin\" android:name=\"com.wezka.nativecamera.CameraActivity\" android:screenOrientation=\"portrait\" android:theme=\"@android:style/Theme.NoTitleBar.Fullscreen\"></activity>",
-                            "count": 1
-                        },
                         {
                             "xml": "<service android:exported=\"false\" android:name=\"com.paypal.android.sdk.payments.PayPalService\" />",
                             "count": 1
@@ -147,14 +143,14 @@
         "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.techstorm.yarn"
         },
-        "com.wezka.nativecamera": {
-            "PACKAGE_NAME": "com.techstorm.yarn"
-        },
         "com.paypal.cordova.mobilesdk": {
             "PACKAGE_NAME": "com.iderainc.yarn"
         },
         "com.cabot.plugins.googleplus": {
             "CLIENT_ID": "138083921595-iudeh7ht39cco7uvrs63816se7c0hi1v.apps.googleusercontent.com",
+            "PACKAGE_NAME": "com.iderainc.yarn"
+        },
+        "org.apache.cordova.contacts": {
             "PACKAGE_NAME": "com.iderainc.yarn"
         }
     },
