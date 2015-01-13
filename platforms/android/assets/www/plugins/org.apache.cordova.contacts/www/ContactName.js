@@ -1,4 +1,4 @@
-cordova.define("com.wezka.nativecamera.CameraPopoverOptions", function(require, exports, module) { /*
+cordova.define("org.apache.cordova.contacts.ContactName", function(require, exports, module) { /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,21 +19,25 @@ cordova.define("com.wezka.nativecamera.CameraPopoverOptions", function(require, 
  *
 */
 
-var Camera = require('./Camera');
-
 /**
- * Encapsulates options for iOS Popover image picker
- */
-var CameraPopoverOptions = function(x,y,width,height,arrowDir){
-    // information of rectangle that popover should be anchored to
-    this.x = x || 0;
-    this.y = y || 32;
-    this.width = width || 320;
-    this.height = height || 480;
-    // The direction of the popover arrow
-    this.arrowDir = arrowDir || Camera.PopoverArrowDirection.ARROW_ANY;
+* Contact name.
+* @constructor
+* @param formatted // NOTE: not part of W3C standard
+* @param familyName
+* @param givenName
+* @param middle
+* @param prefix
+* @param suffix
+*/
+var ContactName = function(formatted, familyName, givenName, middle, prefix, suffix) {
+    this.formatted = formatted || null;
+    this.familyName = familyName || null;
+    this.givenName = givenName || null;
+    this.middleName = middle || null;
+    this.honorificPrefix = prefix || null;
+    this.honorificSuffix = suffix || null;
 };
 
-module.exports = CameraPopoverOptions;
+module.exports = ContactName;
 
 });

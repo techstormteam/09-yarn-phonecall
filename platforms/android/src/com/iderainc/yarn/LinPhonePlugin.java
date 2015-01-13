@@ -247,9 +247,8 @@ public class LinPhonePlugin extends CordovaPlugin implements
 				public void run() {
 					try {
 						JSONObject objJSON = new JSONObject();
-						String telNo = (String) args.get(0);
 
-						String contactId = getContactIdByPhoneNumber(telNo);
+						String contactId = (String) args.get(0);
 						PluginResult result = null;
 						if (!contactId.equals("-1")) {
 							objJSON.put(

@@ -273,12 +273,36 @@ function doHome() {
     window.location.href = 'index.html';
 }
 
+function onSuccessFindContacts(contacts) {
+    if (contacts.length > 0) {
+    	window.getContactImageUri(contacts[0].id, function (data) {
+	        // Set image uri to <img> tag'
+	    	$('[data-id="avatar"]').find('img').attr('src', data.uri);
+	    });
+    }
+};
+
+function onErrorFindContacts(contactError) {
+    alert('onError!');
+};
+
 function doGetContactImageUri() {
 	var telno = global.get('telnoCallingTo');
-    window.getContactImageUri(telno, function (data) {
-        // Set image uri to <img> tag'
-    	$('[data-id="avatar"]').find('img').attr('src', data.uri);
-    });
+	if (telno !== "") {
+		if (telno.charAt(0) === "0") {
+			telno = telno.slice(1, telno.length);
+		}
+	}
+
+	// find all contacts with 'Bob' in any name field
+	var options      = new ContactFindOptions();
+	options.filter   = telno;
+	options.multiple = true;
+	options.desiredFields = [navigator.contacts.fieldType.id];
+	var fields       = [//navigator.contacts.fieldType.displayName, 
+	                    //navigator.contacts.fieldType.name, 
+	                    navigator.contacts.fieldType.phoneNumbers];
+	navigator.contacts.find(fields, onSuccessFindContacts, onErrorFindContacts, options);
 
 }
 
@@ -385,7 +409,7 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
-	    	//doGetContactImageUri();
+	    	doGetContactImageUri();
 	    	callQualityTimeout();
 			updateTimerScheduled();
 			endCallCheckingScheduled();
@@ -393,28 +417,7 @@ var app = {
 			setCallNumber();
 			
 			
-//			var options = new ContactFindOptions();
-//            options.filter = "";
-//            options.multiple = true;
-//            var fields = ["*"];
-//            navigator.contacts.find(fields, onSuccess, onError, options);
 			
 	        console.log('Received Event: ' + id);
 	    }
-	    
-//	    onSuccess: function (contacts) {
-//            dialedNumber = global.get('dialedNumber');
-//            alert('There are: ' + contacts.length + ' contacts.');
-//            for (var i = 0; i < contacts.length; i++) {
-//                if (contacts[i].phoneNumbers[0].value !== null) {
-//                    if (contacts[i].phoneNumbers[0].value === dialedNumber) {
-//                        alert('Found contact with number: ' + contacts[i].phoneNumbers[0].value);
-//                    }
-//                }
-//            }
-//        },
-//        
-//        onError: function (error) {
-//            alert(error);
-//        }
 	};

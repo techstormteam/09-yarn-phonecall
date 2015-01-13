@@ -1,4 +1,4 @@
-cordova.define("com.wezka.nativecamera.CameraPopoverHandle", function(require, exports, module) { /*
+cordova.define("org.apache.cordova.contacts.ContactError", function(require, exports, module) { /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,17 +19,26 @@ cordova.define("com.wezka.nativecamera.CameraPopoverHandle", function(require, e
  *
 */
 
-var exec = require('cordova/exec');
-
 /**
- * A handle to an image picker popover.
+ *  ContactError.
+ *  An error code assigned by an implementation when an error has occurred
+ * @constructor
  */
-var CameraPopoverHandle = function() {
-    this.setPosition = function(popoverOptions) {
-        console.log('CameraPopoverHandle.setPosition is only supported on iOS.');
-    };
+var ContactError = function(err) {
+    this.code = (typeof err != 'undefined' ? err : null);
 };
 
-module.exports = CameraPopoverHandle;
+/**
+ * Error codes
+ */
+ContactError.UNKNOWN_ERROR = 0;
+ContactError.INVALID_ARGUMENT_ERROR = 1;
+ContactError.TIMEOUT_ERROR = 2;
+ContactError.PENDING_OPERATION_ERROR = 3;
+ContactError.IO_ERROR = 4;
+ContactError.NOT_SUPPORTED_ERROR = 5;
+ContactError.PERMISSION_DENIED_ERROR = 20;
+
+module.exports = ContactError;
 
 });
