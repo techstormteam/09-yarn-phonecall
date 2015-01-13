@@ -255,18 +255,11 @@ $('[data-value]').tap(function () {
     //doSendDmtf($(this).data('value'));
 });
 
-var dialInputOrginal = "";
-$('[name="dial-input"]').keydown(function() {
-    var $th = $(this);
-    dialInputOrginal = $th.val();
-});
-
-
 $('[name="dial-input"]').keyup(function() {
     var $th = $(this);
-    if (dialInputOrginal.length < $th.val().length) {
-    	$th.val( $th.val().replace(/[^0-9+,]/g, function(str) { return ''; } ) );
-    }
+	if ($th.val().match(/[^0-9+,]/g)) {
+		$th.val( $th.val().replace(/[^0-9+,]/g, function(str) { return ''; } ) );
+	}
 });
 
 
