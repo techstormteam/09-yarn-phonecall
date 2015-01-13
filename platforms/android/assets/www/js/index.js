@@ -80,13 +80,7 @@ function updateHeight() {
     $('.dial-row').css('height', rowHeight);
     $('.dial-row div').css('line-height', rowHeight + "px");
     $('.dial-row div img').css('height', rowHeight + "px");
-//    $('[data-line]').css('line-height', rowHeight + "px");
-     
-//    vmail.width($('[data-value="1"]').width() - $('[data-value="1"] span').width() - 20);
-//    vmail.height($('[data-value="4"] sub').height() * 2);
-    $('.dial-row div');
-    
-//    $('.ui-dialog').width($(window).width() / 10 * 9);
+    $('.ts-numpad').css('margin-top', -rowHeight/2 + "px");
 }
 
 $(document).ready(function () {
@@ -261,9 +255,18 @@ $('[data-value]').tap(function () {
     //doSendDmtf($(this).data('value'));
 });
 
+var dialInputOrginal = "";
+$('[name="dial-input"]').keydown(function() {
+    var $th = $(this);
+    dialInputOrginal = $th.val();
+});
+
+
 $('[name="dial-input"]').keyup(function() {
     var $th = $(this);
-    $th.val( $th.val().replace(/[^0-9+,]/g, function(str) { return ''; } ) );
+    if (dialInputOrginal.length < $th.val().length) {
+    	$th.val( $th.val().replace(/[^0-9+,]/g, function(str) { return ''; } ) );
+    }
 });
 
 

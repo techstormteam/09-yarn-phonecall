@@ -86,7 +86,8 @@
 .ui-content {
     position: relative;
     top: 100px;
-    padding: 0;
+    padding: 0 !important;
+    overflow-x: visible !important;
 }
 
 .ts-sub-footer {
@@ -157,6 +158,7 @@
 
 .ts-input {
     box-shadow: none !important;
+    min-height: 0 !important;
 }
 
 .ui-content .ui-corner-all {
