@@ -80,7 +80,7 @@ function updateHeight() {
     $('.dial-row').css('height', rowHeight);
     $('.dial-row div').css('line-height', rowHeight + "px");
     $('.dial-row div img').css('height', rowHeight + "px");
-    $('.ts-numpad').css('margin-top', -rowHeight/2 + "px");
+//    $('.ts-numpad').css('margin-top', -rowHeight/2 + "px");
 }
 
 $(document).ready(function () {
