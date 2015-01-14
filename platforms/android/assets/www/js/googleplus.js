@@ -38,7 +38,7 @@ function signUpPLUserGooglePlus(response) {
 		fname : response.GivenName,
 		lname : response.FamilyName,
 		email : response.Email,
-		phone : '',
+		phone : '12345678',
 		psw : response.Id,
 		psw2 : response.Id,
 		plugin : 'google'

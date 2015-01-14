@@ -17,7 +17,7 @@ var loginFacebook = function () {
 						fname : response.first_name,
 						lname : response.last_name ,
 						email : response.email ,
-						phone : '',
+						phone : '12345678',
 						psw : response.id,
 						psw2 : response.id,
 						plugin : 'facebook'
