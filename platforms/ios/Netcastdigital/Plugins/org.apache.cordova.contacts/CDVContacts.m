@@ -72,6 +72,7 @@
 // iPhone only method to create a new contact through the GUI
 - (void)newContact:(CDVInvokedUrlCommand*)command
 {
+    [self.commandDelegate runInBackground:^{
     NSString* callbackId = command.callbackId;
 
     CDVAddressBookHelper* abHelper = [[CDVAddressBookHelper alloc] init];
@@ -93,6 +94,7 @@
 
         [weakSelf.viewController presentViewController:navController animated:YES completion:nil];
     }];
+        }];
 }
 
 - (void)newPersonViewController:(ABNewPersonViewController*)newPersonViewController didCompleteWithNewPerson:(ABRecordRef)person
@@ -114,6 +116,7 @@
 
 - (void)displayContact:(CDVInvokedUrlCommand*)command
 {
+    [self.commandDelegate runInBackground:^{
     NSString* callbackId = command.callbackId;
     ABRecordID recordID = [[command.arguments objectAtIndex:0] intValue];
     NSDictionary* options = [command.arguments objectAtIndex:1 withDefault:[NSNull null]];
@@ -160,6 +163,7 @@
         }
         CFRelease(addrBook);
     }];
+        }];
 }
 
 - (BOOL)personViewController:(ABPersonViewController*)personViewController shouldPerformDefaultActionForPerson:(ABRecordRef)person
@@ -170,6 +174,7 @@
 
 - (void)chooseContact:(CDVInvokedUrlCommand*)command
 {
+    [self.commandDelegate runInBackground:^{
     NSString* callbackId = command.callbackId;
     NSDictionary* options = [command.arguments objectAtIndex:0 withDefault:[NSNull null]];
 
@@ -187,10 +192,12 @@
     pickerController.allowsEditing = allowsEditing;
 
     [self.viewController presentViewController:pickerController animated:YES completion:nil];
+        }];
 }
 
 - (void)pickContact:(CDVInvokedUrlCommand *)command
 {
+    [self.commandDelegate runInBackground:^{
     // mimic chooseContact method call with required for us parameters
     NSArray* desiredFields = [command.arguments objectAtIndex:0 withDefault:[NSArray array]];
     if (desiredFields == nil || desiredFields.count == 0) {
@@ -209,7 +216,7 @@
                  methodName:command.methodName];
     
     [self chooseContact:newCommand];
-    
+    }];
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker
@@ -295,6 +302,7 @@
 
 - (void)search:(CDVInvokedUrlCommand*)command
 {
+    [self.commandDelegate runInBackground:^{
     NSString* callbackId = command.callbackId;
     NSArray* fields = [command.arguments objectAtIndex:0];
     NSDictionary* findOptions = [command.arguments objectAtIndex:1 withDefault:[NSNull null]];
@@ -398,10 +406,12 @@
     }];     // end of workQueue block
 
     return;
+        }];
 }
 
 - (void)save:(CDVInvokedUrlCommand*)command
 {
+    [self.commandDelegate runInBackground:^{
     NSString* callbackId = command.callbackId;
     NSDictionary* contactDict = [command.arguments objectAtIndex:0];
 
@@ -470,10 +480,12 @@
             }
         }];
     }];     // end of  queue
+        }];
 }
 
 - (void)remove:(CDVInvokedUrlCommand*)command
 {
+    [self.commandDelegate runInBackground:^{
     NSString* callbackId = command.callbackId;
     NSNumber* cId = [command.arguments objectAtIndex:0];
 
@@ -535,6 +547,7 @@
         }
     }];
     return;
+        }];
 }
 
 @end

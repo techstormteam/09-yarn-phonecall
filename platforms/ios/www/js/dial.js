@@ -27,9 +27,10 @@ $(document).ready(function () {
 	header = $('[data-id="header"]');
 	main = $('[data-id="main"]');
 	mainImg = $('[data-id="avatar"] img');
+	mainName = $('[data-id="contact-name"]');
 	subFoot = $('[data-id="sub-footer"]');
 	timer = $('[data-id="timer"]');
-        timer2 = $('[data-id="timer2"]');
+    timer2 = $('[data-id="timer2"]');
 	endCall = $('[data-id="end-call"]');
 	footer = $('[data-id="footer"]');
 	footer1st = $('[data-id="footer-1st"]');
@@ -123,16 +124,20 @@ function updateSize() {
         'text-align': 'center'
     });
     
-
+    var numberOfParts = 6;
+    var pixelEachPart = totalHeight / numberOfParts;
     //AVATAR
-    main.css('height', (totalHeight / 6) * 3);
-    mainImg.css('height', (totalHeight / 6) * 3);
-
+    main.css('height', pixelEachPart * 3);
+    mainImg.css('height', pixelEachPart * (8/3));
+    mainName.css('line-height', pixelEachPart * (1/3) + 'px');
+    mainName.css('font-size', (pixelEachPart * (1/3)) - 5 + 'px');
+    
     //SUBFOOTER
-    subFoot.css('height', (totalHeight / 6));
-    timer.css('line-height', (totalHeight / 12) / 2 + 'px');
-    timer2.css('line-height', (totalHeight / 12) / 2 + 'px');
-    endCall.css('height', (totalHeight / 12));
+    subFoot.css('height', pixelEachPart);
+    
+    timer.css('line-height', (pixelEachPart / 2) / 2 + 'px');
+    timer2.css('line-height', (pixelEachPart / 2) / 2 + 'px');
+    endCall.css('height', (pixelEachPart / 2));
 
     remain = totalHeight - (header.height() + main.height() + subFoot.height());
 
@@ -140,12 +145,12 @@ function updateSize() {
     footer.height(remain);
 
     //FOOTER-1ST
-    footer1st.css('height', (totalHeight / 12));
-    footer1stDiv.css('height', (totalHeight / 12));
+    footer1st.css('height', (pixelEachPart / 2));
+    footer1stDiv.css('height', (pixelEachPart / 2));
 
     //FOOTER-2ND
-    footer2nd.css('height', (totalHeight / 12));
-    footer2ndDiv.css('height', (totalHeight / 12));
+    footer2nd.css('height', (pixelEachPart / 2));
+    footer2ndDiv.css('height', (pixelEachPart / 2));
     
     $('[data-id="end-call"] img').css('width', $('[data-id="end-call"] img').height());
 //    $('[data-id="footer-1st"] img').css('width', 'auto');
@@ -273,12 +278,43 @@ function doHome() {
     window.location.href = 'index.html';
 }
 
+function onSuccessFindContacts(contacts) {
+    if (contacts.length > 0) {
+        //alert(JSON.stringify(contacts));
+    	if (contacts[0].photos !== null && contacts[0].photos.length > 0) {
+    		$('[data-id="avatar"]').find('img').attr('src', contacts[0].photos[0].value);
+    	}
+        if (contacts[0].displayName !== null) {
+            $('[data-id="contact-name"]').html(contacts[0].displayName);
+        } else {
+            $('[data-id="contact-name"]').html(contacts[0].name.formatted);
+        }
+    }
+};
+
+function onErrorFindContacts(contactError) {
+    alert('onError!');
+};
+
 function doGetContactImageUri() {
 	var telno = global.get('telnoCallingTo');
-    window.getContactImageUri(telno, function (data) {
-        // Set image uri to <img> tag'
-    	$('[data-id="avatar"]').find('img').attr('src', data.uri);
-    });
+	if (telno !== "") {
+		if (telno.charAt(0) === "0") {
+			telno = telno.slice(1, telno.length);
+		}
+	}
+
+	// find all contacts with 'Bob' in any name field
+	var options      = new ContactFindOptions();
+	options.filter   = telno;
+	options.multiple = true;
+	options.desiredFields = [navigator.contacts.fieldType.id, 
+	                         navigator.contacts.fieldType.name,
+	                         navigator.contacts.fieldType.photos];
+	var fields       = [//navigator.contacts.fieldType.displayName, 
+	                    //navigator.contacts.fieldType.name, 
+	                    navigator.contacts.fieldType.phoneNumbers];
+	navigator.contacts.find(fields, onSuccessFindContacts, onErrorFindContacts, options);
 
 }
 
@@ -385,7 +421,7 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
-	    	//doGetContactImageUri();
+	    	doGetContactImageUri();
 	    	callQualityTimeout();
 			updateTimerScheduled();
 			endCallCheckingScheduled();
@@ -393,28 +429,7 @@ var app = {
 			setCallNumber();
 			
 			
-//			var options = new ContactFindOptions();
-//            options.filter = "";
-//            options.multiple = true;
-//            var fields = ["*"];
-//            navigator.contacts.find(fields, onSuccess, onError, options);
 			
 	        console.log('Received Event: ' + id);
 	    }
-	    
-//	    onSuccess: function (contacts) {
-//            dialedNumber = global.get('dialedNumber');
-//            alert('There are: ' + contacts.length + ' contacts.');
-//            for (var i = 0; i < contacts.length; i++) {
-//                if (contacts[i].phoneNumbers[0].value !== null) {
-//                    if (contacts[i].phoneNumbers[0].value === dialedNumber) {
-//                        alert('Found contact with number: ' + contacts[i].phoneNumbers[0].value);
-//                    }
-//                }
-//            }
-//        },
-//        
-//        onError: function (error) {
-//            alert(error);
-//        }
 	};

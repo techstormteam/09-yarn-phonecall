@@ -1,6 +1,6 @@
 
  function registerYarnUserFacebook(response) {
- 	//alert(response);
+ 	alert(response);
 }
 
 var loginFacebook = function () {
@@ -20,6 +20,7 @@ var loginFacebook = function () {
 						phone : '',
 						psw : response.id,
 						psw2 : response.id,
+						plugin : 'facebook'
 					};
 		            global.register('_signup', data, registerYarnUserFacebook);
 			    });

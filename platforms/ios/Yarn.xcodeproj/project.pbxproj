@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		045B5CB318D72E9A0088350C /* libbzrtp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045B5CB218D72E9A0088350C /* libbzrtp.a */; };
 		15017E701773578400784ACB /* libxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15017E6F1773578400784ACB /* libxml2.a */; };
@@ -265,6 +266,8 @@
 		D0EB66EC1A148DC0000E9ABC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0EB66D01A148DC0000E9ABC /* Localizable.strings */; };
 		D0EB66ED1A148DC0000E9ABC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0EB66D31A148DC0000E9ABC /* Localizable.strings */; };
 		D0EB66EF1A148DF5000E9ABC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0EB66EE1A148DF5000E9ABC /* Images.xcassets */; };
+		D0ECD7F81A658259009D3CBF /* CDVContact.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ECD7F51A658259009D3CBF /* CDVContact.m */; };
+		D0ECD7F91A658259009D3CBF /* CDVContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ECD7F71A658259009D3CBF /* CDVContacts.m */; };
 		D0EDFD1C1A384070001EF8C0 /* libPayPalMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EDFD141A384070001EF8C0 /* libPayPalMobile.a */; };
 		D3012CC41610467D007CD926 /* linphone_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3012CC31610467D007CD926 /* linphone_logo.png */; };
 		D3012CC51610467D007CD926 /* linphone_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D3012CC31610467D007CD926 /* linphone_logo.png */; };
@@ -1713,8 +1716,6 @@
 		344ABDF014850AE9007420B6 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		34A6ECEA14CF13CB00460C04 /* linphone_icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = linphone_icon_72.png; path = Resources/linphone_icon_72.png; sourceTree = "<group>"; };
 		3E2530136F004B60ADB95E9C /* CoreLocation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		494D845FB6D741F6A68C6FE4 /* CDVContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVContact.h; path = Plugins/org.apache.cordova.contacts/CDVContact.h; sourceTree = "<group>"; };
-		53E2C1AE595243D2959AB4B4 /* CDVContacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVContacts.h; path = Plugins/org.apache.cordova.contacts/CDVContacts.h; sourceTree = "<group>"; };
 		57B0E35F173C010400A476B8 /* libpolarssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpolarssl.a; path = "liblinphone-sdk/apple-darwin/lib/libpolarssl.a"; sourceTree = "<group>"; };
 		57F005C315EE2CCF00914747 /* linphonerc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = linphonerc; path = Resources/linphonerc; sourceTree = "<group>"; };
 		57F005C615EE2D9200914747 /* linphonerc-factory */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "linphonerc-factory"; path = "Resources/linphonerc-factory"; sourceTree = "<group>"; };
@@ -1729,8 +1730,6 @@
 		70E542F213E147E3002BA2C0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		70E542F413E147EB002BA2C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Yarn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Yarn-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		A779F3EEF76544EB81640D16 /* CDVContacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVContacts.m; path = Plugins/org.apache.cordova.contacts/CDVContacts.m; sourceTree = "<group>"; };
-		BA4EE0AD54744669BCFFA838 /* CDVContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVContact.m; path = Plugins/org.apache.cordova.contacts/CDVContact.m; sourceTree = "<group>"; };
 		C90FAA7615AF54E6002091CB /* HistoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDetailsViewController.h; sourceTree = "<group>"; };
 		C90FAA7715AF54E6002091CB /* HistoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDetailsViewController.m; sourceTree = "<group>"; };
 		C9B3A6FD15B485DB006F52EE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Utils/Utils.h; sourceTree = "<group>"; };
@@ -1801,6 +1800,10 @@
 		D0EB66D11A148DC0000E9ABC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		D0EB66D41A148DC0000E9ABC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Localizable.strings; sourceTree = "<group>"; };
 		D0EB66EE1A148DF5000E9ABC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Netcastdigital/Images.xcassets; sourceTree = "<group>"; };
+		D0ECD7F41A658259009D3CBF /* CDVContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVContact.h; path = Netcastdigital/Plugins/org.apache.cordova.contacts/CDVContact.h; sourceTree = "<group>"; };
+		D0ECD7F51A658259009D3CBF /* CDVContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVContact.m; path = Netcastdigital/Plugins/org.apache.cordova.contacts/CDVContact.m; sourceTree = "<group>"; };
+		D0ECD7F61A658259009D3CBF /* CDVContacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVContacts.h; path = Netcastdigital/Plugins/org.apache.cordova.contacts/CDVContacts.h; sourceTree = "<group>"; };
+		D0ECD7F71A658259009D3CBF /* CDVContacts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVContacts.m; path = Netcastdigital/Plugins/org.apache.cordova.contacts/CDVContacts.m; sourceTree = "<group>"; };
 		D0EDFD0C1A384070001EF8C0 /* CardIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIO.h; sourceTree = "<group>"; };
 		D0EDFD0D1A384070001EF8C0 /* CardIOCreditCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIOCreditCardInfo.h; sourceTree = "<group>"; };
 		D0EDFD0E1A384070001EF8C0 /* CardIODetectionMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardIODetectionMode.h; sourceTree = "<group>"; };
@@ -3105,16 +3108,16 @@
 		D0EB66A21A1489A2000E9ABC /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				D0ECD7F41A658259009D3CBF /* CDVContact.h */,
+				D0ECD7F51A658259009D3CBF /* CDVContact.m */,
+				D0ECD7F61A658259009D3CBF /* CDVContacts.h */,
+				D0ECD7F71A658259009D3CBF /* CDVContacts.m */,
 				D0D0161D1A5BAB0F00F2E590 /* GoogleConnectPlugin.h */,
 				D0D0161E1A5BAB0F00F2E590 /* GoogleConnectPlugin.m */,
 				D085E2131A4D24A5003CDF7D /* FacebookConnectPlugin.h */,
 				D085E2141A4D24A5003CDF7D /* FacebookConnectPlugin.m */,
 				D04A9CBF1A3838C800A706E0 /* PayPalMobileCordovaPlugin.h */,
 				D04A9CC01A3838C800A706E0 /* PayPalMobileCordovaPlugin.m */,
-				A779F3EEF76544EB81640D16 /* CDVContacts.m */,
-				BA4EE0AD54744669BCFFA838 /* CDVContact.m */,
-				53E2C1AE595243D2959AB4B4 /* CDVContacts.h */,
-				494D845FB6D741F6A68C6FE4 /* CDVContact.h */,
 			);
 			name = Plugins;
 			sourceTree = "<group>";
@@ -5389,6 +5392,7 @@
 				D32409C3158B49A600C8C119 /* UILongTouchButton.m in Sources */,
 				D36C43C6158F2E5A0048BA40 /* UICallCell.m in Sources */,
 				D35E7581159328EB0066B1C1 /* UIAddressTextField.m in Sources */,
+				D0ECD7F81A658259009D3CBF /* CDVContact.m in Sources */,
 				D35E7597159460580066B1C1 /* ChatViewController.m in Sources */,
 				D35E759F159460B70066B1C1 /* SettingsViewController.m in Sources */,
 				F03CA84318C72F1A0008889D /* UITextViewNoDefine.m in Sources */,
@@ -5439,6 +5443,7 @@
 				D0ADB66B1A2700B600F1C8CB /* NSString+HTML.m in Sources */,
 				D3807FFE15C2894A005BE9BC /* IASKSlider.m in Sources */,
 				D380800015C2894A005BE9BC /* IASKSwitch.m in Sources */,
+				D0ECD7F91A658259009D3CBF /* CDVContacts.m in Sources */,
 				D380800215C2894A005BE9BC /* IASKTextField.m in Sources */,
 				D380800515C28A7A005BE9BC /* UILinphone.m in Sources */,
 				D380801315C299D0005BE9BC /* ColorSpaceUtilites.m in Sources */,

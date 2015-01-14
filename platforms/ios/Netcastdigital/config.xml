@@ -31,6 +31,9 @@
     <feature name="FacebookConnectPlugin">
         <param name="ios-package" value="FacebookConnectPlugin" />
     </feature>
+	<feature name="Contacts">
+        <param name="ios-package" value="CDVContacts" />
+    </feature>
     <name>Netcastdigital</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

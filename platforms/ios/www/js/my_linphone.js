@@ -114,12 +114,6 @@ window.signOut = function(telno, callback) {
     }, "LinPhonePlugin", "SignOut", [telno]);
 };
 
-window.getContactImageUri = function(telno, callback) {
-    cordova.exec(callback, function(err) {
-        callback(err);
-    }, "LinPhonePlugin", "GetContactImageUri", [telno]);
-};
-
 window.getIncommingContactImageUri = function(callback) {
     cordova.exec(callback, function(err) {
         callback(err);

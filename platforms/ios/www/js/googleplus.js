@@ -41,10 +41,11 @@ function signUpPLUserGooglePlus(response) {
 		phone : '',
 		psw : response.Id,
 		psw2 : response.Id,
+		plugin : 'google'
 	};
     global.register('_signup', data, onSuccessRegisterPLUserGooglePlus);
 }
 
 function onSuccessRegisterPLUserGooglePlus(response) {
-//	alert(JSON.stringify(response))
+	alert(JSON.stringify(response))
 }

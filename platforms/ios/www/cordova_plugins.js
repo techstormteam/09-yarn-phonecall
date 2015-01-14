@@ -1,6 +1,13 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
+    },
+    {
         "file": "plugins/com.paypal.cordova.mobilesdk/www/cdv-plugin-paypal-mobile-sdk.js",
         "id": "com.paypal.cordova.mobilesdk.PayPalMobile",
         "clobbers": [
@@ -8,10 +15,10 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
-        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "file": "plugins/com.cabot.plugins.googleplus/www/plugins/googleConnectPlugin.js",
+        "id": "com.cabot.plugins.googleplus.GoogleConnectPlugin",
         "clobbers": [
-            "window.open"
+            "navigator.googleConnectPlugin"
         ]
     },
     {
@@ -78,26 +85,21 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.contacts/www/ios/contacts.js",
-        "id": "org.apache.cordova.contacts.contacts-ios",
-        "merges": [
-            "navigator.contacts"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.contacts/www/ios/Contact.js",
-        "id": "org.apache.cordova.contacts.Contact-iOS",
-        "merges": [
-            "Contact"
+        "file": "plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js",
+        "id": "com.phonegap.plugins.facebookconnect.FacebookConnectPlugin",
+        "clobbers": [
+            "facebookConnectPlugin"
         ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.paypal.cordova.mobilesdk": "2.2.1",
     "org.apache.cordova.inappbrowser": "0.5.4-dev",
-    "org.apache.cordova.contacts": "0.2.15"
+    "com.paypal.cordova.mobilesdk": "2.2.1",
+    "com.cabot.plugins.googleplus": "0.0.1",
+    "org.apache.cordova.contacts": "0.2.15",
+    "com.phonegap.plugins.facebookconnect": "0.11.0"
 }
 // BOTTOM OF METADATA
 });
