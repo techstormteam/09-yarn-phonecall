@@ -279,12 +279,16 @@ function doHome() {
 }
 
 function onSuccessFindContacts(contacts) {
-    if (contacts.length > 0) {
-//    	alert(JSON.stringify(contacts))
+	if (contacts.length > 0) {
+        alert(JSON.stringify(contacts));
     	if (contacts[0].photos !== null && contacts[0].photos.length > 0) {
     		$('[data-id="avatar"]').find('img').attr('src', contacts[0].photos[0].value);
     	}
-    	$('[data-id="contact-name"]').html(contacts[0].displayName);
+        if (contacts[0].displayName !== null) {
+            $('[data-id="contact-name"]').html(contacts[0].displayName);
+        } else {
+            $('[data-id="contact-name"]').html(contacts[0].name.formatted);
+        }
     }
 };
 
