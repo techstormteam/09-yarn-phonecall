@@ -38,14 +38,23 @@ function signUpPLUserGooglePlus(response) {
 		fname : response.GivenName,
 		lname : response.FamilyName,
 		email : response.Email,
-		phone : '12345678',
+		phone : '',
 		psw : response.Id,
 		psw2 : response.Id,
 		plugin : 'google'
 	};
-    global.register('_signup', data, onSuccessRegisterPLUserGooglePlus);
+	promptTelnoForSocialLogin(function() {
+		data.phone = $('#txtPhoneNumber').val();
+		global.register('_signup', data, onSuccessRegisterPLUserGooglePlus, onErrorRegisterPLUserGooglePlus);
+    });
+    
 }
 
 function onSuccessRegisterPLUserGooglePlus(response) {
-	alert(JSON.stringify(response))
+	alert(JSON.stringify(response));
+	closeTelnoPromptPopup();
+}
+
+function onErrorRegisterPLUserGooglePlus(response) {
+	closeTelnoPromptPopup();
 }

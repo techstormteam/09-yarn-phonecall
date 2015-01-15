@@ -110,6 +110,10 @@ function msgError(error) {
     //alert(error);
 }
 
+$(document).ready(function() {
+	$('.dialog').hide();
+});
+
 $(window).resize(function () {
     updateHeight();
 });
@@ -519,7 +523,7 @@ var app = {
 	        global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
 	        global.api("_intersw_params", { telno: telno, password: password}, onSuccessGetInterSwitchInfo);
 	    	global.general();
-	        $('.dialog').hide();
+	        
 	        
 	        console.log('Received Event: ' + id);
 	    }

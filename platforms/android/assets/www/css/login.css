@@ -157,3 +157,7 @@ hr {
 .control-input {
 	margin: .5em 0;
 }
+
+.dialog {
+	z-index: 101;
+}

@@ -1,6 +1,11 @@
 
- function registerYarnUserFacebook(response) {
+function onSuccessRegisterYarnUserFacebook(response) {
  	alert(response);
+ 	closeTelnoPromptPopup();
+}
+
+function onErrorRegisterYarnUserFacebook(response) {
+ 	closeTelnoPromptPopup();
 }
 
 var loginFacebook = function () {
@@ -17,12 +22,16 @@ var loginFacebook = function () {
 						fname : response.first_name,
 						lname : response.last_name ,
 						email : response.email ,
-						phone : '12345678',
+						phone : '',
 						psw : response.id,
 						psw2 : response.id,
 						plugin : 'facebook'
 					};
-		            global.register('_signup', data, registerYarnUserFacebook);
+		            
+		            promptTelnoForSocialLogin(function() {
+		            	data.phone = $('#txtPhoneNumber').val();
+		            	global.register('_signup', data, onSuccessRegisterYarnUserFacebook, onErrorRegisterYarnUserFacebook);
+		            });
 			    });
         }
     });
