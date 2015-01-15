@@ -1,11 +1,11 @@
 
 function onSuccessRegisterYarnUserFacebook(response) {
- 	alert(response);
- 	closeTelnoPromptPopup();
+ 	global.showPopup("Message", response, "info");
+ 	//closeTelnoPromptPopup();
 }
 
 function onErrorRegisterYarnUserFacebook(response) {
- 	closeTelnoPromptPopup();
+ 	//closeTelnoPromptPopup();
 }
 
 var loginFacebook = function () {
@@ -18,20 +18,21 @@ var loginFacebook = function () {
     	if (response.authResponse) {
 		    facebookConnectPlugin.api('/me', null,
 	    		function(response) {
+		    		phoneNumber = $("#txtUsername").val();
 		            var data = {
 						fname : response.first_name,
 						lname : response.last_name ,
 						email : response.email ,
-						phone : '',
+						phone : phoneNumber,
 						psw : response.id,
 						psw2 : response.id,
 						plugin : 'facebook'
 					};
-		            
-		            promptTelnoForSocialLogin(function() {
-		            	data.phone = $('#txtPhoneNumber').val();
+		            if (phoneNumber === "") {
+		            	global.showPopup("Error", "Please enter your telephone number before connecting with Facebook/Google", "error");
+		            } else {
 		            	global.register('_signup', data, onSuccessRegisterYarnUserFacebook, onErrorRegisterYarnUserFacebook);
-		            });
+		            }
 			    });
         }
     });

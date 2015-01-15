@@ -170,19 +170,6 @@ function btnHandler(object) {
     		}
 	    });
     }
-    
-var promptTelnoForSocialLogin = function (fn) {
-	$('#txtPhoneNumber').val('');
-	$('.dialog').show();
-	$('#btn-ok').click(function() {
-		fn();
-	});
-}
-
-var closeTelnoPromptPopup = function() {
-	$('.dialog').hide();
-}
-    
  
 var app = {
 	    // Application Constructor

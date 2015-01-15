@@ -26,35 +26,28 @@ var getSignUpInfoGooglePlus = function (userProfile) {
 }
 
 function signUpPLUserGooglePlus(response) {
-//	alert(JSON.stringify(response));
-	var firstName = response.GivenName;
-	var lastName = response.FamilyName;
-	var email = response.Email;
-	var phone = ""; // need get
-	var password = response.Id;
-	var prayerline = "";
-	
+	phoneNumber = $("#txtUsername").val();
 	var data = {
 		fname : response.GivenName,
 		lname : response.FamilyName,
 		email : response.Email,
-		phone : '',
+		phone : phoneNumber,
 		psw : response.Id,
 		psw2 : response.Id,
 		plugin : 'google'
 	};
-	promptTelnoForSocialLogin(function() {
-		data.phone = $('#txtPhoneNumber').val();
-		global.register('_signup', data, onSuccessRegisterPLUserGooglePlus, onErrorRegisterPLUserGooglePlus);
-    });
-    
+	if (phoneNumber === "") {
+    	global.showPopup("Error", "Please enter your telephone number before connecting with Facebook/Google", "error");
+    } else {
+    	global.register('_signup', data, onSuccessRegisterPLUserGooglePlus, onErrorRegisterPLUserGooglePlus);
+    }
 }
 
 function onSuccessRegisterPLUserGooglePlus(response) {
-	alert(JSON.stringify(response));
-	closeTelnoPromptPopup();
+	global.showPopup("Message", response, "info");
+	//closeTelnoPromptPopup();
 }
 
 function onErrorRegisterPLUserGooglePlus(response) {
-	closeTelnoPromptPopup();
+	//closeTelnoPromptPopup();
 }
