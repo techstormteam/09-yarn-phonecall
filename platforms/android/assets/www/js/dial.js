@@ -243,7 +243,6 @@ function doHangUp() {
         	window.location.href = 'index.html';
         }
     });    
-    
 }
 
 function doMicMute(enable) {
@@ -293,11 +292,13 @@ function onSuccessFindContacts(contacts) {
 };
 
 function onErrorFindContacts(contactError) {
-    alert('onError!');
+    global.showPopup("Error", contactError, 'error');
 };
 
 function doGetContactImageUri() {
 	var telno = global.get('telnoCallingTo');
+	alert(telno);
+	
 	if (telno !== "") {
 		if (telno.charAt(0) === "0") {
 			telno = telno.slice(1, telno.length);
@@ -315,7 +316,8 @@ function doGetContactImageUri() {
 	                    //navigator.contacts.fieldType.name, 
 	                    navigator.contacts.fieldType.phoneNumbers];
 	navigator.contacts.find(fields, onSuccessFindContacts, onErrorFindContacts, options);
-
+	
+	global.set('telnoCallingTo', "");
 }
 
 function endCallCheck() {
@@ -421,6 +423,13 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
+	    	// for inbound call with contact's image and name case
+	    	if (global.get('telnoCallingTo') === "" || global.get('telnoCallingTo') === "null" || global.get('telnoCallingTo') === null) {
+	    		window.getCurrentCallNumberFrom(function (data) {
+	    			global.set('telnoCallingTo', data.telno);
+	    	    });
+	    	}
+	    	//----------
 	    	doGetContactImageUri();
 	    	callQualityTimeout();
 			updateTimerScheduled();

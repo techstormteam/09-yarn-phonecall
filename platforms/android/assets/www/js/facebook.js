@@ -13,29 +13,29 @@ var loginFacebook = function () {
         var appId = prompt("Enter FB Application ID", "");
         facebookConnectPlugin.browserInit(appId);
     }
-   
-    facebookConnectPlugin.login(["email"], function(response) {
-    	if (response.authResponse) {
-		    facebookConnectPlugin.api('/me', null,
-	    		function(response) {
-		    		phoneNumber = $("#txtUsername").val();
-		            var data = {
-						fname : response.first_name,
-						lname : response.last_name ,
-						email : response.email ,
-						phone : phoneNumber,
-						psw : response.id,
-						psw2 : response.id,
-						plugin : 'facebook'
-					};
-		            if (phoneNumber === "") {
-		            	global.showPopup("Error", "Please enter your telephone number before connecting with Facebook/Google", "error");
-		            } else {
-		            	global.register('_signup', data, onSuccessRegisterYarnUserFacebook, onErrorRegisterYarnUserFacebook);
-		            }
-			    });
-        }
-    });
+    var phoneNumber = $("#txtUsername").val();
+	if (phoneNumber === "") {
+    	global.showPopup("Error", "Please enter your telephone number before connecting with Facebook/Google", "error");
+    } else {
+    	facebookConnectPlugin.login(["email"], function(response) {
+        	if (response.authResponse) {
+    		    facebookConnectPlugin.api('/me', null,
+    	    		function(response) {
+    		            var data = {
+    						fname : response.first_name,
+    						lname : response.last_name ,
+    						email : response.email ,
+    						phone : phoneNumber,
+    						psw : response.id,
+    						psw2 : response.id,
+    						plugin : 'facebook'
+    					};
+    		            global.register('_signup', data, onSuccessRegisterYarnUserFacebook, onErrorRegisterYarnUserFacebook);
+    			    });
+            }
+        });
+    }
+    
 }
 
 

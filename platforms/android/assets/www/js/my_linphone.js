@@ -161,3 +161,9 @@ window.continueCall = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "ContinueCall", []);
 };
+
+window.getCurrentCallNumberFrom = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetCurrentCallNumberFrom", []);
+};

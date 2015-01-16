@@ -723,6 +723,21 @@ public class LinPhonePlugin extends CordovaPlugin implements
 				}
 			});
 			return true;
+		} else if (action.equals("GetCurrentCallNumberFrom")) {
+			this.cordova.getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					try {
+						JSONObject objJSON = new JSONObject();
+						objJSON.put("telno", getCurrentCallNumberForm());
+						PluginResult result = new PluginResult(Status.OK,
+								objJSON);
+						callbackContext.sendPluginResult(result);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			return true;
 		}
 
 		return false;
@@ -899,6 +914,12 @@ public class LinPhonePlugin extends CordovaPlugin implements
 		return true;
 	}
 
+	public static String getCurrentCallNumberForm() {
+		LinphoneCore lc = LinphoneManager
+				.getLcIfManagerNotDestroyedOrNull();
+		return lc.getCurrentCall().getCallLog().getFrom().getUserName();
+	}
+	
 	private void blockNativeCall() {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
