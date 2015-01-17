@@ -297,7 +297,6 @@ function onErrorFindContacts(contactError) {
 
 function doGetContactImageUri() {
 	var telno = global.get('telnoCallingTo');
-	alert(telno);
 	
 	if (telno !== "") {
 		if (telno.charAt(0) === "0") {
@@ -423,14 +422,17 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
-	    	// for inbound call with contact's image and name case
-	    	if (global.get('telnoCallingTo') === "" || global.get('telnoCallingTo') === "null" || global.get('telnoCallingTo') === null) {
+	    	// for inbound/outbound call with contact's image and name case
+	    	if (global.get('telnoCallingTo') === "" || global.get('telnoCallingTo') === undefined || global.get('telnoCallingTo') === null) {
 	    		window.getCurrentCallNumberFrom(function (data) {
 	    			global.set('telnoCallingTo', data.telno);
+	    			doGetContactImageUri();
 	    	    });
+	    	} else {
+	    		doGetContactImageUri();
 	    	}
 	    	//----------
-	    	doGetContactImageUri();
+	    	
 	    	callQualityTimeout();
 			updateTimerScheduled();
 			endCallCheckingScheduled();

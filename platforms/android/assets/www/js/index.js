@@ -514,15 +514,18 @@ var app = {
 	    	uid = global.get('uid');
 	        telno = global.get('telno');
 	        password = global.get('password');
-                global.login('_id', {telno: telno, password: password}, loginSuccess);
+	        
+            global.login('_id', {telno: telno, password: password}, loginSuccess);
+            
 	        if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
 	            window.location.href = 'login.html';
 	        }
+	        
 	        global.balance('_balance', {telno: telno, password: password}, getBalance);
 	        global.login('_email', {telno: telno, password: password}, getEmail);
 	        global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
 	        global.api("_intersw_params", { telno: telno, password: password}, onSuccessGetInterSwitchInfo);
-	    	global.general();
+	        global.general();
 	        
 	        
 	        console.log('Received Event: ' + id);

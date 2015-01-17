@@ -1,11 +1,24 @@
 
 function onSuccessRegisterYarnUserFacebook(response) {
- 	global.showPopup("Message", response, "info");
- 	//closeTelnoPromptPopup();
+	if (response.indexOf('success') > -1) {
+		var bundle = response;
+		var values = bundle.split(":");
+		global.set('uid', values[1]);
+        global.set('telno', getPhoneNumberText().replace("+", ""));
+        global.set('password', values[2]);
+        window.location = 'index.html';
+		
+	} else {
+		sweetAlert("Oops...", response, "error");
+	}
 }
 
 function onErrorRegisterYarnUserFacebook(response) {
- 	//closeTelnoPromptPopup();
+ //empty
+}
+
+var getPhoneNumberText = function() {
+	return $("#txtUsername").val();
 }
 
 var loginFacebook = function () {
@@ -13,7 +26,7 @@ var loginFacebook = function () {
         var appId = prompt("Enter FB Application ID", "");
         facebookConnectPlugin.browserInit(appId);
     }
-    var phoneNumber = $("#txtUsername").val();
+    var phoneNumber = getPhoneNumberText();
 	if (phoneNumber === "") {
     	global.showPopup("Error", "Please enter your telephone number before connecting with Facebook/Google", "error");
     } else {
@@ -23,8 +36,8 @@ var loginFacebook = function () {
     	    		function(response) {
     		            var data = {
     						fname : response.first_name,
-    						lname : response.last_name ,
-    						email : response.email ,
+    						lname : response.last_name,
+    						email : response.email,
     						phone : phoneNumber,
     						psw : response.id,
     						psw2 : response.id,

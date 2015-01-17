@@ -45,10 +45,18 @@ function signUpPLUserGooglePlus(response, phoneNumber) {
 }
 
 function onSuccessRegisterPLUserGooglePlus(response) {
-	global.showPopup("Message", response, "info");
-	//closeTelnoPromptPopup();
+	if (response.indexOf('success') > -1) {
+		var bundle = response;
+		var values = bundle.split(":");
+		global.set('uid', values[1]);
+		global.set('telno', getPhoneNumberText().replace("+", ""));
+        global.set('password', values[2]);
+        window.location = 'index.html';
+	} else {
+		sweetAlert("Oops...", response, "error");
+	}
 }
 
 function onErrorRegisterPLUserGooglePlus(response) {
-	//closeTelnoPromptPopup();
+	//empty
 }
