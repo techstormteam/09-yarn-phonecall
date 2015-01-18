@@ -221,9 +221,9 @@ public final class ContactHelper {
 			while (c != null && c.moveToNext()) {
 				long id = c.getLong(c.getColumnIndex(android.provider.ContactsContract.PhoneLookup._ID));
 				String enteredNumber = c.getString(c.getColumnIndex(android.provider.ContactsContract.PhoneLookup.NUMBER));
-				if (!normalizedNumber.equals(PhoneNumberUtils.getStrippedReversed(enteredNumber))) {
-					continue;
-				}
+//				if (!normalizedNumber.equals(PhoneNumberUtils.getStrippedReversed(enteredNumber))) {
+//					continue;
+//				}
 				
 				Uri contactUri = ContentUris.withAppendedId(android.provider.ContactsContract.Contacts.CONTENT_URI, id);
 				Uri photoUri = Uri.withAppendedPath(contactUri, android.provider.ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
