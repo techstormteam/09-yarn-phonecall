@@ -30,9 +30,7 @@ var loginFacebook = function () {
 	if (phoneNumber === "") {
     	global.showPopup("Error", "Please enter your telephone number before connecting with Facebook/Google", "error");
     } else {
-        alert("32333");
     	facebookConnectPlugin.login(["email"], function(response) {
-                                    alert('11');
         	if (response.authResponse) {
     		    facebookConnectPlugin.api('/me', null,
     	    		function(response) {
