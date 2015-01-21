@@ -1,6 +1,24 @@
 
- function registerYarnUserFacebook(response) {
- 	alert(response);
+function onSuccessRegisterYarnUserFacebook(response) {
+	if (response.indexOf('success') > -1) {
+		var bundle = response;
+		var values = bundle.split(":");
+		global.set('uid', values[1]);
+        global.set('telno', getPhoneNumberText().replace("+", ""));
+        global.set('password', values[2]);
+        window.location = 'index.html';
+		
+	} else {
+		sweetAlert("Oops...", response, "error");
+	}
+}
+
+function onErrorRegisterYarnUserFacebook(response) {
+ //empty
+}
+
+var getPhoneNumberText = function() {
+	return $("#txtUsername").val();
 }
 
 var loginFacebook = function () {
@@ -8,24 +26,31 @@ var loginFacebook = function () {
         var appId = prompt("Enter FB Application ID", "");
         facebookConnectPlugin.browserInit(appId);
     }
-   
-    facebookConnectPlugin.login(["email"], function(response) {
-    	if (response.authResponse) {
-		    facebookConnectPlugin.api('/me', null,
-	    		function(response) {
-		            var data = {
-						fname : response.first_name,
-						lname : response.last_name ,
-						email : response.email ,
-						phone : '',
-						psw : response.id,
-						psw2 : response.id,
-						plugin : 'facebook'
-					};
-		            global.register('_signup', data, registerYarnUserFacebook);
-			    });
-        }
-    });
+    var phoneNumber = getPhoneNumberText();
+	if (phoneNumber === "") {
+    	global.showPopup("Error", "Please enter your telephone number before connecting with Facebook/Google", "error");
+    } else {
+        alert("32333");
+    	facebookConnectPlugin.login(["email"], function(response) {
+                                    alert('11');
+        	if (response.authResponse) {
+    		    facebookConnectPlugin.api('/me', null,
+    	    		function(response) {
+    		            var data = {
+    						fname : response.first_name,
+    						lname : response.last_name,
+    						email : response.email,
+    						phone : phoneNumber,
+    						psw : response.id,
+    						psw2 : response.id,
+    						plugin : 'facebook'
+    					};
+    		            global.register('_signup', data, onSuccessRegisterYarnUserFacebook, onErrorRegisterYarnUserFacebook);
+    			    });
+            }
+        });
+    }
+    
 }
 
 

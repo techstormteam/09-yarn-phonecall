@@ -243,7 +243,6 @@ function doHangUp() {
         	window.location.href = 'index.html';
         }
     });    
-    
 }
 
 function doMicMute(enable) {
@@ -279,7 +278,7 @@ function doHome() {
 }
 
 function onSuccessFindContacts(contacts) {
-    if (contacts.length > 0) {
+	if (contacts.length > 0) {
         //alert(JSON.stringify(contacts));
     	if (contacts[0].photos !== null && contacts[0].photos.length > 0) {
     		$('[data-id="avatar"]').find('img').attr('src', contacts[0].photos[0].value);
@@ -293,11 +292,12 @@ function onSuccessFindContacts(contacts) {
 };
 
 function onErrorFindContacts(contactError) {
-    alert('onError!');
+    global.showPopup("Error", contactError, 'error');
 };
 
 function doGetContactImageUri() {
 	var telno = global.get('telnoCallingTo');
+	
 	if (telno !== "") {
 		if (telno.charAt(0) === "0") {
 			telno = telno.slice(1, telno.length);
@@ -315,7 +315,8 @@ function doGetContactImageUri() {
 	                    //navigator.contacts.fieldType.name, 
 	                    navigator.contacts.fieldType.phoneNumbers];
 	navigator.contacts.find(fields, onSuccessFindContacts, onErrorFindContacts, options);
-
+	
+	global.set('telnoCallingTo', "");
 }
 
 function endCallCheck() {
@@ -421,7 +422,17 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
 	    	global.general();
-	    	doGetContactImageUri();
+	    	// for inbound/outbound call with contact's image and name case
+	    	if (global.get('telnoCallingTo') === "" || global.get('telnoCallingTo') === undefined || global.get('telnoCallingTo') === null) {
+	    		window.getCurrentCallNumberFrom(function (data) {
+	    			global.set('telnoCallingTo', data.telno);
+	    			doGetContactImageUri();
+	    	    });
+	    	} else {
+	    		doGetContactImageUri();
+	    	}
+	    	//----------
+	    	
 	    	callQualityTimeout();
 			updateTimerScheduled();
 			endCallCheckingScheduled();

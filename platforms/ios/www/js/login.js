@@ -33,7 +33,7 @@ function updateSize(totalWidth, totalHeight) {
     
     
     intro.height(oneSixth * 2);
-    formSubmit.height(oneSixth - 10);
+    formSubmit.height(oneSixth - 30);
     formSubmit.first('a').css('lineHeight', (((totalHeight / 6 * 2) / 5)) + 'px');
     formSubmit.children('div').css('marginTop', formSubmit.height() - formSubmit.children('div').height());
     formSubmit.css('top', (totalHeight - formSubmit.children('div').height() - formSubmit.children('div').children('div').height()) +'px');
@@ -48,7 +48,7 @@ function updateSize(totalWidth, totalHeight) {
     
     
     var widthSocialButton = totalWidth * 3/5;
-    socialButton.height(totalHeight - sub);
+    socialButton.height(totalHeight - sub - 30);
     googleButton.height((socialButton.height() - 6) / 2 -2);
     googleButton.css('line-height', ((socialButton.height() - 6) / 2) + 'px');
     googleButton.css('width', widthSocialButton);
@@ -84,9 +84,6 @@ $(window).resize(function () {
 	
 	if (window.orientation === -90 || window.orientation === 90 ) {
 		if (portrait) {
-//			var temp = totalHeight;
-//			totalHeight = totalWidth - 40;
-//		    totalWidth = temp;
 		    portrait = !portrait;
 		    totalHeight = $(window).height();
 		    totalWidth = $(window).width();
@@ -95,9 +92,6 @@ $(window).resize(function () {
 		
 	} else if (window.orientation === 0 || window.orientation === 180) {
 		if (!portrait) { // landscape
-//			var temp = totalHeight;
-//			totalHeight = totalWidth;
-//		    totalWidth = temp + 40;
 		    portrait = !portrait;
 		    totalHeight = $(window).height();
 		    totalWidth = $(window).width();
@@ -106,6 +100,7 @@ $(window).resize(function () {
 		
 	}
 	
+	//updateSize($(window).width(), $(window).height());
 	
 });
 
@@ -175,8 +170,6 @@ function btnHandler(object) {
     		}
 	    });
     }
-    
-    
  
 var app = {
 	    // Application Constructor
@@ -199,10 +192,6 @@ var app = {
 	    },
 	    // Update DOM on a Received Event
 	    receivedEvent: function (id) {
-	    	//alert(true);
-	    	
-//	    	$("#video1").play();
-	    	//alert(false);
-	        console.log('Received Event: ' + id);
+	    	$('.dialog').hide();
 	    }
 	};

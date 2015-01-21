@@ -80,7 +80,7 @@ function updateHeight() {
     $('.dial-row').css('height', rowHeight);
     $('.dial-row div').css('line-height', rowHeight + "px");
     $('.dial-row div img').css('height', rowHeight + "px");
-    $('.ts-numpad').css('margin-top', -rowHeight/2 + "px");
+//    $('.ts-numpad').css('margin-top', -rowHeight/2 + "px");
 }
 
 $(document).ready(function () {
@@ -109,6 +109,10 @@ function msgReturn(response) {
 function msgError(error) {
     //alert(error);
 }
+
+$(document).ready(function() {
+	$('.dialog').hide();
+});
 
 $(window).resize(function () {
     updateHeight();
@@ -510,16 +514,19 @@ var app = {
 	    	uid = global.get('uid');
 	        telno = global.get('telno');
 	        password = global.get('password');
-                global.login('_id', {telno: telno, password: password}, loginSuccess);
+	        
+            global.login('_id', {telno: telno, password: password}, loginSuccess);
+            
 	        if (uid === undefined || global.get('uid') === '' || global.get('uid') === null) {
 	            window.location.href = 'login.html';
 	        }
+	        
 	        global.balance('_balance', {telno: telno, password: password}, getBalance);
 	        global.login('_email', {telno: telno, password: password}, getEmail);
 	        global.api("_user_ccy", { telno: telno, password: password}, onSuccessGetCurrency);
 	        global.api("_intersw_params", { telno: telno, password: password}, onSuccessGetInterSwitchInfo);
-	    	global.general();
-	        $('.dialog').hide();
+	        global.general();
+	        
 	        
 	        console.log('Received Event: ' + id);
 	    }

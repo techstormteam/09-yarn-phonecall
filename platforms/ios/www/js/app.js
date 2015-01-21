@@ -271,7 +271,7 @@ function Global() {
     };
     
     this.register = function (cmd, data, callback_success, callback_error, callback_complete) {
-        var url = this.getSendApiUrl() + '?cmd=' + cmd + '&fname=' + data.fname + '&lname=' + data.lname + '&email=' + data.email + '&phone=' + data.phone + '&psw=' + data.psw + '&psw2=' + data.psw2;
+        var url = this.getSendApiUrl() + '?cmd=' + cmd;
         if (this.debug === true) {
             LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
         }
@@ -279,7 +279,8 @@ function Global() {
             type: 'GET',
             url: url,
             crossDomain: false,
-            cache: false
+            cache: false,
+            data: data
         }).success(function (data) {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
@@ -298,7 +299,7 @@ function Global() {
     };
     
     this.forgot = function (cmd, data, callback_success, callback_error, callback_complete) {
-        var url = this.getSendApiUrl() + '?cmd=' + cmd + '&email=' + data.email + '&phone=' + data.phone;
+        var url = this.getSendApiUrl() + '?cmd=' + cmd;
         if (this.debug === true) {
             LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
         }
@@ -306,7 +307,8 @@ function Global() {
             type: 'GET',
             url: url,
             crossDomain: false,
-            cache: false
+            cache: false,
+            data: data
         }).success(function (data) {
             if (this.debug === true) {
                 LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
@@ -804,17 +806,17 @@ function doCallLogs() {
 }
 
 function doPhoneContacts() {
-//    navigator.contacts.pickContact(function(contact){
-//                                   alert(JSON.stringify(contact));
-//                                   if (contact.phoneNumbers !== null && contact.phoneNumbers.length > 0) {
-//                                        setDialedNumber(contact.phoneNumbers[0].value);
-//                                   }
-//    },function(err){
-//        console.log('Error: ' + err);
-//    });
+	//  navigator.contacts.pickContact(function(contact){
+	//  alert(JSON.stringify(contact));
+	//  if (contact.phoneNumbers !== null && contact.phoneNumbers.length > 0) {
+	//       setDialedNumber(contact.phoneNumbers[0].value);
+	//  }
+	//},function(err){
+	//console.log('Error: ' + err);
+	//});
 	window.phoneContacts("", function (message) {
-        //empty
-    });
+	//empty
+	});
 }
 
 function openlink(url) {

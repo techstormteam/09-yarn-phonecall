@@ -295,8 +295,8 @@ static LinphoneAppDelegate* appInstance = nil;
     
     timerAppBG = [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(applicationWillResign) userInfo:nil repeats:YES];
     
-    [self enableCodecs:linphone_core_get_audio_codecs([LinphoneManager getLc])];
-    [self enableCodecs:linphone_core_get_video_codecs([LinphoneManager getLc])];
+//    [self enableCodecs:linphone_core_get_audio_codecs([LinphoneManager getLc])];
+//    [self enableCodecs:linphone_core_get_video_codecs([LinphoneManager getLc])];
     
     return YES;
 }

@@ -29,11 +29,15 @@
         <div data-id="form-login">
             <div class="input-vgroup">
             	<form class="form" action="#" method="GET">
-                <input id="txtUsername" class="control-input" placeholder="Username" name="txtUsername" type="text" />
+            	<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset">
+                	<input id="txtUsername" class="control-input" placeholder="Yarn Telno" name="txtUsername" type="text" />
+                </div>
                 </form>
                 <form class="form" action="#" method="GET">
                 <div class="input-group control-input">
-	                <input id="txtPass" placeholder="Password" name="txtPass" type="password" />
+                	<div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset">
+	                	<input id="txtPass" placeholder="Password" name="txtPass" type="password" />
+	                </div>
 		                <span class="input-group-addon" onclick="togglePasswordView(this)" style="cursor:pointer">
 		                    <span class="glyphicon glyphicon-eye-open"></span>
 		                </span>
@@ -72,7 +76,9 @@
                 </div>
             </div>
         </div>
+		
 
+		
         <!--SCRIPT-->
         <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
         <script>

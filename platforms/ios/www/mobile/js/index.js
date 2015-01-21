@@ -134,6 +134,13 @@ function Global() {
         }
     };
 
+    this.showPopup = function(title, message, type) {
+        if (type === null || type === '') {
+            sweetAlert(title,message,'error');
+        } else {
+            sweetAlert(title, message, type);
+        }
+    };
     
     this.infoApi = function (cmd, data, callback_success, callback_error, callback_complete) {
         var url = this.getInfoUrl() + '?cmd=' + cmd + '&ts=' + Math.round(+new Date() / 1000);
@@ -211,16 +218,18 @@ function Global() {
     
     this.initPaymentUI = function () {
 	        var clientIDs = {
-	        	"PayPalEnvironmentProduction": "Af5OMBDPiR6VBFuSRvHX0zDUzs8mlZKXxKg7MC9_-Wzql61o-0f3lQbbB3-m"
-		        ,"PayPalEnvironmentSandbox": "AaAKIxBQm2C5B81YE0hrTaJfFieg597VBHPpnA3vydQdWkSKREaPVnXmIOMO"
+	        	"PayPalEnvironmentProduction": "Af5OMBDPiR6VBFuSRvHX0zDUzs8mlZKXxKg7MC9_-Wzql61o-0f3lQbbB3-m",
+		        "PayPalEnvironmentSandbox": "AaAKIxBQm2C5B81YE0hrTaJfFieg597VBHPpnA3vydQdWkSKREaPVnXmIOMO"
 	        };
 	        PayPalMobile.init(clientIDs, global.onPayPalMobileInit);
     };
         
     this.onSuccesfulPayment = function(payment) {
+    	global.showPopup("Paypal","Payment Success!","info");
         console.log("payment success: " + JSON.stringify(payment, null, 4));
     };
     this.onFuturePaymentAuthorization = function(authorization) {
+    	global.showPopup("Paypal","Payment Success!","info");
     	console.log("authorization: " + JSON.stringify(authorization, null, 4));
     };
     this.createPayment = function () {
