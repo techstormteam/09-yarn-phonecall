@@ -917,6 +917,13 @@ public class LinPhonePlugin extends CordovaPlugin implements
 	public static String getCurrentCallNumberForm() {
 		LinphoneCore lc = LinphoneManager
 				.getLcIfManagerNotDestroyedOrNull();
+		if (lc == null
+				|| lc.getCurrentCall() == null
+				|| lc.getCurrentCall().getCallLog() == null
+				|| lc.getCurrentCall().getCallLog().getFrom() == null
+				|| lc.getCurrentCall().getCallLog().getFrom().getUserName() == null) {
+			return "";
+		}
 		return lc.getCurrentCall().getCallLog().getFrom().getUserName();
 	}
 	
