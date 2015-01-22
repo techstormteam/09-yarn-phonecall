@@ -12,10 +12,13 @@
 
 @interface FacebookConnectPlugin ()
 
-@property (strong, nonatomic) NSString *userid;
+@property (strong, nonatomic) NSString* userid;
 @property (strong, nonatomic) NSString* loginCallbackId;
 @property (strong, nonatomic) NSString* dialogCallbackId;
 @property (strong, nonatomic) NSString* graphCallbackId;
+@property (strong, nonatomic) NSArray* permissions;
+@property (strong, nonatomic) NSString* graphPath;
+@property (strong, nonatomic) NSArray* permissionsNeeded;
 
 @end
 
@@ -257,12 +260,12 @@
     [self.commandDelegate runInBackground:^{
     BOOL permissionsAllowed = YES;
     NSString *permissionsErrorMessage = @"";
-    NSArray *permissions = nil;
+    self.permissions = nil;
     CDVPluginResult *pluginResult;
     if ([command.arguments count] > 0) {
-        permissions = command.arguments;
+        self.permissions = command.arguments;
     }
-    if (permissions == nil) {
+    if (self.permissions == nil) {
         // We need permissions
         permissionsErrorMessage = @"No permissions specified at login";
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
@@ -283,7 +286,7 @@
         BOOL publishPermissionFound = NO;
         BOOL readPermissionFound = NO;
         
-        for (NSString *p in permissions) {
+        for (NSString *p in self.permissions) {
             if ([self isPublishPermission:p]) {
                 publishPermissionFound = YES;
             } else {
@@ -303,7 +306,7 @@
         } else if (publishPermissionFound) {
             // Only publish permissions
             [FBSession.activeSession
-             requestNewPublishPermissions:permissions
+             requestNewPublishPermissions:self.permissions
              defaultAudience:FBSessionDefaultAudienceFriends
              completionHandler:^(FBSession *session, NSError *error) {
                 [self sessionStateChanged:session
@@ -313,7 +316,7 @@
         } else {
             // Only read permissions
             [FBSession.activeSession
-             requestNewReadPermissions:permissions
+             requestNewReadPermissions:self.permissions
              completionHandler:^(FBSession *session, NSError *error) {
                  [self sessionStateChanged:session
                                      state:session.state
@@ -323,9 +326,9 @@
     } else {
         // Initial log in, can only ask to read
         // type permissions
-        if ([self areAllPermissionsReadPermissions:permissions]) {
+        if ([self areAllPermissionsReadPermissions:self.permissions]) {
             [FBSession
-             openActiveSessionWithReadPermissions:permissions
+             openActiveSessionWithReadPermissions:self.permissions
              allowLoginUI:YES
              completionHandler:^(FBSession *session,
                                  FBSessionState state,
@@ -505,19 +508,17 @@
 
 - (void) graphApi:(CDVInvokedUrlCommand *)command
 {
-    [self.commandDelegate runInBackground:^{
     // Save the callback ID
     self.graphCallbackId = command.callbackId;
-    
     NSString *graphPath = [command argumentAtIndex:0];
-    NSArray *permissionsNeeded = [command argumentAtIndex:1];
+    self.permissionsNeeded = [command argumentAtIndex:1];
     
     // We will store here the missing permissions that we will have to request
     NSMutableArray *requestPermissions = [[NSMutableArray alloc] initWithArray:@[]];
     
     // Check if all the permissions we need are present in the user's current permissions
     // If they are not present add them to the permissions to be requested
-    for (NSString *permission in permissionsNeeded){
+    for (NSString *permission in self.permissionsNeeded){
         if (![[[FBSession activeSession] permissions] containsObject:permission]) {
             [requestPermissions addObject:permission];
         }
@@ -533,7 +534,7 @@
                  // Permission granted
                  NSLog(@"new permissions %@", [FBSession.activeSession permissions]);
                  // We can request the user information
-                 [self makeGraphCall:graphPath];
+                 [self makeGraphCall:self.graphPath];
              } else {
                  // An error occurred, we need to handle the error
                  // See: https://developers.facebook.com/docs/ios/errors
@@ -544,12 +545,11 @@
         // We can request the user information
         [self makeGraphCall:graphPath];
     }
-    }];
+
 }
 
 - (void) makeGraphCall:(NSString *)graphPath
 {
-    
     NSLog(@"Graph Path = %@", graphPath);
     [FBRequestConnection
      startWithGraphPath: graphPath
