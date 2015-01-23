@@ -49,12 +49,15 @@ function updateSize(totalWidth, totalHeight) {
     
     var widthSocialButton = totalWidth * 3/5;
     socialButton.height(totalHeight - sub - 30);
+    var lineHeight = ((socialButton.height() - 6) / 2);
     googleButton.height((socialButton.height() - 6) / 2 -2);
-    googleButton.css('line-height', ((socialButton.height() - 6) / 2) + 'px');
+    googleButton.css('line-height', lineHeight + 'px');
     googleButton.css('width', widthSocialButton);
+    googleButton.css('font-size', lineHeight/3);
     fbButton.height((socialButton.height() - 6) / 2 - 2);
-    fbButton.css('line-height', ((socialButton.height() - 6) / 2) + 'px');
+    fbButton.css('line-height', lineHeight + 'px');
     fbButton.css('width', widthSocialButton);
+    fbButton.css('font-size', lineHeight/3);
     
     
 }
