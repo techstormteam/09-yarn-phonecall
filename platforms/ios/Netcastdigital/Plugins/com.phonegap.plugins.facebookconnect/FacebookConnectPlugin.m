@@ -10,7 +10,9 @@
 
 #import "FacebookConnectPlugin.h"
 
-@interface FacebookConnectPlugin ()
+@interface FacebookConnectPlugin () {
+    
+}
 
 @property (strong, nonatomic) NSString* userid;
 @property (strong, nonatomic) NSString* loginCallbackId;
@@ -19,6 +21,12 @@
 @property (strong, nonatomic) NSArray* permissions;
 @property (strong, nonatomic) NSString* graphPath;
 @property (strong, nonatomic) NSArray* permissionsNeeded;
+@property (strong, nonatomic) NSNumber* permissionsAllowed;
+@property (strong, nonatomic) NSNumber* publishPermissionFound;
+@property (strong, nonatomic) NSNumber* readPermissionFound;
+@property (strong, nonatomic) NSString* permissionsErrorMessage;
+@property (strong, nonatomic) NSString* per;
+@property (strong, nonatomic) NSNumber* index;
 
 @end
 
@@ -157,24 +165,27 @@
 /*
  * Check if a permision is a read permission.
  */
-- (BOOL)isPublishPermission:(NSString*)permission {
-    return [permission hasPrefix:@"publish"] ||
-    [permission hasPrefix:@"manage"] ||
-    [permission isEqualToString:@"ads_management"] ||
-    [permission isEqualToString:@"create_event"] ||
-    [permission isEqualToString:@"rsvp_event"];
+- (NSNumber*)isPublishPermission:(NSString*)permission {
+    if ([permission hasPrefix:@"publish"] ||
+            [permission hasPrefix:@"manage"] ||
+            [permission isEqualToString:@"ads_management"] ||
+            [permission isEqualToString:@"create_event"] ||
+            [permission isEqualToString:@"rsvp_event"]) {
+        return @YES;
+    }
+    return @NO;
 }
 
 /*
  * Check if all permissions are read permissions.
  */
-- (BOOL)areAllPermissionsReadPermissions:(NSArray*)permissions {
+- (NSNumber*)areAllPermissionsReadPermissions:(NSArray*)permissions {
     for (NSString *permission in permissions) {
-        if ([self isPublishPermission:permission]) {
-            return NO;
+        if ([[self isPublishPermission:permission] isEqual:@YES]) {
+            return @NO;
         }
     }
-    return YES;
+    return @YES;
 }
 
 - (void)getLoginStatus:(CDVInvokedUrlCommand *)command {
@@ -257,20 +268,21 @@
 }
 
 - (void)login:(CDVInvokedUrlCommand *)command {
-    [self.commandDelegate runInBackground:^{
-    BOOL permissionsAllowed = YES;
-    NSString *permissionsErrorMessage = @"";
+    
+    self.permissionsAllowed = @YES;
+    self.permissionsErrorMessage = @"";
     self.permissions = nil;
-    CDVPluginResult *pluginResult;
     if ([command.arguments count] > 0) {
         self.permissions = command.arguments;
     }
     if (self.permissions == nil) {
         // We need permissions
-        permissionsErrorMessage = @"No permissions specified at login";
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                         messageAsString:permissionsErrorMessage];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        self.permissionsErrorMessage = @"No permissions specified at login";
+        [self.commandDelegate runInBackground:^{
+            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                             messageAsString:self.permissionsErrorMessage];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }];
         return;
     }
     
@@ -283,27 +295,28 @@
         // In this instance we can ask for publish type
         // or read type only if taking advantage of iOS6.
         // To mix both, we'll use deprecated methods
-        BOOL publishPermissionFound = NO;
-        BOOL readPermissionFound = NO;
-        
-        for (NSString *p in self.permissions) {
-            if ([self isPublishPermission:p]) {
-                publishPermissionFound = YES;
+        self.publishPermissionFound = @NO;
+        self.readPermissionFound = @NO;
+        self.index = [NSNumber numberWithInt:0];
+        for (self.index = 0; [self.index integerValue] < [self.permissions count]; self.index = [NSNumber numberWithInt:self.index.integerValue+1]) {
+            self.per = [self.permissions objectAtIndex:[self.index integerValue]];
+            if ([[self isPublishPermission:self.per] isEqual:@YES]) {
+                self.publishPermissionFound = @YES;
             } else {
-                readPermissionFound = YES;
+                self.readPermissionFound = @YES;
             }
             
             // If we've found one of each we can stop looking.
-            if (publishPermissionFound && readPermissionFound) {
+            if (self.publishPermissionFound && self.readPermissionFound) {
                 break;
             }
         }
         
-        if (publishPermissionFound && readPermissionFound) {
+        if ([self.publishPermissionFound  isEqual:@YES] && [self.readPermissionFound  isEqual:@YES]) {
             // Mix of permissions, not allowed
-            permissionsAllowed = NO;
-            permissionsErrorMessage = @"Your app can't ask for both read and write permissions.";
-        } else if (publishPermissionFound) {
+            self.permissionsAllowed = @NO;
+            self.permissionsErrorMessage = @"Your app can't ask for both read and write permissions.";
+        } else if ([self.publishPermissionFound isEqual:@YES]) {
             // Only publish permissions
             [FBSession.activeSession
              requestNewPublishPermissions:self.permissions
@@ -326,7 +339,7 @@
     } else {
         // Initial log in, can only ask to read
         // type permissions
-        if ([self areAllPermissionsReadPermissions:self.permissions]) {
+        if ([[self areAllPermissionsReadPermissions:self.permissions] isEqual:@YES]) {
             [FBSession
              openActiveSessionWithReadPermissions:self.permissions
              allowLoginUI:YES
@@ -338,17 +351,19 @@
                                      error:error];
              }];
         } else {
-            permissionsAllowed = NO;
-            permissionsErrorMessage = @"You can only ask for read permissions initially";
+            self.permissionsAllowed = @NO;
+            self.permissionsErrorMessage = @"You can only ask for read permissions initially";
         }
     }
     
-    if (!permissionsAllowed) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                         messageAsString:permissionsErrorMessage];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.loginCallbackId];
-    }
+    if ([self.permissionsAllowed  isEqual:@NO]) {
+        [self.commandDelegate runInBackground:^{
+            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                             messageAsString:self.permissionsErrorMessage];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.loginCallbackId];
         }];
+    }
+        
 }
 
 - (void) logout:(CDVInvokedUrlCommand*)command

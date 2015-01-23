@@ -17,6 +17,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */                                                                           
 
+#import <FacebookSDK/FacebookSDK.h>
 #import "PhoneMainView.h"
 #import "linphoneAppDelegate.h"
 #import "AddressBook/ABPerson.h"
@@ -295,8 +296,8 @@ static LinphoneAppDelegate* appInstance = nil;
     
     timerAppBG = [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(applicationWillResign) userInfo:nil repeats:YES];
     
-//    [self enableCodecs:linphone_core_get_audio_codecs([LinphoneManager getLc])];
-//    [self enableCodecs:linphone_core_get_video_codecs([LinphoneManager getLc])];
+    [self enableCodecs:linphone_core_get_audio_codecs([LinphoneManager getLc])];
+    [self enableCodecs:linphone_core_get_video_codecs([LinphoneManager getLc])];
     
     return YES;
 }
@@ -414,6 +415,8 @@ static LinphoneAppDelegate* appInstance = nil;
             if(controller != nil) {
                 [controller setAddress:[url absoluteString]];
             }
+        } else if ([[url scheme] rangeOfString:@"fb"].location != NSNotFound) {
+            [FBSession.activeSession handleOpenURL:url];
         }
     }
 	return YES;
