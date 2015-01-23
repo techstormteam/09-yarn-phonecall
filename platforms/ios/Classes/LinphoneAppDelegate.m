@@ -18,6 +18,7 @@
  */                                                                           
 
 #import <FacebookSDK/FacebookSDK.h>
+#import <GooglePlus/GooglePlus.h>
 #import "PhoneMainView.h"
 #import "linphoneAppDelegate.h"
 #import "AddressBook/ABPerson.h"
@@ -415,11 +416,34 @@ static LinphoneAppDelegate* appInstance = nil;
             if(controller != nil) {
                 [controller setAddress:[url absoluteString]];
             }
-        } else if ([[url scheme] rangeOfString:@"fb"].location != NSNotFound) {
-            [FBSession.activeSession handleOpenURL:url];
         }
     }
 	return YES;
+}
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    NSLog(@"%@", [url scheme]);
+    
+//    if ([[url scheme] rangeOfString:@"fb"].location != NSNotFound) {
+//        [FBSession.activeSession handleOpenURL:url];
+//    } else {
+//        GPPSignIn *signIn = [GPPSignIn sharedInstance];
+//        [signIn handleURL:url sourceApplication:nil annotation:nil];
+//    }
+    
+    if ([[url scheme] rangeOfString:@"fb"].location != NSNotFound)
+    {
+        
+        return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+//        return [FBSession.activeSession handleOpenURL:url];
+    }
+    else
+    {
+        
+        return [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
+        
+    }
 }
 
 - (void)fixRing{

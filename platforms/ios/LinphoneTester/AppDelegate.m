@@ -20,6 +20,31 @@
     }
     return YES;
 }
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    NSLog(@"%@", [url scheme]);
+    
+    //    if ([[url scheme] rangeOfString:@"fb"].location != NSNotFound) {
+    //        [FBSession.activeSession handleOpenURL:url];
+    //    } else {
+    //        GPPSignIn *signIn = [GPPSignIn sharedInstance];
+    //        [signIn handleURL:url sourceApplication:nil annotation:nil];
+    //    }
+    
+    if ([[url scheme] rangeOfString:@"fb"].location != NSNotFound)
+    {
+        
+        return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+        //        return [FBSession.activeSession handleOpenURL:url];
+    }
+    else
+    {
+        
+        return [GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation];
+        
+    }
+}
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

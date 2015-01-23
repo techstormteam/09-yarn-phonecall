@@ -13,44 +13,47 @@
 
 @interface GoogleConnectPlugin ()
 {
-    CDVInvokedUrlCommand *callbackCmd;
+    
 }
+
+@property (strong, nonatomic) GPPSignIn* signIn;
+@property (strong, nonatomic) CDVInvokedUrlCommand *callbackCmd;
+@property (strong, nonatomic) CDVPluginResult *pluginResult;
+
 @end
 
 @implementation GoogleConnectPlugin
 
 - (void) cordovaGooglePlusLogin:(CDVInvokedUrlCommand *)command {
-    [self.commandDelegate runInBackground:^{
-    callbackCmd=command;
+    self.callbackCmd=command;
     
     //Google Plus Methods
-    GPPSignIn *signIn = [GPPSignIn sharedInstance];
-    signIn.shouldFetchGooglePlusUser = YES;
+    self.signIn = [GPPSignIn sharedInstance];
+    self.signIn.shouldFetchGooglePlusUser = YES;
     //signIn.shouldFetchGoogleUserEmail = YES;  // Uncomment to get the user's email
     
     // You previously set kClientId in the "Initialize the Google+ client" step
-    signIn.clientID =[[NSBundle mainBundle] objectForInfoDictionaryKey:@"GPlusClientID"];
+    self.signIn.clientID =[[NSBundle mainBundle] objectForInfoDictionaryKey:@"GPlusClientID"];
     
     //NSString *appVersion =[[NSBundle mainBundle] objectForInfoDictionaryKey:@"GPlusClientID";
     
     // Uncomment one of these two statements for the scope you chose in the previous step
-    signIn.scopes = @[ kGTLAuthScopePlusLogin ];  // "https://www.googleapis.com/auth/plus.login" scope
+    self.signIn.scopes = @[ kGTLAuthScopePlusLogin ];  // "https://www.googleapis.com/auth/plus.login" scope
     //signIn.scopes = @[ @"profile" ];            // "profile" scope
     
     // Optional: declare signIn.actions, see "app activities"
-    signIn.delegate = self;
-    [signIn authenticate];
-        }];
+    self.signIn.delegate = self;
+    [self.signIn authenticate];
 }
 
 - (void) cordovaGooglePlusLogout:(CDVInvokedUrlCommand *)command {
     [self.commandDelegate runInBackground:^{
-    callbackCmd=command;
+    self.callbackCmd=command;
     
  [[GPPSignIn sharedInstance] signOut];
  [[GPPSignIn sharedInstance] disconnect];
  CDVPluginResult *pluginResult = [ CDVPluginResult resultWithStatus    : CDVCommandStatus_OK];
-     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackCmd.callbackId];
+     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackCmd.callbackId];
  }];
 }
 #pragma mark - Social Media Callback Methods
@@ -58,9 +61,9 @@
 
 -(void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error {
 
-    GPPSignIn *signIn = [GPPSignIn sharedInstance];
+    self.signIn = [GPPSignIn sharedInstance];
 
-    if (signIn.authentication) {
+    if (self.signIn.authentication) {
         NSLog(@"Login Status: Authenticated");
         //NSLog(@"Name:%@, ProfilePic:%@, Email:%@ About me:%@, UserID:%@",person.displayName,person.image.url,[GPPSignIn sharedInstance].authentication.userEmail,person.aboutMe,person.identifier);
         [[[GPPSignIn sharedInstance] plusService] executeQuery:[GTLQueryPlus queryForPeopleGetWithUserId:@"me"] completionHandler:^(GTLServiceTicket *ticket, GTLPlusPerson *person, NSError *error)
@@ -80,10 +83,10 @@
                  // Create an instance of CDVPluginResult, with an OK status code.
                  // Set the return message as the Dictionary object (jsonObj)...
                  // ... to be serialized as JSON in the browser
-                 CDVPluginResult *pluginResult = [ CDVPluginResult resultWithStatus    : CDVCommandStatus_OK messageAsDictionary : personDetails];
+                 self.pluginResult = [ CDVPluginResult resultWithStatus    : CDVCommandStatus_OK messageAsDictionary : personDetails];
                  // Execute sendPluginResult on this plugin's commandDelegate, passing in the ...
                  // ... instance of CDVPluginResult
-                 [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackCmd.callbackId];
+                 [self.commandDelegate sendPluginResult:self.pluginResult callbackId:self.callbackCmd.callbackId];
              }
              
          }];
@@ -98,7 +101,7 @@
         NSLog(@"Login Status: Not Authenticated");
         // ... to be serialized as JSON in the browser
         CDVPluginResult *pluginResult =[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString: @"Error in Login"];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackCmd.callbackId];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackCmd.callbackId];
         [[GPPSignIn sharedInstance] authenticate];
     }
     

@@ -39,7 +39,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>urn:ietf:wg:oauth:2.0:oob</string>
+				<string>com.iderainc.yarn</string>
 				<string>fb955572971120384</string>
 			</array>
 		</dict>
