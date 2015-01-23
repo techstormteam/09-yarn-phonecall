@@ -53,11 +53,11 @@ function updateSize(totalWidth, totalHeight) {
     googleButton.height((socialButton.height() - 6) / 2 -2);
     googleButton.css('line-height', lineHeight + 'px');
     googleButton.css('width', widthSocialButton);
-    googleButton.css('font-size', lineHeight/3);
+    googleButton.css('font-size', lineHeight/2);
     fbButton.height((socialButton.height() - 6) / 2 - 2);
     fbButton.css('line-height', lineHeight + 'px');
     fbButton.css('width', widthSocialButton);
-    fbButton.css('font-size', lineHeight/3);
+    fbButton.css('font-size', lineHeight/2);
     
     
 }
