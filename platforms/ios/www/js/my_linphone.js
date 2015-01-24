@@ -167,3 +167,9 @@ window.getCurrentCallNumberFrom = function(callback) {
         callback(err);
     }, "LinPhonePlugin", "GetCurrentCallNumberFrom", []);
 };
+
+window.getNumberOfCallLogs = function(callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "GetNumberOfCallLogs", []);
+};

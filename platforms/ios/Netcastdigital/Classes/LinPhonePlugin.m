@@ -387,6 +387,24 @@ static void audioRouteChangeListenerCallback (
         [self successReturn:command];
     }];
 }
+- (void) GetNumberOfCallLogs:(CDVInvokedUrlCommand *)command {
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                        initWithObjectsAndKeys :
+                                        @"true", @"success",
+                                        nil
+                                        ];
+        const MSList * logs = linphone_core_get_call_logs([LinphoneManager getLc]);
+        int count = 0;
+        while(logs != NULL) {
+            count++;
+            logs = ms_list_next(logs);
+        }
+        [jsonObj setObject:[NSNumber numberWithInt:count] forKey:COUNT_CALL_LOG];
+        [self successReturn:command jsonObj:jsonObj];
+    }];
+}
+
 
 
 //------------

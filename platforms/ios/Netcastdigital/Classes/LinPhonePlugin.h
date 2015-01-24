@@ -21,6 +21,7 @@
 #define QUALITY @"quality"
 #define TIME @"time"
 #define END_CALL @"endCall"
+#define COUNT_CALL_LOG @"count"
 #define STATE @"state"
 #define PHONE_NUMBER_LIST @"phone_number_list"
 #define SUCCESS_STATUS @"success"
@@ -57,6 +58,7 @@
 - (void) BlockNativeCall:(CDVInvokedUrlCommand *)command;
 - (void) AllowNativeCall:(CDVInvokedUrlCommand *)command;
 - (void) StartVideoActivity:(CDVInvokedUrlCommand *)command;
+- (void) GetNumberOfCallLogs:(CDVInvokedUrlCommand *)command;
 
 + (void) doRegisterSip:(NSString *)sipUsername password:(NSString*)password domain:(NSString*)domain registerStatus:(NSString*)registerStatus;
 + (void) doLogIn:(NSString*)sipUsername password:(NSString*)password domain:(NSString*)domain;

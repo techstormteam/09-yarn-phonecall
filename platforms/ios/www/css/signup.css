@@ -93,7 +93,7 @@ hr {
 
 .input-vgroup input {
     padding: 0 0.4em;
-    line-height: 1em;
+    line-height: 0em;
 }
 
 .btn-submit {

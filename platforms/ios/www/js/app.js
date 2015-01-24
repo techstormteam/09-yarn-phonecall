@@ -800,8 +800,14 @@ function togglePasswordView(elm) {
 }
 
 function doCallLogs() {
-	window.callLogs("", function (message) {
-        //empty
+	window.getNumberOfCallLogs(function (response) {
+		if (response.count > 0) {
+			window.callLogs("", function (message) {
+		        //empty
+		    });
+		} else {
+			global.showPopup("Yarn", "Empty call log! please make a call and come back.", "info");
+		}
     });
 }
 
