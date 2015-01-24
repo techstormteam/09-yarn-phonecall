@@ -738,6 +738,24 @@ public class LinPhonePlugin extends CordovaPlugin implements
 				}
 			});
 			return true;
+		} else if (action.equals("GetNumberOfCallLogs")) {
+			this.cordova.getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					try {
+						JSONObject objJSON = new JSONObject();
+						Uri allCalls = Uri.parse("content://call_log/calls");
+						Cursor cursor = LinPhonePlugin.this.cordova.getActivity()
+								.getContentResolver().query(allCalls, null, null, null, null);
+						objJSON.put("count", cursor.getCount());
+						PluginResult result = new PluginResult(Status.OK,
+								objJSON);
+						callbackContext.sendPluginResult(result);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			return true;
 		}
 
 		return false;

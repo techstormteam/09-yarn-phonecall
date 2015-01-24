@@ -581,11 +581,11 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 			edit.putBoolean(getApplicationContext().getString(R.string.call_established), true);
 			edit.commit();
 			
-//			try {
-//				mNotifContentIntent.send();
-//			} catch (CanceledException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				mNotifContentIntent.send();
+			} catch (CanceledException e) {
+				e.printStackTrace();
+			}
 			
 //			Intent i = new Intent(getApplicationContext(), Yarn.class);
 //			i.putExtra("callEstablished", true);
