@@ -84,7 +84,7 @@ static NSDictionary* org_apache_cordova_contacts_defaultFields = nil;
 + (NSDictionary*)defaultABtoW3C
 {
     if (org_apache_cordova_contacts_ABtoW3C == nil) {
-        org_apache_cordova_contacts_ABtoW3C = [NSDictionary dictionaryWithObjectsAndKeys:
+        org_apache_cordova_contacts_ABtoW3C = [[NSDictionary alloc] initWithObjectsAndKeys:
             kW3ContactNickname, [NSNumber numberWithInt:kABPersonNicknameProperty],
             kW3ContactGivenName, [NSNumber numberWithInt:kABPersonFirstNameProperty],
             kW3ContactFamilyName, [NSNumber numberWithInt:kABPersonLastNameProperty],
@@ -116,7 +116,7 @@ static NSDictionary* org_apache_cordova_contacts_defaultFields = nil;
 + (NSDictionary*)defaultW3CtoAB
 {
     if (org_apache_cordova_contacts_W3CtoAB == nil) {
-        org_apache_cordova_contacts_W3CtoAB = [NSDictionary dictionaryWithObjectsAndKeys:
+        org_apache_cordova_contacts_W3CtoAB = [[NSDictionary alloc] initWithObjectsAndKeys:
             [NSNumber numberWithInt:kABPersonNicknameProperty], kW3ContactNickname,
             [NSNumber numberWithInt:kABPersonFirstNameProperty], kW3ContactGivenName,
             [NSNumber numberWithInt:kABPersonLastNameProperty], kW3ContactFamilyName,
@@ -167,7 +167,7 @@ static NSDictionary* org_apache_cordova_contacts_defaultFields = nil;
 + (NSDictionary*)defaultObjectAndProperties
 {
     if (org_apache_cordova_contacts_objectAndProperties == nil) {
-        org_apache_cordova_contacts_objectAndProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+        org_apache_cordova_contacts_objectAndProperties = [[NSDictionary alloc] initWithObjectsAndKeys:
             [NSArray arrayWithObjects:kW3ContactGivenName, kW3ContactFamilyName,
             kW3ContactMiddleName, kW3ContactHonorificPrefix, kW3ContactHonorificSuffix, kW3ContactFormattedName, nil], kW3ContactName,
             [NSArray arrayWithObjects:kW3ContactStreetAddress, kW3ContactLocality, kW3ContactRegion,
@@ -186,7 +186,7 @@ static NSDictionary* org_apache_cordova_contacts_defaultFields = nil;
 + (NSDictionary*)defaultFields
 {
     if (org_apache_cordova_contacts_defaultFields == nil) {
-        org_apache_cordova_contacts_defaultFields = [NSDictionary dictionaryWithObjectsAndKeys:
+        org_apache_cordova_contacts_defaultFields = [[NSDictionary alloc] initWithObjectsAndKeys:
             [[CDVContact defaultObjectAndProperties] objectForKey:kW3ContactName], kW3ContactName,
             [NSNull null], kW3ContactNickname,
             [[CDVContact defaultObjectAndProperties] objectForKey:kW3ContactAddresses], kW3ContactAddresses,
@@ -1368,9 +1368,9 @@ static NSDictionary* org_apache_cordova_contacts_defaultFields = nil;
  *		value is NSMutableArray* for complex keys:  name,addresses,organizations, phone, emails, ims
  *		value is [NSNull null] for simple keys
 */
-+ (NSDictionary*)calcReturnFields:(NSArray*)fieldsArray // NSLog(@"getting self.returnFields");
++ (NSDictionary*)calcReturnFields:(NSArray*)fieldsArray tempDictionary:(NSDictionary*) dic // NSLog(@"getting self.returnFields");
 {
-    NSMutableDictionary* d = [NSMutableDictionary dictionaryWithCapacity:1];
+    NSMutableDictionary* d = [[NSMutableDictionary alloc] initWithCapacity:1];
 
     if ((fieldsArray != nil) && [fieldsArray isKindOfClass:[NSArray class]]) {
         if (([fieldsArray count] == 1) && [[fieldsArray objectAtIndex:0] isEqualToString:@"*"]) {
@@ -1394,7 +1394,8 @@ static NSDictionary* org_apache_cordova_contacts_defaultFields = nil;
                 property = [parts objectAtIndex:1];
             }
             // see if this is a complex field by looking for its array of properties in objectAndProperties dictionary
-            id fields = [[CDVContact defaultObjectAndProperties] objectForKey:name];
+            dic = [CDVContact defaultObjectAndProperties];
+            id fields = [dic objectForKey:name];
 
             // if find complex name (name,addresses,organizations, phone, emails, ims) in fields, add name as key
             // with array of associated properties as the value

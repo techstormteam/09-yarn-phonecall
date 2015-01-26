@@ -167,25 +167,37 @@ static UICompositeViewDescription *compositeDescription = nil;
 #pragma mark - Action Functions
 
 - (IBAction)onAllClick:(id) event {
+    /*
     [self changeView: History_All];
+     */
 }
 
 - (IBAction)onMissedClick:(id) event {
+    /*
     [self changeView: History_Missed];
+     */
 }
 
 - (IBAction)onEditClick:(id) event {
+    /*
     [tableController setEditing:![tableController isEditing] animated:TRUE];
 	[deleteButton setHidden:![tableController isEditing]];
+     */
 }
 
 - (IBAction)onDeleteClick:(id) event {
+    /*
 	linphone_core_clear_call_logs([LinphoneManager getLc]);
 	[tableController loadData];
     if([editButton isSelected]) {
         [editButton toggle];
         [self onEditClick:nil];
     }
+     */
+}
+
+- (IBAction)onBackClick:(id) event {
+    [[LinphoneAppDelegate instance] showYarnWindow];
 }
 
 @end

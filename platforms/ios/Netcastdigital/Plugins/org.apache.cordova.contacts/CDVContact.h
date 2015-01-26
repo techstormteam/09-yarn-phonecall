@@ -46,7 +46,7 @@ typedef NSUInteger CDVContactError;
 + (NSDictionary*)defaultObjectAndProperties;
 + (NSDictionary*)defaultFields;
 
-+ (NSDictionary*)calcReturnFields:(NSArray*)fields;
++ (NSDictionary*)calcReturnFields:(NSArray*)fields tempDictionary:(NSDictionary*)d;
 - (id)init;
 - (id)initFromABRecord:(ABRecordRef)aRecord;
 - (bool)setFromContactDict:(NSDictionary*)aContact asUpdate:(BOOL)bUpdate;

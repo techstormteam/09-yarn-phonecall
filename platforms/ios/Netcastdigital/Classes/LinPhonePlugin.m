@@ -387,6 +387,18 @@ static void audioRouteChangeListenerCallback (
         [self successReturn:command];
     }];
 }
+- (void) GetCurrentCallNumberFrom:(CDVInvokedUrlCommand *)command {
+    [self.commandDelegate runInBackground:^{
+        NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
+                                        initWithObjectsAndKeys :
+                                        @"true", @"success",
+                                        nil
+                                        ];
+        NSString* telno = [LinPhonePlugin doGetCurrentCallNumberFrom];
+        [jsonObj setObject:telno forKey:TELNO_CURRENT];
+        [self successReturn:command jsonObj:jsonObj];
+    }];
+}
 - (void) GetNumberOfCallLogs:(CDVInvokedUrlCommand *)command {
     [self.commandDelegate runInBackground:^{
         NSMutableDictionary *jsonObj = [ [NSMutableDictionary alloc]
@@ -394,12 +406,7 @@ static void audioRouteChangeListenerCallback (
                                         @"true", @"success",
                                         nil
                                         ];
-        const MSList * logs = linphone_core_get_call_logs([LinphoneManager getLc]);
-        int count = 0;
-        while(logs != NULL) {
-            count++;
-            logs = ms_list_next(logs);
-        }
+        int count = [LinPhonePlugin doGetNumberOfCallLogs];
         [jsonObj setObject:[NSNumber numberWithInt:count] forKey:COUNT_CALL_LOG];
         [self successReturn:command jsonObj:jsonObj];
     }];
@@ -614,6 +621,25 @@ static void audioRouteChangeListenerCallback (
     return indexes;
 }
 
++ (int) doGetNumberOfCallLogs {
+    const MSList * logs = linphone_core_get_call_logs([LinphoneManager getLc]);
+    int count = 0;
+    while(logs != NULL) {
+        count++;
+        logs = ms_list_next(logs);
+    }
+    return count;
+}
+
++ (NSString*) doGetCurrentCallNumberFrom {
+    const char* telno;
+    LinphoneCore* lc = [LinphoneManager getLc];
+    LinphoneCall* currentcall = linphone_core_get_current_call(lc);
+    LinphoneCallLog* callLog = linphone_call_get_call_log(currentcall);
+    LinphoneAddress* fromAddress = linphone_call_log_get_from_address(callLog);
+    telno = linphone_address_get_username(fromAddress);
+    return [NSString stringWithUTF8String:telno];
+}
 
 // ------------------------
 

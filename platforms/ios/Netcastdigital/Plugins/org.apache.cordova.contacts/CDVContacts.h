@@ -31,6 +31,10 @@
     ABAddressBookRef addressBook;
 }
 
+@property (nonatomic, strong) NSArray* fields;
+@property (nonatomic, strong) NSArray* desiredFields;
+@property (nonatomic, strong) NSDictionary* d;
+
 /*
  * newContact - create a new contact via the GUI
  *
@@ -131,6 +135,7 @@
     NSString* callbackId;
 }
 @property (copy) NSString* callbackId;
+
 @end
 
 /* ABPersonViewController does not have any UI to dismiss.  Adding navigationItems to it does not work properly,  the navigationItems are lost when the app goes into the background.

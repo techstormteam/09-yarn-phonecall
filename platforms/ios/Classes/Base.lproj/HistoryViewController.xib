@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HistoryViewController">
             <connections>
                 <outlet property="allButton" destination="4" id="27"/>
+                <outlet property="backButton" destination="RSU-uK-Swg" id="IIF-Z7-IaC"/>
                 <outlet property="deleteButton" destination="35" id="36"/>
                 <outlet property="editButton" destination="6" id="33"/>
                 <outlet property="missedButton" destination="5" id="28"/>
@@ -30,6 +31,24 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="RSU-uK-Swg" userLabel="backButton">
+                            <rect key="frame" x="0.0" y="0.0" width="161" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <accessibility key="accessibilityConfiguration" label="Back"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <inset key="titleEdgeInsets" minX="0.0" minY="18" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Back" backgroundImage="history_details_back_default.png">
+                                <color key="titleColor" red="0.35686274509999999" green="0.39607843139999999" blue="0.43529411759999997" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="history_delete_over.png">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="onBackClick:" destination="-1" eventType="touchUpInside" id="ld0-TX-ZjV"/>
+                                <action selector="onDeleteClick:" destination="-1" eventType="touchUpInside" id="SME-IP-Pi9"/>
+                            </connections>
+                        </button>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="35" userLabel="deleteButton">
                             <rect key="frame" x="0.0" y="0.0" width="80" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -159,6 +178,7 @@
         <image name="history_all_selected.png" width="160" height="88"/>
         <image name="history_delete_default.png" width="160" height="88"/>
         <image name="history_delete_over.png" width="160" height="88"/>
+        <image name="history_details_back_default.png" width="320" height="88"/>
         <image name="history_edit_default.png" width="160" height="88"/>
         <image name="history_edit_over.png" width="160" height="88"/>
         <image name="history_missed_default.png" width="160" height="88"/>

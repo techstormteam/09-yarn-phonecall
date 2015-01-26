@@ -245,7 +245,7 @@
         if (person) {
             CDVContact* pickedContact = [[CDVContact alloc] initFromABRecord:(ABRecordRef)person];
             NSArray* fields = [picker.options objectForKey:@"fields"];
-            NSDictionary* returnFields = [[CDVContact class] calcReturnFields:fields];
+            NSDictionary* returnFields = [[CDVContact class] calcReturnFields:fields tempDictionary:self.d];
             picker.pickedContactDictionary = [pickedContact toDictionary:returnFields];
         }
         CFRelease(addrBook);
@@ -284,7 +284,7 @@
         // Retrieve and return pickedContact information
         CDVContact* pickedContact = [[CDVContact alloc] initFromABRecord:(ABRecordRef)person];
         NSArray* fields = [picker.options objectForKey:@"fields"];
-        NSDictionary* returnFields = [[CDVContact class] calcReturnFields:fields];
+        NSDictionary* returnFields = [[CDVContact class] calcReturnFields:fields tempDictionary:self.d];
         picker.pickedContactDictionary = [pickedContact toDictionary:returnFields];
         
         CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:picker.pickedContactDictionary];
@@ -302,9 +302,8 @@
 
 - (void)search:(CDVInvokedUrlCommand*)command
 {
-    [self.commandDelegate runInBackground:^{
     NSString* callbackId = command.callbackId;
-    NSArray* fields = [command.arguments objectAtIndex:0];
+    self.fields = [command.arguments objectAtIndex:0];
     NSDictionary* findOptions = [command.arguments objectAtIndex:1 withDefault:[NSNull null]];
 
     [self.commandDelegate runInBackground:^{
@@ -312,7 +311,7 @@
         // which is why address book is created within the dispatch queue.
         // more details here: http: //blog.byadrian.net/2012/05/05/ios-addressbook-framework-and-gcd/
         CDVAddressBookHelper* abHelper = [[CDVAddressBookHelper alloc] init];
-        CDVContacts* __weak weakSelf = self;     // play it safe to avoid retain cycles
+        CDVContacts* weakSelf = self;     // play it safe to avoid retain cycles
         // it gets uglier, block within block.....
         [abHelper createAddressBook: ^(ABAddressBookRef addrBook, CDVAddressBookAccessError* errCode) {
             if (addrBook == NULL) {
@@ -326,7 +325,7 @@
             // get the findOptions values
             BOOL multiple = NO;         // default is false
             NSString* filter = nil;
-            NSArray* desiredFields = nil;
+            self.desiredFields = nil;
             if (![findOptions isKindOfClass:[NSNull class]]) {
                 id value = nil;
                 filter = (NSString*)[findOptions objectForKey:@"filter"];
@@ -336,15 +335,15 @@
                     multiple = [(NSNumber*)value boolValue];
                     // NSLog(@"multiple is: %d", multiple);
                 }
-                desiredFields = [findOptions objectForKey:@"desiredFields"];
+                self.desiredFields = [findOptions objectForKey:@"desiredFields"];
                 // return all fields if desired fields are not explicitly defined
-                if (desiredFields == nil || desiredFields.count == 0) {
-                    desiredFields = [NSArray arrayWithObjects:@"*", nil];
+                if (self.desiredFields == nil || self.desiredFields.count == 0) {
+                    self.desiredFields = [NSArray arrayWithObjects:@"*", nil];
                 }
             }
 
-            NSDictionary* searchFields = [[CDVContact class] calcReturnFields:fields];
-            NSDictionary* returnFields = [[CDVContact class] calcReturnFields:desiredFields];
+            NSDictionary* searchFields = [[CDVContact class] calcReturnFields:self.fields tempDictionary:self.d];
+            NSDictionary* returnFields = [[CDVContact class] calcReturnFields:self.desiredFields tempDictionary:self.d];
 
             NSMutableArray* matches = nil;
             if (!filter || [filter isEqualToString:@""]) {
@@ -406,7 +405,6 @@
     }];     // end of workQueue block
 
     return;
-        }];
 }
 
 - (void)save:(CDVInvokedUrlCommand*)command

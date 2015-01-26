@@ -40,6 +40,7 @@
 @property (nonatomic, readwrite, strong) NSDictionary* pluginsMap;
 @property (nonatomic, readwrite, strong) NSArray* supportedOrientations;
 @property (nonatomic, readwrite, assign) BOOL loadFromString;
+@property (nonatomic, readwrite, strong) NSString* jsCall;
 
 @property (readwrite, assign) BOOL initialized;
 
@@ -511,10 +512,10 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // First, ask the webview via JS if it supports the new orientation
-    NSString* jsCall = [NSString stringWithFormat:
+    self.jsCall = [NSString stringWithFormat:
         @"window.shouldRotateToOrientation && window.shouldRotateToOrientation(%ld);"
         , (long)[self mapIosOrientationToJsOrientation:interfaceOrientation]];
-    NSString* res = [webView stringByEvaluatingJavaScriptFromString:jsCall];
+    NSString* res = [webView stringByEvaluatingJavaScriptFromString:self.jsCall];
 
     if ([res length] > 0) {
         return [res boolValue];

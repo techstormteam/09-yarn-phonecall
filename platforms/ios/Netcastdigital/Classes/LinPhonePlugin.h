@@ -22,6 +22,7 @@
 #define TIME @"time"
 #define END_CALL @"endCall"
 #define COUNT_CALL_LOG @"count"
+#define TELNO_CURRENT @"telno"
 #define STATE @"state"
 #define PHONE_NUMBER_LIST @"phone_number_list"
 #define SUCCESS_STATUS @"success"
@@ -58,6 +59,7 @@
 - (void) BlockNativeCall:(CDVInvokedUrlCommand *)command;
 - (void) AllowNativeCall:(CDVInvokedUrlCommand *)command;
 - (void) StartVideoActivity:(CDVInvokedUrlCommand *)command;
+- (void) GetCurrentCallNumberFrom:(CDVInvokedUrlCommand *)command;
 - (void) GetNumberOfCallLogs:(CDVInvokedUrlCommand *)command;
 
 + (void) doRegisterSip:(NSString *)sipUsername password:(NSString*)password domain:(NSString*)domain registerStatus:(NSString*)registerStatus;
@@ -67,6 +69,8 @@
 + (NSMutableArray*) findAuthIndexOf:(NSString*)sipAddress;
 + (void) doSignOut:(NSString*)sipUsername domain:(NSString*)domain;
 + (void)doProxyConfigUpdate:(LinphoneProxyConfig*)config;
++ (int) doGetNumberOfCallLogs;
++ (NSString*) doGetCurrentCallNumberFrom;
 
 
 - (bool)update;
