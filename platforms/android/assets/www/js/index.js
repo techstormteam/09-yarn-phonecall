@@ -260,12 +260,13 @@ $('[data-value]').tap(function () {
 });
 
 $('[name="dial-input"]').keyup(function() {
-    var $th = $(this);
-	if ($th.val().match(/[^0-9+,]/g)) {
-		$th.val( $th.val().replace(/[^0-9+,]/g, function(str) { return ''; } ) );
-	}
+	filterDialInput();
 });
 
+function filterDialInput() {
+	$th = $('[name="dial-input"]');
+	$th.val(filterInput($('[name="dial-input"]').val()));
+}
 
 function getDialedNumber() {
 	var telNumber = $('[name="dial-input"]').val();
@@ -274,6 +275,7 @@ function getDialedNumber() {
 }
 
 function setDialedNumber(number) {
+	number = filterInput(number);
 	$('[name="dial-input"]').val(number);
 	$tapCaret = number.length;
 	

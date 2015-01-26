@@ -829,6 +829,13 @@ function openlink(url) {
     var ref = window.open(url, '_blank', 'location=yes');
 }
 
+function filterInput($str) {
+	if ($str.match(/[^0-9+,]/g)) {
+		$str = $str.replace(/[^0-9+,]/g, function(str) { return ''; } );
+	}
+	return $str;
+}
+
 function doCellularCall() {
     var totalWidth = $(window).width(); 
 	$('.dialog').dialog({
