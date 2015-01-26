@@ -179,6 +179,11 @@
                         <img style="cursor:pointer;" src="img/btn_paynowcc_nga.gif" onclick="form_quickteller_check();" />  
                     </div>
                     <script>
+                    	function loginPortalApi(amount) {
+                    		openlink('http://portal.netcastdigital.net/mobile/auto.html?u='+global.get("email")+'&p='+global.get("password")+'&r=payment-create-quickteller.html?amount='+amount);
+                    		
+                    	}
+                    
                         function form_quickteller_check() {
                             var amount = $.trim($('#quickteller_amount').val());
                             if (amount === '') {
@@ -193,7 +198,8 @@
                                 $('#quickteller_amount_error').html('Amount is not valid');
                                 return false;
                             }
-                            window.location.href = 'payment-create-quickteller.html?amount=' + amount;
+                            
+                            loginPortalApi(amount);
                         }
                         function isNumber(n) {
                             return !isNaN(parseFloat(n)) && isFinite(n);
@@ -318,6 +324,8 @@
                 });
                 
             }
+            
+            
         </script>
     </body>
 </html>

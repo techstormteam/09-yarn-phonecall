@@ -529,3 +529,7 @@ function balance_display_in_button_process(result) {
 function loadUrlDialScreen() {
 	window.location.href = '../dial.html';
 }
+
+function openlink(url) {
+    var ref = window.open(url, '_blank', 'location=yes');
+}
