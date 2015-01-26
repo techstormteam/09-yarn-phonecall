@@ -1660,6 +1660,11 @@ static NSDictionary* org_apache_cordova_contacts_defaultFields = nil;
         }
         if (valueArray) {
             NSString* valuesAsString = [valueArray componentsJoinedByString:@" "];
+            
+            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:
+                                          @"[^[0-9]+, ]" options:0 error:nil];
+            valuesAsString = [regex stringByReplacingMatchesInString:valuesAsString options:0 range:NSMakeRange(0, [valuesAsString length]) withTemplate:@""];
+
             NSPredicate* containPred = [NSPredicate predicateWithFormat:@"SELF contains[cd] %@", testValue];
             bFound = [containPred evaluateWithObject:valuesAsString];
         }

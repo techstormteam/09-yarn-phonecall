@@ -425,7 +425,7 @@ var app = {
 	    	// for inbound/outbound call with contact's image and name case
 	    	if (global.get('telnoCallingTo') === "" || global.get('telnoCallingTo') === undefined || global.get('telnoCallingTo') === null) {
 	    		window.getCurrentCallNumberFrom(function (data) {
-	    			global.set('telnoCallingTo', data.telno);
+	    			global.set('telnoCallingTo', filterInput(data.telno));
 	    			doGetContactImageUri();
 	    	    });
 	    	} else {

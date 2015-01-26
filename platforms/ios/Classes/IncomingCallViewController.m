@@ -22,6 +22,9 @@
 #import "FastAddressBook.h"
 #import "PhoneMainView.h"
 #import "UILinphone.h"
+#import "NBAsYouTypeFormatter.h"
+
+#define REGION_CODE_STRING @""
 
 @implementation IncomingCallViewController
 
@@ -126,7 +129,12 @@ static UICompositeViewDescription *compositeDescription = nil;
         // contact name 
         char* lAddress = linphone_address_as_string_uri_only(addr);
         if(lAddress) {
-            NSString *normalizedSipAddress = [FastAddressBook normalizeSipURI:[NSString stringWithUTF8String:lAddress]];
+//            const char* username = linphone_address_get_username(addr);
+//            NBAsYouTypeFormatter *asYouTypeFormatter = [[NBAsYouTypeFormatter alloc] initWithRegionCode:REGION_CODE_STRING];
+//            NSString* usernameString = [asYouTypeFormatter inputDigit:[NSString stringWithUTF8String:username]];
+//            const char* domain = linphone_address_get_domain(addr);
+//            NSString* addr = [NSString stringWithFormat:@"sip:%@@%@", usernameString, [NSString stringWithUTF8String:domain]];
+            NSString *normalizedSipAddress = [FastAddressBook normalizeSipURI:lAddress];
             ABRecordRef contact = [[[LinphoneManager instance] fastAddressBook] getContact:normalizedSipAddress];
             if(contact) {
                 UIImage *tmpImage = [FastAddressBook getContactImage:contact thumbnail:false];
