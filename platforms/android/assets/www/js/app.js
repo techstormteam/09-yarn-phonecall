@@ -812,17 +812,17 @@ function doCallLogs() {
 }
 
 function doPhoneContacts() {
-	//  navigator.contacts.pickContact(function(contact){
-	//  alert(JSON.stringify(contact));
-	//  if (contact.phoneNumbers !== null && contact.phoneNumbers.length > 0) {
-	//       setDialedNumber(contact.phoneNumbers[0].value);
-	//  }
-	//},function(err){
-	//console.log('Error: ' + err);
-	//});
-	window.phoneContacts("", function (message) {
-	//empty
+	navigator.contacts.pickContact(function(contact){
+//	  alert(JSON.stringify(contact));
+	  if (contact.phoneNumbers !== null && contact.phoneNumbers.length > 0) {
+	       setDialedNumber(contact.phoneNumbers[0].value);
+	  }
+	},function(err){
+	console.log('Error: ' + err);
 	});
+//	window.phoneContacts("", function (message) {
+//	//empty
+//	});
 }
 
 function openlink(url) {
