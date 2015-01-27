@@ -722,7 +722,7 @@ static void audioRouteChangeListenerCallback (
          ) // Only one conf
         ) {
         linphone_core_terminate_conference(lc);
-    } else if(currentcall != NULL) { // In a call
+    } else if(currentcall != nil) { // In a call
         linphone_core_terminate_call(lc, currentcall);
     } else {
         const MSList* calls = linphone_core_get_calls(lc);
