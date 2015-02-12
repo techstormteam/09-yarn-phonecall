@@ -529,6 +529,9 @@ var app = {
 	        global.api("_intersw_params", { telno: telno, password: password}, onSuccessGetInterSwitchInfo);
 	        global.general();
 	        
+            if (isiOS()) {
+                $('#video-call-button').hide(); // hide video button in iOS platform.
+            }
 	        
 	        console.log('Received Event: ' + id);
 	    }

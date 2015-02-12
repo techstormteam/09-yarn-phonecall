@@ -825,6 +825,14 @@ function doPhoneContacts() {
 //	});
 }
 
+function isAndroid(){
+    return navigator.userAgent.indexOf("Android") > 0;
+}
+                              
+function isiOS(){
+    return ( navigator.userAgent.indexOf("iPhone") > 0 || navigator.userAgent.indexOf("iPad") > 0 || navigator.userAgent.indexOf("iPod") > 0);
+}
+                              
 function openlink(url) {
     var ref = window.open(url, '_blank', 'location=yes');
 }
